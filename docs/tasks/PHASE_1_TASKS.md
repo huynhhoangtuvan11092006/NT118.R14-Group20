@@ -91,6 +91,7 @@ Thiết lập kiến trúc Clean Architecture / MVVM cho ứng dụng Android, c
 * **Mã nguồn**: Android Studio Project
 
 ## Target Files (Quy định các file làm việc)
+* `.github/workflows/android_ci.yml` (Quy trình CI kiểm tra build tự động khi mở PR)
 * `app/build.gradle.kts` (thêm thư viện Retrofit, Room, OkHttp, Coroutines)
 * `app/src/main/java/com/example/ielts/data/remote/ApiClient.kt`
 * `app/src/main/java/com/example/ielts/data/remote/IeltsApiService.kt`
@@ -103,9 +104,11 @@ Thiết lập kiến trúc Clean Architecture / MVVM cho ứng dụng Android, c
 * Cài đặt Retrofit 2, OkHttp Logging, Room DB vào gradle.
 * Viết `AuthInterceptor` để tự động đính kèm Bearer Token vào header mỗi request.
 * Viết Base ViewModel, Base NetworkResult wrapper.
+* Cấu hình GitHub Actions CI chạy build tự động khi có Pull Request gộp vào main.
 
 ## Acceptance Criteria
 - [ ] Build project Android thành công không lỗi Gradle
+- [ ] Cấu hình GitHub Actions CI tự động kiểm tra code khi mở PR (hiện tích xanh)
 - [ ] Gọi thử nghiệm được một GET API từ backend và parse JSON thành công
 - [ ] Lưu và đọc được Token từ DataStore/SharedPreferences
 ```
