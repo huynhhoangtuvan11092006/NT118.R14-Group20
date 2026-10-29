@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TestType {
+  PLACEMENT
+  READING
+  LISTENING
+  WRITING
+  SPEAKING
+  VOCABULARY
+}
+
+enum TestStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+  FILL_IN_BLANK
+  SHORT_ANSWER
+  ESSAY
+  AUDIO_RESPONSE
+}
+
+enum SubmissionStatus {
+  IN_PROGRESS
+  SUBMITTED
+  GRADED
+}
+
+model User {
+  id                  String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email               String       @unique(map: "users_email_key") @db.VarChar(320)
+  passwordHash        String?      @map("password_hash") @db.Text
+  fullName            String       @map("full_name") @db.VarChar(150)
+  avatarUrl           String?      @map("avatar_url") @db.Text
+  currentBand         Decimal?     @map("current_band") @db.Decimal(3, 1)
+  targetBand          Decimal?     @map("target_band") @db.Decimal(3, 1)
+  expectedExamDate    DateTime?    @map("expected_exam_date") @db.Date
+  dailyStudyMinutes   Int?         @map("daily_study_minutes")
+  createdAt           DateTime     @default(now()) @map("created_at")
+  updatedAt           DateTime     @default(now()) @updatedAt @map("updated_at")
+  submissions         Submission[]
+  vocabularies        Vocabulary[]
+
+  @@map("users")
+}
+
+model Test {
+  id               String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title            String       @db.VarChar(255)
+  description      String?      @db.Text
+  type             TestType
+  status           TestStatus   @default(DRAFT)
+  durationMinutes  Int?         @map("duration_minutes")
+  createdAt        DateTime     @default(now()) @map("created_at")
+  updatedAt        DateTime     @default(now()) @updatedAt @map("updated_at")
+  questions        Question[]
+  submissions      Submission[]
+
+  @@index([type, status], map: "tests_type_status_idx")
+  @@map("tests")
+}
+
+model Question {
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  testId       String        @map("test_id") @db.Uuid
+  position     Int
+  type         QuestionType
+  prompt       String        @db.Text
+  options      Json?         @db.JsonB
+  answerKey    Json?         @map("answer_key") @db.JsonB
+  explanation  String?       @db.Text
+  points       Int           @default(1)
+  createdAt    DateTime      @default(now()) @map("created_at")
+  test         Test          @relation(fields: [testId], references: [id], onDelete: Cascade)
+
+  @@unique([testId, position], map: "questions_test_id_position_key")
+  @@map("questions")
+}
+
+model Submission {
+  id            String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId        String           @map("user_id") @db.Uuid
+  testId        String           @map("test_id") @db.Uuid
+  status        SubmissionStatus @default(IN_PROGRESS)
+  answers       Json             @db.JsonB
+  score         Decimal?         @db.Decimal(8, 2)
+  maxScore      Decimal?         @map("max_score") @db.Decimal(8, 2)
+  bandEstimate  Decimal?         @map("band_estimate") @db.Decimal(3, 1)
+  feedback      Json?            @db.JsonB
+  startedAt     DateTime         @default(now()) @map("started_at")
+  submittedAt   DateTime?        @map("submitted_at")
+  createdAt     DateTime         @default(now()) @map("created_at")
+  updatedAt     DateTime         @default(now()) @updatedAt @map("updated_at")
+  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  test          Test             @relation(fields: [testId], references: [id], onDelete: Restrict)
+
+  @@index([userId, createdAt], map: "submissions_user_id_created_at_idx")
+  @@index([testId], map: "submissions_test_id_idx")
+  @@map("submissions")
+}
+
+model Vocabulary {
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId          String    @map("user_id") @db.Uuid
+  word            String    @db.VarChar(128)
+  meaning         String    @db.Text
+  phonetic        String?   @db.VarChar(128)
+  partOfSpeech    String?   @map("part_of_speech") @db.VarChar(64)
+  exampleSentence String?   @map("example_sentence") @db.Text
+  isLearned       Boolean   @default(false) @map("is_learned")
+  reviewCount     Int       @default(0) @map("review_count")
+  lastReviewedAt  DateTime? @map("last_reviewed_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @default(now()) @updatedAt @map("updated_at")
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, word], map: "vocabularies_user_id_word_key")
+  @@index([userId, createdAt], map: "vocabularies_user_id_created_at_idx")
+  @@map("vocabularies")
+}
