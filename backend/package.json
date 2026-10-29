@@ -20,7 +20,8 @@
     "db:studio": "prisma studio",
     "test:contracts": "node --test tests/contracts.test.mjs",
     "test:smoke": "node scripts/smoke.mjs",
-    "db:verify": "node scripts/verify-db.mjs"
+    "db:verify": "node scripts/verify-db.mjs",
+    "test:auth": "npm run build && node --test tests/auth.integration.mjs"
   },
   "dependencies": {
     "@prisma/client": "6.19.0",
@@ -28,7 +29,9 @@
     "dotenv": "16.6.1",
     "express": "5.1.0",
     "helmet": "8.1.0",
-    "zod": "4.1.12"
+    "zod": "4.1.12",
+    "argon2": "0.45.1",
+    "jsonwebtoken": "9.0.2"
   },
   "devDependencies": {
     "@types/cors": "2.8.19",
@@ -39,6 +42,7 @@
     "prisma": "6.19.0",
     "tsx": "4.20.6",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.46.2"
+    "typescript-eslint": "8.46.2",
+    "@types/jsonwebtoken": "9.0.10"
   }
 }

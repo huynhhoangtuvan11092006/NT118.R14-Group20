@@ -2,12 +2,13 @@ import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-const expectedTables = ["users", "tests", "questions", "submissions", "vocabularies"];
+const expectedTables = ["users", "tests", "questions", "submissions", "vocabularies", "refresh_tokens"];
 const expectedForeignKeys = [
   ["questions", "test_id", "tests"],
   ["submissions", "user_id", "users"],
   ["submissions", "test_id", "tests"],
   ["vocabularies", "user_id", "users"],
+  ["refresh_tokens", "user_id", "users"],
 ];
 
 try {
@@ -50,4 +51,3 @@ try {
 } finally {
   await prisma.$disconnect();
 }
-

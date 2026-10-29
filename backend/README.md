@@ -1,139 +1,192 @@
-# BandUp Backend (Foundation)
+# BandUp Backend — Authentication & User Profile
 
-Backend scaffold for an IELTS learning app. **Node.js 22+ / TypeScript / Express 5 / PostgreSQL 16 / Prisma 6.19**.
+Node.js 22+ · Express 5 · TypeScript · PostgreSQL 16 · Prisma 6.19 · Argon2id · JWT (HS256).
 
-This is the **foundation** task only: DB schema, migration, connection, health check and tooling. Authentication, scoring, and CRUD endpoints are **not yet implemented**.
+> This package extends the existing **Backend Foundation** and preserves the initial five-table migration. Authentication adds a **sixth table**, `refresh_tokens`, via an additive migration.
 
-## 1. Requirements
+## 1. Run in Windows PowerShell
 
-- Node.js >=20.19 (recommended Node.js 22 LTS) and npm
-- Docker Desktop with `docker compose`
-- Free host ports `3000` and `5432` (customizable through `.env`)
+From `E:\cc\NT118.R14-Group20\backend` (or your own backend path):
 
-## 2. Run locally
-
-From the `backend/` directory:
-
-```bash
-# macOS/Linux
-cp .env.example .env
-# Windows PowerShell: Copy-Item .env.example .env
+```powershell
+# Keep your existing .env if you already have one.
+# New checkout only: Copy-Item .env.example .env
+# Generate TWO DIFFERENT secrets; paste each value into its matching .env line:
+node -e "console.log(require('node:crypto').randomBytes(48).toString('base64url'))"
+node -e "console.log(require('node:crypto').randomBytes(48).toString('base64url'))"
 ```
 
-**Edit `.env` before running anything outside your own development machine.** Use a unique, nontrivial `POSTGRES_PASSWORD` and update the password segment of `DATABASE_URL` accordingly; URL-encode special characters. `.env` is gitignored. Never commit it.
+Edit `.env` and **add** the two lines below to your existing PostgreSQL configuration:
 
-```bash
-# Start PostgreSQL in a persistent Docker volume
+```dotenv
+JWT_ACCESS_SECRET=YOUR_FIRST_GENERATED_RANDOM_STRING
+JWT_REFRESH_SECRET=YOUR_SECOND_DIFFERENT_GENERATED_RANDOM_STRING
+```
+
+The secrets must be different and at least 32 characters. The server rejects the `CHANGE_ME...` placeholders from `.env.example`. Do not add them to Git or paste them into chats. `.env` is gitignored.
+
+```powershell
+# Docker Desktop must be running
+# Start your existing PostgreSQL data volume (do NOT use docker compose down -v)
 docker compose up -d db
-# Install dependencies (generates package-lock.json on first run)
-npm install
-# Validate schema and apply committed migration (development)
+
+# First install after this feature (your previous registry was unreachable):
+npm install --registry=https://registry.npmjs.org/ --no-audit --no-fund
+
+# Checks and additive migration
 npm run db:validate
 npm run db:migrate
-# Generate Prisma Client (explicit step)
 npm run db:generate
-# Start backend with hot reload
+npm run db:verify
+npm run typecheck
+npm run lint
+npm run test:contracts
+
+# Start API
 npm run dev
 ```
 
-Open `http://localhost:3000/health`:
+Health check: `GET http://localhost:3000/health` should return `{"status":"ok","database":"connected"}`.
+
+**Important Git note:** `npm install` updates the committed `package-lock.json` for `argon2`, `jsonwebtoken`, `@types/jsonwebtoken`. Include that updated lockfile in the PR. Do not run `npm ci` until the lockfile has been refreshed. Do not use `prisma db push` in place of the migration.
+
+## 2. Endpoints
+
+| Method | URL | Auth | Request | Success |
+|---|---|---|---|---|
+| POST | `/auth/register` | Public | `email`, `password`, `fullName` | 201 user + token pair |
+| POST | `/auth/login` | Public | `email`, `password` | 200 user + token pair |
+| POST | `/auth/refresh` | Public (refresh JWT in body) | `refreshToken` | 200 rotated pair |
+| POST | `/auth/logout` | Public (refresh JWT in body) | `refreshToken` | 204 |
+| GET | `/users/me` | **Bearer access JWT** | - | 200 user |
+| PUT | `/users/me` | **Bearer access JWT** | any of `fullName`, `avatarUrl`, `currentBand`, `expectedExamDate`, `dailyStudyMinutes` | 200 user |
+| PUT | `/users/target-band` | **Bearer access JWT** | `targetBand` | 200 user |
+
+All JSON fields are camelCase. The login email is normalized to lowercase, and newly registered account emails are stored lowercase. `passwordHash` is **never** included in API responses.
+
+- Password: 8–128 characters, Argon2id hash with per-password random salt.
+- Band scores: number from 0 to 9 in steps of 0.5 (e.g., `6.5`, `7`, `7.5`).
+- `expectedExamDate`: `YYYY-MM-DD`; profile nullable fields can be cleared with `null`.
+- JWT access token: 15 minutes. Refresh token: 7 days, rotated on use and stored as a SHA-256 digest in `refresh_tokens`. Refresh token reuse is rejected.
+- Private routes: `Authorization: Bearer <accessToken>`.
+- Error statuses: 400 validation, 401 unauthorized / invalid credentials, 409 duplicate email, 500 unexpected server error.
+- An existing access token remains valid until its 15-minute expiry after logout. Logout revokes the specified refresh token, not every device session.
+
+### Request samples
+
+Register:
+
+```http
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{"email":"student@example.com","password":"YourExamplePassword#123","fullName":"Nguyen Van A"}
+```
+
+Response (shortened):
 
 ```json
-{"status":"ok","database":"connected"}
+{
+  "user": {"id": "uuid", "email": "student@example.com", "fullName": "Nguyen Van A"},
+  "accessToken": "<signed-access-JWT>",
+  "refreshToken": "<signed-refresh-JWT>",
+  "tokenType": "Bearer",
+  "expiresIn": 900
+}
 ```
 
-Health returns `503` when the DB is down. The backend refuses to start if it cannot reach PostgreSQL.
+Login:
 
-On a second terminal:
+```http
+POST http://localhost:3000/auth/login
+Content-Type: application/json
 
-```bash
-npm run test:smoke
-npm run test:contracts
-npm run lint
-npm run typecheck
-npm run build
+{"email":"student@example.com","password":"YourExamplePassword#123"}
 ```
 
-PowerShell smoke test alternative:
+Private profile:
+
+```http
+GET http://localhost:3000/users/me
+Authorization: Bearer <accessToken>
+```
+
+Update personal profile:
+
+```http
+PUT http://localhost:3000/users/me
+Authorization: Bearer <accessToken>
+Content-Type: application/json
+
+{"fullName":"Nguyen Van B","dailyStudyMinutes":60,"expectedExamDate":"2027-05-01"}
+```
+
+Update target band:
+
+```http
+PUT http://localhost:3000/users/target-band
+Authorization: Bearer <accessToken>
+Content-Type: application/json
+
+{"targetBand":7.5}
+```
+
+Refresh (old token cannot be used again):
+
+```http
+POST http://localhost:3000/auth/refresh
+Content-Type: application/json
+
+{"refreshToken":"<refresh-JWT>"}
+```
+
+Logout:
+
+```http
+POST http://localhost:3000/auth/logout
+Content-Type: application/json
+
+{"refreshToken":"<latest-refresh-JWT>"}
+```
+
+## 3. Postman
+
+Import `backend/postman/BandUp_Auth.postman_collection.json` into Postman. Set collection variables:
+
+- `baseUrl`: `http://localhost:3000`
+- `testEmail`: a **new unique email** each run (register returns 409 if reused).
+- `testPassword`: a sample password, not a personal account password.
+
+Run requests **01 through 08** in order. Register/login/refresh automatically set the collection's token variables. The test `03 Protected without token` expects HTTP **401**. `06 Target Band` expects the band saved as **7.5**.
+
+Do not commit or share exported collections that contain real auth tokens or personal passwords.
+
+## 4. Integration tests against real database
+
+With Docker DB healthy, generated Prisma Client present, and `.env` set:
 
 ```powershell
-Invoke-RestMethod http://localhost:3000/health
+npm run test:auth
 ```
 
-## 3. Migrations and database checks
+This builds the TypeScript project, starts an ephemeral Express listener, and tests registration, duplicate email, hashed Argon2id password persistence, login, missing/forged bearer token rejection, profile/target-band updates, token rotation, replay rejection and logout. Creates a unique `@example.invalid` user and removes that user and its refresh tokens after completion. **Run only on a disposable development/test database**, not production; avoid running the suite simultaneously with other schema migrations.
 
-The initial migration is committed under `prisma/migrations/20261029000000_init/`. Do **not** reset a DB containing valuable data.
+## 5. Database and security notes
 
-```bash
-npm run db:status
-npm run db:verify  # directly verifies five tables and four foreign keys via SQL
-# inspect five base tables in public schema
-docker compose exec db psql -U bandup -d bandup -c "\dt public.*"
-# inspect foreign keys
-docker compose exec db psql -U bandup -d bandup -c "SELECT conrelid::regclass AS table_name, conname FROM pg_constraint WHERE contype='f' ORDER BY 1,2;"
-```
-
-Change the `psql -U` and `-d` values if you changed `.env`. For **deployment / CI**, use `npm run db:deploy` instead of `db:migrate`; it only applies committed migration files. When changing the schema, run `npx prisma migrate dev --name describe_change` in development, review the SQL, and commit both schema and migration. To inspect in a GUI, run `npm run db:studio`.
-
-## 4. Entity relationships
-
-```mermaid
-erDiagram
-    users ||--o{ submissions : completes
-    tests ||--o{ submissions : receives
-    tests ||--o{ questions : contains
-    users ||--o{ vocabularies : saves
-```
-
-| Table | Purpose | Notable constraints |
-|---|---|---|
-| `users` | Profile and IELTS goals | Unique `email`, password hash nullable for third-party authentication |
-| `tests` | IELTS/placement tests | `type` and `status` enum |
-| `questions` | Questions in a test | FK `test_id` → `tests.id` (CASCADE), unique `(test_id, position)` |
-| `submissions` | A user's attempts | FKs `user_id` → `users.id` (CASCADE), `test_id` → `tests.id` (RESTRICT) |
-| `vocabularies` | User-saved vocabulary | FK `user_id` → `users.id` (CASCADE), unique `(user_id, word)` |
-
-Each primary key is a PostgreSQL UUID (`gen_random_uuid()`). Dates are stored as `timestamp(3)` without timezone by Prisma's default convention, except `expected_exam_date` which is a PostgreSQL `DATE`. Store UTC timestamps in application code; migrate to `@db.Timestamptz` if timezone-sensitive persistence is needed.
-
-Answers, answer keys, options and feedback are **JSONB** to support multiple IELTS exercise formats. The `answer_key` is **sensitive grading data**; future API handlers must never return it to test-takers before grading. `password_hash` must only hold a slow salted password hash (e.g. Argon2id) if local authentication is later implemented. No raw passwords should be stored.
-
-PostgreSQL `CHECK` constraints in the SQL migration protect score/range fields; Prisma's schema language does not model them directly. If the ERD changes, update schema and migrations accordingly.
-
-## 5. Folder tree
-
-```text
-backend/
-├── .env.example
-├── .gitignore
-├── docker-compose.yml
-├── eslint.config.mjs
-├── package.json
-├── tsconfig.json
-├── prisma/
-│   ├── schema.prisma
-│   └── migrations/
-│       ├── migration_lock.toml
-│       └── 20261029000000_init/migration.sql
-├── src/
-│   ├── app.ts
-│   ├── server.ts
-│   └── config/
-│       ├── env.ts
-│       └── database.ts
-├── scripts/verify-db.mjs
-├── scripts/smoke.mjs
-└── tests/contracts.test.mjs
-```
+- The original migration `20261029000000_init` must remain unchanged. The new `20261029010000_auth_refresh_tokens` migration is **additive**.
+- `users` now has one-to-many `refresh_tokens`, with cascading deletion. `db:verify` expects **6 tables and 5 foreign keys**.
+- Local auth is independent from the app's guest mode. Firebase/Social sign-in is not implemented in this task; existing rows without a password hash cannot log in using local password.
+- This starter API is for local development. Before public deployment: use HTTPS, rate limiting on auth routes, email verification, password reset, refresh-token replay response/central session revocation policy, account recovery, secret rotation, log monitoring, and managed secrets. Do not put tokens into app logs or plain SharedPreferences; use a secure mobile storage solution.
+- Android Emulator reaches Windows host using `http://10.0.2.2:3000` for local emulator tests (physical devices need an accessible host address and appropriate firewall/security settings). Production requires HTTPS.
+- PostgreSQL credentials in `.env.example` are only for local development; rotate for deployment.
+- Prisma and @prisma/client are pinned to 6.19.0 to avoid breaking major-version configuration changes.
 
 ## 6. Troubleshooting
 
-- `P1001` / cannot connect DB: verify Docker Desktop is on, `docker compose ps`, host port and `DATABASE_URL` match.
-- `EADDRINUSE`: change `PORT` or `POSTGRES_PORT` and keep `DATABASE_URL` in sync.
-- `P3005` existing schema: do not blindly reset; baseline with a reviewed migration plan.
-- Prisma types not found: run `npm run db:generate` after `npm install`.
-- Changed `POSTGRES_PASSWORD` but login fails: an **existing** Docker volume keeps its original DB credentials; update password within PostgreSQL or create a new volume **only if its data is disposable**. Don't use `docker compose down -v` with valuable data.
-- Prisma 6 is pinned for predictable `schema.prisma` / Client setup. Prisma 7 uses a different configuration and adapter approach, so do not upgrade only one of `prisma` and `@prisma/client`.
-
-## Scope limitations
-
-The source Architecture Docs / definitive ERD were **not supplied** as part of this request, so the schema here is an initial interpretation of the five named entities. Confirm field definitions, role/permissions, deletes, and submission scoring against the official ERD before team integration. Some test formats may later benefit from a normalized `submission_answers` table, but it is deliberately outside the five-table scope.
+- `Invalid environment variables: JWT_ACCESS_SECRET...`: add two different, random secrets to `.env`, save and restart the server.
+- `npm install ETIMEDOUT 192.168.137.134:4873`: use `npm install --registry=https://registry.npmjs.org/`.
+- `P1001`: start Docker Desktop / `docker compose up -d db` and verify `DATABASE_URL`.
+- `P2021` missing `refresh_tokens`: run `npm run db:migrate` then `npm run db:generate`.
+- `EADDRINUSE`: stop old `npm run dev` process or change `PORT`.
+- `401` on private route: use *access* JWT, not refresh JWT, in `Authorization` header.
+- `401` on `/auth/refresh`: token expired, revoked or already used; log in again.
