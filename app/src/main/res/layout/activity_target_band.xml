@@ -1,359 +1,639 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F6FF"
+    android:background="@color/bg_app"
     android:fillViewport="true"
+    android:fitsSystemWindows="true"
     android:overScrollMode="never">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="18dp">
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="20dp">
 
-        <!-- Header -->
+        <!-- Top Bar: Nút quay lại chuẩn ảnh Stitch -->
+        <FrameLayout
+            android:id="@+id/btnBack"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/bg_circle_button"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/text_primary" />
+        </FrameLayout>
+
+        <!-- Tiêu đề chính & phụ đề gọn gàng -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:fontFamily="sans-serif-black"
+            android:lineSpacingExtra="3dp"
+            android:text="Mục tiêu IELTS của bạn là bao nhiêu?"
+            android:textColor="@color/text_primary"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Chúng tôi sẽ điều chỉnh lộ trình học phù hợp nhất cho bạn"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp" />
+
+        <!-- Phần 1: Chọn Band điểm mục tiêu -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
+            <FrameLayout
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@drawable/bg_pill_soft_blue">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_target_swirl" />
+            </FrameLayout>
+
             <TextView
-                android:id="@+id/btnBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="←"
-                android:textColor="#172033"
-                android:textSize="25sp"
-                android:clickable="true"
-                android:focusable="true" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:letterSpacing="0.04"
+                android:text="CHỌN BAND ĐIỂM MỤC TIÊU"
+                android:textColor="@color/primary_blue"
+                android:textSize="11.5sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_badge_orange"
+                android:paddingStart="8dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="3dp"
+                android:text="Gamified Plan"
+                android:textColor="@color/badge_orange_text"
+                android:textSize="10.5sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Dải chọn Band nằm trong HorizontalScrollView: Nút được chọn sẽ tự động cuộn ra CHÍNH GIỮA màn hình -->
+        <HorizontalScrollView
+            android:id="@+id/hsvBands"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_marginTop="8dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/llBandContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnBand50"
+                    android:layout_width="56dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/bg_band_unselected"
+                    android:stateListAnimator="@null"
+                    android:text="5.0"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnBand55"
+                    android:layout_width="56dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/bg_band_unselected"
+                    android:stateListAnimator="@null"
+                    android:text="5.5"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnBand60"
+                    android:layout_width="56dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/bg_band_unselected"
+                    android:stateListAnimator="@null"
+                    android:text="6.0"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnBand65"
+                    android:layout_width="56dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/bg_band_unselected"
+                    android:stateListAnimator="@null"
+                    android:text="6.5"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnBand70"
+                    android:layout_width="78dp"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/bg_band_selected"
+                    android:elevation="4dp"
+                    android:stateListAnimator="@null"
+                    android:text="✓ 7.0"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="15.5sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnBand75"
+                    android:layout_width="56dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/bg_band_unselected"
+                    android:stateListAnimator="@null"
+                    android:text="7.5"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnBand80"
+                    android:layout_width="56dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/bg_band_unselected"
+                    android:stateListAnimator="@null"
+                    android:text="8.0"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnBand85"
+                    android:layout_width="62dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/bg_band_unselected"
+                    android:stateListAnimator="@null"
+                    android:text="8.5+"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Thẻ Dự phóng lộ trình -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_card_forecast"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <FrameLayout
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_pill_soft_blue">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_chart_line" />
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dự phóng lộ trình"
+                        android:textColor="@color/primary_blue"
+                        android:textSize="12.5sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:background="@drawable/bg_pill_soft_blue"
+                        android:paddingStart="7dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="7dp"
+                        android:paddingBottom="2dp"
+                        android:text="AI Matched"
+                        android:textColor="@color/primary_blue"
+                        android:textSize="9.5sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvForecastDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:lineSpacingExtra="2dp"
+                    android:text="Band 7.0 mở ra cơ hội du học &amp; làm việc toàn cầu - Lộ trình tối ưu khoảng 4.5 tháng"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Thẻ Ngày thi dự kiến chuẩn ảnh Stitch -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_card_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="14dp">
+
+            <FrameLayout
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:background="@drawable/bg_pill_soft_blue">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_calendar_stitch" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="IELTSPro"
-                    android:textColor="#154378"
-                    android:textSize="14sp"
+                    android:text="Ngày thi dự kiến"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11.5sp" />
+
+                <TextView
+                    android:id="@+id/tvExamDateValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="20/11/2026"
+                    android:textColor="@color/text_primary"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCountdownBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/bg_badge_orange"
+                    android:paddingStart="7dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="7dp"
+                    android:paddingBottom="2dp"
+                    android:text="🔥 Còn 146 ngày nữa"
+                    android:textColor="@color/badge_orange_text"
+                    android:textSize="10.5sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnChangeExamDate"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:background="@drawable/bg_pill_soft_blue"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:stateListAnimator="@null"
+                android:text="Thay đổi"
+                android:textAllCaps="false"
+                android:textColor="@color/primary_blue"
+                android:textSize="12.5sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Phần 2: Thời gian học mỗi ngày -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@drawable/bg_pill_soft_blue">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_lightning" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:letterSpacing="0.04"
+                android:text="THỜI GIAN HỌC MỖI NGÀY"
+                android:textColor="@color/primary_blue"
+                android:textSize="11.5sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tùy biến được sau"
+                android:textColor="@color/text_secondary"
+                android:textSize="11.5sp" />
+        </LinearLayout>
+
+        <!-- 3 Tùy chọn học -->
+        <!-- Option 1: 15 phút/ngày -->
+        <LinearLayout
+            android:id="@+id/cardStudy15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_card_study_unselected"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="13dp">
+
+            <ImageView
+                android:id="@+id/ivRadio15"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_radio_custom_unchecked" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitle15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15 phút/ngày"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14.5sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Onboarding Step 2"
-                    android:textColor="#68758A"
-                    android:textSize="11sp" />
+                    android:layout_marginTop="1dp"
+                    android:text="Khởi động nhẹ nhàng, duy trì phản xạ"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11.5sp" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="48dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Bước 2/3"
-                android:textColor="#52647A"
-                android:textSize="10sp" />
-
-            <TextView
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/bg_recovery_icon"
-                android:gravity="center"
-                android:text="♙"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp" />
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_bell_stitch" />
         </LinearLayout>
 
-        <!-- Progress -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="THIẾT LẬP LỘ TRÌNH"
-            android:textColor="#52647A"
-            android:textSize="10sp"
-            android:textStyle="bold" />
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:layout_marginTop="8dp"
-            android:max="3"
-            android:progress="2"
-            android:progressTint="#154378"
-            android:progressBackgroundTint="#DCE5F4" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:background="@drawable/bg_recovery_badge"
-            android:padding="8dp"
-            android:text="✦  Mục tiêu học tập cá nhân"
-            android:textColor="#154378"
-            android:textSize="11sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="Band mục tiêu của bạn là bao nhiêu?"
-            android:textColor="#172033"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="IELTSPro sẽ tùy chỉnh lộ trình bài học và lịch ôn tập phù hợp với trình độ của bạn."
-            android:textColor="#68758A"
-            android:textSize="12sp"
-            android:lineSpacingExtra="4dp" />
-
-        <!-- Chọn band -->
+        <!-- Option 2: 30 phút/ngày (Đề xuất) - Mặc định ĐƯỢC CHỌN -->
         <LinearLayout
+            android:id="@+id/cardStudy30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:background="@drawable/bg_profile_card"
-            android:orientation="vertical"
-            android:padding="12dp">
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_card_study_selected"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="13dp">
+
+            <ImageView
+                android:id="@+id/ivRadio30"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_radio_custom_checked" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btnBand60"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:layout_margin="2dp"
-                    android:backgroundTint="#E4F2FA"
-                    android:minWidth="0dp"
-                    android:padding="0dp"
-                    android:text="6.0"
-                    android:textAllCaps="false"
-                    android:textColor="#154378"
-                    android:textSize="12sp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btnBand65"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:layout_margin="2dp"
-                    android:backgroundTint="#D9EDF6"
-                    android:minWidth="0dp"
-                    android:padding="0dp"
-                    android:text="6.5"
-                    android:textAllCaps="false"
-                    android:textColor="#154378"
-                    android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/tvTitle30"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30 phút/ngày (Đề xuất)"
+                        android:textColor="@color/primary_blue"
+                        android:textSize="14.5sp"
+                        android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/btnBand70"
-                    android:layout_width="0dp"
-                    android:layout_height="66dp"
-                    android:layout_weight="1.2"
-                    android:layout_margin="2dp"
-                    android:backgroundTint="#154378"
-                    android:minWidth="0dp"
-                    android:padding="0dp"
-                    android:text="7.0\nIELTS"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:background="@drawable/bg_pill_soft_blue"
+                        android:paddingStart="6dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="2dp"
+                        android:text="Hiệu quả nhất"
+                        android:textColor="@color/primary_blue"
+                        android:textSize="9.5sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-                <Button
-                    android:id="@+id/btnBand75"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:layout_margin="2dp"
-                    android:backgroundTint="#D9EDF6"
-                    android:minWidth="0dp"
-                    android:padding="0dp"
-                    android:text="7.5"
-                    android:textAllCaps="false"
-                    android:textColor="#154378"
-                    android:textSize="12sp" />
-
-                <Button
-                    android:id="@+id/btnBand80"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:layout_margin="2dp"
-                    android:backgroundTint="#E4F2FA"
-                    android:minWidth="0dp"
-                    android:padding="0dp"
-                    android:text="8.0"
-                    android:textAllCaps="false"
-                    android:textColor="#154378"
-                    android:textSize="12sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="Được 84% học viên band 7.0+ lựa chọn"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11.5sp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvSelectedBand"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_recovery_badge"
-                android:padding="8dp"
-                android:text="✦  Band mục tiêu: 7.0"
-                android:textColor="#154378"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="#FFF4CF"
-                android:padding="10dp"
-                android:text="✦  Phổ biến nhất: 82% học viên chọn mục tiêu từ 6.5 – 7.5"
-                android:textColor="#8A6500"
-                android:textSize="11sp" />
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_star_badge" />
         </LinearLayout>
 
-        <!-- Ngày thi -->
-        <TextView
+        <!-- Option 3: 1 giờ/ngày -->
+        <LinearLayout
+            android:id="@+id/cardStudy60"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="▣  Ngày thi dự kiến"
-            android:textColor="#172033"
-            android:textSize="15sp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_card_study_unselected"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="13dp">
+
+            <ImageView
+                android:id="@+id/ivRadio60"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_radio_custom_unchecked" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitle60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1 giờ/ngày"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14.5sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="Tăng tốc bứt phá trong thời gian ngắn"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_rocket_stitch" />
+        </LinearLayout>
+
+        <!-- Nút CTA chính dưới đáy màu xanh chủ đạo #2563EB -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnContinue"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_btn_primary"
+            android:stateListAnimator="@null"
+            android:text="Tiếp tục vào Trang chủ  ➜"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15.5sp"
             android:textStyle="bold" />
 
+        <!-- Dòng bảo chứng có icon tick xanh -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/bg_profile_card"
-            android:orientation="vertical"
-            android:padding="14dp">
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_check_circle"
+                app:tint="@color/primary_blue" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lịch thi IELTS chính thức"
-                android:textColor="#68758A"
-                android:textSize="11sp" />
-
-            <Button
-                android:id="@+id/btnExamDate"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="5dp"
-                android:backgroundTint="#EAF5FF"
-                android:text="📅  Chọn ngày thi"
-                android:textAllCaps="false"
-                android:textColor="#154378"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/tvExamDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="Chưa chọn ngày thi"
-                android:textColor="#68758A"
-                android:textSize="11sp" />
+                android:layout_marginStart="6dp"
+                android:text="Lộ trình được chứng nhận chuẩn đề thi Cambridge IELTS"
+                android:textColor="@color/text_secondary"
+                android:textSize="11.5sp" />
         </LinearLayout>
-
-        <!-- Thời gian học -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="◷  Thời gian học mỗi ngày"
-            android:textColor="#172033"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <RadioGroup
-            android:id="@+id/rgStudyTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            android:background="@drawable/bg_profile_card"
-            android:padding="12dp">
-
-            <RadioButton
-                android:id="@+id/rb15Minutes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:text="15 phút — Học nhẹ nhàng"
-                android:textColor="#34445A"
-                android:textSize="13sp" />
-
-            <RadioButton
-                android:id="@+id/rb30Minutes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="30 phút — Hiệu quả tối ưu (khuyên dùng)"
-                android:textColor="#154378"
-                android:textSize="13sp" />
-
-            <RadioButton
-                android:id="@+id/rb1Hour"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="1 giờ mỗi ngày"
-                android:textColor="#34445A"
-                android:textSize="13sp" />
-
-            <RadioButton
-                android:id="@+id/rb2Hours"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="2 giờ mỗi ngày"
-                android:textColor="#34445A"
-                android:textSize="13sp" />
-        </RadioGroup>
-
-        <!-- Nút tiếp tục -->
-        <Button
-            android:id="@+id/btnContinue"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="18dp"
-            android:backgroundTint="#154378"
-            android:text="Tiếp tục đến Bước 3  ➜"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/btnPrevious"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:gravity="center"
-            android:text="Quay lại bước trước"
-            android:textColor="#68758A"
-            android:textSize="12sp"
-            android:clickable="true"
-            android:focusable="true" />
 
     </LinearLayout>
 </ScrollView>

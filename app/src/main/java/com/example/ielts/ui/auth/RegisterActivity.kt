@@ -1,6 +1,7 @@
 
 package com.example.ielts.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
@@ -20,7 +21,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var cbTerms: CheckBox
     private lateinit var btnRegister: Button
     private lateinit var tvLogin: TextView
-    private lateinit var btnBack: TextView
+    private lateinit var btnBack: android.view.View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,7 @@ class RegisterActivity : AppCompatActivity() {
         edtPassword = findViewById(R.id.edtPassword)
         edtConfirmPassword = findViewById(R.id.edtConfirmPassword)
         cbTerms = findViewById(R.id.cbTerms)
+        cbTerms.buttonTintList = null
         btnRegister = findViewById(R.id.btnRegister)
         tvLogin = findViewById(R.id.tvLogin)
         btnBack = findViewById(R.id.btnBack)
@@ -41,8 +43,10 @@ class RegisterActivity : AppCompatActivity() {
             validateRegister()
         }
 
-        // Quay về màn hình Login
+        // Chuyển sang màn hình Đăng nhập (LoginActivity)
         tvLogin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
             finish()
         }
 
@@ -113,11 +117,23 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        // Dữ liệu hợp lệ, chờ kết nối API đăng ký
+        // Lưu thông tin người dùng đăng ký vào SharedPreferences
+        val prefs = getSharedPreferences("ielts_user_prefs", MODE_PRIVATE)
+        prefs.edit().apply {
+            putString("user_name", fullName)
+            putString("user_email", email)
+            apply()
+        }
+
         Toast.makeText(
             this,
-            "Thông tin hợp lệ! Bước tiếp theo là kết nối API đăng ký.",
-            Toast.LENGTH_LONG
+            "Đăng ký thành công! Hãy thiết lập mục tiêu học tập nhé 🎯",
+            Toast.LENGTH_SHORT
         ).show()
+
+        // Chuyển sang màn hình Khảo sát Target Band
+        val intent = Intent(this, TargetBandActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

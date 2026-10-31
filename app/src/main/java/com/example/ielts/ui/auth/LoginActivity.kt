@@ -41,6 +41,7 @@ class LoginActivity : AppCompatActivity() {
         btnLogin = findViewById(R.id.btnLogin)
         btnTogglePassword = findViewById(R.id.btnTogglePassword)
         cbRemember = findViewById(R.id.cbRemember)
+        cbRemember.buttonTintList = null
         tvForgotPassword = findViewById(R.id.tvForgotPassword)
         tvRegister = findViewById(R.id.tvRegister)
 
@@ -85,6 +86,7 @@ class LoginActivity : AppCompatActivity() {
         tvRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         // Xử lý nút quay lại nếu có trong XML
@@ -157,12 +159,18 @@ class LoginActivity : AppCompatActivity() {
             apply()
         }
 
-        // Chưa kết nối API nên không giả lập đăng nhập thành công
-        Toast.makeText(
-            this,
-            "Dữ liệu hợp lệ. Tiếp theo cần kết nối API đăng nhập.",
-            Toast.LENGTH_LONG
-        ).show()
+        // Đánh dấu đăng nhập thành công
+        preferences.edit().putBoolean("IS_LOGGED_IN", true).apply()
+        getSharedPreferences("ielts_user_prefs", MODE_PRIVATE).edit().putBoolean("is_logged_in", true).apply()
+
+        Toast.makeText(this, "Đăng nhập thành công! Chào mừng bạn quay trở lại 👋", Toast.LENGTH_SHORT).show()
+
+        // Điều hướng sang Dashboard chính (MainActivity)
+        val intent = Intent(this, com.example.ielts.MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        startActivity(intent)
+        finish()
     }
 
     private fun showNotIntegratedMessage(provider: String) {
