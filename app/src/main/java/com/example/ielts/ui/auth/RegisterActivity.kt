@@ -1,11 +1,17 @@
 
 package com.example.ielts.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.InputType
+import android.text.TextWatcher
 import android.util.Patterns
+import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,13 +26,16 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var cbTerms: CheckBox
     private lateinit var btnRegister: Button
     private lateinit var tvLogin: TextView
-    private lateinit var btnBack: TextView
+    private lateinit var tvPasswordStrength: TextView
+    private lateinit var progressPasswordStrength: ProgressBar
+
+    private var isPasswordVisible = false
+    private var isConfirmPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        // Ánh xạ các thành phần giao diện
         edtFullName = findViewById(R.id.edtFullName)
         edtEmail = findViewById(R.id.edtEmail)
         edtPassword = findViewById(R.id.edtPassword)
@@ -34,21 +43,111 @@ class RegisterActivity : AppCompatActivity() {
         cbTerms = findViewById(R.id.cbTerms)
         btnRegister = findViewById(R.id.btnRegister)
         tvLogin = findViewById(R.id.tvLogin)
-        btnBack = findViewById(R.id.btnBack)
+        tvPasswordStrength = findViewById(R.id.tvPasswordStrength)
+        progressPasswordStrength = findViewById(R.id.progressPasswordStrength)
 
-        // Xử lý nút Tạo tài khoản
         btnRegister.setOnClickListener {
             validateRegister()
         }
 
-        // Quay về màn hình Login
         tvLogin.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
 
-        btnBack.setOnClickListener {
+        findViewById<View?>(R.id.btnBack)?.setOnClickListener {
             finish()
         }
+
+        findViewById<View?>(R.id.btnTogglePassword)?.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            setPasswordVisibility(edtPassword, isPasswordVisible)
+        }
+
+        findViewById<View?>(R.id.btnToggleConfirmPassword)?.setOnClickListener {
+            isConfirmPasswordVisible = !isConfirmPasswordVisible
+            setPasswordVisibility(edtConfirmPassword, isConfirmPasswordVisible)
+        }
+
+        findViewById<View?>(R.id.btnGoogle)?.setOnClickListener {
+            showNotIntegratedMessage("Google")
+        }
+
+        findViewById<View?>(R.id.btnApple)?.setOnClickListener {
+            showNotIntegratedMessage("Apple")
+        }
+
+        setupPasswordStrength()
+    }
+
+    private fun setPasswordVisibility(
+        editText: EditText,
+        visible: Boolean
+    ) {
+        val cursorPosition = editText.selectionStart.coerceAtLeast(0)
+
+        editText.inputType = if (visible) {
+            InputType.TYPE_CLASS_TEXT or
+                    InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+        } else {
+            InputType.TYPE_CLASS_TEXT or
+                    InputType.TYPE_TEXT_VARIATION_PASSWORD
+        }
+
+        editText.setSelection(
+            cursorPosition.coerceAtMost(editText.text.length)
+        )
+    }
+
+    private fun setupPasswordStrength() {
+        edtPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) = Unit
+
+            override fun onTextChanged(
+                s: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
+                val password = s?.toString().orEmpty()
+                val score = calculatePasswordStrength(password)
+
+                progressPasswordStrength.max = 4
+                progressPasswordStrength.progress = score
+
+                tvPasswordStrength.text = when {
+                    password.isEmpty() -> "Gồm chữ và số"
+                    score <= 1 -> "Độ bảo mật: Yếu"
+                    score == 2 -> "Độ bảo mật: Trung bình"
+                    score == 3 -> "Độ bảo mật: Khá mạnh"
+                    else -> "Độ bảo mật: Mạnh"
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) = Unit
+        })
+    }
+
+    private fun calculatePasswordStrength(password: String): Int {
+        if (password.isEmpty()) return 0
+
+        var score = 0
+
+        if (password.length >= 6) score++
+        if (password.length >= 10) score++
+        if (password.any { it.isLetter() } &&
+            password.any { it.isDigit() }
+        ) {
+            score++
+        }
+        if (password.any { !it.isLetterOrDigit() }) score++
+
+        return score.coerceIn(0, 4)
     }
 
     private fun validateRegister() {
@@ -57,14 +156,12 @@ class RegisterActivity : AppCompatActivity() {
         val password = edtPassword.text.toString()
         val confirmPassword = edtConfirmPassword.text.toString()
 
-        // Kiểm tra họ tên
         if (fullName.isEmpty()) {
             edtFullName.error = "Vui lòng nhập họ và tên"
             edtFullName.requestFocus()
             return
         }
 
-        // Kiểm tra email
         if (email.isEmpty()) {
             edtEmail.error = "Vui lòng nhập email"
             edtEmail.requestFocus()
@@ -77,7 +174,6 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        // Kiểm tra mật khẩu
         if (password.isEmpty()) {
             edtPassword.error = "Vui lòng nhập mật khẩu"
             edtPassword.requestFocus()
@@ -90,7 +186,6 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        // Kiểm tra xác nhận mật khẩu
         if (confirmPassword.isEmpty()) {
             edtConfirmPassword.error = "Vui lòng xác nhận mật khẩu"
             edtConfirmPassword.requestFocus()
@@ -103,7 +198,6 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        // Kiểm tra điều khoản
         if (!cbTerms.isChecked) {
             Toast.makeText(
                 this,
@@ -113,11 +207,19 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        // Dữ liệu hợp lệ, chờ kết nối API đăng ký
+        val intent = Intent(this, TargetBandActivity::class.java).apply {
+            putExtra("FULL_NAME", fullName)
+            putExtra("EMAIL", email)
+        }
+
+        startActivity(intent)
+    }
+
+    private fun showNotIntegratedMessage(provider: String) {
         Toast.makeText(
             this,
-            "Thông tin hợp lệ! Bước tiếp theo là kết nối API đăng ký.",
-            Toast.LENGTH_LONG
+            "Đăng ký bằng $provider chưa được tích hợp.",
+            Toast.LENGTH_SHORT
         ).show()
     }
 }

@@ -1,9 +1,13 @@
+
 package com.example.ielts.ui.auth
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
@@ -21,6 +25,9 @@ class TargetBandActivity : AppCompatActivity() {
     private lateinit var tvSelectedBand: TextView
     private lateinit var tvExamDate: TextView
     private lateinit var rgStudyTime: RadioGroup
+    private lateinit var progressBar: ProgressBar
+    private lateinit var tvStep: TextView
+    private lateinit var tvProgressStep: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,44 +36,60 @@ class TargetBandActivity : AppCompatActivity() {
         tvSelectedBand = findViewById(R.id.tvSelectedBand)
         tvExamDate = findViewById(R.id.tvExamDate)
         rgStudyTime = findViewById(R.id.rgStudyTime)
+        progressBar = findViewById(R.id.progressBar)
+        tvStep = findViewById(R.id.tvStep)
+        tvProgressStep = findViewById(R.id.tvProgressStep)
 
-        val btnBack = findViewById<TextView>(R.id.btnBack)
-        val btnPrevious = findViewById<TextView>(R.id.btnPrevious)
-        val btnContinue = findViewById<Button>(R.id.btnContinue)
-        val btnExamDate = findViewById<Button>(R.id.btnExamDate)
-
-        btnBack.setOnClickListener {
+        findViewById<TextView>(R.id.btnBack).setOnClickListener {
             finish()
         }
 
-        btnPrevious.setOnClickListener {
+        findViewById<TextView>(R.id.btnPrevious).setOnClickListener {
             finish()
         }
 
-        // Chọn band mục tiêu
         findViewById<Button>(R.id.btnBand60).setOnClickListener {
             selectBand(6.0)
         }
+
         findViewById<Button>(R.id.btnBand65).setOnClickListener {
             selectBand(6.5)
         }
+
         findViewById<Button>(R.id.btnBand70).setOnClickListener {
             selectBand(7.0)
         }
+
         findViewById<Button>(R.id.btnBand75).setOnClickListener {
             selectBand(7.5)
         }
+
         findViewById<Button>(R.id.btnBand80).setOnClickListener {
             selectBand(8.0)
         }
 
-        // Chọn ngày thi dự kiến
-        btnExamDate.setOnClickListener {
+        findViewById<Button>(R.id.btnExamDate).setOnClickListener {
             showDatePicker()
         }
 
-        // Hoàn tất lựa chọn mục tiêu
-        btnContinue.setOnClickListener {
+        selectBand(selectedBand)
+        updateProgress()
+
+        findViewById<Button>(R.id.btnContinue).setOnClickListener {
+            if (selectedDate == null) {
+                Toast.makeText(
+                    this,
+                    "Vui lòng chọn ngày thi dự kiến.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            // Hoàn thành bước thiết lập hiện tại: hiển thị bước 3/3.
+            progressBar.progress = 3
+            tvStep.text = "Bước 3/3"
+            tvProgressStep.text = "Bước 3/3"
+
             val studyTime = when (rgStudyTime.checkedRadioButtonId) {
                 R.id.rb15Minutes -> "15 phút/ngày"
                 R.id.rb30Minutes -> "30 phút/ngày"
@@ -76,25 +99,45 @@ class TargetBandActivity : AppCompatActivity() {
             }
 
             val dateText = selectedDate?.let {
-                SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                    .format(it.time)
+                SimpleDateFormat(
+                    "dd/MM/yyyy",
+                    Locale.getDefault()
+                ).format(it.time)
             } ?: "Chưa chọn ngày thi"
 
-            // Tạm thời truyền dữ liệu sang Hồ sơ để kiểm tra luồng.
-            val intent = Intent(this, ProfileActivity::class.java)
-            intent.putExtra("TARGET_BAND", selectedBand)
-            intent.putExtra("EXAM_DATE", dateText)
-            intent.putExtra("STUDY_TIME", studyTime)
-            startActivity(intent)
+            val fullName = intent.getStringExtra("FULL_NAME")
+                ?.takeIf { it.isNotBlank() }
+                ?: "Lê Nguyễn Phương Vy"
+
+            val email = intent.getStringExtra("EMAIL")
+                ?.takeIf { it.isNotBlank() }
+                ?: "lnpvy0516@gmail.com"
+
+            val phone = intent.getStringExtra("PHONE")
+                ?.takeIf { it.isNotBlank() }
+                ?: "0949797399"
+
+            val profileIntent = Intent(
+                this,
+                ProfileActivity::class.java
+            ).apply {
+                putExtra("TARGET_BAND", selectedBand)
+                putExtra("EXAM_DATE", dateText)
+                putExtra("STUDY_TIME", studyTime)
+                putExtra("FULL_NAME", fullName)
+                putExtra("EMAIL", email)
+                putExtra("PHONE", phone)
+            }
+
+            startActivity(profileIntent)
         }
     }
 
     private fun selectBand(band: Double) {
         selectedBand = band
 
-        tvSelectedBand.text = "✦  Band mục tiêu: %.1f".format(
-            Locale.US, selectedBand
-        )
+        tvSelectedBand.text =
+            "✦ Band mục tiêu: ${String.format(Locale.US, "%.1f", band)}"
 
         val bandButtons = listOf(
             R.id.btnBand60 to 6.0,
@@ -108,17 +151,29 @@ class TargetBandActivity : AppCompatActivity() {
             val button = findViewById<Button>(id)
             val isSelected = value == band
 
-            button.backgroundTintList = android.content.res.ColorStateList.valueOf(
-                android.graphics.Color.parseColor(
+            button.backgroundTintList = ColorStateList.valueOf(
+                Color.parseColor(
                     if (isSelected) "#154378" else "#E4F2FA"
                 )
             )
+
             button.setTextColor(
-                android.graphics.Color.parseColor(
+                Color.parseColor(
                     if (isSelected) "#FFFFFF" else "#154378"
                 )
             )
         }
+
+        // Chọn Band hoàn tất bước đầu tiên.
+        updateProgress()
+    }
+
+    private fun updateProgress() {
+        val step = if (selectedDate != null) 2 else 1
+
+        progressBar.progress = step
+        tvStep.text = "Bước $step/3"
+        tvProgressStep.text = "Bước $step/3"
     }
 
     private fun showDatePicker() {
@@ -127,18 +182,23 @@ class TargetBandActivity : AppCompatActivity() {
         val picker = DatePickerDialog(
             this,
             { _, year, month, day ->
-                val chosenDate = Calendar.getInstance()
-                chosenDate.set(year, month, day, 0, 0, 0)
-                chosenDate.set(Calendar.MILLISECOND, 0)
+                val chosenDate = Calendar.getInstance().apply {
+                    set(year, month, day, 0, 0, 0)
+                    set(Calendar.MILLISECOND, 0)
+                }
 
                 selectedDate = chosenDate
 
                 val formatter = SimpleDateFormat(
-                    "dd/MM/yyyy", Locale.getDefault()
+                    "dd/MM/yyyy",
+                    Locale.getDefault()
                 )
-                tvExamDate.text = "Ngày thi dự kiến: ${
-                    formatter.format(chosenDate.time)
-                }"
+
+                tvExamDate.text =
+                    "Ngày thi dự kiến: ${formatter.format(chosenDate.time)}"
+
+                // Sau khi chọn ngày thi, tiến trình chuyển sang 2/3.
+                updateProgress()
             },
             today.get(Calendar.YEAR),
             today.get(Calendar.MONTH),

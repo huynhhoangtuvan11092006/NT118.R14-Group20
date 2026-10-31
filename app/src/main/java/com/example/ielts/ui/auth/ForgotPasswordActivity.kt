@@ -1,8 +1,8 @@
-
 package com.example.ielts.ui.auth
 
 import android.os.Bundle
 import android.util.Patterns
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -16,7 +16,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var btnSendReset: Button
     private lateinit var tvBackToLogin: TextView
     private lateinit var tvResendEmail: TextView
-    private lateinit var btnBack: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +25,12 @@ class ForgotPasswordActivity : AppCompatActivity() {
         btnSendReset = findViewById(R.id.btnSendReset)
         tvBackToLogin = findViewById(R.id.tvBackToLogin)
         tvResendEmail = findViewById(R.id.tvResendEmail)
-        btnBack = findViewById(R.id.btnBack)
 
         btnSendReset.setOnClickListener {
+            validateEmail()
+        }
+
+        tvResendEmail.setOnClickListener {
             validateEmail()
         }
 
@@ -36,12 +38,8 @@ class ForgotPasswordActivity : AppCompatActivity() {
             finish()
         }
 
-        btnBack.setOnClickListener {
+        findViewById<View?>(R.id.btnBack)?.setOnClickListener {
             finish()
-        }
-
-        tvResendEmail.setOnClickListener {
-            validateEmail()
         }
     }
 
@@ -62,7 +60,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         Toast.makeText(
             this,
-            "Email hợp lệ! Chức năng gửi liên kết sẽ được kết nối API sau.",
+            "Email hợp lệ. Chức năng gửi liên kết cần kết nối API.",
             Toast.LENGTH_LONG
         ).show()
     }

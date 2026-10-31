@@ -11,17 +11,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingStart="22dp"
-        android:paddingEnd="22dp"
         android:paddingTop="22dp"
+        android:paddingEnd="22dp"
         android:paddingBottom="18dp">
 
         <!-- Logo -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="42dp"
+            android:background="@drawable/bg_login_input"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:background="@drawable/bg_login_input"
             android:paddingStart="14dp"
             android:paddingEnd="14dp">
 
@@ -51,7 +51,7 @@
             android:textColor="#52647A"
             android:textSize="12sp" />
 
-        <!-- Khu vực minh họa -->
+        <!-- Hero illustration -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="285dp"
@@ -74,10 +74,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
+                android:lineSpacingExtra="8dp"
                 android:text="READING  •  LISTENING\nWRITING  •  SPEAKING"
                 android:textColor="#52647A"
-                android:textSize="13sp"
-                android:lineSpacingExtra="8dp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -90,29 +90,29 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <!-- Tiêu đề -->
+        <!-- Main title -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:gravity="center"
+            android:lineSpacingExtra="2dp"
             android:text="Chạm tới Band mục tiêu,\ntừng bước một"
             android:textColor="#172033"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:lineSpacingExtra="2dp" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
+            android:lineSpacingExtra="4dp"
             android:text="Luyện đủ 4 kỹ năng Reading, Listening, Writing,\nSpeaking mỗi ngày, nhẹ nhàng mà hiệu quả"
             android:textColor="#68758A"
-            android:textSize="13sp"
-            android:lineSpacingExtra="4dp" />
+            android:textSize="13sp" />
 
-        <!-- Nút bắt đầu -->
+        <!-- Start button -->
         <Button
             android:id="@+id/btnStart"
             android:layout_width="match_parent"
@@ -125,7 +125,7 @@
             android:textSize="15sp"
             android:textStyle="bold" />
 
-        <!-- Nút đã có tài khoản -->
+        <!-- Existing account button -->
         <Button
             android:id="@+id/btnExistingAccount"
             android:layout_width="match_parent"
@@ -137,7 +137,7 @@
             android:textColor="#172033"
             android:textSize="14sp" />
 
-        <!-- Ba tính năng -->
+        <!-- Feature cards -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -148,8 +148,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="58dp"
-                android:layout_weight="1"
                 android:layout_marginEnd="4dp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_login_input"
                 android:gravity="center"
                 android:text="♧\nChữa văn AI"
@@ -159,9 +159,9 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="58dp"
-                android:layout_weight="1"
                 android:layout_marginStart="3dp"
                 android:layout_marginEnd="3dp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_login_input"
                 android:gravity="center"
                 android:text="◷\nĐo tốc độ đọc"
@@ -171,8 +171,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="58dp"
-                android:layout_weight="1"
                 android:layout_marginStart="4dp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_login_input"
                 android:gravity="center"
                 android:text="⚙\nChuẩn Cam 19"
@@ -180,7 +180,7 @@
                 android:textSize="11sp" />
         </LinearLayout>
 
-        <!-- Điều khoản -->
+        <!-- Terms -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

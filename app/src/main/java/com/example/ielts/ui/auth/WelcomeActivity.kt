@@ -16,21 +16,22 @@ class WelcomeActivity : AppCompatActivity() {
         val btnExistingAccount =
             findViewById<Button>(R.id.btnExistingAccount)
 
-        // Bắt đầu hành trình học IELTS
+        // Bắt đầu hành trình học: chuyển đến đăng ký.
         btnStart.setOnClickListener {
-            openLogin()
+            openRegister()
         }
 
-        // Đã có tài khoản thì chuyển đến Login
+        // Đã có tài khoản: chuyển đến đăng nhập.
         btnExistingAccount.setOnClickListener {
             openLogin()
         }
     }
 
-
     private fun openLogin() {
-        val intent = Intent(this, TargetBandActivity::class.java)
-        startActivity(intent)
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 
+    private fun openRegister() {
+        startActivity(Intent(this, RegisterActivity::class.java))
+    }
 }
