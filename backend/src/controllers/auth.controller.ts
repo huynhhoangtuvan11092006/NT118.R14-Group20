@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import * as authService from "../services/auth.service.js";
-import { forgotPasswordSchema, loginSchema, refreshSchema, registerSchema, resetPasswordSchema } from "../validators/auth.validator.js";
+import { forgotPasswordSchema, googleAuthSchema, loginSchema, refreshSchema, registerSchema, resetPasswordSchema } from "../validators/auth.validator.js";
 
 export async function register(req: Request, res: Response) {
   const input = registerSchema.parse(req.body);
@@ -31,5 +31,10 @@ export async function forgotPassword(req: Request, res: Response) {
 export async function resetPassword(req: Request, res: Response) {
   const input = resetPasswordSchema.parse(req.body);
   res.status(200).json(await authService.resetPassword(input));
+}
+
+export async function googleAuth(req: Request, res: Response) {
+  const input = googleAuthSchema.parse(req.body);
+  res.status(200).json(await authService.googleAuth(input));
 }
 

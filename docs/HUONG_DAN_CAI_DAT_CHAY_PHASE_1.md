@@ -123,5 +123,12 @@ Sau khi đã bật Server và kết nối máy ảo, các thành viên hãy ki�
 | **UC-08** | **Đăng nhập thành công & Ghi nhớ** | 1. Nhập đúng email và mật khẩu.<br>2. **Tích vào ô "Ghi nhớ đăng nhập"**.<br>3. Bấm *"Đăng nhập ngay"*. | • Đăng nhập thành công vào thẳng Dashboard.<br>• Nếu sau này Đăng xuất ra ngoài, ô Email sẽ **tự động được điền sẵn**. |
 | **UC-09** | **Tự động đăng nhập lại (Auto-Login)** | 1. Đang ở Trang chủ, gạt tắt hẳn ứng dụng IELTS đi.<br>2. Bấm vào icon app để mở lại từ đầu. | • Màn hình Splash chạy xong sẽ **tự động bay thẳng vào Trang chủ**, không bắt đăng nhập lại. |
 | **UC-10** | **Quên mật khẩu & Đặt lại mật khẩu bằng OTP** | 1. Tại Đăng nhập, bấm *"Quên mật khẩu?"*.<br>2. Nhập email tài khoản (VD: `test@gmail.com`) -> Bấm *"Gửi mã xác nhận"**.<br>3. Kiểm tra hộp thư Email (hoặc Terminal Backend) để lấy mã OTP 6 số.<br>4. Nhập mã OTP, nhập Mật khẩu mới $\ge 8$ ký tự và Xác nhận mật khẩu.<br>5. Bấm *"Xác nhận đổi mật khẩu"*. | • Gửi mã: Server gửi email thật chứa mã OTP (hiệu lực 10 phút).<br>• Giao diện mở bước 2 với đồng hồ đếm ngược 60s.<br>• Đổi mật khẩu: Server cập nhật mật khẩu mới (Argon2id) và thu hồi mọi session cũ.<br>• Tự động quay về màn hình Đăng nhập với email điền sẵn.<br>• Đăng nhập ngay bằng mật khẩu mới thành công 100%. |
+| **UC-11** | **Đăng nhập & Đăng ký với Google** | 1. Tại màn hình Đăng nhập hoặc Đăng ký, bấm nút *"Đăng nhập với Google"* (hoặc *"Đăng ký với Google"*).<br>2. Nếu chưa cấu hình Client ID, hộp thoại Dev Mode cho phép thử nghiệm nhanh tài khoản mô phỏng.<br>3. Khi có mã `GOOGLE_WEB_CLIENT_ID`, ứng dụng mở bảng chọn tài khoản Google thật. | • Ứng dụng lấy Google ID Token và gửi đến `POST /api/v1/auth/google`.<br>• Server xác thực token, tự động tạo tài khoản (mật khẩu rỗng) hoặc đăng nhập tài khoản có sẵn.<br>• Tài khoản mới: chuyển tiếp sang màn hình chọn Target Band (`TargetBandActivity`).<br>• Tài khoản cũ đã có Target Band: chuyển thẳng vào Trang chủ (`MainActivity`).<br>• Lưu phiên đăng nhập tự động. |
+
+---
+
+### 🔑 Cấu Hình Google Sign-In (Khi có Web Client ID):
+1. **Tại Backend**: Thêm dòng `GOOGLE_CLIENT_ID="<Ma_Web_Client_ID>"` vào file `backend/.env`.
+2. **Tại Mobile**: Dán mã vào `GOOGLE_WEB_CLIENT_ID = "<Ma_Web_Client_ID>"` trong file `Constants.kt` (`app/src/main/java/com/example/ielts/utils/Constants.kt`).
 
 
