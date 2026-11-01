@@ -13,6 +13,6 @@ object Constants {
     const val KEY_USER_NAME = "user_name"
     const val KEY_USER_EMAIL = "user_email"
 
-    // Mã Web Client ID từ Google Cloud Console (Dán mã của bạn vào đây khi có)
-    const val GOOGLE_WEB_CLIENT_ID = "YOUR_GOOGLE_WEB_CLIENT_ID"
+    // Mã Web Client ID từ Google Cloud Console
+    const val GOOGLE_WEB_CLIENT_ID = "196474169898-qfrti0ejk2e5fmkn5bkbjmbi3a3c0138.apps.googleusercontent.com"
 }
