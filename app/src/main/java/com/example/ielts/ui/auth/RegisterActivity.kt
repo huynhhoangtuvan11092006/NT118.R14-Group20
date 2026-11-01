@@ -23,10 +23,15 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var edtEmail: EditText
     private lateinit var edtPassword: EditText
     private lateinit var edtConfirmPassword: EditText
+    private lateinit var btnTogglePassword: TextView
+    private lateinit var btnToggleConfirmPassword: TextView
     private lateinit var cbTerms: CheckBox
     private lateinit var btnRegister: Button
     private lateinit var tvLogin: TextView
     private lateinit var btnBack: android.view.View
+
+    private var isPasswordVisible = false
+    private var isConfirmPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,15 +42,34 @@ class RegisterActivity : AppCompatActivity() {
         edtEmail = findViewById(R.id.edtEmail)
         edtPassword = findViewById(R.id.edtPassword)
         edtConfirmPassword = findViewById(R.id.edtConfirmPassword)
+        btnTogglePassword = findViewById(R.id.btnTogglePassword)
+        btnToggleConfirmPassword = findViewById(R.id.btnToggleConfirmPassword)
         cbTerms = findViewById(R.id.cbTerms)
         cbTerms.buttonTintList = null
         btnRegister = findViewById(R.id.btnRegister)
         tvLogin = findViewById(R.id.tvLogin)
         btnBack = findViewById(R.id.btnBack)
 
+        // Hiện hoặc ẩn mật khẩu chính
+        btnTogglePassword.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            toggleVisibility(edtPassword, btnTogglePassword, isPasswordVisible)
+        }
+
+        // Hiện hoặc ẩn mật khẩu xác nhận
+        btnToggleConfirmPassword.setOnClickListener {
+            isConfirmPasswordVisible = !isConfirmPasswordVisible
+            toggleVisibility(edtConfirmPassword, btnToggleConfirmPassword, isConfirmPasswordVisible)
+        }
+
         // Xử lý nút Tạo tài khoản
         btnRegister.setOnClickListener {
             validateAndRegister()
+        }
+
+        // Nút đăng ký Google
+        findViewById<android.view.View?>(R.id.btnGoogle)?.setOnClickListener {
+            Toast.makeText(this, "Đăng ký bằng Google chưa được tích hợp.", Toast.LENGTH_SHORT).show()
         }
 
         // Chuyển sang màn hình Đăng nhập (LoginActivity)
@@ -59,6 +83,18 @@ class RegisterActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    private fun toggleVisibility(editText: EditText, toggleButton: TextView, isVisible: Boolean) {
+        val cursorPosition = editText.selectionStart
+        editText.inputType = if (isVisible) {
+            android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+        } else {
+            android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+        }
+        editText.setSelection(cursorPosition.coerceIn(0, editText.text.length))
+        toggleButton.text = if (isVisible) "Ẩn" else "Hiện"
+    }
+
 
     private fun validateAndRegister() {
         val fullName = edtFullName.text.toString().trim()

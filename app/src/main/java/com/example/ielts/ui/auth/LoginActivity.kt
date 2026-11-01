@@ -103,15 +103,12 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-        // Các nút đăng nhập bên thứ ba nếu có trong XML
+        // Nút đăng nhập bằng Google
         findViewById<View?>(R.id.btnGoogle)?.setOnClickListener {
             showNotIntegratedMessage("Google")
         }
-
-        findViewById<View?>(R.id.btnApple)?.setOnClickListener {
-            showNotIntegratedMessage("Apple")
-        }
     }
+
 
     private fun togglePasswordVisibility() {
         val cursorPosition = edtPassword.selectionStart
