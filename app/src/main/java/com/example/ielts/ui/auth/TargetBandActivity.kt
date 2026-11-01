@@ -14,8 +14,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import com.example.ielts.MainActivity
 import com.example.ielts.R
+import com.example.ielts.data.remote.ApiClient
+import com.example.ielts.data.remote.dto.UpdateTargetBandRequest
+import com.example.ielts.utils.Constants
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -133,32 +138,66 @@ class TargetBandActivity : AppCompatActivity() {
         // Mặc định chọn mức 30 phút/ngày
         selectStudyTime("30 phút/ngày")
 
-        // Nút Tiếp tục vào Trang chủ
+        // Nút Tiếp tục vào Hồ sơ cá nhân (ProfileActivity)
         btnContinue.setOnClickListener {
             val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
             val dateText = formatter.format(selectedDate.time)
+            val isoFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+            val dateIso = isoFormatter.format(selectedDate.time)
 
-            // Lưu cài đặt vào SharedPreferences
-            getSharedPreferences("ielts_user_prefs", MODE_PRIVATE).edit().apply {
-                putFloat("target_band", selectedBand.toFloat())
+            val studyMinutes = when (selectedStudyTime) {
+                "15 phút/ngày" -> 15
+                "1 giờ/ngày" -> 60
+                else -> 30
+            }
+
+            // Lưu cài đặt tạm vào SharedPreferences
+            val prefs = getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE)
+            prefs.edit().apply {
+                putFloat(Constants.KEY_TARGET_BAND, selectedBand.toFloat())
                 putString("exam_date", dateText)
+                putString("exam_date_iso", dateIso)
                 putString("study_time", selectedStudyTime)
+                putInt("study_minutes", studyMinutes)
                 apply()
             }
 
-            Toast.makeText(
-                this,
-                "Đã lưu mục tiêu Band %.1f!".format(selectedBand),
-                Toast.LENGTH_SHORT
-            ).show()
+            btnContinue.isEnabled = false
 
-            // Chuyển sang ProfileActivity (Thiết lập hồ sơ cá nhân hóa)
-            val intent = Intent(this, ProfileActivity::class.java).apply {
-                putExtra("TARGET_BAND", selectedBand)
-                putExtra("EXAM_DATE", dateText)
-                putExtra("STUDY_TIME", selectedStudyTime)
+            // Gọi API lưu Target Band lên Database
+            lifecycleScope.launch {
+                val token = prefs.getString(Constants.KEY_AUTH_TOKEN, null)
+                if (!token.isNullOrEmpty()) {
+                    val authHeader = if (token.startsWith("Bearer ")) token else "Bearer $token"
+                    try {
+                        val response = ApiClient.apiService.updateTargetBand(
+                            token = authHeader,
+                            request = UpdateTargetBandRequest(targetBand = selectedBand.toFloat())
+                        )
+                        if (response.isSuccessful) {
+                            Toast.makeText(
+                                this@TargetBandActivity,
+                                "Đã lưu mục tiêu Band %.1f lên máy chủ!".format(selectedBand),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } catch (e: Exception) {
+                        // Không chặn luồng nếu kết nối tạm thời bị gián đoạn
+                    }
+                }
+
+                btnContinue.isEnabled = true
+
+                // Chuyển sang ProfileActivity (Thiết lập hồ sơ cá nhân hóa)
+                val intent = Intent(this@TargetBandActivity, ProfileActivity::class.java).apply {
+                    putExtra("TARGET_BAND", selectedBand)
+                    putExtra("EXAM_DATE", dateText)
+                    putExtra("EXAM_DATE_ISO", dateIso)
+                    putExtra("STUDY_TIME", selectedStudyTime)
+                    putExtra("STUDY_MINUTES", studyMinutes)
+                }
+                startActivity(intent)
             }
-            startActivity(intent)
         }
     }
 

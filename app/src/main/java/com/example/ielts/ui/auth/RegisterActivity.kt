@@ -1,4 +1,3 @@
-
 package com.example.ielts.ui.auth
 
 import android.content.Intent
@@ -10,7 +9,13 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.ielts.R
+import com.example.ielts.data.remote.ApiClient
+import com.example.ielts.data.remote.dto.RegisterRequest
+import com.example.ielts.utils.Constants
+import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -40,7 +45,7 @@ class RegisterActivity : AppCompatActivity() {
 
         // Xử lý nút Tạo tài khoản
         btnRegister.setOnClickListener {
-            validateRegister()
+            validateAndRegister()
         }
 
         // Chuyển sang màn hình Đăng nhập (LoginActivity)
@@ -55,59 +60,61 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun validateRegister() {
+    private fun validateAndRegister() {
         val fullName = edtFullName.text.toString().trim()
         val email = edtEmail.text.toString().trim()
         val password = edtPassword.text.toString()
         val confirmPassword = edtConfirmPassword.text.toString()
 
-        // Kiểm tra họ tên
+        // 1. Kiểm tra họ tên (tối thiểu 2 ký tự theo schema Backend)
         if (fullName.isEmpty()) {
             edtFullName.error = "Vui lòng nhập họ và tên"
             edtFullName.requestFocus()
             return
         }
+        if (fullName.length < 2) {
+            edtFullName.error = "Họ và tên phải có ít nhất 2 ký tự"
+            edtFullName.requestFocus()
+            return
+        }
 
-        // Kiểm tra email
+        // 2. Kiểm tra email
         if (email.isEmpty()) {
             edtEmail.error = "Vui lòng nhập email"
             edtEmail.requestFocus()
             return
         }
-
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             edtEmail.error = "Email không đúng định dạng"
             edtEmail.requestFocus()
             return
         }
 
-        // Kiểm tra mật khẩu
+        // 3. Kiểm tra mật khẩu (Backend yêu cầu tối thiểu 8 ký tự)
         if (password.isEmpty()) {
             edtPassword.error = "Vui lòng nhập mật khẩu"
             edtPassword.requestFocus()
             return
         }
-
-        if (password.length < 6) {
-            edtPassword.error = "Mật khẩu phải có ít nhất 6 ký tự"
+        if (password.length < 8) {
+            edtPassword.error = "Mật khẩu phải có ít nhất 8 ký tự theo chuẩn bảo mật"
             edtPassword.requestFocus()
             return
         }
 
-        // Kiểm tra xác nhận mật khẩu
+        // 4. Kiểm tra xác nhận mật khẩu
         if (confirmPassword.isEmpty()) {
             edtConfirmPassword.error = "Vui lòng xác nhận mật khẩu"
             edtConfirmPassword.requestFocus()
             return
         }
-
         if (password != confirmPassword) {
             edtConfirmPassword.error = "Mật khẩu xác nhận không khớp"
             edtConfirmPassword.requestFocus()
             return
         }
 
-        // Kiểm tra điều khoản
+        // 5. Kiểm tra điều khoản
         if (!cbTerms.isChecked) {
             Toast.makeText(
                 this,
@@ -117,23 +124,78 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        // Lưu thông tin người dùng đăng ký vào SharedPreferences
-        val prefs = getSharedPreferences("ielts_user_prefs", MODE_PRIVATE)
-        prefs.edit().apply {
-            putString("user_name", fullName)
-            putString("user_email", email)
-            apply()
+        // Bật trạng thái loading trên nút bấm
+        btnRegister.isEnabled = false
+        btnRegister.text = "Đang tạo tài khoản..."
+
+        // Gọi API Backend qua Coroutines
+        lifecycleScope.launch {
+            try {
+                val request = RegisterRequest(
+                    email = email,
+                    password = password,
+                    fullName = fullName
+                )
+
+                val response = ApiClient.apiService.register(request)
+
+                if (response.isSuccessful && response.body() != null) {
+                    val authData = response.body()!!
+
+                    // Lưu Access Token & Refresh Token & Thông tin User vào SharedPreferences
+                    val prefs = getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE)
+                    prefs.edit().apply {
+                        putString(Constants.KEY_AUTH_TOKEN, authData.accessToken)
+                        putString(Constants.KEY_REFRESH_TOKEN, authData.refreshToken)
+                        putString(Constants.KEY_USER_NAME, authData.user.fullName)
+                        putString(Constants.KEY_USER_EMAIL, authData.user.email)
+                        apply()
+                    }
+
+                    Toast.makeText(
+                        this@RegisterActivity,
+                        "Đăng ký thành công! Chào mừng ${authData.user.fullName} 🎉",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    // Chuyển sang màn hình Khảo sát Target Band
+                    val intent = Intent(this@RegisterActivity, TargetBandActivity::class.java).apply {
+                        putExtra("FULL_NAME", authData.user.fullName)
+                        putExtra("EMAIL", authData.user.email)
+                    }
+                    startActivity(intent)
+                    finish()
+                } else {
+                    // Xử lý lỗi trả về từ Backend
+                    val statusCode = response.code()
+                    val errorRaw = response.errorBody()?.string() ?: ""
+                    var userMessage = "Đăng ký không thành công. Mã lỗi: $statusCode"
+
+                    try {
+                        val json = JSONObject(errorRaw)
+                        if (json.has("message")) {
+                            userMessage = json.getString("message")
+                        }
+                    } catch (_: Exception) {}
+
+                    if (statusCode == 409) {
+                        edtEmail.error = "Email này đã được đăng ký trong hệ thống!"
+                        edtEmail.requestFocus()
+                        Toast.makeText(this@RegisterActivity, "Email đã tồn tại, vui lòng đăng nhập!", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this@RegisterActivity, userMessage, Toast.LENGTH_LONG).show()
+                    }
+                }
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this@RegisterActivity,
+                    "Không thể kết nối máy chủ: ${e.localizedMessage ?: "Vui lòng kiểm tra Server"}",
+                    Toast.LENGTH_LONG
+                ).show()
+            } finally {
+                btnRegister.isEnabled = true
+                btnRegister.text = "Tạo tài khoản ngay  ➔"
+            }
         }
-
-        Toast.makeText(
-            this,
-            "Đăng ký thành công! Hãy thiết lập mục tiêu học tập nhé 🎯",
-            Toast.LENGTH_SHORT
-        ).show()
-
-        // Chuyển sang màn hình Khảo sát Target Band
-        val intent = Intent(this, TargetBandActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 }

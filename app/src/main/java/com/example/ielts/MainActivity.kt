@@ -9,7 +9,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import com.example.ielts.data.remote.ApiClient
+import com.example.ielts.data.remote.dto.LogoutRequest
 import com.example.ielts.ui.auth.ProfileActivity
+import com.example.ielts.utils.Constants
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,15 +46,62 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadUserData() {
-        val prefs = getSharedPreferences("ielts_user_prefs", MODE_PRIVATE)
-        val fullName = prefs.getString("user_name", "Nguyễn Văn Quân") ?: "Nguyễn Văn Quân"
-        val targetBand = prefs.getFloat("target_band", 7.0f)
-        val examDate = prefs.getString("exam_date", "20/11/2026") ?: "20/11/2026"
+        val prefs = getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE)
+        val cachedName = prefs.getString(Constants.KEY_USER_NAME, "Học viên") ?: "Học viên"
+        val cachedBand = prefs.getFloat(Constants.KEY_TARGET_BAND, 7.0f)
+        val cachedExamDate = prefs.getString("exam_date", "20/11/2026") ?: "20/11/2026"
+        val cachedStreak = prefs.getInt("streak_days", 1)
 
-        // Lấy tên gọi ngắn (từ cuối cùng)
-        val shortName = fullName.split(" ").lastOrNull()?.ifEmpty { "Quân" } ?: "Quân"
+        // Hiển thị ngay từ bộ nhớ đệm
+        applyUserToUI(cachedName, cachedBand.toDouble(), cachedExamDate, cachedStreak)
+
+        // Đồng bộ dữ liệu mới nhất từ Backend PostgreSQL qua GET /api/v1/users/me
+        val token = prefs.getString(Constants.KEY_AUTH_TOKEN, null)
+        if (!token.isNullOrEmpty()) {
+            val authHeader = if (token.startsWith("Bearer ")) token else "Bearer $token"
+            lifecycleScope.launch {
+                try {
+                    val response = ApiClient.apiService.getMe(authHeader)
+                    if (response.isSuccessful && response.body() != null) {
+                        val user = response.body()!!.user
+                        val realName = user.fullName
+                        val realBand = user.targetBand?.toDouble() ?: cachedBand.toDouble()
+                        val streak = user.streakDays ?: cachedStreak
+
+                        var examDateFormatted = cachedExamDate
+                        user.expectedExamDate?.let { isoDate ->
+                            try {
+                                val inputFormat = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US)
+                                val outputFormat = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault())
+                                val d = inputFormat.parse(isoDate.substring(0, 10))
+                                if (d != null) {
+                                    examDateFormatted = outputFormat.format(d)
+                                }
+                            } catch (_: Exception) {}
+                        }
+
+                        // Lưu lại vào SharedPreferences
+                        prefs.edit().apply {
+                            putString(Constants.KEY_USER_NAME, realName)
+                            putFloat(Constants.KEY_TARGET_BAND, realBand.toFloat())
+                            putString("exam_date", examDateFormatted)
+                            putInt("streak_days", streak)
+                            apply()
+                        }
+
+                        applyUserToUI(realName, realBand, examDateFormatted, streak)
+                    }
+                } catch (_: Exception) {
+                    // Nếu lỗi kết nối, giữ nguyên dữ liệu từ cache
+                }
+            }
+        }
+    }
+
+    private fun applyUserToUI(fullName: String, targetBand: Double, examDate: String, streak: Int) {
+        val shortName = fullName.split(" ").lastOrNull()?.ifEmpty { fullName } ?: fullName
         tvGreetingName.text = "Chào $shortName! 👋"
-        tvUserInitial.text = shortName.firstOrNull()?.uppercase() ?: "Q"
+        tvUserInitial.text = shortName.firstOrNull()?.uppercase() ?: "U"
 
         // Mục tiêu band
         tvTargetBandTitle.text = "MỤC TIÊU %.1f".format(targetBand)
@@ -65,6 +117,10 @@ class MainActivity : AppCompatActivity() {
         progressRadialBand.progress = progressPercent
         progressRoadmapLinear.progress = progressPercent
         findViewById<TextView>(R.id.tvProgressPercent)?.text = "$progressPercent% hoàn thành"
+
+        findViewById<View>(R.id.btnStreak)?.setOnClickListener {
+            Toast.makeText(this, "Chuỗi học liên tục: $streak ngày 🔥", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupListeners() {
@@ -75,7 +131,8 @@ class MainActivity : AppCompatActivity() {
 
         // Streak button
         findViewById<View>(R.id.btnStreak)?.setOnClickListener {
-            Toast.makeText(this, "Chuỗi học liên tục: 5 ngày 🔥", Toast.LENGTH_SHORT).show()
+            val streak = getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE).getInt("streak_days", 1)
+            Toast.makeText(this, "Chuỗi học liên tục: $streak ngày 🔥", Toast.LENGTH_SHORT).show()
         }
 
         // Notification button
@@ -92,13 +149,28 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this, ProfileActivity::class.java))
                 }
                 .setNegativeButton("Đăng xuất") { _, _ ->
-                    getSharedPreferences("ielts_login_preferences", MODE_PRIVATE).edit().putBoolean("IS_LOGGED_IN", false).apply()
-                    getSharedPreferences("ielts_user_prefs", MODE_PRIVATE).edit().putBoolean("is_logged_in", false).apply()
-                    val intent = Intent(this, com.example.ielts.ui.auth.WelcomeActivity::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    val prefs = getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE)
+                    val refreshToken = prefs.getString(Constants.KEY_REFRESH_TOKEN, null)
+
+                    lifecycleScope.launch {
+                        if (!refreshToken.isNullOrEmpty()) {
+                            try {
+                                ApiClient.apiService.logout(LogoutRequest(refreshToken))
+                            } catch (_: Exception) {}
+                        }
+
+                        // Xóa sạch Token và trạng thái đăng nhập
+                        prefs.edit().clear().apply()
+                        getSharedPreferences("ielts_login_preferences", MODE_PRIVATE).edit().putBoolean("IS_LOGGED_IN", false).apply()
+
+                        Toast.makeText(this@MainActivity, "Đã đăng xuất tài khoản thành công!", Toast.LENGTH_SHORT).show()
+
+                        val intent = Intent(this@MainActivity, com.example.ielts.ui.auth.WelcomeActivity::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        }
+                        startActivity(intent)
+                        finish()
                     }
-                    startActivity(intent)
-                    finish()
                 }
                 .setNeutralButton("Hủy", null)
                 .show()
