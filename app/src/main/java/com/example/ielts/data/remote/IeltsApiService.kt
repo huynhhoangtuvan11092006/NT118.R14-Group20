@@ -32,6 +32,17 @@ interface IeltsApiService {
         @Body request: com.example.ielts.data.remote.dto.LogoutRequest
     ): Response<Unit>
 
+    @POST("api/v1/auth/forgot-password")
+    suspend fun forgotPassword(
+        @Body request: com.example.ielts.data.remote.dto.ForgotPasswordRequest
+    ): Response<com.example.ielts.data.remote.dto.MessageResponse>
+
+    @POST("api/v1/auth/reset-password")
+    suspend fun resetPassword(
+        @Body request: com.example.ielts.data.remote.dto.ResetPasswordRequest
+    ): Response<com.example.ielts.data.remote.dto.MessageResponse>
+
+
     // --- QUẢN LÝ NGƯỜI DÙNG & HỒ SƠ (USER) ---
     @GET("api/v1/users/me")
     suspend fun getMe(

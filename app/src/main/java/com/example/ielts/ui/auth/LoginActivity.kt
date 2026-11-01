@@ -59,12 +59,19 @@ class LoginActivity : AppCompatActivity() {
         tvForgotPassword = findViewById(R.id.tvForgotPassword)
         tvRegister = findViewById(R.id.tvRegister)
 
-        // Khôi phục Email nếu người dùng đã chọn ghi nhớ
-        val savedEmail = preferences.getString("saved_email", "")
-        if (!savedEmail.isNullOrEmpty()) {
-            edtEmail.setText(savedEmail)
-            cbRemember.isChecked = true
+        // Khôi phục Email nếu người dùng vừa đặt lại mật khẩu hoặc đã chọn ghi nhớ
+        val prefilledEmail = intent.getStringExtra("prefilled_email")
+        if (!prefilledEmail.isNullOrEmpty()) {
+            edtEmail.setText(prefilledEmail)
+            edtPassword.requestFocus()
+        } else {
+            val savedEmail = preferences.getString("saved_email", "")
+            if (!savedEmail.isNullOrEmpty()) {
+                edtEmail.setText(savedEmail)
+                cbRemember.isChecked = true
+            }
         }
+
 
         // Hiện hoặc ẩn mật khẩu
         btnTogglePassword.setOnClickListener {

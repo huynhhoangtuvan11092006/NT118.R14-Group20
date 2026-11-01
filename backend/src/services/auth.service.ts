@@ -8,7 +8,8 @@ import {
   signRefreshToken, verifyRefreshToken,
 } from "../lib/jwt.js";
 import type { z } from "zod";
-import type { loginSchema, registerSchema } from "../validators/auth.validator.js";
+import type { forgotPasswordSchema, loginSchema, refreshSchema, registerSchema, resetPasswordSchema } from "../validators/auth.validator.js";
+import { sendOtpEmail } from "./mail.service.js";
 
 // Only explicitly selected public properties are returned to clients.
 export const publicUserSelect = {
@@ -110,3 +111,87 @@ export async function logout(refreshToken: string) {
   });
   if (changed.count !== 1) throw new HttpError(401, "UNAUTHORIZED", "Invalid or revoked refresh token");
 }
+
+export async function forgotPassword(input: z.infer<typeof forgotPasswordSchema>) {
+  const user = await prisma.user.findUnique({ where: { email: input.email } });
+  if (!user) {
+    throw new HttpError(404, "USER_NOT_FOUND", "Không tìm thấy tài khoản với email này");
+  }
+
+  // Generate 6-digit OTP
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
+  // Invalidate any active, unused OTPs for this email
+  await prisma.passwordReset.updateMany({
+    where: { email: input.email, isUsed: false },
+    data: { isUsed: true },
+  });
+
+  // Create new password reset record
+  await prisma.passwordReset.create({
+    data: {
+      email: input.email,
+      otpCode: otp,
+      expiresAt,
+      isUsed: false,
+    },
+  });
+
+  // Dispatch real email (or console log if SMTP not set)
+  await sendOtpEmail(input.email, otp);
+
+  return {
+    message: "Mã xác nhận OTP đã được gửi đến email của bạn.",
+    devOtp: process.env.NODE_ENV !== "production" ? otp : undefined,
+  };
+}
+
+export async function resetPassword(input: z.infer<typeof resetPasswordSchema>) {
+  const user = await prisma.user.findUnique({ where: { email: input.email } });
+  if (!user) {
+    throw new HttpError(404, "USER_NOT_FOUND", "Không tìm thấy tài khoản với email này");
+  }
+
+  const now = new Date();
+  const resetRecord = await prisma.passwordReset.findFirst({
+    where: {
+      email: input.email,
+      otpCode: input.otp,
+      isUsed: false,
+      expiresAt: { gt: now },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  if (!resetRecord) {
+    throw new HttpError(400, "INVALID_OTP", "Mã xác nhận không chính xác hoặc đã hết hạn");
+  }
+
+  const passwordHash = await argon2.hash(input.newPassword, { type: argon2.argon2id });
+
+  await prisma.$transaction(async (tx) => {
+    // 1. Mark OTP as used
+    await tx.passwordReset.update({
+      where: { id: resetRecord.id },
+      data: { isUsed: true },
+    });
+
+    // 2. Update user's password
+    await tx.user.update({
+      where: { id: user.id },
+      data: { passwordHash },
+    });
+
+    // 3. Revoke all active refresh tokens for security
+    await tx.refreshToken.updateMany({
+      where: { userId: user.id, revokedAt: null },
+      data: { revokedAt: now },
+    });
+  });
+
+  return {
+    message: "Đặt lại mật khẩu thành công. Vui lòng đăng nhập lại.",
+  };
+}
+

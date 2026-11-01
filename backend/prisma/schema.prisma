@@ -144,3 +144,16 @@ model RefreshToken {
   @@index([expiresAt], map: "refresh_tokens_expires_at_idx")
   @@map("refresh_tokens")
 }
+
+model PasswordReset {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email     String   @db.VarChar(320)
+  otpCode   String   @map("otp_code") @db.VarChar(10)
+  expiresAt DateTime @map("expires_at")
+  isUsed    Boolean  @default(false) @map("is_used")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([email], map: "password_resets_email_idx")
+  @@map("password_resets")
+}
+

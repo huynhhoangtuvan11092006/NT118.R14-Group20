@@ -59,3 +59,22 @@ data class UpdateProfileRequest(
     val expectedExamDate: String? = null,
     val dailyStudyMinutes: Int? = null
 )
+
+// DTO gửi lên khi Quên mật khẩu
+data class ForgotPasswordRequest(
+    val email: String
+)
+
+// DTO gửi lên khi Đặt lại mật khẩu bằng OTP
+data class ResetPasswordRequest(
+    val email: String,
+    val otp: String,
+    val newPassword: String
+)
+
+// DTO phản hồi thông báo từ máy chủ
+data class MessageResponse(
+    val message: String,
+    val devOtp: String? = null
+)
+
