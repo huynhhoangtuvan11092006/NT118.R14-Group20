@@ -15,3 +15,16 @@ export function requireAuth(req: Request, res: Response, next: NextFunction): vo
     res.status(401).json({ error: "UNAUTHORIZED", message: "Invalid or expired access token" });
   }
 }
+
+export function optionalAuth(req: Request, res: Response, next: NextFunction): void {
+  const header = req.header("authorization");
+  const match = /^Bearer ([^\s]+)$/i.exec(header ?? "");
+  if (match?.[1]) {
+    try {
+      res.locals.authUserId = verifyAccessToken(match[1]).userId;
+    } catch {
+      // Ignored for optional auth
+    }
+  }
+  next();
+}
