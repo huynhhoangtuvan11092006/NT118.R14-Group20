@@ -31,7 +31,6 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var btnBack: android.view.View
 
     private var isPasswordVisible = false
-    private var isConfirmPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,16 +49,13 @@ class RegisterActivity : AppCompatActivity() {
         tvLogin = findViewById(R.id.tvLogin)
         btnBack = findViewById(R.id.btnBack)
 
-        // Hiện hoặc ẩn mật khẩu chính
+        // Đồng bộ ẩn/hiện cả 2 ô mật khẩu cùng một lúc
         btnTogglePassword.setOnClickListener {
-            isPasswordVisible = !isPasswordVisible
-            toggleVisibility(edtPassword, btnTogglePassword, isPasswordVisible)
+            toggleBothPasswords()
         }
 
-        // Hiện hoặc ẩn mật khẩu xác nhận
         btnToggleConfirmPassword.setOnClickListener {
-            isConfirmPasswordVisible = !isConfirmPasswordVisible
-            toggleVisibility(edtConfirmPassword, btnToggleConfirmPassword, isConfirmPasswordVisible)
+            toggleBothPasswords()
         }
 
         // Xử lý nút Tạo tài khoản
@@ -84,16 +80,29 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun toggleVisibility(editText: EditText, toggleButton: TextView, isVisible: Boolean) {
-        val cursorPosition = editText.selectionStart
-        editText.inputType = if (isVisible) {
+    private fun toggleBothPasswords() {
+        isPasswordVisible = !isPasswordVisible
+
+        val passCursor = edtPassword.selectionStart
+        val confirmCursor = edtConfirmPassword.selectionStart
+
+        val inputType = if (isPasswordVisible) {
             android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
         } else {
             android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
         }
-        editText.setSelection(cursorPosition.coerceIn(0, editText.text.length))
-        toggleButton.text = if (isVisible) "Ẩn" else "Hiện"
+
+        edtPassword.inputType = inputType
+        edtConfirmPassword.inputType = inputType
+
+        edtPassword.setSelection(passCursor.coerceIn(0, edtPassword.text.length))
+        edtConfirmPassword.setSelection(confirmCursor.coerceIn(0, edtConfirmPassword.text.length))
+
+        val toggleLabel = if (isPasswordVisible) "Ẩn" else "Hiện"
+        btnTogglePassword.text = toggleLabel
+        btnToggleConfirmPassword.text = toggleLabel
     }
+
 
 
     private fun validateAndRegister() {
