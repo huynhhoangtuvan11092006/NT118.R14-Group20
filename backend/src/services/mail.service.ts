@@ -6,18 +6,29 @@ let transporter: Transporter | null = null;
 function getTransporter(): Transporter | null {
   if (transporter) return transporter;
   if (env.SMTP_USER && env.SMTP_PASS) {
-    transporter = nodemailer.createTransport({
-      host: env.SMTP_HOST,
-      port: env.SMTP_PORT,
-      secure: env.SMTP_SECURE,
-      auth: {
-        user: env.SMTP_USER,
-        pass: env.SMTP_PASS,
-      },
-    });
+    if (env.SMTP_HOST.includes("gmail.com") || env.SMTP_USER.includes("@gmail.com")) {
+      transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: env.SMTP_USER,
+          pass: env.SMTP_PASS,
+        },
+      });
+    } else {
+      transporter = nodemailer.createTransport({
+        host: env.SMTP_HOST,
+        port: env.SMTP_PORT,
+        secure: env.SMTP_PORT === 465,
+        auth: {
+          user: env.SMTP_USER,
+          pass: env.SMTP_PASS,
+        },
+      });
+    }
   }
   return transporter;
 }
+
 
 export async function sendOtpEmail(to: string, otp: string): Promise<boolean> {
   console.log(`\n========================================`);
