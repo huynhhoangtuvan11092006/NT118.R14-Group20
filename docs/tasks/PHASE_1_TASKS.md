@@ -166,3 +166,61 @@ Xây dựng và tích hợp trọn vẹn luồng trải nghiệm người dùng 
 - [x] Dữ liệu hiển thị trên Dashboard phản ánh đúng 100% dữ liệu thực tế từ cơ sở dữ liệu PostgreSQL.
 - [x] Đăng xuất xóa sạch Token và cờ đăng nhập trong `SharedPreferences`.
 ```
+
+---
+
+### [Sub-issue 1E] Tích hợp toàn diện Authentication & Profile APIs vào Mobile App
+* **Tiêu đề GitHub:** `[Phase 1][Integration][Sub-issue E] Tích hợp toàn diện Authentication & Profile APIs vào Mobile App`
+* **Người phụ trách (Assignee):** Huỳnh Hoàng Tứ Văn (`@huynhhoangtuvan11092006`)
+* **Parent Issue:** #1
+* **Branch làm việc:** `feature/integrate-auth-api`
+
+#### Nội dung Issue:
+```markdown
+## Overview
+Kết nối toàn bộ hệ thống API Backend Phase 1 (Authentication, Target Band, User Profile, Dashboard) vào ứng dụng Android; thiết lập đường truyền ADB reverse tunneling; đồng bộ lưu trữ JWT token bảo mật và hoàn thiện các kịch bản kiểm thử tích hợp (Integration Tests).
+
+## Reference
+* **Parent issue**: #1
+* **Branch**: `feature/integrate-auth-api`
+* **API Documentation**: Swagger UI tại `/docs/`
+* **Hướng dẫn cài đặt & Use Cases**: `docs/HUONG_DAN_CAI_DAT_CHAY_PHASE_1.md`
+
+## Target Files (Danh sách các file thực hiện)
+* `app/src/main/AndroidManifest.xml` (cấu hình quyền INTERNET, cleartextTraffic)
+* `app/src/main/java/com/example/ielts/utils/Constants.kt` (cấu hình BASE_URL và keys lưu trữ)
+* `app/src/main/java/com/example/ielts/data/remote/dto/AuthDto.kt` (bộ DTO models khớp Zod schemas)
+* `app/src/main/java/com/example/ielts/data/remote/ApiClient.kt` & `IeltsApiService.kt` (Retrofit client)
+* `app/src/main/java/com/example/ielts/ui/auth/RegisterActivity.kt`
+* `app/src/main/java/com/example/ielts/ui/auth/LoginActivity.kt`
+* `app/src/main/java/com/example/ielts/ui/auth/TargetBandActivity.kt`
+* `app/src/main/java/com/example/ielts/ui/auth/ProfileActivity.kt`
+* `app/src/main/java/com/example/ielts/MainActivity.kt`
+* `backend/src/server.ts` & `backend/src/app.ts` (cấu hình 0.0.0.0 & Swagger UI)
+* `docs/HUONG_DAN_CAI_DAT_CHAY_PHASE_1.md`
+
+## Scope (Phạm vi công việc chi tiết)
+1. **Hạ tầng mạng & Kết nối máy ảo**:
+   - Khắc phục rào cản Windows Defender Firewall chặn mạng ảo `10.0.2.2` bằng giải pháp ADB Reverse Tunneling `adb reverse tcp:3000 tcp:3000`.
+   - Cấu hình Retrofit với `BASE_URL = "http://127.0.0.1:3000/"`, OkHttp Interceptor log request/response BODY và timeout 30s.
+   - Chuẩn hóa toàn bộ DTOs: `RegisterRequest`, `LoginRequest`, `UserDto`, `UserResponse`, `UpdateTargetBandRequest`, `UpdateProfileRequest`, `LogoutRequest`.
+
+2. **Tích hợp API vào từng màn hình (5 Stages)**:
+   - **Giai đoạn 1**: Thiết lập hạ tầng mạng và định nghĩa dịch vụ Retrofit.
+   - **Giai đoạn 2 (Đăng ký)**: Tích hợp `POST /auth/register`, mã hóa Argon2id phía server, lưu Access/Refresh Token vào `SharedPreferences`, xử lý lỗi 409 khi email đã tồn tại.
+   - **Giai đoạn 3 (Đăng nhập)**: Tích hợp `POST /auth/login`, xử lý lỗi 401 khi sai thông tin, lưu cờ `is_logged_in = true`, xử lý checkbox ghi nhớ email.
+   - **Giai đoạn 4 (Target Band & Profile)**: Tích hợp `PUT /users/target-band` (lưu band 5.0 - 8.5 vào DB) và `PUT /users/me` (lưu ngày thi ISO `yyyy-MM-dd` và số phút học mỗi ngày).
+   - **Giai đoạn 5 (Dashboard & Logout)**: Tích hợp `GET /users/me` tự động cập nhật dữ liệu thời gian thực trên `MainActivity`; tích hợp `POST /auth/logout` thu hồi Refresh Token trong DB và dọn sạch session trên app.
+
+3. **Tài liệu hóa & Hỗ trợ nhóm**:
+   - Viết tài liệu `docs/HUONG_DAN_CAI_DAT_CHAY_PHASE_1.md` gồm 4 bước thiết lập tự sinh secret key và bảng 9 Use Cases kiểm thử chi tiết.
+   - Tích hợp tài liệu trực quan Swagger UI `/docs/` cho backend Express.
+
+## Acceptance Criteria (Tiêu chí nghiệm thu)
+- [x] Máy ảo Android kết nối thành công với Backend Node.js và PostgreSQL qua ADB reverse tunneling.
+- [x] Toàn bộ 5 giai đoạn tích hợp API chạy thông suốt, không còn sử dụng mock dữ liệu giả lập.
+- [x] Mật khẩu được mã hóa an toàn, phân tách Access/Refresh Token theo đúng chuẩn JWT.
+- [x] Dashboard hiển thị dữ liệu thực tế từ cơ sở dữ liệu PostgreSQL với thời gian phản hồi nhanh (< 100ms).
+- [x] Đã kiểm thử và vượt qua toàn bộ 9/9 Use Cases (UC-01 đến UC-09).
+- [x] Có tài liệu hướng dẫn chạy dự án rõ ràng cho các thành viên trong nhóm.
+```
