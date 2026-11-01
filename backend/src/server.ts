@@ -4,8 +4,8 @@ import { env } from "./config/env.js";
 
 async function main(): Promise<void> {
   await connectDatabase();
-  const server = app.listen(env.PORT, () => {
-    console.info(`Backend listening on http://localhost:${env.PORT}`);
+  const server = app.listen(env.PORT, "0.0.0.0", () => {
+    console.info(`Backend listening on http://0.0.0.0:${env.PORT}`);
   });
 
   let shuttingDown = false;

@@ -1,22 +1,34 @@
 import cors from "cors";
 import express, { type ErrorRequestHandler } from "express";
 import helmet from "helmet";
+import swaggerUi from "swagger-ui-express";
 import { ZodError } from "zod";
 import { prisma } from "./config/database.js";
 import { env } from "./config/env.js";
+import { swaggerDocument } from "./config/swagger.js";
 import { HttpError } from "./lib/http-error.js";
 import { authRouter } from "./routes/auth.routes.js";
 import { userRouter } from "./routes/user.routes.js";
 
 export const app = express();
 app.disable("x-powered-by");
-app.use(helmet());
+
+// Cấu hình Helmet cho phép Swagger UI hiển thị giao diện
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 app.use(express.json({ limit: "1mb" }));
 
 if (env.CORS_ORIGIN) app.use(cors({ origin: env.CORS_ORIGIN }));
 
+// --- TÀI LIỆU SWAGGER UI (GIỐNG FASTAPI /docs) ---
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.get("/", (_req, res) => {
-  res.json({ name: "bandup-backend", status: "running" });
+  res.json({ name: "bandup-backend", status: "running", docs: "/docs" });
 });
 
 app.get("/health", async (_req, res) => {
@@ -28,8 +40,12 @@ app.get("/health", async (_req, res) => {
   }
 });
 
+// Định tuyến API (Hỗ trợ cả /auth và /api/v1/auth)
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/users", userRouter);
+
 app.use((_req, res) => res.status(404).json({ error: "NOT_FOUND", message: "Route not found" }));
 
 const errorHandler: ErrorRequestHandler = (error: unknown, _req, res, _next) => {

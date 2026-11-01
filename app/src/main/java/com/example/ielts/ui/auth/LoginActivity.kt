@@ -12,6 +12,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import com.example.ielts.R
 
 class LoginActivity : AppCompatActivity() {
@@ -149,7 +151,7 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        // Ghi nhớ hoặc xóa Email đã lưu
+        // Xử lý ghi nhớ email nếu được tick
         preferences.edit().apply {
             if (cbRemember.isChecked) {
                 putString("saved_email", email)
@@ -159,18 +161,80 @@ class LoginActivity : AppCompatActivity() {
             apply()
         }
 
-        // Đánh dấu đăng nhập thành công
-        preferences.edit().putBoolean("IS_LOGGED_IN", true).apply()
-        getSharedPreferences("ielts_user_prefs", MODE_PRIVATE).edit().putBoolean("is_logged_in", true).apply()
+        // Bật trạng thái loading trên nút bấm
+        btnLogin.isEnabled = false
+        btnLogin.text = "Đang đăng nhập..."
 
-        Toast.makeText(this, "Đăng nhập thành công! Chào mừng bạn quay trở lại 👋", Toast.LENGTH_SHORT).show()
+        // Gọi API Đăng nhập qua Coroutines
+        lifecycleScope.launch {
+            try {
+                val request = com.example.ielts.data.remote.dto.LoginRequest(
+                    email = email,
+                    password = password
+                )
 
-        // Điều hướng sang Dashboard chính (MainActivity)
-        val intent = Intent(this, com.example.ielts.MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                val response = com.example.ielts.data.remote.ApiClient.apiService.login(request)
+
+                if (response.isSuccessful && response.body() != null) {
+                    val authData = response.body()!!
+
+                    // Lưu Access Token & Refresh Token & Thông tin User vào SharedPreferences
+                    val prefs = getSharedPreferences(com.example.ielts.utils.Constants.PREF_NAME, MODE_PRIVATE)
+                    prefs.edit().apply {
+                        putString(com.example.ielts.utils.Constants.KEY_AUTH_TOKEN, authData.accessToken)
+                        putString(com.example.ielts.utils.Constants.KEY_REFRESH_TOKEN, authData.refreshToken)
+                        putString(com.example.ielts.utils.Constants.KEY_USER_NAME, authData.user.fullName)
+                        putString(com.example.ielts.utils.Constants.KEY_USER_EMAIL, authData.user.email)
+                        putBoolean(com.example.ielts.utils.Constants.KEY_IS_LOGGED_IN, true)
+                        authData.user.targetBand?.let {
+                            putFloat(com.example.ielts.utils.Constants.KEY_TARGET_BAND, it.toFloat())
+                        }
+                        apply()
+                    }
+
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Đăng nhập thành công! Chào mừng ${authData.user.fullName} 👋",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    // Điều hướng sang Dashboard chính (MainActivity)
+                    val intent = Intent(this@LoginActivity, com.example.ielts.MainActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    }
+                    startActivity(intent)
+                    finish()
+                } else {
+                    val statusCode = response.code()
+                    val errorRaw = response.errorBody()?.string() ?: ""
+                    var userMessage = "Tài khoản hoặc mật khẩu không chính xác!"
+
+                    try {
+                        val json = org.json.JSONObject(errorRaw)
+                        if (json.has("message")) {
+                            userMessage = json.getString("message")
+                        }
+                    } catch (_: Exception) {}
+
+                    if (statusCode == 401 || statusCode == 400 || statusCode == 404) {
+                        edtPassword.error = userMessage
+                        edtPassword.requestFocus()
+                        Toast.makeText(this@LoginActivity, userMessage, Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this@LoginActivity, "Đăng nhập thất bại ($statusCode): $userMessage", Toast.LENGTH_LONG).show()
+                    }
+                }
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this@LoginActivity,
+                    "Không thể kết nối máy chủ: ${e.localizedMessage ?: "Vui lòng kiểm tra Server"}",
+                    Toast.LENGTH_LONG
+                ).show()
+            } finally {
+                btnLogin.isEnabled = true
+                btnLogin.text = "Đăng nhập ngay  ➔"
+            }
         }
-        startActivity(intent)
-        finish()
     }
 
     private fun showNotIntegratedMessage(provider: String) {

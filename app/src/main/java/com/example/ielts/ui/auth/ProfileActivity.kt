@@ -11,8 +11,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import com.example.ielts.MainActivity
 import com.example.ielts.R
+import com.example.ielts.data.remote.ApiClient
+import com.example.ielts.data.remote.dto.UpdateProfileRequest
+import com.example.ielts.utils.Constants
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -88,6 +93,12 @@ class ProfileActivity : AppCompatActivity() {
         edtProfileName = findViewById(R.id.edtProfileName)
         edtProfilePhone = findViewById(R.id.edtProfilePhone)
         tvAiPlanSummary = findViewById(R.id.tvAiPlanSummary)
+
+        // Điền sẵn tên người dùng vừa đăng ký/đăng nhập
+        val savedName = getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE).getString(Constants.KEY_USER_NAME, null)
+        if (!savedName.isNullOrEmpty()) {
+            edtProfileName.setText(savedName)
+        }
 
         initViews()
         setupAiPlanSummary()
@@ -191,33 +202,62 @@ class ProfileActivity : AppCompatActivity() {
         cardGoalMigrate.setOnClickListener { selectGoal("Định cư nước ngoài") }
 
         // Nút CTA: Bắt đầu hành trình học ngay ➔ Dashboard
-        findViewById<AppCompatButton>(R.id.btnStartLearning).setOnClickListener {
-            val name = edtProfileName.text.toString().trim().ifEmpty { "Nguyễn Văn Quân" }
+        val btnStartLearning = findViewById<AppCompatButton>(R.id.btnStartLearning)
+        btnStartLearning.setOnClickListener {
+            val prefs = getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE)
+            val fallbackName = prefs.getString(Constants.KEY_USER_NAME, "Học viên IELTS") ?: "Học viên IELTS"
+            val name = edtProfileName.text.toString().trim().ifEmpty { fallbackName }
             val phone = edtProfilePhone.text.toString().trim()
 
-            // Lưu hồ sơ vào SharedPreferences
-            getSharedPreferences("ielts_user_prefs", MODE_PRIVATE).edit().apply {
-                putString("user_name", name)
-                putString("user_phone", phone)
-                putString("current_level", selectedLevel)
-                putStringSet("focus_skills", selectedSkills)
-                putString("study_goal", selectedGoal)
-                putBoolean("is_logged_in", true)
-                apply()
+            val examDateIso = intent.getStringExtra("EXAM_DATE_ISO") ?: prefs.getString("exam_date_iso", null)
+            val studyMinutes = intent.getIntExtra("STUDY_MINUTES", prefs.getInt("study_minutes", 30))
+
+            btnStartLearning.isEnabled = false
+            btnStartLearning.text = "Đang đồng bộ hồ sơ..."
+
+            lifecycleScope.launch {
+                val token = prefs.getString(Constants.KEY_AUTH_TOKEN, null)
+                if (!token.isNullOrEmpty()) {
+                    val authHeader = if (token.startsWith("Bearer ")) token else "Bearer $token"
+                    try {
+                        ApiClient.apiService.updateProfile(
+                            token = authHeader,
+                            request = UpdateProfileRequest(
+                                fullName = name,
+                                expectedExamDate = examDateIso,
+                                dailyStudyMinutes = studyMinutes
+                            )
+                        )
+                    } catch (e: Exception) {
+                        // Tiếp tục luồng nếu mạng tạm thời gặp sự cố
+                    }
+                }
+
+                // Lưu hồ sơ vào SharedPreferences
+                prefs.edit().apply {
+                    putString(Constants.KEY_USER_NAME, name)
+                    putString("user_phone", phone)
+                    putString("current_level", selectedLevel)
+                    putStringSet("focus_skills", selectedSkills)
+                    putString("study_goal", selectedGoal)
+                    putBoolean(Constants.KEY_IS_LOGGED_IN, true)
+                    apply()
+                }
+                getSharedPreferences("ielts_login_preferences", MODE_PRIVATE).edit().putBoolean("IS_LOGGED_IN", true).apply()
+
+                Toast.makeText(
+                    this@ProfileActivity,
+                    "Chào mừng $name đến với lộ trình IELTS cá nhân hóa!",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                // Chuyển thẳng sang Dashboard (MainActivity)
+                val intent = Intent(this@ProfileActivity, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                startActivity(intent)
+                finish()
             }
-            getSharedPreferences("ielts_login_preferences", MODE_PRIVATE).edit().putBoolean("IS_LOGGED_IN", true).apply()
-
-            Toast.makeText(
-                this,
-                "Chào mừng $name đến với lộ trình IELTS cá nhân hóa!",
-                Toast.LENGTH_SHORT
-            ).show()
-
-            // Chuyển thẳng sang Dashboard (MainActivity)
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish()
         }
     }
 
