@@ -44,7 +44,7 @@ export async function sendOtpEmail(to: string, otp: string): Promise<boolean> {
   const htmlContent = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 540px; margin: 0 auto; padding: 32px 24px; border: 1px solid #E5E7EB; border-radius: 16px; background-color: #FFFFFF;">
       <div style="margin-bottom: 24px; text-align: center;">
-        <h2 style="color: #4F46E5; margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px;">IELTS Prep App</h2>
+        <h2 style="color: #4F46E5; margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px;">IELTSPRO</h2>
         <p style="color: #6B7280; font-size: 14px; margin-top: 4px;">Khôi phục mật khẩu tài khoản</p>
       </div>
       
@@ -65,7 +65,7 @@ export async function sendOtpEmail(to: string, otp: string): Promise<boolean> {
 
       <hr style="border: none; border-top: 1px solid #F3F4F6; margin: 28px 0 20px;" />
       <p style="color: #9CA3AF; font-size: 12px; text-align: center; margin: 0;">
-        © 2026 IELTS Prep Team. All rights reserved.
+        © 2026 IELTS Pro Team. All rights reserved.
       </p>
     </div>
   `;
@@ -74,10 +74,11 @@ export async function sendOtpEmail(to: string, otp: string): Promise<boolean> {
     await mailTransporter.sendMail({
       from: env.EMAIL_FROM,
       to,
-      subject: `[IELTS App] Mã xác nhận đặt lại mật khẩu: ${otp}`,
+      subject: `[IELTSPRO] Mã xác nhận đặt lại mật khẩu`,
       html: htmlContent,
       text: `Mã xác nhận đặt lại mật khẩu của bạn là: ${otp}. Mã có hiệu lực trong 10 phút.`,
     });
+
     console.log(`[MAIL SERVICE] Successfully sent OTP email to: ${to}`);
     return true;
   } catch (error) {
