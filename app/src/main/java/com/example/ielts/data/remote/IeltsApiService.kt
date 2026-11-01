@@ -42,6 +42,11 @@ interface IeltsApiService {
         @Body request: com.example.ielts.data.remote.dto.ResetPasswordRequest
     ): Response<com.example.ielts.data.remote.dto.MessageResponse>
 
+    @POST("api/v1/auth/google")
+    suspend fun googleAuth(
+        @Body request: com.example.ielts.data.remote.dto.GoogleAuthRequest
+    ): Response<AuthResponse>
+
 
     // --- QUẢN LÝ NGƯỜI DÙNG & HỒ SƠ (USER) ---
     @GET("api/v1/users/me")

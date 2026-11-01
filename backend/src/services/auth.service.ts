@@ -8,8 +8,10 @@ import {
   signRefreshToken, verifyRefreshToken,
 } from "../lib/jwt.js";
 import type { z } from "zod";
-import type { forgotPasswordSchema, loginSchema, refreshSchema, registerSchema, resetPasswordSchema } from "../validators/auth.validator.js";
+import type { forgotPasswordSchema, googleAuthSchema, loginSchema, refreshSchema, registerSchema, resetPasswordSchema } from "../validators/auth.validator.js";
 import { sendOtpEmail } from "./mail.service.js";
+import { OAuth2Client } from "google-auth-library";
+import { env } from "../config/env.js";
 
 // Only explicitly selected public properties are returned to clients.
 export const publicUserSelect = {
@@ -192,6 +194,99 @@ export async function resetPassword(input: z.infer<typeof resetPasswordSchema>) 
 
   return {
     message: "Đặt lại mật khẩu thành công. Vui lòng đăng nhập lại.",
+  };
+}
+
+export async function googleAuth(input: z.infer<typeof googleAuthSchema>) {
+  let email: string | undefined;
+  let fullName = "Google User";
+  let avatarUrl: string | null = null;
+
+  if (env.GOOGLE_CLIENT_ID) {
+    try {
+      const client = new OAuth2Client(env.GOOGLE_CLIENT_ID);
+      const ticket = await client.verifyIdToken({
+        idToken: input.idToken,
+        audience: env.GOOGLE_CLIENT_ID,
+      });
+      const payload = ticket.getPayload();
+      if (!payload || !payload.email) {
+        throw new HttpError(401, "INVALID_TOKEN", "Không thể lấy thông tin email từ Google");
+      }
+      const emailVal = payload.email.toLowerCase();
+      email = emailVal;
+      fullName = payload.name ?? emailVal.split("@")[0] ?? "Google User";
+      avatarUrl = payload.picture ?? null;
+    } catch (err: unknown) {
+      if (err instanceof HttpError) throw err;
+      throw new HttpError(401, "INVALID_TOKEN", "Mã xác thực Google không hợp lệ hoặc đã hết hạn");
+    }
+  } else {
+    // Development fallback when GOOGLE_CLIENT_ID has not been set yet
+    try {
+      const parts = input.idToken.split(".");
+      const payloadPart = parts[1];
+      if (payloadPart) {
+        const decoded = JSON.parse(Buffer.from(payloadPart, "base64").toString("utf-8")) as {
+          email?: string;
+          name?: string;
+          picture?: string;
+        };
+        if (decoded.email) {
+          const emailVal = decoded.email.toLowerCase();
+          email = emailVal;
+          fullName = decoded.name ?? emailVal.split("@")[0] ?? "Google User";
+          avatarUrl = decoded.picture ?? null;
+        }
+      }
+    } catch {
+      // ignore
+    }
+    if (!email) {
+      if (input.idToken.startsWith("mock_")) {
+        const mockEmail = input.idToken.replace("mock_", "").toLowerCase();
+        email = mockEmail.includes("@") ? mockEmail : `${mockEmail}@gmail.com`;
+        fullName = "Google Dev User";
+      } else {
+        throw new HttpError(400, "GOOGLE_CONFIG_MISSING", "Server chưa cấu hình GOOGLE_CLIENT_ID trong file .env");
+      }
+    }
+  }
+
+  if (!email) {
+    throw new HttpError(400, "INVALID_TOKEN", "Không tìm thấy email hợp lệ trong mã xác thực Google");
+  }
+
+  let user = await prisma.user.findUnique({ where: { email } });
+  let isNewUser = false;
+
+  if (!user) {
+    isNewUser = true;
+    user = await prisma.user.create({
+      data: {
+        email,
+        fullName,
+        avatarUrl,
+        passwordHash: null,
+      },
+    });
+  } else if (!user.avatarUrl && avatarUrl) {
+    user = await prisma.user.update({
+      where: { id: user.id },
+      data: { avatarUrl },
+    });
+  }
+
+  const publicUser = await prisma.user.findUniqueOrThrow({
+    where: { id: user.id },
+    select: publicUserSelect,
+  });
+
+  const tokens = await issueTokens(user.id);
+  return {
+    user: presentUser(publicUser),
+    ...tokens,
+    isNewUser,
   };
 }
 

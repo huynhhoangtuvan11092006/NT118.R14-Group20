@@ -38,7 +38,13 @@ data class AuthResponse(
     val accessToken: String,
     val refreshToken: String,
     val tokenType: String = "Bearer",
-    val expiresIn: Int = 900
+    val expiresIn: Int = 900,
+    val isNewUser: Boolean? = null
+)
+
+// DTO gửi lên khi Xác thực bằng Google
+data class GoogleAuthRequest(
+    val idToken: String
 )
 
 // DTO gửi lên khi Đăng xuất

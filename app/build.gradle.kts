@@ -39,6 +39,9 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)
 
+    // Google Sign-In SDK
+    implementation("com.google.android.gms:play-services-auth:21.3.0")
+
     // Networking - Retrofit & OkHttp
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")

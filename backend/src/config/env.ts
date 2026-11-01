@@ -15,6 +15,8 @@ const envSchema = z.object({
   SMTP_USER: z.string().optional(),
   SMTP_PASS: z.string().optional(),
   EMAIL_FROM: z.string().default("IELTS Prep App <no-reply@ieltsapp.com>"),
+  GOOGLE_CLIENT_ID: z.string().optional(),
+
 }).superRefine((value, ctx) => {
   for (const field of ["JWT_ACCESS_SECRET", "JWT_REFRESH_SECRET"] as const) {
     if (value[field].startsWith("CHANGE_ME")) {

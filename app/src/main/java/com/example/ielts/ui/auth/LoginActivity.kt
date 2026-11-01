@@ -11,10 +11,21 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import com.example.ielts.MainActivity
 import com.example.ielts.R
+import com.example.ielts.data.remote.ApiClient
+import com.example.ielts.data.remote.dto.GoogleAuthRequest
+import com.example.ielts.utils.Constants
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
 
@@ -27,9 +38,40 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var tvRegister: TextView
 
     private var isPasswordVisible = false
+    private var googleSignInClient: GoogleSignInClient? = null
 
     private val preferences by lazy {
         getSharedPreferences("ielts_login_preferences", MODE_PRIVATE)
+    }
+
+    private val googleSignInLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            val idToken = account?.idToken
+            if (!idToken.isNullOrEmpty()) {
+                performGoogleAuth(idToken)
+            } else {
+                Toast.makeText(
+                    this,
+                    "Không nhận được ID Token từ Google. Hãy kiểm tra cấu hình GOOGLE_WEB_CLIENT_ID",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        } catch (e: ApiException) {
+            if (e.statusCode == 12501) {
+                return@registerForActivityResult
+            }
+            val errorMsg = when (e.statusCode) {
+                10 -> "Lỗi cấu hình Google (Code 10: DEVELOPER_ERROR). Hãy kiểm tra lại Web Client ID và mã SHA-1 trong Google Cloud Console."
+                else -> "Đăng nhập Google thất bại (Mã lỗi: ${e.statusCode})"
+            }
+            Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            Toast.makeText(this, "Lỗi đăng nhập Google: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+        }
     }
 
 
@@ -105,7 +147,7 @@ class LoginActivity : AppCompatActivity() {
 
         // Nút đăng nhập bằng Google
         findViewById<View?>(R.id.btnGoogle)?.setOnClickListener {
-            showNotIntegratedMessage("Google")
+            handleGoogleSignInClick()
         }
     }
 
@@ -241,11 +283,110 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun showNotIntegratedMessage(provider: String) {
-        Toast.makeText(
-            this,
-            "Đăng nhập bằng $provider chưa được tích hợp.",
-            Toast.LENGTH_SHORT
-        ).show()
+    private fun handleGoogleSignInClick() {
+        val webClientId = Constants.GOOGLE_WEB_CLIENT_ID
+        if (webClientId.isBlank() || webClientId == "YOUR_GOOGLE_WEB_CLIENT_ID") {
+            showGoogleConfigDialog()
+            return
+        }
+
+        try {
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(webClientId)
+                .requestEmail()
+                .build()
+
+            val client = GoogleSignIn.getClient(this, gso)
+            googleSignInClient = client
+            client.signOut().addOnCompleteListener {
+                googleSignInLauncher.launch(client.signInIntent)
+            }
+        } catch (e: Exception) {
+            Toast.makeText(this, "Không thể khởi động Google Sign-In: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun showGoogleConfigDialog() {
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Cấu hình Google Sign-In")
+            .setMessage(
+                "Chưa cấu hình GOOGLE_WEB_CLIENT_ID trong Constants.kt.\n\n" +
+                "Khi bạn dán Client ID thật, ứng dụng sẽ mở hộp thoại chọn tài khoản Google.\n\n" +
+                "Bạn có muốn thử nghiệm đăng nhập nhanh bằng tài khoản Google mô phỏng (Dev Mode) không?"
+            )
+            .setPositiveButton("Thử Dev Mode") { _, _ ->
+                performGoogleAuth("mock_dev_user@gmail.com")
+            }
+            .setNegativeButton("Đóng", null)
+            .show()
+    }
+
+    private fun performGoogleAuth(idToken: String) {
+        btnLogin.isEnabled = false
+        Toast.makeText(this, "Đang xác thực với Google...", Toast.LENGTH_SHORT).show()
+
+        lifecycleScope.launch {
+            try {
+                val request = GoogleAuthRequest(idToken = idToken)
+                val response = ApiClient.apiService.googleAuth(request)
+
+                if (response.isSuccessful && response.body() != null) {
+                    val authData = response.body()!!
+
+                    val prefs = getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE)
+                    prefs.edit().apply {
+                        putString(Constants.KEY_AUTH_TOKEN, authData.accessToken)
+                        putString(Constants.KEY_REFRESH_TOKEN, authData.refreshToken)
+                        putString(Constants.KEY_USER_NAME, authData.user.fullName)
+                        putString(Constants.KEY_USER_EMAIL, authData.user.email)
+                        putBoolean(Constants.KEY_IS_LOGGED_IN, true)
+                        authData.user.targetBand?.let {
+                            putFloat(Constants.KEY_TARGET_BAND, it.toFloat())
+                        }
+                        apply()
+                    }
+
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Đăng nhập Google thành công! Chào mừng ${authData.user.fullName} 👋",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    if (authData.isNewUser == true || authData.user.targetBand == null) {
+                        val intent = Intent(this@LoginActivity, TargetBandActivity::class.java).apply {
+                            putExtra("FULL_NAME", authData.user.fullName)
+                            putExtra("EMAIL", authData.user.email)
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        }
+                        startActivity(intent)
+                    } else {
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        }
+                        startActivity(intent)
+                    }
+                    finish()
+                } else {
+                    val statusCode = response.code()
+                    val errorRaw = response.errorBody()?.string() ?: ""
+                    var userMessage = "Đăng nhập Google thất bại ($statusCode)"
+                    try {
+                        val json = JSONObject(errorRaw)
+                        if (json.has("message")) {
+                            userMessage = json.getString("message")
+                        }
+                    } catch (_: Exception) {}
+                    Toast.makeText(this@LoginActivity, userMessage, Toast.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this@LoginActivity,
+                    "Không thể kết nối máy chủ: ${e.localizedMessage ?: "Vui lòng kiểm tra Server"}",
+                    Toast.LENGTH_LONG
+                ).show()
+            } finally {
+                btnLogin.isEnabled = true
+            }
+        }
     }
 }

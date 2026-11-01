@@ -23,3 +23,7 @@ export const resetPasswordSchema = z.strictObject({
   newPassword: z.string().min(8, "Mật khẩu phải có tối thiểu 8 ký tự").max(128),
 });
 
+export const googleAuthSchema = z.strictObject({
+  idToken: z.string().min(1, "Google ID token is required"),
+});
+
