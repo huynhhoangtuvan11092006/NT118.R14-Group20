@@ -9,6 +9,7 @@ import { swaggerDocument } from "./config/swagger.js";
 import { HttpError } from "./lib/http-error.js";
 import { authRouter } from "./routes/auth.routes.js";
 import { userRouter } from "./routes/user.routes.js";
+import { testRouter, submissionRouter } from "./routes/reading.routes.js";
 
 export const app = express();
 app.disable("x-powered-by");
@@ -43,8 +44,13 @@ app.get("/health", async (_req, res) => {
 // Định tuyến API (Hỗ trợ cả /auth và /api/v1/auth)
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
+app.use("/tests", testRouter);
+app.use("/submissions", submissionRouter);
+
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/tests", testRouter);
+app.use("/api/v1/submissions", submissionRouter);
 
 app.use((_req, res) => res.status(404).json({ error: "NOT_FOUND", message: "Route not found" }));
 
