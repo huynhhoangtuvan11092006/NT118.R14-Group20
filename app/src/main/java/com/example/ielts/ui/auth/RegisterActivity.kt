@@ -23,10 +23,14 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var edtEmail: EditText
     private lateinit var edtPassword: EditText
     private lateinit var edtConfirmPassword: EditText
+    private lateinit var btnTogglePassword: TextView
+    private lateinit var btnToggleConfirmPassword: TextView
     private lateinit var cbTerms: CheckBox
     private lateinit var btnRegister: Button
     private lateinit var tvLogin: TextView
     private lateinit var btnBack: android.view.View
+
+    private var isPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,15 +41,31 @@ class RegisterActivity : AppCompatActivity() {
         edtEmail = findViewById(R.id.edtEmail)
         edtPassword = findViewById(R.id.edtPassword)
         edtConfirmPassword = findViewById(R.id.edtConfirmPassword)
+        btnTogglePassword = findViewById(R.id.btnTogglePassword)
+        btnToggleConfirmPassword = findViewById(R.id.btnToggleConfirmPassword)
         cbTerms = findViewById(R.id.cbTerms)
         cbTerms.buttonTintList = null
         btnRegister = findViewById(R.id.btnRegister)
         tvLogin = findViewById(R.id.tvLogin)
         btnBack = findViewById(R.id.btnBack)
 
+        // Đồng bộ ẩn/hiện cả 2 ô mật khẩu cùng một lúc
+        btnTogglePassword.setOnClickListener {
+            toggleBothPasswords()
+        }
+
+        btnToggleConfirmPassword.setOnClickListener {
+            toggleBothPasswords()
+        }
+
         // Xử lý nút Tạo tài khoản
         btnRegister.setOnClickListener {
             validateAndRegister()
+        }
+
+        // Nút đăng ký Google
+        findViewById<android.view.View?>(R.id.btnGoogle)?.setOnClickListener {
+            Toast.makeText(this, "Đăng ký bằng Google chưa được tích hợp.", Toast.LENGTH_SHORT).show()
         }
 
         // Chuyển sang màn hình Đăng nhập (LoginActivity)
@@ -59,6 +79,31 @@ class RegisterActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    private fun toggleBothPasswords() {
+        isPasswordVisible = !isPasswordVisible
+
+        val passCursor = edtPassword.selectionStart
+        val confirmCursor = edtConfirmPassword.selectionStart
+
+        val inputType = if (isPasswordVisible) {
+            android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+        } else {
+            android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+        }
+
+        edtPassword.inputType = inputType
+        edtConfirmPassword.inputType = inputType
+
+        edtPassword.setSelection(passCursor.coerceIn(0, edtPassword.text.length))
+        edtConfirmPassword.setSelection(confirmCursor.coerceIn(0, edtConfirmPassword.text.length))
+
+        val toggleLabel = if (isPasswordVisible) "Ẩn" else "Hiện"
+        btnTogglePassword.text = toggleLabel
+        btnToggleConfirmPassword.text = toggleLabel
+    }
+
+
 
     private fun validateAndRegister() {
         val fullName = edtFullName.text.toString().trim()

@@ -7,7 +7,14 @@ const envSchema = z.object({
   DATABASE_URL: z.string().regex(/^postgres(?:ql)?:\/\//, "Expected a PostgreSQL connection URL"),
   CORS_ORIGIN: z.string().optional(),
   JWT_ACCESS_SECRET: z.string().min(32),
+
   JWT_REFRESH_SECRET: z.string().min(32),
+  SMTP_HOST: z.string().default("smtp.gmail.com"),
+  SMTP_PORT: z.coerce.number().int().default(587),
+  SMTP_SECURE: z.coerce.boolean().default(false),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
+  EMAIL_FROM: z.string().default("IELTS Prep App <no-reply@ieltsapp.com>"),
 }).superRefine((value, ctx) => {
   for (const field of ["JWT_ACCESS_SECRET", "JWT_REFRESH_SECRET"] as const) {
     if (value[field].startsWith("CHANGE_ME")) {

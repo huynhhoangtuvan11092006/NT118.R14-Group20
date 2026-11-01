@@ -356,7 +356,7 @@
             <LinearLayout
                 android:id="@+id/btnGoogle"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/bg_input_field"
                 android:clickable="true"
@@ -379,35 +379,8 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
-
-            <!-- Apple Sign In -->
-            <LinearLayout
-                android:id="@+id/btnApple"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_btn_apple"
-                android:clickable="true"
-                android:elevation="1dp"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_apple" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Tiếp tục với Apple"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
         </LinearLayout>
+
 
         <!-- Community Learner Card -->
         <LinearLayout
