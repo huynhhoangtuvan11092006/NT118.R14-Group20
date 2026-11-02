@@ -79,9 +79,9 @@ class ReadingTestAdapter(
         }
 
         // 4. Metadata badges
-        holder.tvDuration.text = "🕒 ${item.durationMinutes} Phút"
-        holder.tvTotalQuestions.text = "📝 ${item.totalQuestions} Câu hỏi"
-        holder.tvDifficulty.text = "⚡ Độ khó: ${item.difficulty}"
+        holder.tvDuration.text = "${item.durationMinutes} phút"
+        holder.tvTotalQuestions.text = "${item.totalQuestions} câu"
+        holder.tvDifficulty.text = "Độ khó: ${item.difficulty}"
 
         // 5. Completion Status
         val progress = item.userProgress
@@ -91,7 +91,7 @@ class ReadingTestAdapter(
             } else {
                 "Hoàn thành"
             }
-            holder.tvStatusPill.text = "⭐ Band ${progress.bandEstimate} • $scoreText"
+            holder.tvStatusPill.text = "Band ${progress.bandEstimate} • $scoreText"
             holder.tvStatusPill.setBackgroundResource(R.drawable.bg_pill_status_purple)
             holder.tvStatusPill.setTextColor(Color.parseColor("#7C3AED"))
 

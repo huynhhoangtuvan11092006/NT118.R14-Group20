@@ -77,20 +77,12 @@ class ReadingListActivity : AppCompatActivity() {
     private fun setupListeners() {
         // Back button
         findViewById<View>(R.id.btnBack)?.setOnClickListener {
+            if (isTaskRoot) {
+                val intent = Intent(this, PracticeHubActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                startActivity(intent)
+            }
             finish()
-        }
-
-        // Top actions
-        findViewById<View>(R.id.btnTopSearch)?.setOnClickListener {
-            edtSearchTests.requestFocus()
-        }
-
-        findViewById<View>(R.id.btnFilter)?.setOnClickListener {
-            Toast.makeText(this, "Bộ lọc nâng cao: Độ khó, Thời gian & Dạng câu hỏi", Toast.LENGTH_SHORT).show()
-        }
-
-        findViewById<View>(R.id.btnProfileAvatar)?.setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
         }
 
         findViewById<View>(R.id.tvSortOption)?.setOnClickListener {
