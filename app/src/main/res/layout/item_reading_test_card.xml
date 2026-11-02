@@ -231,7 +231,7 @@
             android:layout_weight="1.2"
             android:background="@drawable/bg_btn_primary_blue"
             android:gravity="center"
-            android:text="Xem phân tích  ›"
+            android:text="Xem kết quả  ›"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold" />

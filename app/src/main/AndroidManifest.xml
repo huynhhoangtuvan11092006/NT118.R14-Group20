@@ -30,7 +30,11 @@
 
         <activity
             android:name=".ui.reading.ReadingPracticeActivity"
-            android:exported="false" />
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.reading.ReadingResultActivity"
+            android:exported="true" />
 
         <activity
             android:name=".ui.auth.TargetBandActivity"

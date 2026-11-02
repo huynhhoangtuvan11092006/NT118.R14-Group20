@@ -205,9 +205,10 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvReadingSkillCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="45 đề luyện đọc"
+                        android:text="35 đề luyện đọc"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
 
@@ -224,22 +225,24 @@
                             android:textSize="11sp" />
 
                         <TextView
+                            android:id="@+id/tvReadingProgressPercent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:text="65%"
+                            android:text="0%"
                             android:textColor="@color/primary_blue"
                             android:textSize="11sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
 
                     <ProgressBar
+                        android:id="@+id/pbReadingProgress"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="5dp"
                         android:layout_marginTop="4dp"
                         android:max="100"
-                        android:progress="65"
+                        android:progress="0"
                         android:progressTint="@color/primary_blue" />
                 </LinearLayout>
 
@@ -519,191 +522,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- 5. Luyện Theo Dạng Bài Yếu (Horizontal Scroll) -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Luyện Theo Dạng Bài Yếu"
-                        android:textColor="@color/text_primary"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Dựa trên phân tích 5 bài làm gần nhất"
-                        android:textColor="@color/outline_text"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/btnViewAllWeakTypes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:text="Xem tất cả  ➔"
-                    android:textColor="@color/primary_blue"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:overScrollMode="never"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <!-- Weak Item 1: T / F / Not Given -->
-                    <LinearLayout
-                        android:id="@+id/cardWeakTFNG"
-                        android:layout_width="220dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="12dp"
-                        android:background="@drawable/bg_test_card"
-                        android:orientation="vertical"
-                        android:padding="14dp">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Reading • Part 1 &amp; 2"
-                                android:textColor="@color/outline_text"
-                                android:textSize="11sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:background="@drawable/bg_badge_orange"
-                                android:paddingStart="8dp"
-                                android:paddingTop="2dp"
-                                android:paddingEnd="8dp"
-                                android:paddingBottom="2dp"
-                                android:text="54% Đúng"
-                                android:textColor="@color/badge_orange_text"
-                                android:textSize="10sp"
-                                android:textStyle="bold" />
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="T / F / Not Given"
-                            android:textColor="@color/text_primary"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:text="120 câu hỏi luyện tập"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="12sp" />
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="36dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/bg_btn_white_outlined"
-                            android:paddingStart="16dp"
-                            android:paddingEnd="16dp"
-                            android:text="Luyện ngay"
-                            android:textAllCaps="false"
-                            android:textColor="@color/primary_blue"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <!-- Weak Item 2: Matching Headings -->
-                    <LinearLayout
-                        android:id="@+id/cardWeakMatching"
-                        android:layout_width="220dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_test_card"
-                        android:orientation="vertical"
-                        android:padding="14dp">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Reading • Passage 2 &amp; 3"
-                                android:textColor="@color/outline_text"
-                                android:textSize="11sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:background="@drawable/bg_badge_orange"
-                                android:paddingStart="8dp"
-                                android:paddingTop="2dp"
-                                android:paddingEnd="8dp"
-                                android:paddingBottom="2dp"
-                                android:text="62% Đúng"
-                                android:textColor="@color/badge_orange_text"
-                                android:textSize="10sp"
-                                android:textStyle="bold" />
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="Matching Headings"
-                            android:textColor="@color/text_primary"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:text="85 câu hỏi luyện tập"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="12sp" />
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="36dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/bg_btn_white_outlined"
-                            android:paddingStart="16dp"
-                            android:paddingEnd="16dp"
-                            android:text="Luyện ngay"
-                            android:textAllCaps="false"
-                            android:textColor="@color/primary_blue"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </LinearLayout>
-            </HorizontalScrollView>
 
             <!-- 6. Bài Làm Gần Đây -->
             <RelativeLayout
@@ -758,6 +576,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvRecentReadingTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Cam 18 - Reading Test 1"
@@ -766,6 +585,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvRecentReadingSubtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hôm qua lúc 15:30 • 34/40 câu"
@@ -774,6 +594,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tvRecentReadingBand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_badge_blue"
