@@ -14,6 +14,8 @@ import kotlinx.coroutines.launch
 import com.example.ielts.data.remote.ApiClient
 import com.example.ielts.data.remote.dto.LogoutRequest
 import com.example.ielts.ui.auth.ProfileActivity
+import com.example.ielts.ui.practice.PracticeHubActivity
+import com.example.ielts.ui.reading.ReadingListActivity
 import com.example.ielts.utils.Constants
 
 class MainActivity : AppCompatActivity() {
@@ -176,10 +178,12 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
 
-        // Card Reading
-        findViewById<View>(R.id.btnStartReading)?.setOnClickListener {
-            Toast.makeText(this, "Bắt đầu luyện Reading Đề 1 (20 phút)...", Toast.LENGTH_SHORT).show()
+        // Card Reading & Button Start Reading
+        val openReadingList = View.OnClickListener {
+            startActivity(Intent(this, ReadingListActivity::class.java))
         }
+        findViewById<View>(R.id.btnStartReading)?.setOnClickListener(openReadingList)
+        findViewById<View>(R.id.cardReading)?.setOnClickListener(openReadingList)
 
         // Card Từ vựng
         findViewById<View>(R.id.btnStartVocab)?.setOnClickListener {
@@ -188,7 +192,7 @@ class MainActivity : AppCompatActivity() {
 
         // Xem tất cả kế hoạch
         findViewById<View>(R.id.btnViewAllPlan)?.setOnClickListener {
-            Toast.makeText(this, "Mở danh sách bài học trong ngày...", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, PracticeHubActivity::class.java))
         }
 
         // Speaking Part 2 simulator banner
@@ -206,7 +210,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.navPractice)?.setOnClickListener {
-            Toast.makeText(this, "Tab Luyện thi Cambridge 19", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, PracticeHubActivity::class.java))
         }
 
         findViewById<View>(R.id.navVocab)?.setOnClickListener {

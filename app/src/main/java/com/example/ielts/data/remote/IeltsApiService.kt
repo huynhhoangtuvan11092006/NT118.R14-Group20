@@ -72,4 +72,11 @@ interface IeltsApiService {
         @Header("Authorization") token: String,
         @Body essayBody: Map<String, String>
     ): Response<WritingEvaluationResponse>
+
+    // --- LUYỆN THI READING ---
+    @GET("api/v1/tests?type=READING")
+    suspend fun getReadingTests(
+        @Header("Authorization") token: String? = null
+    ): Response<List<com.example.ielts.data.remote.dto.ReadingTestListItemDto>>
 }
+
