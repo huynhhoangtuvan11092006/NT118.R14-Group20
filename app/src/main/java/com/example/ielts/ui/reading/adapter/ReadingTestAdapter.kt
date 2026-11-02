@@ -11,7 +11,8 @@ import com.example.ielts.data.remote.dto.ReadingTestListItemDto
 
 class ReadingTestAdapter(
     private var testList: List<ReadingTestListItemDto>,
-    private val onTestClick: (ReadingTestListItemDto) -> Unit
+    private val onStartTest: (ReadingTestListItemDto) -> Unit,
+    private val onViewAnalysis: (ReadingTestListItemDto) -> Unit
 ) : RecyclerView.Adapter<ReadingTestAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -54,6 +55,30 @@ class ReadingTestAdapter(
             }
             titleUpper.contains("17") -> {
                 holder.tvSeriesBadge.text = "Cambridge 17"
+                holder.tvNewBadge.visibility = View.GONE
+            }
+            titleUpper.contains("16") -> {
+                holder.tvSeriesBadge.text = "Cambridge 16"
+                holder.tvNewBadge.visibility = View.GONE
+            }
+            titleUpper.contains("15") -> {
+                holder.tvSeriesBadge.text = "Cambridge 15"
+                holder.tvNewBadge.visibility = View.GONE
+            }
+            titleUpper.contains("14") -> {
+                holder.tvSeriesBadge.text = "Cambridge 14"
+                holder.tvNewBadge.visibility = View.GONE
+            }
+            titleUpper.contains("13") -> {
+                holder.tvSeriesBadge.text = "Cambridge 13"
+                holder.tvNewBadge.visibility = View.GONE
+            }
+            titleUpper.contains("12") -> {
+                holder.tvSeriesBadge.text = "Cambridge 12"
+                holder.tvNewBadge.visibility = View.GONE
+            }
+            titleUpper.contains("11") -> {
+                holder.tvSeriesBadge.text = "Cambridge 11"
                 holder.tvNewBadge.visibility = View.GONE
             }
             else -> {
@@ -107,10 +132,16 @@ class ReadingTestAdapter(
         }
 
         // 6. Action Clicks
-        holder.btnStartTest.setOnClickListener { onTestClick(item) }
-        holder.btnRetake.setOnClickListener { onTestClick(item) }
-        holder.btnViewAnalysis.setOnClickListener { onTestClick(item) }
-        holder.itemView.setOnClickListener { onTestClick(item) }
+        holder.btnStartTest.setOnClickListener { onStartTest(item) }
+        holder.btnRetake.setOnClickListener { onStartTest(item) }
+        holder.btnViewAnalysis.setOnClickListener { onViewAnalysis(item) }
+        holder.itemView.setOnClickListener {
+            if (item.userProgress != null) {
+                onViewAnalysis(item)
+            } else {
+                onStartTest(item)
+            }
+        }
     }
 
     override fun getItemCount(): Int = testList.size

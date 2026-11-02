@@ -17,14 +17,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ielts.MainActivity
 import com.example.ielts.R
+import com.example.ielts.data.datasource.CambridgeReadingDataSource
+import com.example.ielts.data.local.ReadingStatsManager
 import com.example.ielts.data.remote.ApiClient
 import com.example.ielts.data.remote.dto.ReadingTestListItemDto
-import com.example.ielts.data.remote.dto.UserProgressDto
 import com.example.ielts.ui.auth.ProfileActivity
 import com.example.ielts.ui.practice.PracticeHubActivity
 import com.example.ielts.ui.reading.adapter.ReadingTestAdapter
 import com.example.ielts.utils.Constants
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class ReadingListActivity : AppCompatActivity() {
 
@@ -34,14 +36,30 @@ class ReadingListActivity : AppCompatActivity() {
     private lateinit var tvResultCount: TextView
     private lateinit var edtSearchTests: EditText
 
+    // Top Stats Card
+    private lateinit var tvRecentBand: TextView
+    private lateinit var tvRecentBandDiff: TextView
+    private lateinit var tvPracticedCount: TextView
+    private lateinit var tvPracticedPassages: TextView
+    private lateinit var tvAccuracyAvg: TextView
+    private lateinit var pbAccuracyAvg: ProgressBar
+
+    // Filter Chips
     private lateinit var chipAll: TextView
     private lateinit var chipCam19: TextView
     private lateinit var chipCam18: TextView
+    private lateinit var chipCam17: TextView
+    private lateinit var chipCam16: TextView
+    private lateinit var chipCam15: TextView
+    private lateinit var chipCam14: TextView
+    private lateinit var chipCam13: TextView
+    private lateinit var chipCam12: TextView
+    private lateinit var chipCam11: TextView
     private lateinit var chipPassage: TextView
 
     private lateinit var adapter: ReadingTestAdapter
     private val allTests = mutableListOf<ReadingTestListItemDto>()
-    private var currentFilter: String = "ALL" // ALL, CAM19, CAM18, PASSAGE
+    private var currentFilter: String = "ALL" // ALL, CAM19, CAM18, CAM17, CAM16, CAM15, CAM14, CAM13, CAM12, CAM11, PASSAGE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +68,14 @@ class ReadingListActivity : AppCompatActivity() {
         initViews()
         setupListeners()
         setupRecyclerView()
+        updateStatsHeader()
         loadReadingTests()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateStatsHeader()
+        refreshTestsWithUserProgress()
     }
 
     private fun initViews() {
@@ -60,16 +85,72 @@ class ReadingListActivity : AppCompatActivity() {
         tvResultCount = findViewById(R.id.tvResultCount)
         edtSearchTests = findViewById(R.id.edtSearchTests)
 
+        // Top Stats Card Views
+        tvRecentBand = findViewById(R.id.tvRecentBand)
+        tvRecentBandDiff = findViewById(R.id.tvRecentBandDiff)
+        tvPracticedCount = findViewById(R.id.tvPracticedCount)
+        tvPracticedPassages = findViewById(R.id.tvPracticedPassages)
+        tvAccuracyAvg = findViewById(R.id.tvAccuracyAvg)
+        pbAccuracyAvg = findViewById(R.id.pbAccuracyAvg)
+
         chipAll = findViewById(R.id.chipAll)
         chipCam19 = findViewById(R.id.chipCam19)
         chipCam18 = findViewById(R.id.chipCam18)
+        chipCam17 = findViewById(R.id.chipCam17)
+        chipCam16 = findViewById(R.id.chipCam16)
+        chipCam15 = findViewById(R.id.chipCam15)
+        chipCam14 = findViewById(R.id.chipCam14)
+        chipCam13 = findViewById(R.id.chipCam13)
+        chipCam12 = findViewById(R.id.chipCam12)
+        chipCam11 = findViewById(R.id.chipCam11)
         chipPassage = findViewById(R.id.chipPassage)
     }
 
-    private fun setupRecyclerView() {
-        adapter = ReadingTestAdapter(emptyList()) { testItem ->
-            onTestSelected(testItem)
+    private fun updateStatsHeader() {
+        val stats = ReadingStatsManager.getStats(this)
+
+        tvRecentBand.text = String.format(Locale.US, "%.1f", stats.recentBand)
+        tvRecentBandDiff.text = stats.bandDiff
+
+        when {
+            stats.bandDiff.startsWith("+") && stats.bandDiff != "+0.0" -> {
+                tvRecentBandDiff.setTextColor(Color.parseColor("#16A34A")) // Green
+            }
+            stats.bandDiff.startsWith("-") -> {
+                tvRecentBandDiff.setTextColor(Color.parseColor("#DC2626")) // Red
+            }
+            else -> {
+                tvRecentBandDiff.setTextColor(Color.parseColor("#64748B")) // Slate Gray
+            }
         }
+
+        tvPracticedCount.text = "${stats.testsPracticed} đề"
+        tvPracticedPassages.text = "${stats.passagesPracticed} passages"
+        tvAccuracyAvg.text = "${stats.accuracyAvg}%"
+        pbAccuracyAvg.progress = stats.accuracyAvg.coerceIn(0, 100)
+    }
+
+    private fun refreshTestsWithUserProgress() {
+        var changed = false
+        for (i in allTests.indices) {
+            val test = allTests[i]
+            val savedProgress = ReadingStatsManager.getUserProgressForTest(this, test.id)
+            if (savedProgress != null && (test.userProgress == null || test.userProgress?.highestScore != savedProgress.highestScore)) {
+                allTests[i] = test.copy(userProgress = savedProgress)
+                changed = true
+            }
+        }
+        if (changed) {
+            applyFilterAndSearch()
+        }
+    }
+
+    private fun setupRecyclerView() {
+        adapter = ReadingTestAdapter(
+            testList = emptyList(),
+            onStartTest = { testItem -> onTestSelected(testItem) },
+            onViewAnalysis = { testItem -> onViewAnalysisSelected(testItem) }
+        )
         rvReadingTests.layoutManager = LinearLayoutManager(this)
         rvReadingTests.adapter = adapter
     }
@@ -93,6 +174,13 @@ class ReadingListActivity : AppCompatActivity() {
         chipAll.setOnClickListener { selectFilter("ALL") }
         chipCam19.setOnClickListener { selectFilter("CAM19") }
         chipCam18.setOnClickListener { selectFilter("CAM18") }
+        chipCam17.setOnClickListener { selectFilter("CAM17") }
+        chipCam16.setOnClickListener { selectFilter("CAM16") }
+        chipCam15.setOnClickListener { selectFilter("CAM15") }
+        chipCam14.setOnClickListener { selectFilter("CAM14") }
+        chipCam13.setOnClickListener { selectFilter("CAM13") }
+        chipCam12.setOnClickListener { selectFilter("CAM12") }
+        chipCam11.setOnClickListener { selectFilter("CAM11") }
         chipPassage.setOnClickListener { selectFilter("PASSAGE") }
 
         // Search text watcher
@@ -117,7 +205,6 @@ class ReadingListActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.navPractice)?.setOnClickListener {
-            // Quay lại Practice Hub
             val intent = Intent(this, PracticeHubActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             startActivity(intent)
@@ -141,18 +228,22 @@ class ReadingListActivity : AppCompatActivity() {
         val whiteColor = ContextCompat.getColor(this, R.color.white)
         val grayColor = ContextCompat.getColor(this, R.color.text_secondary)
 
-        // Reset all chips
-        chipAll.setBackgroundResource(if (filter == "ALL") selectedBg else unselectedBg)
-        chipAll.setTextColor(if (filter == "ALL") whiteColor else grayColor)
+        fun updateChip(chip: TextView, isSelected: Boolean) {
+            chip.setBackgroundResource(if (isSelected) selectedBg else unselectedBg)
+            chip.setTextColor(if (isSelected) whiteColor else grayColor)
+        }
 
-        chipCam19.setBackgroundResource(if (filter == "CAM19") selectedBg else unselectedBg)
-        chipCam19.setTextColor(if (filter == "CAM19") whiteColor else grayColor)
-
-        chipCam18.setBackgroundResource(if (filter == "CAM18") selectedBg else unselectedBg)
-        chipCam18.setTextColor(if (filter == "CAM18") whiteColor else grayColor)
-
-        chipPassage.setBackgroundResource(if (filter == "PASSAGE") selectedBg else unselectedBg)
-        chipPassage.setTextColor(if (filter == "PASSAGE") whiteColor else grayColor)
+        updateChip(chipAll, filter == "ALL")
+        updateChip(chipCam19, filter == "CAM19")
+        updateChip(chipCam18, filter == "CAM18")
+        updateChip(chipCam17, filter == "CAM17")
+        updateChip(chipCam16, filter == "CAM16")
+        updateChip(chipCam15, filter == "CAM15")
+        updateChip(chipCam14, filter == "CAM14")
+        updateChip(chipCam13, filter == "CAM13")
+        updateChip(chipCam12, filter == "CAM12")
+        updateChip(chipCam11, filter == "CAM11")
+        updateChip(chipPassage, filter == "PASSAGE")
 
         applyFilterAndSearch()
     }
@@ -165,6 +256,13 @@ class ReadingListActivity : AppCompatActivity() {
             val matchesFilter = when (currentFilter) {
                 "CAM19" -> test.title.contains("19", ignoreCase = true)
                 "CAM18" -> test.title.contains("18", ignoreCase = true)
+                "CAM17" -> test.title.contains("17", ignoreCase = true)
+                "CAM16" -> test.title.contains("16", ignoreCase = true)
+                "CAM15" -> test.title.contains("15", ignoreCase = true)
+                "CAM14" -> test.title.contains("14", ignoreCase = true)
+                "CAM13" -> test.title.contains("13", ignoreCase = true)
+                "CAM12" -> test.title.contains("12", ignoreCase = true)
+                "CAM11" -> test.title.contains("11", ignoreCase = true)
                 "PASSAGE" -> true // All tests support passage practice
                 else -> true
             }
@@ -195,6 +293,12 @@ class ReadingListActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
         layoutEmpty.visibility = View.GONE
 
+        // 1. Luôn nạp toàn bộ danh mục Cambridge chuẩn 11 - 19 ngay lập tức
+        allTests.clear()
+        addCuratedFallbackTests()
+        refreshTestsWithUserProgress()
+        applyFilterAndSearch()
+
         val prefs = getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE)
         val token = prefs.getString(Constants.KEY_AUTH_TOKEN, null)
         val authHeader = if (!token.isNullOrEmpty()) {
@@ -208,20 +312,20 @@ class ReadingListActivity : AppCompatActivity() {
                     response.body()!!
                 } else emptyList()
 
-                allTests.clear()
-                allTests.addAll(fetchedList)
-
-                // If backend only has Cambridge 18 Test 1 seeded, supplement with Cambridge 18 Test 2, Cam 19 Tests from Stitch design
-                if (allTests.size <= 1) {
-                    addCuratedFallbackTests()
+                // Ghép nối đề từ backend vào danh mục mà không xóa danh mục 36 đề Cambridge
+                for (fetched in fetchedList) {
+                    val idx = allTests.indexOfFirst { it.id == fetched.id || it.title == fetched.title }
+                    if (idx >= 0) {
+                        allTests[idx] = fetched
+                    } else {
+                        allTests.add(fetched)
+                    }
                 }
 
+                refreshTestsWithUserProgress()
                 applyFilterAndSearch()
             } catch (e: Exception) {
-                // If network failure, load fallback test list matching Stitch design
-                allTests.clear()
-                addCuratedFallbackTests()
-                applyFilterAndSearch()
+                // Đã có sẵn danh mục Cambridge 36 đề
             } finally {
                 progressBar.visibility = View.GONE
             }
@@ -229,103 +333,16 @@ class ReadingListActivity : AppCompatActivity() {
     }
 
     private fun addCuratedFallbackTests() {
-        // Ensure Cam 18 Test 1 exists
-        if (allTests.none { it.title.contains("18 - Test 1") || it.title.contains("18 - Academic Reading Test 1") }) {
-            allTests.add(
-                ReadingTestListItemDto(
-                    id = "cam18-test1",
-                    title = "Cambridge IELTS 18 - Test 1",
-                    summary = "Bộ đề chuẩn khảo thí British Council & IDP",
-                    difficulty = "Trung bình",
-                    durationMinutes = 60,
-                    totalQuestions = 40,
-                    passageTitles = listOf(
-                        "Urban Farming & Green Cities",
-                        "The Forest Canopy Exploration",
-                        "Artificial Intelligence in Modern Healthcare"
-                    ),
-                    userProgress = UserProgressDto(
-                        submissionId = "sub-1",
-                        highestScore = 32f,
-                        bandEstimate = 7.5f,
-                        lastAttemptAt = "2 ngày trước"
-                    )
-                )
-            )
-        } else {
-            // Cam 18 Test 1 was fetched from backend, ensure userProgress demo is present for completed card display
-            val idx = allTests.indexOfFirst { it.title.contains("18") && it.title.contains("1") }
-            if (idx >= 0 && allTests[idx].userProgress == null) {
-                val existing = allTests[idx]
-                allTests[idx] = existing.copy(
-                    userProgress = UserProgressDto(
-                        submissionId = "sub-seeded",
-                        highestScore = 32f,
-                        bandEstimate = 7.5f,
-                        lastAttemptAt = "2 ngày trước"
-                    )
-                )
+        val curated = CambridgeReadingDataSource.getAllTests()
+        for (test in curated) {
+            val savedProgress = ReadingStatsManager.getUserProgressForTest(this, test.id)
+            val progressToUse = savedProgress ?: test.userProgress
+            val existingIdx = allTests.indexOfFirst { it.id == test.id }
+            if (existingIdx >= 0) {
+                allTests[existingIdx] = allTests[existingIdx].copy(userProgress = progressToUse)
+            } else {
+                allTests.add(test.copy(userProgress = progressToUse))
             }
-        }
-
-        // Cam 18 Test 2
-        if (allTests.none { it.title.contains("18 - Test 2") }) {
-            allTests.add(
-                ReadingTestListItemDto(
-                    id = "cam18-test2",
-                    title = "Cambridge IELTS 18 - Test 2",
-                    summary = "Bộ đề chuẩn khảo thí British Council & IDP",
-                    difficulty = "Khó",
-                    durationMinutes = 60,
-                    totalQuestions = 40,
-                    passageTitles = listOf(
-                        "Stone Age Cave Art Discoveries",
-                        "The Migration Patterns of Marine Animals",
-                        "The Psychology of Decision Making"
-                    ),
-                    userProgress = null
-                )
-            )
-        }
-
-        // Cam 19 Test 1
-        if (allTests.none { it.title.contains("19 - Test 1") }) {
-            allTests.add(
-                ReadingTestListItemDto(
-                    id = "cam19-test1",
-                    title = "Cambridge IELTS 19 - Test 1",
-                    summary = "Phiên bản phát hành mới nhất năm 2024",
-                    difficulty = "Trung bình",
-                    durationMinutes = 60,
-                    totalQuestions = 40,
-                    passageTitles = listOf(
-                        "Sustainable Architecture in Scandinavia",
-                        "Evolution of Spoken Languages",
-                        "Deep Sea Ecosystems & Climate Change"
-                    ),
-                    userProgress = null
-                )
-            )
-        }
-
-        // Cam 19 Test 2
-        if (allTests.none { it.title.contains("19 - Test 2") }) {
-            allTests.add(
-                ReadingTestListItemDto(
-                    id = "cam19-test2",
-                    title = "Cambridge IELTS 19 - Test 2",
-                    summary = "Bộ đề chuẩn khảo thí British Council & IDP",
-                    difficulty = "Nâng cao",
-                    durationMinutes = 60,
-                    totalQuestions = 40,
-                    passageTitles = listOf(
-                        "Renewable Energy in Extreme Climates",
-                        "The History of Silk Road Trade",
-                        "Cognitive Linguistics & Memory"
-                    ),
-                    userProgress = null
-                )
-            )
         }
     }
 
@@ -336,6 +353,21 @@ class ReadingListActivity : AppCompatActivity() {
             putExtra("TEST_TITLE", testItem.title)
             putExtra("TEST_DURATION", testItem.durationMinutes)
             putExtra("TOTAL_QUESTIONS", testItem.totalQuestions)
+        }
+        startActivity(intent)
+    }
+
+    private fun onViewAnalysisSelected(testItem: ReadingTestListItemDto) {
+        val record = ReadingStatsManager.getSavedResultForTest(this, testItem.id)
+        val intent = Intent(this, ReadingResultActivity::class.java).apply {
+            putExtra("TEST_ID", testItem.id)
+            putExtra("TEST_TITLE", testItem.title)
+            putExtra("SCORE", record?.score ?: (testItem.userProgress?.highestScore?.toInt() ?: 32))
+            putExtra("TOTAL_QUESTIONS", record?.totalQuestions ?: testItem.totalQuestions)
+            putExtra("BAND_ESTIMATE", record?.bandEstimate ?: (testItem.userProgress?.bandEstimate?.toDouble() ?: 7.5))
+            putExtra("DURATION_SPENT", 2400)
+            putExtra("RESULT_JSON", record?.resultJson)
+            putExtra("PASSAGES_JSON", record?.passagesJson)
         }
         startActivity(intent)
     }

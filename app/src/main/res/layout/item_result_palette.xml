@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="44dp"
+    android:layout_height="44dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Active Selection Ring View (shown when user selects/views this question) -->
+    <View
+        android:id="@+id/viewSelectionRing"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_palette_circle_active"
+        android:visibility="gone" />
+
+    <!-- Number Circle Button with Status Color -->
+    <TextView
+        android:id="@+id/tvPaletteNumber"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_result_palette_unanswered"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="#64748B"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+</FrameLayout>
