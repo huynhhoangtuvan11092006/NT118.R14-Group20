@@ -25,16 +25,7 @@ class PracticeHubActivity : AppCompatActivity() {
             finish()
         }
 
-        // 2. Top action buttons
-        findViewById<View>(R.id.btnHistory)?.setOnClickListener {
-            Toast.makeText(this, "Lịch sử luyện tập các kỹ năng", Toast.LENGTH_SHORT).show()
-        }
-
-        findViewById<View>(R.id.btnBookmark)?.setOnClickListener {
-            Toast.makeText(this, "Danh sách bài thi & câu hỏi đã lưu", Toast.LENGTH_SHORT).show()
-        }
-
-        // 3. Mock Test Hero Banner
+        // 2. Mock Test Hero Banner
         val onMockTestClick = View.OnClickListener {
             Toast.makeText(this, "Bắt đầu thi thử Full Mock Test 4 kỹ năng (180 phút)...", Toast.LENGTH_SHORT).show()
         }
