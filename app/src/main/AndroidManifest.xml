@@ -21,6 +21,18 @@
             android:exported="true" />
 
         <activity
+            android:name=".ui.practice.PracticeHubActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.reading.ReadingListActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.reading.ReadingPracticeActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.auth.TargetBandActivity"
             android:exported="true" />
 

@@ -34,4 +34,32 @@
     <color name="accent_green">#16A34A</color>
     <color name="white">#FFFFFFFF</color>
     <color name="black">#FF000000</color>
+
+    <!-- 4 Skills Cards Palette -->
+    <color name="card_reading_bg">#EFF6FF</color>
+    <color name="card_reading_accent">#2563EB</color>
+    <color name="card_listening_bg">#F5F3FF</color>
+    <color name="card_listening_accent">#7C3AED</color>
+    <color name="card_writing_bg">#FFFBEB</color>
+    <color name="card_writing_accent">#D97706</color>
+    <color name="card_speaking_bg">#F0FDF4</color>
+    <color name="card_speaking_accent">#16A34A</color>
+
+    <!-- Hub Gradients & Tags -->
+    <color name="gradient_hub_start">#0F172A</color>
+    <color name="gradient_hub_mid">#1E3A8A</color>
+    <color name="gradient_hub_end">#0284C7</color>
+    <color name="chip_bg_active">#2563EB</color>
+    <color name="chip_bg_inactive">#F1F5F9</color>
+    <color name="tag_bg_soft">#F8FAFC</color>
+    <color name="border_subtle">#E2E8F0</color>
+    <color name="badge_green_bg">#DCFCE7</color>
+    <color name="badge_green_text">#15803D</color>
+    <color name="badge_blue_bg">#DBEAFE</color>
+    <color name="badge_blue_text">#1D4ED8</color>
+    <color name="badge_purple_bg">#F3E8FF</color>
+    <color name="badge_purple_text">#7E22CE</color>
+    <color name="badge_yellow_bg">#FEF3C7</color>
+    <color name="badge_yellow_text">#D97706</color>
+    <color name="text_tertiary">#64748B</color>
 </resources>
