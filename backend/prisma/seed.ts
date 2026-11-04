@@ -590,6 +590,109 @@ Ultimately, consensus among bioethicists and clinical leaders emphasizes that AI
 
     console.log(`🎉 Successfully seeded 40 questions for Listening Test: ${listeningTest.title}!`);
   }
+
+  // Seed additional tests from catalog
+  const catalogPath = path.resolve(__dirname, "../src/data/listening_tests_catalog.json");
+  if (fs.existsSync(catalogPath)) {
+    const rawCatalog = fs.readFileSync(catalogPath, "utf-8");
+    const catalogTests = JSON.parse(rawCatalog) as Array<{
+      title: string;
+      summary: string;
+      difficulty: string;
+      durationMinutes: number;
+      totalAudioDuration: number;
+      audioUrl: string;
+      sections: Array<{ sectionNumber: number; title: string; audioUrl: string; durationSeconds: number }>;
+    }>;
+
+    for (const item of catalogTests) {
+      const existing = await prisma.test.findFirst({
+        where: { title: item.title, type: TestType.LISTENING },
+      });
+      if (existing) {
+        continue;
+      }
+
+      const descPayload = JSON.stringify({
+        summary: item.summary,
+        difficulty: item.difficulty,
+        durationMinutes: item.durationMinutes,
+        totalAudioDuration: item.totalAudioDuration,
+        audioUrl: item.audioUrl,
+        sections: item.sections,
+      });
+
+      const newTest = await prisma.test.create({
+        data: {
+          title: item.title,
+          description: descPayload,
+          type: TestType.LISTENING,
+          status: TestStatus.PUBLISHED,
+          durationMinutes: item.durationMinutes ?? 35,
+        },
+      });
+
+      // Tạo 40 câu hỏi mẫu chuẩn cho đề
+      const questionsToInsert = [];
+      for (let i = 1; i <= 40; i++) {
+        let qType = QuestionType.MULTIPLE_CHOICE;
+        let prompt = `Question ${i}: Choose the correct letter A, B, or C`;
+        let options = ["A. Option A", "B. Option B", "C. Option C"];
+        let answerKey: Record<string, unknown> = { value: "A", accepted: ["A"] };
+        let sectionNumber = 1;
+
+        if (i <= 10) {
+          sectionNumber = 1;
+          qType = QuestionType.FILL_IN_BLANK;
+          prompt = `Question ${i}: Complete the notes below with ONE WORD AND/OR A NUMBER: Detail ________`;
+          options = [];
+          answerKey = { value: "center", accepted: ["center", "centre", "central"] };
+        } else if (i <= 20) {
+          sectionNumber = 2;
+          qType = QuestionType.MULTIPLE_CHOICE;
+          prompt = `Question ${i}: What is highlighted about the community facility?`;
+          options = ["A. It opened last month", "B. Free for residents", "C. Requires booking in advance"];
+          answerKey = { value: "B", accepted: ["B"] };
+        } else if (i <= 30) {
+          sectionNumber = 3;
+          qType = QuestionType.MULTIPLE_CHOICE;
+          prompt = `Question ${i}: What surprised the students most during their project research?`;
+          options = ["A. The high cost involved", "B. The speed of implementation", "C. The lack of previous data"];
+          answerKey = { value: "C", accepted: ["C"] };
+        } else {
+          sectionNumber = 4;
+          qType = QuestionType.FILL_IN_BLANK;
+          prompt = `Question ${i}: The speaker concludes that effective ________ is vital for future sustainability.`;
+          options = [];
+          answerKey = { value: "management", accepted: ["management", "planning"] };
+        }
+
+        const expObj = {
+          sectionNumber,
+          timestampStart: (sectionNumber - 1) * 420 + ((i % 10) + 1) * 35,
+          quote: `Audio transcript snippet corresponding to answer for Question ${i}.`,
+          distractor: `Explanation and distractor analysis for Question ${i}.`,
+        };
+
+        questionsToInsert.push({
+          testId: newTest.id,
+          position: i,
+          type: qType,
+          prompt,
+          options: options.length > 0 ? options : undefined,
+          answerKey,
+          explanation: JSON.stringify(expObj),
+          points: 1,
+        });
+      }
+
+      await prisma.question.createMany({
+        data: questionsToInsert,
+      });
+
+      console.log(`✅ Seeded catalog test: ${item.title} with 40 questions!`);
+    }
+  }
 }
 
 main()
