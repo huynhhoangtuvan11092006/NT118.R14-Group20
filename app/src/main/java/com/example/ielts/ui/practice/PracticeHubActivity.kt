@@ -10,8 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.ielts.MainActivity
 import com.example.ielts.R
 import com.example.ielts.data.datasource.CambridgeReadingDataSource
+import com.example.ielts.data.datasource.CambridgeListeningDataSource
 import com.example.ielts.data.local.ReadingStatsManager
+import com.example.ielts.data.local.ListeningStatsManager
 import com.example.ielts.ui.auth.ProfileActivity
+import com.example.ielts.ui.listening.ListeningListActivity
 import com.example.ielts.ui.reading.ReadingListActivity
 import com.example.ielts.ui.reading.ReadingResultActivity
 import java.util.Locale
@@ -113,7 +116,8 @@ class PracticeHubActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.cardListeningSkill)?.setOnClickListener {
-            Toast.makeText(this, "Kho đề thi Listening Cambridge 18-19 sắp ra mắt!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, ListeningListActivity::class.java)
+            startActivity(intent)
         }
 
         findViewById<View>(R.id.cardWritingSkill)?.setOnClickListener {
@@ -150,7 +154,8 @@ class PracticeHubActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.itemRecentListening)?.setOnClickListener {
-            Toast.makeText(this, "Luyện lại Section 3 Cambridge 18 Listening", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, ListeningListActivity::class.java)
+            startActivity(intent)
         }
 
         // 7. Bottom Navigation
