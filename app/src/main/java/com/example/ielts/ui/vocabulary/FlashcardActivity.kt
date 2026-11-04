@@ -37,8 +37,6 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var cardContainer: View
     private lateinit var faceFront: View
     private lateinit var faceBack: View
-    private lateinit var btnFlip: Button
-    private lateinit var btnNextCard: View
     private lateinit var btnHeaderNext: View
     private lateinit var layoutSrs: View
     private lateinit var pbSession: ProgressBar
@@ -119,8 +117,6 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         cardContainer = findViewById(R.id.cardContainer)
         faceFront = findViewById(R.id.faceFront)
         faceBack = findViewById(R.id.faceBack)
-        btnFlip = findViewById(R.id.btnFlip)
-        btnNextCard = findViewById(R.id.btnNextCard)
         btnHeaderNext = findViewById(R.id.btnHeaderNext)
         layoutSrs = findViewById(R.id.layoutSrs)
         pbSession = findViewById(R.id.pbSession)
@@ -150,11 +146,7 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun setupListeners() {
         findViewById<View>(R.id.btnClose).setOnClickListener { finish() }
 
-        // Flip triggers
-        btnFlip.setOnClickListener { flipCard() }
-
-        // Next card triggers (Bỏ qua / Xem thẻ sau)
-        btnNextCard.setOnClickListener { advanceCard(null) }
+        // Next card trigger (nút mũi tên trên thanh tiêu đề)
         btnHeaderNext.setOnClickListener { advanceCard(null) }
 
         // Pronounce audio
@@ -239,7 +231,6 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         cardContainer.rotationY = 0f
         faceFront.visibility = View.VISIBLE
         faceBack.visibility = View.GONE
-        btnFlip.text = "Lật thẻ xem nghĩa & Collocations"
         layoutSrs.visibility = View.VISIBLE
     }
 
@@ -303,7 +294,6 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 showingBack = toBack
                 faceFront.visibility = if (toBack) View.GONE else View.VISIBLE
                 faceBack.visibility = if (toBack) View.VISIBLE else View.GONE
-                btnFlip.text = if (toBack) "Lật lại mặt trước (ví dụ)" else "Lật thẻ xem nghĩa & Collocations"
 
                 cardContainer.rotationY = if (toBack) -90f else 90f
                 cardContainer.animate()

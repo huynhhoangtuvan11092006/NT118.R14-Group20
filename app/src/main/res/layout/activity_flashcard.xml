@@ -477,152 +477,105 @@
 
     <!-- Bottom controls -->
     <LinearLayout
+        android:id="@+id/layoutSrs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="14dp"
-        android:orientation="vertical">
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
 
-        <!-- Flip button row with Skip/Next -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:id="@+id/btnAgain"
+            android:layout_width="0dp"
+            android:layout_height="66dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_srs_again"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnFlip"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_btn_secondary_outline"
-                android:drawableStart="@drawable/ic_flip"
-                android:drawablePadding="8dp"
-                android:drawableTint="@color/primary_blue"
-                android:elevation="1dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="Lật thẻ xem nghĩa &amp; Collocations"
-                android:textAllCaps="false"
-                android:textColor="@color/primary_blue"
-                android:textSize="14sp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chưa nhớ"
+                android:textColor="#B91C1C"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnNextCard"
+            <TextView
+                android:id="@+id/tvAgainInterval"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/bg_btn_secondary_outline"
-                android:drawableEnd="@drawable/ic_chevron_right"
-                android:drawableTint="@color/text_secondary"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp"
-                android:text="Bỏ qua"
-                android:textAllCaps="false"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="1 phút"
+                android:textColor="#B91C1C"
+                android:textSize="11sp" />
         </LinearLayout>
 
-        <!-- SRS Rating controls: ALWAYS VISIBLE -->
         <LinearLayout
-            android:id="@+id/layoutSrs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:id="@+id/btnHard"
+            android:layout_width="0dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_srs_hard"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/btnAgain"
-                android:layout_width="0dp"
-                android:layout_height="62dp"
-                android:layout_marginEnd="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_srs_again"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Khó"
+                android:textColor="#C2410C"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Chưa nhớ"
-                    android:textColor="#B91C1C"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvHardInterval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="1 ngày"
+                android:textColor="#C2410C"
+                android:textSize="11sp" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvAgainInterval"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:text="1 phút"
-                    android:textColor="#B91C1C"
-                    android:textSize="11sp" />
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/btnEasy"
+            android:layout_width="0dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_srs_easy"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/btnHard"
-                android:layout_width="0dp"
-                android:layout_height="62dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_srs_hard"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đã thuộc"
+                android:textColor="#15803D"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Khó"
-                    android:textColor="#C2410C"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvHardInterval"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:text="1 ngày"
-                    android:textColor="#C2410C"
-                    android:textSize="11sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/btnEasy"
-                android:layout_width="0dp"
-                android:layout_height="62dp"
-                android:layout_marginStart="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_srs_easy"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Dễ"
-                    android:textColor="#15803D"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvEasyInterval"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:text="4 ngày"
-                    android:textColor="#15803D"
-                    android:textSize="11sp" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tvEasyInterval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Thuộc ngay"
+                android:textColor="#15803D"
+                android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
+
