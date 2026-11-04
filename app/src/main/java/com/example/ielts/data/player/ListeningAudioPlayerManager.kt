@@ -3,7 +3,10 @@ package com.example.ielts.data.player
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.annotation.OptIn
+import androidx.media3.common.AudioAttributes
+import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.PlaybackParameters
@@ -21,6 +24,7 @@ interface AudioPlayerListener {
 @OptIn(UnstableApi::class)
 class ListeningAudioPlayerManager(private val context: Context) {
 
+    private val tag = "ListeningAudioPlayer"
     private var exoPlayer: ExoPlayer? = null
     private var listener: AudioPlayerListener? = null
     private var currentUrl: String? = null
@@ -47,44 +51,55 @@ class ListeningAudioPlayerManager(private val context: Context) {
     private fun initPlayer() {
         if (exoPlayer != null) return
 
-        exoPlayer = ExoPlayer.Builder(context).build().apply {
-            addListener(object : Player.Listener {
-                override fun onPlaybackStateChanged(playbackState: Int) {
-                    when (playbackState) {
-                        Player.STATE_BUFFERING -> {
-                            listener?.onStateChanged(isPlaying = false, isBuffering = true)
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(C.USAGE_MEDIA)
+            .setContentType(C.AUDIO_CONTENT_TYPE_SPEECH)
+            .build()
+
+        exoPlayer = ExoPlayer.Builder(context)
+            .setAudioAttributes(audioAttributes, true)
+            .build().apply {
+                volume = 1.0f
+                addListener(object : Player.Listener {
+                    override fun onPlaybackStateChanged(playbackState: Int) {
+                        Log.d(tag, "PlaybackState changed to: $playbackState (READY=3, BUFFERING=2, ENDED=4)")
+                        when (playbackState) {
+                            Player.STATE_BUFFERING -> {
+                                listener?.onStateChanged(isPlaying = false, isBuffering = true)
+                            }
+                            Player.STATE_READY -> {
+                                listener?.onStateChanged(isPlaying = isPlaying, isBuffering = false)
+                                if (isPlaying) startProgressTicker()
+                            }
+                            Player.STATE_ENDED -> {
+                                listener?.onStateChanged(isPlaying = false, isBuffering = false)
+                                listener?.onPlaybackCompleted()
+                                stopProgressTicker()
+                            }
+                            Player.STATE_IDLE -> {
+                                listener?.onStateChanged(isPlaying = false, isBuffering = false)
+                                stopProgressTicker()
+                            }
                         }
-                        Player.STATE_READY -> {
-                            listener?.onStateChanged(isPlaying = isPlaying, isBuffering = false)
-                            if (isPlaying) startProgressTicker()
-                        }
-                        Player.STATE_ENDED -> {
-                            listener?.onStateChanged(isPlaying = false, isBuffering = false)
-                            listener?.onPlaybackCompleted()
-                            stopProgressTicker()
-                        }
-                        Player.STATE_IDLE -> {
-                            listener?.onStateChanged(isPlaying = false, isBuffering = false)
+                    }
+
+                    override fun onIsPlayingChanged(isPlaying: Boolean) {
+                        Log.d(tag, "onIsPlayingChanged: $isPlaying")
+                        listener?.onStateChanged(isPlaying = isPlaying, isBuffering = false)
+                        if (isPlaying) {
+                            startProgressTicker()
+                        } else {
                             stopProgressTicker()
                         }
                     }
-                }
 
-                override fun onIsPlayingChanged(isPlaying: Boolean) {
-                    listener?.onStateChanged(isPlaying = isPlaying, isBuffering = false)
-                    if (isPlaying) {
-                        startProgressTicker()
-                    } else {
+                    override fun onPlayerError(error: PlaybackException) {
+                        Log.e(tag, "ExoPlayer Error: ${error.message}", error)
+                        listener?.onError(error.message ?: "Lỗi phát audio")
                         stopProgressTicker()
                     }
-                }
-
-                override fun onPlayerError(error: PlaybackException) {
-                    listener?.onError(error.message ?: "Lỗi phát audio")
-                    stopProgressTicker()
-                }
-            })
-        }
+                })
+            }
     }
 
     fun setListener(listener: AudioPlayerListener?) {
@@ -93,6 +108,8 @@ class ListeningAudioPlayerManager(private val context: Context) {
 
     fun playUrl(url: String, autoPlay: Boolean = true) {
         if (url.isBlank()) return
+
+        Log.d(tag, "playUrl requested: $url, autoPlay: $autoPlay")
 
         if (url == currentUrl && exoPlayer != null) {
             if (autoPlay && !isPlaying()) {
@@ -105,6 +122,7 @@ class ListeningAudioPlayerManager(private val context: Context) {
         initPlayer()
 
         exoPlayer?.let { player ->
+            player.volume = 1.0f
             val mediaItem = MediaItem.fromUri(url)
             player.setMediaItem(mediaItem)
             player.playbackParameters = PlaybackParameters(currentSpeed)
@@ -116,6 +134,7 @@ class ListeningAudioPlayerManager(private val context: Context) {
     }
 
     fun resume() {
+        exoPlayer?.volume = 1.0f
         exoPlayer?.play()
     }
 
