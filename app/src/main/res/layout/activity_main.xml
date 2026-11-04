@@ -996,14 +996,14 @@
             <ImageView
                 android:layout_width="22dp"
                 android:layout_height="22dp"
-                android:src="@drawable/ic_headphones"
+                android:src="@drawable/ic_menu_book"
                 app:tint="@color/text_secondary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Luyện thi"
+                android:text="Luyện tập"
                 android:textColor="@color/text_secondary"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -1022,7 +1022,7 @@
             <ImageView
                 android:layout_width="22dp"
                 android:layout_height="22dp"
-                android:src="@drawable/ic_draw"
+                android:src="@drawable/ic_school"
                 app:tint="@color/text_secondary" />
 
             <TextView

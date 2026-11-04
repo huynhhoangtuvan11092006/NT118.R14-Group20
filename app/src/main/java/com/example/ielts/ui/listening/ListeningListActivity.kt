@@ -171,6 +171,10 @@ class ListeningListActivity : AppCompatActivity() {
             finish()
         }
 
+        findViewById<View>(R.id.navRoadmap)?.setOnClickListener {
+            Toast.makeText(this, "Lộ trình học cá nhân hóa", Toast.LENGTH_SHORT).show()
+        }
+
         findViewById<View>(R.id.navPractice)?.setOnClickListener {
             val intent = Intent(this, PracticeHubActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
@@ -178,8 +182,8 @@ class ListeningListActivity : AppCompatActivity() {
             finish()
         }
 
-        findViewById<View>(R.id.navAnalytics)?.setOnClickListener {
-            Toast.makeText(this, "Thống kê Listening đã cập nhật ở đầu trang", Toast.LENGTH_SHORT).show()
+        findViewById<View>(R.id.navVocab)?.setOnClickListener {
+            Toast.makeText(this, "Kho Flashcard & Từ vựng IELTS", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<View>(R.id.navProfile)?.setOnClickListener {
