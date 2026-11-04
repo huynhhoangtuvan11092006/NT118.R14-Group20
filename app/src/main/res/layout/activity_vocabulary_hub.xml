@@ -196,34 +196,11 @@
             android:paddingEnd="16dp"
             android:paddingBottom="24dp">
 
-            <!-- Sub header -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mục tiêu hôm nay"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="Kho Từ Vựng Học Thuật"
-                    android:textColor="@color/text_primary"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
             <!-- Hero SRS Card -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/bg_result_hero_card"
                 android:elevation="1dp"
                 android:orientation="vertical"
