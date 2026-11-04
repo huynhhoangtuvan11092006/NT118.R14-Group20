@@ -13,10 +13,10 @@ object CambridgeListeningTestDetailDataSource {
         val sections = listOf(
             ListeningSectionDto(
                 sectionNumber = 1,
-                title = testItem.sectionTitles.getOrElse(0) { "Section 1: Customer Order Inquiry" },
+                title = testItem.sectionTitles.getOrElse(0) { "Section 1: Transport Survey" },
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793754902/%E5%89%9118_section1-part1.mp3",
                 durationSeconds = 420,
-                transcript = "[00:05] Agent: Good morning, City Movers and Storage. How can I help you today?\n[00:10] Customer: Hello, I'm calling to inquire about booking a relocation service for next week.\n[00:16] Agent: Certainly! First, may I take your full name please?\n[00:20] Customer: Yes, my first name is Arthur, spelled A-R-T-H-U-R.\n[00:27] Agent: Thank you, Mr. Arthur. And what is your current address for pickup?\n[00:32] Customer: It's number 24 Willow Road, Cambridge.\n[00:38] Agent: Got it, 24 Willow Road. And could you provide a reliable contact telephone number?\n[00:44] Customer: Of course, my mobile is 07892 345 671.\n[00:52] Agent: Great. Now, what type of goods are we moving primarily?\n[00:56] Customer: Mostly household furniture, such as beds, wardrobes, and dining tables.\n[01:05] Agent: Understood. Do you require any specialized packing boxes for fragile items?\n[01:10] Customer: Yes, especially for our kitchen glassware and fine porcelain dishes.\n[01:18] Agent: We provide full protection cartons for kitchenware. Would you also like to add transit insurance coverage?\n[01:25] Customer: Yes, please include standard insurance against any accidental damage.\n[01:32] Agent: Perfect. What date would you like the moving team to arrive?\n[01:36] Customer: We are aiming for next Friday, the 18th.\n[01:42] Agent: Friday the 18th is available. Do you prefer a morning or afternoon slot?\n[01:47] Customer: The morning would be best, around 8:30 AM before traffic builds up.\n[01:54] Agent: Excellent. Regarding payment method, will that be by credit card or bank cheque?\n[02:00] Customer: A company cheque from my employer will be issued.\n[02:08] Agent: Noted. Lastly, do you have any promotion voucher code?\n[02:13] Customer: Yes, I have a seasonal discount code from your online flyer: RELOC10.\n[02:20] Agent: Fantastic! That applies a 10% saving on your total invoice."
+                transcript = "[00:00] MAN: Excuse me. Would you mind if I asked you some questions? We're doing a survey on transport.\n[00:08] SADIE: Yes, that's OK.\n[00:11] MAN: First of all, can I take your name?\n[00:14] SADIE: Yes. It's Sadie Jones.\n[00:18] MAN: Thanks very much. And could I have your date of birth – just the year will do, actually. Is that all right?\n[00:26] SADIE: Yes, that's fine. It's 1991.\n[00:31] MAN: So next your postcode, please.\n[00:34] SADIE: It's DW3Q 7YZ. [Q1]\n[00:39] MAN: Great. Thanks. Is that in Wells?\n[00:43] SADIE: No, it's actually in Harborne – Wells isn't far from there, though.\n[00:50] MAN: I really like that area. My grandmother lived there when I was a kid.\n[00:56] SADIE: Yes, it is nice.\n[01:00] MAN: Right, so now I want to ask you some questions about how you travelled here today. Did you use public transport?\n[01:09] SADIE: Yes. I came by bus.\n[01:13] MAN: OK. And that was today. It's the 24th of April, isn't it? [Q2]\n[01:20] SADIE: Isn't it the 25th? No, actually, you're right.\n[01:26] MAN: Ha ha. And what was the reason for your trip today? I can see you've got some shopping with you.\n[01:34] SADIE: Yes. I did some shopping but the main reason I came here was to go to the dentist. [Q3]\n[01:43] MAN: That's not much fun. Hope it was nothing serious.\n[01:48] SADIE: No, it was just a check-up. It's fine.\n[01:52] MAN: Good. Do you normally travel by bus into the city centre?\n[01:58] SADIE: Yes. I stopped driving in ages ago because parking was so difficult to find and it costs so much. [Q4]\n[02:08] MAN: I see.\n[02:10] SADIE: The bus is much more convenient too. It only takes about 30 minutes.\n[02:17] MAN: That's good. So where did you start your journey?\n[02:22] SADIE: At the bus stop on Claxby Street. [Q5]\n[02:27] MAN: Is that C-L-A-X-B-Y?\n[02:30] SADIE: That's right.\n[02:35] MAN: And how satisfied with the service are you? Do you have any complaints?\n[02:42] SADIE: Well, as I said, it's very convenient and quick when it's on time, but this morning it was late. Only about 10 minutes, but still. [Q6]\n[02:55] MAN: Yes, I understand that's annoying. And what about the timetable? Do you have any comments about that?\n[03:03] SADIE: Mmm. I suppose I mainly use the bus during the day, but any time I've been in town in the evening – for dinner or at the cinema – I've noticed you have to wait a long time for a bus – there aren't that many. [Q7]\n[03:23] MAN: OK, thanks. So now I'd like to ask you about your car use.\n[03:29] SADIE: Well, I have got a car but I don't use it that often. Mainly just to go to the supermarket. But that's about it really. My husband uses it at the weekends to go to the golf club. [Q8]\n[03:48] MAN: And what about a bicycle?\n[03:51] SADIE: I don't actually have one at the moment.\n[03:55] MAN: What about the city bikes you can rent? Do you ever use those?\n[04:01] SADIE: No – I'm not keen on cycling there because of all the pollution. But I would like to get a bike – it would be good to use it to get to work. [Q9]\n[04:17] MAN: So why haven't you got one now?\n[04:20] SADIE: Well, I live in a flat – on the second floor and it doesn't have any storage – so we'd have to leave it in the hall outside the flat. [Q10]\n[04:34] MAN: I see. OK. Well, I think that's all …"
             ),
             ListeningSectionDto(
                 sectionNumber = 2,
@@ -43,18 +43,18 @@ object CambridgeListeningTestDetailDataSource {
 
         val questions = mutableListOf<ListeningQuestionDetailDto>()
 
-        // Part 1: Questions 1 to 10 (Form completion)
+        // Part 1: Questions 1 to 10 (Transport Survey)
         val p1Prompts = listOf(
-            "Customer First Name: ________",
-            "Delivery Street Address: ________ Willow Road, Cambridge",
-            "Contact Phone: ________",
-            "Type of Household Goods: ________",
-            "Special Protection required for: Kitchen ________",
-            "Insurance policy tier: Standard ________ Coverage",
-            "Preferred Delivery Date: Next Friday, the ________",
-            "Pickup Time Slot: ________ in the morning",
-            "Payment Settlement Method: Company ________",
-            "Seasonal Flyer Discount Code: ________"
+            "Postcode: DW3Q ________",
+            "Date of travel: ________ April",
+            "Reason for trip: to visit the ________",
+            "Travelled by: bus (stopped driving due to difficult ________)",
+            "Journey started at the bus stop on: ________ Street",
+            "Service complaint: bus was about ________ minutes late",
+            "Timetable issue: long wait for bus in the ________",
+            "Car usage: husband uses car at weekends for ________",
+            "Wants to get a bicycle to travel to ________",
+            "Reason for not having bike: no ________ at flat"
         )
         for (i in 0 until 10) {
             questions.add(
