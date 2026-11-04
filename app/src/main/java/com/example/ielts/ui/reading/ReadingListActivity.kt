@@ -109,18 +109,23 @@ class ReadingListActivity : AppCompatActivity() {
     private fun updateStatsHeader() {
         val stats = ReadingStatsManager.getStats(this)
 
-        tvRecentBand.text = String.format(Locale.US, "%.1f", stats.recentBand)
-        tvRecentBandDiff.text = stats.bandDiff
-
-        when {
-            stats.bandDiff.startsWith("+") && stats.bandDiff != "+0.0" -> {
-                tvRecentBandDiff.setTextColor(Color.parseColor("#16A34A")) // Green
-            }
-            stats.bandDiff.startsWith("-") -> {
-                tvRecentBandDiff.setTextColor(Color.parseColor("#DC2626")) // Red
-            }
-            else -> {
-                tvRecentBandDiff.setTextColor(Color.parseColor("#64748B")) // Slate Gray
+        if (stats.testsPracticed == 0) {
+            tvRecentBand.text = "--"
+            tvRecentBandDiff.text = "Mới"
+            tvRecentBandDiff.setTextColor(Color.parseColor("#64748B"))
+        } else {
+            tvRecentBand.text = String.format(Locale.US, "%.1f", stats.recentBand)
+            tvRecentBandDiff.text = stats.bandDiff
+            when {
+                stats.bandDiff.startsWith("+") && stats.bandDiff != "+0.0" -> {
+                    tvRecentBandDiff.setTextColor(Color.parseColor("#16A34A")) // Green
+                }
+                stats.bandDiff.startsWith("-") -> {
+                    tvRecentBandDiff.setTextColor(Color.parseColor("#DC2626")) // Red
+                }
+                else -> {
+                    tvRecentBandDiff.setTextColor(Color.parseColor("#64748B")) // Slate Gray
+                }
             }
         }
 

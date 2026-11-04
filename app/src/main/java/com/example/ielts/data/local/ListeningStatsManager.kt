@@ -85,31 +85,36 @@ object ListeningStatsManager {
     }
 
     fun getSummaryStats(context: Context): ListeningSummaryStats {
-        val prefs = getPrefs(context)
-        val records = getRecords(context)
+        val records = getRecords(context).values.sortedBy { it.completedAtMillis }
 
-        val testsCount = BASELINE_TESTS + records.size
-        val sectionsCount = BASELINE_SECTIONS + (records.size * 4)
-
-        val recentBandFloat = prefs.getFloat(KEY_RECENT_BAND, BASELINE_BAND.toFloat())
-        val prevBandFloat = prefs.getFloat(KEY_PREV_BAND, (BASELINE_BAND - 0.5).toFloat())
-
-        val diff = recentBandFloat - prevBandFloat
-        val diffStr = if (diff >= 0) {
-            String.format(Locale.US, "+%.1f", diff)
-        } else {
-            String.format(Locale.US, "%.1f", diff)
+        if (records.isEmpty()) {
+            return ListeningSummaryStats(
+                recentBand = 0.0,
+                bandDiff = "+0.0",
+                testsPracticed = 0,
+                sectionsPracticed = 0,
+                accuracyAvg = 0
+            )
         }
 
-        val accuracyAvg = if (records.isNotEmpty()) {
-            val totalAccuracy = records.values.sumOf { (it.score.toDouble() / it.totalQuestions.coerceAtLeast(1)) * 100 }
-            ((BASELINE_ACCURACY * BASELINE_TESTS + totalAccuracy) / testsCount).toInt()
-        } else {
-            BASELINE_ACCURACY
+        val latest = records.last()
+        val recentBand = latest.bandEstimate
+        val prevBand = if (records.size >= 2) records[records.size - 2].bandEstimate else latest.bandEstimate
+        val diff = recentBand - prevBand
+        val diffStr = when {
+            diff > 0 -> String.format(Locale.US, "+%.1f", diff)
+            diff < 0 -> String.format(Locale.US, "%.1f", diff)
+            else -> "+0.0"
         }
+
+        val testsCount = records.size
+        val sectionsCount = records.size * 4
+        val totalQuestions = records.sumOf { it.totalQuestions.coerceAtLeast(1) }
+        val totalCorrect = records.sumOf { it.score }
+        val accuracyAvg = if (totalQuestions > 0) ((totalCorrect.toDouble() / totalQuestions) * 100).toInt().coerceIn(0, 100) else 0
 
         return ListeningSummaryStats(
-            recentBand = recentBandFloat.toDouble(),
+            recentBand = recentBand,
             bandDiff = diffStr,
             testsPracticed = testsCount,
             sectionsPracticed = sectionsCount,
