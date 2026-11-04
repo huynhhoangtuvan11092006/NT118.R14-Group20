@@ -87,50 +87,40 @@ object ReadingStatsManager {
     }
 
     fun getStats(context: Context): ReadingSummaryStats {
-        val prefs = getPrefs(context)
-        val records = getRecords(context).values.toList()
+        val records = getRecords(context).values.sortedBy { it.completedAtMillis }
 
         if (records.isEmpty()) {
             return ReadingSummaryStats(
-                recentBand = BASELINE_BAND,
-                bandDiff = BASELINE_BAND_DIFF,
-                testsPracticed = BASELINE_TESTS,
-                passagesPracticed = BASELINE_PASSAGES,
-                accuracyAvg = BASELINE_ACCURACY
+                recentBand = 0.0,
+                bandDiff = "+0.0",
+                testsPracticed = 0,
+                passagesPracticed = 0,
+                accuracyAvg = 0
             )
         }
 
-        // Most recent test record by completion time
-        val latestRecord = records.maxByOrNull { it.completedAtMillis }!!
-        val recentBand = latestRecord.bandEstimate
-
-        // Diff calculation compared to previous band
-        val prevBand = prefs.getFloat(KEY_PREV_BAND, BASELINE_BAND.toFloat()).toDouble()
-        val diffVal = recentBand - prevBand
+        val latest = records.last()
+        val recentBand = latest.bandEstimate
+        val prevBand = if (records.size >= 2) records[records.size - 2].bandEstimate else latest.bandEstimate
+        val diff = recentBand - prevBand
         val bandDiffStr = when {
-            diffVal > 0 -> String.format(Locale.US, "+%.1f", diffVal)
-            diffVal < 0 -> String.format(Locale.US, "%.1f", diffVal)
+            diff > 0 -> String.format(Locale.US, "+%.1f", diff)
+            diff < 0 -> String.format(Locale.US, "%.1f", diff)
             else -> "+0.0"
         }
 
-        // Tests count and passages count
-        val testsCount = BASELINE_TESTS + records.size
+        val testsCount = records.size
         val passagesCount = testsCount * 3
-
-        // Accurate average accuracy
-        var totalAccuracySum = BASELINE_ACCURACY.toDouble() * BASELINE_TESTS
-        for (rec in records) {
-            val acc = if (rec.totalQuestions > 0) (rec.score.toDouble() / rec.totalQuestions * 100) else 0.0
-            totalAccuracySum += acc
-        }
-        val avgAccuracy = (totalAccuracySum / testsCount).toInt().coerceIn(0, 100)
+        val totalQuestions = records.sumOf { it.totalQuestions.coerceAtLeast(1) }
+        val totalCorrect = records.sumOf { it.score }
+        val accuracyAvg = if (totalQuestions > 0) ((totalCorrect.toDouble() / totalQuestions) * 100).toInt().coerceIn(0, 100) else 0
 
         return ReadingSummaryStats(
             recentBand = recentBand,
             bandDiff = bandDiffStr,
             testsPracticed = testsCount,
             passagesPracticed = passagesCount,
-            accuracyAvg = avgAccuracy
+            accuracyAvg = accuracyAvg
         )
     }
 

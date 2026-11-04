@@ -15,7 +15,6 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.IELTs">
 
-
         <activity
             android:name=".MainActivity"
             android:exported="true" />
@@ -41,13 +40,17 @@
             android:exported="true" />
 
         <activity
+            android:name=".ui.listening.ListeningPracticeActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true" />
+
+        <activity
             android:name=".ui.auth.TargetBandActivity"
             android:exported="true" />
 
         <activity
             android:name=".ui.auth.ProfileActivity"
             android:exported="true" />
-
 
         <activity
             android:name=".ui.auth.ForgotPasswordActivity"
@@ -73,7 +76,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
     </application>
 

@@ -29,6 +29,14 @@ class PracticeHubActivity : AppCompatActivity() {
     private var tvRecentReadingSubtitle: TextView? = null
     private var tvRecentReadingBand: TextView? = null
 
+    private var tvListeningSkillCount: TextView? = null
+    private var tvListeningProgressPercent: TextView? = null
+    private var pbListeningProgress: ProgressBar? = null
+
+    private var tvRecentListeningTitle: TextView? = null
+    private var tvRecentListeningSubtitle: TextView? = null
+    private var tvRecentListeningBand: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_practice_hub)
@@ -40,6 +48,7 @@ class PracticeHubActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         loadReadingData()
+        loadListeningData()
     }
 
     private fun initViews() {
@@ -50,6 +59,14 @@ class PracticeHubActivity : AppCompatActivity() {
         tvRecentReadingTitle = findViewById(R.id.tvRecentReadingTitle)
         tvRecentReadingSubtitle = findViewById(R.id.tvRecentReadingSubtitle)
         tvRecentReadingBand = findViewById(R.id.tvRecentReadingBand)
+
+        tvListeningSkillCount = findViewById(R.id.tvListeningSkillCount)
+        tvListeningProgressPercent = findViewById(R.id.tvListeningProgressPercent)
+        pbListeningProgress = findViewById(R.id.pbListeningProgress)
+
+        tvRecentListeningTitle = findViewById(R.id.tvRecentListeningTitle)
+        tvRecentListeningSubtitle = findViewById(R.id.tvRecentListeningSubtitle)
+        tvRecentListeningBand = findViewById(R.id.tvRecentListeningBand)
     }
 
     private fun loadReadingData() {
@@ -88,6 +105,44 @@ class PracticeHubActivity : AppCompatActivity() {
             tvRecentReadingTitle?.text = "Cam 18 - Reading Test 1"
             tvRecentReadingSubtitle?.text = "Hôm qua lúc 15:30 • 34/40 câu"
             tvRecentReadingBand?.text = "Band 7.5"
+        }
+    }
+
+    private fun loadListeningData() {
+        val totalTests = CambridgeListeningDataSource.getAllTests().size
+        tvListeningSkillCount?.text = "${totalTests} đề nghe audio"
+
+        val records = ListeningStatsManager.getRecords(this)
+        val completedTestsCount = records.size
+        val progressPercent = if (totalTests > 0) {
+            ((completedTestsCount.toDouble() / totalTests.toDouble()) * 100).toInt().coerceIn(0, 100)
+        } else {
+            0
+        }
+        tvListeningProgressPercent?.text = "${progressPercent}%"
+        pbListeningProgress?.progress = progressPercent
+
+        val latestRecord = ListeningStatsManager.getLatestRecord(this)
+        if (latestRecord != null) {
+            val allTests = CambridgeListeningDataSource.getAllTests()
+            val testItem = allTests.find { it.id == latestRecord.testId }
+                ?: if (latestRecord.testId.contains("18")) allTests.find { it.id == "cam18-listening-test1" } else allTests.firstOrNull()
+            tvRecentListeningTitle?.text = testItem?.title ?: "Cam Listening Test"
+
+            val diffMs = System.currentTimeMillis() - latestRecord.completedAtMillis
+            val diffMin = diffMs / (60 * 1000)
+            val timeText = when {
+                diffMin < 2 -> "Vừa xong"
+                diffMin < 60 -> "${diffMin} phút trước"
+                diffMin < 1440 -> "${diffMin / 60} giờ trước"
+                else -> "${diffMin / 1440} ngày trước"
+            }
+            tvRecentListeningSubtitle?.text = "${timeText} • ${latestRecord.score}/${latestRecord.totalQuestions} câu"
+            tvRecentListeningBand?.text = String.format(Locale.US, "Band %.1f", latestRecord.bandEstimate)
+        } else {
+            tvRecentListeningTitle?.text = "Cam 18 - Listening Test 1"
+            tvRecentListeningSubtitle?.text = "Chưa làm bài • 0/40 câu"
+            tvRecentListeningBand?.text = "Band --"
         }
     }
 

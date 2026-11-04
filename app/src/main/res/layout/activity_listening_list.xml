@@ -424,12 +424,14 @@
     <LinearLayout
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="62dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
-        android:elevation="8dp"
+        android:elevation="12dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
+        <!-- Tab 1: Trang chủ -->
         <LinearLayout
             android:id="@+id/navHome"
             android:layout_width="0dp"
@@ -444,17 +446,44 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:src="@drawable/ic_home"
-                app:tint="@color/text_tertiary" />
+                app:tint="@color/outline_text" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="Trang chủ"
-                android:textColor="@color/text_tertiary"
-                android:textSize="10sp" />
+                android:textColor="@color/outline_text"
+                android:textSize="11sp" />
         </LinearLayout>
 
+        <!-- Tab 2: Lộ trình -->
+        <LinearLayout
+            android:id="@+id/navRoadmap"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_explore"
+                app:tint="@color/outline_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Lộ trình"
+                android:textColor="@color/outline_text"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- Tab 3: Luyện tập (ACTIVE) -->
         <LinearLayout
             android:id="@+id/navPractice"
             android:layout_width="0dp"
@@ -475,14 +504,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Luyện thi"
+                android:text="Luyện tập"
                 android:textColor="@color/primary_blue"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <!-- Tab 4: Từ vựng -->
         <LinearLayout
-            android:id="@+id/navAnalytics"
+            android:id="@+id/navVocab"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -494,18 +524,19 @@
             <ImageView
                 android:layout_width="22dp"
                 android:layout_height="22dp"
-                android:src="@drawable/ic_chart_line"
-                app:tint="@color/text_tertiary" />
+                android:src="@drawable/ic_school"
+                app:tint="@color/outline_text" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Thống kê"
-                android:textColor="@color/text_tertiary"
-                android:textSize="10sp" />
+                android:text="Từ vựng"
+                android:textColor="@color/outline_text"
+                android:textSize="11sp" />
         </LinearLayout>
 
+        <!-- Tab 5: Cá nhân -->
         <LinearLayout
             android:id="@+id/navProfile"
             android:layout_width="0dp"
@@ -520,17 +551,16 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:src="@drawable/ic_person"
-                app:tint="@color/text_tertiary" />
+                app:tint="@color/outline_text" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="Cá nhân"
-                android:textColor="@color/text_tertiary"
-                android:textSize="10sp" />
+                android:textColor="@color/outline_text"
+                android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
-

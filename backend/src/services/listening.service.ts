@@ -180,7 +180,7 @@ export async function getListeningTestDetail(testId: string) {
         title: sec.title,
         audioUrl: sec.audioUrl,
         durationSeconds: sec.durationSeconds,
-        transcript: "", // Giấu transcript trong lúc làm bài
+        transcript: sec.transcript ?? "",
       }));
     } catch {
       summary = test.description;

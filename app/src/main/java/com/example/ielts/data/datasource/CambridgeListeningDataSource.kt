@@ -96,10 +96,10 @@ object CambridgeListeningDataSource {
                 totalAudioDuration = 1845,
                 totalQuestions = 40,
                 sectionTitles = listOf(
-                    "Section 1: Moving Company & Transport Inquiry",
-                    "Section 2: Tour of the Sports Gym & Community Center",
-                    "Section 3: Students Discussion on Renewable Energy Project",
-                    "Section 4: University Lecture on Marine Biology & Cetaceans"
+                    "Section 1: Transport survey",
+                    "Section 2: Becoming a volunteer for ACE",
+                    "Section 3: Talk on jobs in fashion design",
+                    "Section 4: Elephant translocation"
                 ),
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793754902/%E5%89%9118_section1-part1.mp3",
                 userProgress = null
