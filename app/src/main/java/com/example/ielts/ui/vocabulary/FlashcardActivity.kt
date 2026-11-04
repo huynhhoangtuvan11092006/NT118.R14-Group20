@@ -9,6 +9,8 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -21,17 +23,21 @@ import com.example.ielts.data.local.SrsGrade
 import com.example.ielts.data.local.VocabularyProgressManager
 import java.util.Locale
 import java.util.regex.Pattern
+import kotlin.math.abs
 
 /**
- * Phiên học flashcard: thẻ lật 2 mặt, Spaced Repetition (Lặp lại / Khó / Dễ).
- * Tiến độ từng từ được lưu ngay sau mỗi lần đánh giá qua [VocabularyProgressManager].
+ * Phiên học flashcard: thẻ lật 2 mặt, Spaced Repetition (Lặp lại / Khó / Dễ),
+ * hỗ trợ vuốt chuyển thẻ mượt mà, nút chuyển tiếp thẻ tức thì không lo kẹt.
  */
 class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private lateinit var cardContainer: View
     private lateinit var faceFront: View
     private lateinit var faceBack: View
+    private lateinit var layoutFrontActions: View
     private lateinit var btnFlip: View
+    private lateinit var btnNextCard: View
+    private lateinit var btnHeaderNext: View
     private lateinit var layoutSrs: View
     private lateinit var pbSession: ProgressBar
 
@@ -66,9 +72,12 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private var showingBack = false
     private var isFlipping = false
+    private var isAdvancing = false
 
     private var tts: TextToSpeech? = null
     private var ttsReady = false
+
+    private lateinit var gestureDetector: GestureDetector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,7 +117,10 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         cardContainer = findViewById(R.id.cardContainer)
         faceFront = findViewById(R.id.faceFront)
         faceBack = findViewById(R.id.faceBack)
+        layoutFrontActions = findViewById(R.id.layoutFrontActions)
         btnFlip = findViewById(R.id.btnFlip)
+        btnNextCard = findViewById(R.id.btnNextCard)
+        btnHeaderNext = findViewById(R.id.btnHeaderNext)
         layoutSrs = findViewById(R.id.layoutSrs)
         pbSession = findViewById(R.id.pbSession)
 
@@ -120,6 +132,7 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         tvPhonetic = findViewById(R.id.tvPhonetic)
         tvExampleFront = findViewById(R.id.tvExampleFront)
         tvExampleViFront = findViewById(R.id.tvExampleViFront)
+
         tvPosBack = findViewById(R.id.tvPosBack)
         tvPhoneticBack = findViewById(R.id.tvPhoneticBack)
         tvMeaningVi = findViewById(R.id.tvMeaningVi)
@@ -127,26 +140,74 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         tvCollocations = findViewById(R.id.tvCollocations)
         tvSynonyms = findViewById(R.id.tvSynonyms)
         tvAntonyms = findViewById(R.id.tvAntonyms)
+
         tvAgainInterval = findViewById(R.id.tvAgainInterval)
         tvHardInterval = findViewById(R.id.tvHardInterval)
         tvEasyInterval = findViewById(R.id.tvEasyInterval)
-
-        // Khoảng cách camera lớn giúp hiệu ứng lật 3D không bị méo
-        cardContainer.cameraDistance = 12000f * resources.displayMetrics.density
     }
 
     private fun setupListeners() {
         findViewById<View>(R.id.btnClose).setOnClickListener { finish() }
-        cardContainer.setOnClickListener { flipCard() }
+
+        // Flip triggers
         btnFlip.setOnClickListener { flipCard() }
+
+        // Next card triggers
+        btnNextCard.setOnClickListener { advanceCard(null) }
+        btnHeaderNext.setOnClickListener { advanceCard(null) }
+
+        // Pronounce audio
         findViewById<View>(R.id.btnAudioFront).setOnClickListener { speakCurrentWord() }
         findViewById<View>(R.id.btnAudioBack).setOnClickListener { speakCurrentWord() }
-        findViewById<View>(R.id.btnAgain).setOnClickListener { onGrade(SrsGrade.AGAIN) }
-        findViewById<View>(R.id.btnHard).setOnClickListener { onGrade(SrsGrade.HARD) }
-        findViewById<View>(R.id.btnEasy).setOnClickListener { onGrade(SrsGrade.EASY) }
+
+        // SRS Rating triggers
+        findViewById<View>(R.id.btnAgain).setOnClickListener { advanceCard(SrsGrade.AGAIN) }
+        findViewById<View>(R.id.btnHard).setOnClickListener { advanceCard(SrsGrade.HARD) }
+        findViewById<View>(R.id.btnEasy).setOnClickListener { advanceCard(SrsGrade.EASY) }
+
+        // Gesture detector for cardContainer
+        gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onDown(e: MotionEvent): Boolean = true
+
+            override fun onSingleTapUp(e: MotionEvent): Boolean {
+                flipCard()
+                return true
+            }
+
+            override fun onFling(
+                e1: MotionEvent?,
+                e2: MotionEvent,
+                velocityX: Float,
+                velocityY: Float
+            ): Boolean {
+                if (e1 == null) return false
+                val diffX = e2.x - e1.x
+                val diffY = e2.y - e1.y
+                if (abs(diffX) > abs(diffY) && abs(diffX) > 80 && abs(velocityX) > 100) {
+                    if (diffX < 0) {
+                        // Swipe left -> advance to next card!
+                        advanceCard(if (showingBack) SrsGrade.HARD else null)
+                    } else {
+                        // Swipe right -> flip
+                        flipCard()
+                    }
+                    return true
+                }
+                return false
+            }
+        })
+
+        cardContainer.setOnTouchListener { _, event ->
+            gestureDetector.onTouchEvent(event)
+            true
+        }
     }
 
     private fun showCurrentCard() {
+        if (queue.isEmpty()) {
+            finishSession()
+            return
+        }
         val word = queue.first()
 
         tvCardCounter.text = String.format(Locale.US, "Thẻ %02d", (completedWords + 1).coerceAtMost(totalWords))
@@ -171,12 +232,13 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         tvHardInterval.text = VocabularyProgressManager.previewIntervalLabel(progress, SrsGrade.HARD)
         tvEasyInterval.text = VocabularyProgressManager.previewIntervalLabel(progress, SrsGrade.EASY)
 
-        // Luôn bắt đầu thẻ mới ở mặt trước
+        // Luôn hiển thị mặt trước khi bắt đầu từ mới
         showingBack = false
+        isFlipping = false
         cardContainer.rotationY = 0f
         faceFront.visibility = View.VISIBLE
         faceBack.visibility = View.GONE
-        btnFlip.visibility = View.VISIBLE
+        layoutFrontActions.visibility = View.VISIBLE
         layoutSrs.visibility = View.GONE
     }
 
@@ -185,21 +247,29 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             view.visibility = View.GONE
         } else {
             view.visibility = View.VISIBLE
-            view.text = label + value
+            val full = "$label$value"
+            val span = SpannableString(full)
+            span.setSpan(
+                ForegroundColorSpan(Color.parseColor("#64748B")),
+                0, label.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            span.setSpan(
+                ForegroundColorSpan(Color.parseColor("#0F172A")),
+                label.length, full.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            view.text = span
         }
     }
 
-    /** Làm nổi bật từ khóa (kể cả biến thể như deteriorated) trong câu ví dụ. */
-    private fun highlightKeyword(sentence: String, word: String): SpannableString {
+    private fun highlightKeyword(sentence: String, keyword: String): SpannableString {
         val spannable = SpannableString(sentence)
-        val lower = word.lowercase()
-        val exact = Pattern.compile(Pattern.quote(lower), Pattern.CASE_INSENSITIVE).matcher(sentence)
+        val lower = keyword.lowercase()
+        val exact = Pattern.compile("\\b" + Pattern.quote(lower) + "\\b", Pattern.CASE_INSENSITIVE).matcher(sentence)
         var start = -1
         var end = -1
         if (exact.find()) {
             start = exact.start()
             end = exact.end()
-            // mở rộng tới hết từ (vd. deteriorate -> deteriorated)
             if (!lower.contains(' ')) {
                 while (end < sentence.length && sentence[end].isLetter()) end++
             }
@@ -221,42 +291,82 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun flipCard() {
-        if (isFlipping) return
+        if (isFlipping || isAdvancing) return
         isFlipping = true
         val toBack = !showingBack
 
-        cardContainer.animate().rotationY(if (toBack) 90f else -90f).setDuration(180).withEndAction {
-            showingBack = toBack
-            faceFront.visibility = if (toBack) View.GONE else View.VISIBLE
-            faceBack.visibility = if (toBack) View.VISIBLE else View.GONE
-            cardContainer.rotationY = if (toBack) -90f else 90f
-            cardContainer.animate().rotationY(0f).setDuration(180).withEndAction {
-                isFlipping = false
-            }.start()
-        }.start()
+        cardContainer.animate()
+            .rotationY(if (toBack) 90f else -90f)
+            .setDuration(160)
+            .withEndAction {
+                showingBack = toBack
+                faceFront.visibility = if (toBack) View.GONE else View.VISIBLE
+                faceBack.visibility = if (toBack) View.VISIBLE else View.GONE
+                layoutFrontActions.visibility = if (toBack) View.GONE else View.VISIBLE
+                layoutSrs.visibility = if (toBack) View.VISIBLE else View.GONE
 
-        if (toBack) {
-            btnFlip.visibility = View.GONE
-            layoutSrs.visibility = View.VISIBLE
-        }
+                cardContainer.rotationY = if (toBack) -90f else 90f
+                cardContainer.animate()
+                    .rotationY(0f)
+                    .setDuration(160)
+                    .withEndAction {
+                        isFlipping = false
+                    }.start()
+            }.start()
     }
 
-    private fun onGrade(grade: SrsGrade) {
-        if (!showingBack || isFlipping) return
-        val word = queue.first()
-        VocabularyProgressManager.grade(this, word.id, grade)
+    /**
+     * Chuyển sang thẻ tiếp theo:
+     * - Lưu kết quả SRS nếu có grade
+     * - Trượt thẻ cũ sang trái và trượt thẻ mới vào từ phải cực kỳ mượt mà.
+     */
+    private fun advanceCard(grade: SrsGrade?) {
+        if (isAdvancing || queue.isEmpty()) return
+        isAdvancing = true
 
-        queue.removeFirst()
-        if (grade == SrsGrade.AGAIN) {
-            lapsedIds.add(word.id)
-            // Cho từ quay lại sau vài thẻ để ôn ngay trong phiên
-            queue.add(minOf(AGAIN_REINSERT_OFFSET, queue.size), word)
+        val word = queue.first()
+
+        if (grade != null) {
+            VocabularyProgressManager.grade(this, word.id, grade)
+            queue.removeFirst()
+            if (grade == SrsGrade.AGAIN) {
+                lapsedIds.add(word.id)
+                // Đưa thẻ quay lại sau vài thẻ để ôn tập ngay
+                queue.add(minOf(AGAIN_REINSERT_OFFSET, queue.size), word)
+            } else {
+                completedWords++
+                finalResults[word.id] = (grade == SrsGrade.EASY && word.id !in lapsedIds)
+            }
         } else {
+            // Nhấn Bỏ qua / Thẻ tiếp
             completedWords++
-            finalResults[word.id] = grade == SrsGrade.EASY && word.id !in lapsedIds
+            finalResults[word.id] = false
+            queue.removeFirst()
         }
 
-        if (queue.isEmpty()) finishSession() else showCurrentCard()
+        if (queue.isEmpty()) {
+            isAdvancing = false
+            finishSession()
+            return
+        }
+
+        val slideDist = (cardContainer.width.toFloat()).coerceAtLeast(600f)
+        cardContainer.animate()
+            .translationX(-slideDist)
+            .alpha(0.2f)
+            .setDuration(150)
+            .withEndAction {
+                showCurrentCard()
+                cardContainer.translationX = slideDist
+                cardContainer.alpha = 0.2f
+                cardContainer.animate()
+                    .translationX(0f)
+                    .alpha(1.0f)
+                    .setDuration(170)
+                    .withEndAction {
+                        isAdvancing = false
+                    }.start()
+            }.start()
     }
 
     private fun finishSession() {

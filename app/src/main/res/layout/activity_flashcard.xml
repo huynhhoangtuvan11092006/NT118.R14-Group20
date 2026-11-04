@@ -38,15 +38,18 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:layout_width="34dp"
-            android:layout_height="34dp"
+            android:id="@+id/btnHeaderNext"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:background="@drawable/bg_circle_button"
-            android:backgroundTint="@color/primary_blue"
-            android:padding="8dp"
-            android:src="@drawable/ic_person"
-            app:tint="@color/white" />
+            android:backgroundTint="#EFF6FF"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="9dp"
+            android:src="@drawable/ic_arrow_forward"
+            app:tint="@color/primary_blue" />
     </RelativeLayout>
 
     <!-- Context ribbon -->
@@ -98,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:text="Thẻ 01"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -106,33 +109,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" / 20"
-                android:textColor="@color/secondary_blue"
-                android:textSize="14sp" />
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
         </LinearLayout>
     </RelativeLayout>
 
+    <!-- Progress bar -->
     <ProgressBar
         android:id="@+id/pbSession"
-        style="?android:attr/progressBarStyleHorizontal"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="4dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:max="100"
         android:progress="0"
-        android:progressDrawable="@drawable/bg_vocab_progress"
-        android:progressTint="@color/primary_blue" />
+        android:progressDrawable="@drawable/bg_linear_progress" />
 
-    <!-- Card area -->
+    <!-- 3D Card Area -->
     <FrameLayout
         android:id="@+id/cardContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="12dp"
+        android:layout_margin="16dp"
         android:layout_weight="1"
         android:clickable="true"
         android:focusable="true">
@@ -158,24 +158,24 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/bg_pill_primary_fixed"
-                    android:paddingStart="14dp"
-                    android:paddingTop="6dp"
-                    android:paddingEnd="14dp"
-                    android:paddingBottom="6dp"
+                    android:paddingStart="12dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="4dp"
                     android:text="verb"
                     android:textColor="@color/primary_navy"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/btnAudioFront"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
                     android:background="@drawable/bg_circle_button"
                     android:clickable="true"
                     android:focusable="true"
-                    android:padding="13dp"
+                    android:padding="10dp"
                     android:src="@drawable/ic_volume_up"
                     app:tint="@color/primary_navy" />
             </RelativeLayout>
@@ -191,10 +191,9 @@
                     android:id="@+id/tvWord"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:text="Deteriorate"
                     android:textColor="@color/text_primary"
-                    android:textSize="34sp"
+                    android:textSize="32sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -281,9 +280,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="Chạm để lật thẻ xem nghĩa &amp; Collocations"
+                    android:text="Chạm hoặc lướt để lật thẻ • Vuốt trái để qua thẻ tiếp"
                     android:textColor="@color/outline_text"
-                    android:textSize="13sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -371,18 +370,18 @@
                     android:lineSpacingExtra="3dp"
                     android:text="Trở nên tồi tệ hơn, suy giảm"
                     android:textColor="@color/text_primary"
-                    android:textSize="23sp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvDefinition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="6dp"
                     android:lineSpacingExtra="3dp"
                     android:text="to become worse"
                     android:textColor="@color/text_secondary"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textStyle="italic" />
             </LinearLayout>
 
@@ -391,7 +390,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_vocab_soft_block"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="14dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -423,23 +422,23 @@
                     android:lineSpacingExtra="2dp"
                     android:text="deteriorate rapidly / sharply"
                     android:textColor="@color/text_primary"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="10dp"
                     android:background="#DAE2FD" />
 
                 <TextView
                     android:id="@+id/tvSynonyms"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:lineSpacingExtra="2dp"
                     android:text="Đồng nghĩa: worsen, decline"
                     android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/tvAntonyms"
@@ -449,13 +448,13 @@
                     android:lineSpacingExtra="2dp"
                     android:text="Trái nghĩa: improve"
                     android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="12dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -471,7 +470,7 @@
                     android:layout_marginStart="6dp"
                     android:text="Chạm để lật lại mặt trước"
                     android:textColor="@color/outline_text"
-                    android:textSize="13sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
@@ -484,23 +483,49 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnFlip"
+        <!-- Front actions: Flip button + Next Card button -->
+        <LinearLayout
+            android:id="@+id/layoutFrontActions"
             android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:background="@drawable/bg_btn_primary_solid"
-            android:drawableStart="@drawable/ic_flip"
-            android:drawablePadding="10dp"
-            android:drawableTint="@color/white"
-            android:elevation="3dp"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
-            android:text="Lật thẻ xem nghĩa &amp; Collocation"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnFlip"
+                android:layout_width="0dp"
+                android:layout_height="58dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn_primary_solid"
+                android:drawableStart="@drawable/ic_flip"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/white"
+                android:elevation="3dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="Lật thẻ xem nghĩa"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnNextCard"
+                android:layout_width="wrap_content"
+                android:layout_height="58dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_btn_secondary_outline"
+                android:drawableEnd="@drawable/ic_chevron_right"
+                android:drawableTint="@color/primary_blue"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Thẻ sau"
+                android:textAllCaps="false"
+                android:textColor="@color/primary_blue"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Back SRS Rating controls -->
         <LinearLayout
             android:id="@+id/layoutSrs"
             android:layout_width="match_parent"
@@ -524,9 +549,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lặp lại"
+                    android:text="Chưa nhớ"
                     android:textColor="#B91C1C"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -536,7 +561,7 @@
                     android:layout_marginTop="2dp"
                     android:text="1 phút"
                     android:textColor="#B91C1C"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -557,7 +582,7 @@
                     android:layout_height="wrap_content"
                     android:text="Khó"
                     android:textColor="#C2410C"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -567,7 +592,7 @@
                     android:layout_marginTop="2dp"
                     android:text="1 ngày"
                     android:textColor="#C2410C"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -587,7 +612,7 @@
                     android:layout_height="wrap_content"
                     android:text="Dễ"
                     android:textColor="#15803D"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -597,9 +622,8 @@
                     android:layout_marginTop="2dp"
                     android:text="4 ngày"
                     android:textColor="#15803D"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>
-
