@@ -89,5 +89,21 @@ interface IeltsApiService {
         @Header("Authorization") token: String? = null,
         @Body request: com.example.ielts.data.remote.dto.SubmitReadingRequest
     ): Response<com.example.ielts.data.remote.dto.ReadingSubmissionResultDto>
-}
 
+    // --- LUYỆN THI LISTENING ---
+    @GET("api/v1/tests/listening")
+    suspend fun getListeningTests(
+        @Header("Authorization") token: String? = null
+    ): Response<List<com.example.ielts.data.remote.dto.ListeningTestListItemDto>>
+
+    @GET("api/v1/tests/listening/{id}")
+    suspend fun getListeningTestDetail(
+        @retrofit2.http.Path("id") testId: String
+    ): Response<com.example.ielts.data.remote.dto.ListeningTestDetailDto>
+
+    @POST("api/v1/submissions/listening")
+    suspend fun submitListening(
+        @Header("Authorization") token: String? = null,
+        @Body request: com.example.ielts.data.remote.dto.SubmitListeningRequest
+    ): Response<com.example.ielts.data.remote.dto.SubmitListeningResponse>
+}

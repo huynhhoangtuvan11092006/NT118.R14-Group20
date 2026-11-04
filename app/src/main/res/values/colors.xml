@@ -35,7 +35,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black">#FF000000</color>
 
-    <!-- 4 Skills Cards Palette -->
+    <!-- 4 Skills Cards Palette in Practice Hub (Reading: Blue, Listening: Purple, Writing: Orange, Speaking: Green) -->
     <color name="card_reading_bg">#EFF6FF</color>
     <color name="card_reading_accent">#2563EB</color>
     <color name="card_listening_bg">#F5F3FF</color>
