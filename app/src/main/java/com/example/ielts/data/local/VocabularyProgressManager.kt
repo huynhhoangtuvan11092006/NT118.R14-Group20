@@ -134,11 +134,25 @@ object VocabularyProgressManager {
         pool: List<VocabularyWord>,
         limit: Int = SESSION_SIZE,
         applyDailyNewCap: Boolean = false,
+        isReviewMode: Boolean = false,
         now: Long = System.currentTimeMillis()
     ): List<VocabularyWord> {
         val progress = getAll(context)
         val due = pool.filter { val p = progress[it.id]; p != null && p.seen && p.nextReviewMillis <= now }
             .sortedBy { progress[it.id]!!.nextReviewMillis }
+
+        if (isReviewMode) {
+            // Chế độ Ôn tập: Tuyệt đối ưu tiên các từ người dùng ĐÃ TỪNG HỌC (seen == true)
+            // 1. Các từ đã đến hạn (due)
+            // 2. Các từ đang học nhưng chưa đến hạn (ưu tiên level thấp cần củng cố trước)
+            val learnedNotDue = pool.filter { val p = progress[it.id]; p != null && p.seen && p.nextReviewMillis > now }
+                .sortedWith(compareBy({ progress[it.id]?.level ?: 0 }, { progress[it.id]?.nextReviewMillis ?: 0L }))
+            val reviewCandidates = (due + learnedNotDue).distinctBy { it.id }
+            if (reviewCandidates.isNotEmpty()) {
+                return reviewCandidates.take(limit)
+            }
+        }
+
         var newWords = pool.filter { progress[it.id]?.seen != true }
         if (applyDailyNewCap) {
             newWords = newWords.take((DAILY_NEW_LIMIT - newWordsToday(context)).coerceAtLeast(0))

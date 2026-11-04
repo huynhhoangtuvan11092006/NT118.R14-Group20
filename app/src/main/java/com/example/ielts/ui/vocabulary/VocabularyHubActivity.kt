@@ -87,7 +87,12 @@ class VocabularyHubActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         findViewById<View>(R.id.btnReviewNow)?.setOnClickListener {
-            startSession(VocabularyDataSource.SCOPE_ALL, null, VocabularyProgressManager.SESSION_SIZE)
+            val stats = VocabularyProgressManager.summaryStats(this, VocabularyDataSource.allWords)
+            if (stats.learning == 0 && stats.mastered == 0 && stats.dueToday == 0) {
+                Toast.makeText(this, "Bạn chưa có từ vựng nào để ôn tập. Hãy chọn một chủ đề bên dưới để bắt đầu học nhé!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            startSession(VocabularyDataSource.SCOPE_ALL, null, VocabularyProgressManager.SESSION_SIZE, isReview = true)
         }
         val quickAction = View.OnClickListener {
             startSession(VocabularyDataSource.SCOPE_ALL, null, QUICK_SESSION_SIZE)
@@ -247,10 +252,10 @@ class VocabularyHubActivity : AppCompatActivity() {
         }
     }
 
-    private fun startSession(type: String, id: String?, limit: Int) {
+    private fun startSession(type: String, id: String?, limit: Int, isReview: Boolean = false) {
         val pool = VocabularyDataSource.resolveScope(type, id)
         val queue = VocabularyProgressManager.buildQueue(
-            this, pool, limit, applyDailyNewCap = false
+            this, pool, limit, applyDailyNewCap = false, isReviewMode = isReview
         )
         if (queue.isEmpty()) {
             Toast.makeText(this, "Không tìm thấy từ vựng trong phần này.", Toast.LENGTH_SHORT).show()
@@ -260,6 +265,7 @@ class VocabularyHubActivity : AppCompatActivity() {
             putExtra(FlashcardActivity.EXTRA_SCOPE_TYPE, type)
             putExtra(FlashcardActivity.EXTRA_SCOPE_ID, id)
             putExtra(FlashcardActivity.EXTRA_LIMIT, limit)
+            putExtra(FlashcardActivity.EXTRA_IS_REVIEW, isReview)
         })
     }
 

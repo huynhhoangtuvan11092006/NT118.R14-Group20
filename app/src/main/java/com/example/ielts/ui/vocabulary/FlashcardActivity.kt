@@ -86,6 +86,7 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         scopeType = intent.getStringExtra(EXTRA_SCOPE_TYPE) ?: VocabularyDataSource.SCOPE_ALL
         scopeId = intent.getStringExtra(EXTRA_SCOPE_ID)
         sessionLimit = intent.getIntExtra(EXTRA_LIMIT, VocabularyProgressManager.SESSION_SIZE)
+        val isReviewMode = intent.getBooleanExtra(EXTRA_IS_REVIEW, false)
 
         bindViews()
         setupListeners()
@@ -93,7 +94,7 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val pool = VocabularyDataSource.resolveScope(scopeType, scopeId)
         queue.addAll(
             VocabularyProgressManager.buildQueue(
-                this, pool, sessionLimit, applyDailyNewCap = false
+                this, pool, sessionLimit, applyDailyNewCap = false, isReviewMode = isReviewMode
             )
         )
         if (queue.isEmpty()) {
@@ -103,10 +104,14 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
         totalWords = queue.size
 
-        val minBand = queue.minOf { it.band }
-        tvScopeChip.text = String.format(
-            Locale.US, "%s • Band %.1f+", VocabularyDataSource.scopeTitle(scopeType, scopeId), minBand
-        )
+        if (isReviewMode) {
+            tvScopeChip.text = "Ôn tập SRS • Củng cố từ đã học"
+        } else {
+            val minBand = queue.minOf { it.band }
+            tvScopeChip.text = String.format(
+                Locale.US, "%s • Band %.1f+", VocabularyDataSource.scopeTitle(scopeType, scopeId), minBand
+            )
+        }
         tvCardTotal.text = " / $totalWords"
 
         tts = TextToSpeech(this, this)
@@ -403,6 +408,7 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         const val EXTRA_SCOPE_TYPE = "SCOPE_TYPE"
         const val EXTRA_SCOPE_ID = "SCOPE_ID"
         const val EXTRA_LIMIT = "SESSION_LIMIT"
+        const val EXTRA_IS_REVIEW = "EXTRA_IS_REVIEW"
 
         private const val AGAIN_REINSERT_OFFSET = 3
         private const val XP_GOOD = 3
