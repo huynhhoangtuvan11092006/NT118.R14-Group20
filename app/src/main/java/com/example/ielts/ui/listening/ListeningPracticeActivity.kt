@@ -266,7 +266,15 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
             try {
                 val response = ApiClient.apiService.getListeningTestDetail(testId)
                 if (response.isSuccessful && response.body() != null) {
-                    testDetail = response.body()
+                    val body = response.body()!!
+                    val fallback = CambridgeListeningTestDetailDataSource.getTestDetail(testId, body.title)
+                    val enrichedSections = body.sections.map { sec ->
+                        if (sec.transcript.isNullOrBlank()) {
+                            val fb = fallback.sections.find { it.sectionNumber == sec.sectionNumber }
+                            sec.copy(transcript = fb?.transcript ?: "")
+                        } else sec
+                    }
+                    testDetail = body.copy(sections = enrichedSections)
                 } else {
                     testDetail = CambridgeListeningTestDetailDataSource.getTestDetail(testId)
                 }
@@ -336,7 +344,7 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
 
         tvAudioSectionTitle.text = section.title
         tvAudioTrackSubtitle.text = "Track 0$sectionNumber • Cambridge Audio"
-        val fallbackSection = CambridgeListeningTestDetailDataSource.getTestDetail(currentTestId).sections.find { it.sectionNumber == sectionNumber }
+        val fallbackSection = CambridgeListeningTestDetailDataSource.getTestDetail(currentTestId, testDetail?.title).sections.find { it.sectionNumber == sectionNumber }
         val sectionTranscript = if (!section.transcript.isNullOrBlank()) section.transcript else fallbackSection?.transcript ?: ""
         val parsedLines = parseTranscriptLines(sectionTranscript)
         displayTranscriptLines(parsedLines)
