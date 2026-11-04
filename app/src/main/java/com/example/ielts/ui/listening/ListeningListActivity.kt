@@ -298,8 +298,11 @@ class ListeningListActivity : AppCompatActivity() {
     }
 
     private fun onExamConfirmed(testItem: ListeningTestListItemDto) {
-        Toast.makeText(this, "Bắt đầu bài thi: ${testItem.title}...", Toast.LENGTH_SHORT).show()
-        // Chuẩn bị mở ListeningPracticeActivity ở Sub-issue C
+        val intent = Intent(this, ListeningPracticeActivity::class.java).apply {
+            putExtra("EXTRA_TEST_ID", testItem.id)
+            putExtra("EXTRA_TEST_TITLE", testItem.title)
+        }
+        startActivity(intent)
     }
 }
 
