@@ -62,4 +62,7 @@
     <color name="badge_yellow_bg">#FEF3C7</color>
     <color name="badge_yellow_text">#D97706</color>
     <color name="text_tertiary">#64748B</color>
+    <color name="result_hero_gradient_start">#EAEDFF</color>
+    <color name="result_hero_gradient_end">#E2E7FF</color>
+    <color name="result_active_card_bg">#EEF2FF</color>
 </resources>
