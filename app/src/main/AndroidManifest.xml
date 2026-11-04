@@ -81,6 +81,18 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ui.vocabulary.VocabularyHubActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.vocabulary.FlashcardActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.vocabulary.VocabularySessionResultActivity"
+            android:exported="true" />
+
     </application>
 
 </manifest>
