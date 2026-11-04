@@ -76,7 +76,7 @@ object VocabularyProgressManager {
     fun previewIntervalLabel(current: WordProgress, grade: SrsGrade): String = when (grade) {
         SrsGrade.AGAIN -> "1 phút"
         SrsGrade.HARD -> "1 ngày"
-        SrsGrade.EASY -> "Thuộc ngay"
+        SrsGrade.EASY -> "${easyIntervalDays((current.level + 1).coerceAtMost(MAX_LEVEL))} ngày"
     }
 
     fun grade(context: Context, wordId: String, grade: SrsGrade, now: Long = System.currentTimeMillis()): WordProgress {
@@ -97,7 +97,7 @@ object VocabularyProgressManager {
                 WordProgress(level, now + DAY_MS, old.lapses, true)
             }
             SrsGrade.EASY -> {
-                val level = maxOf(old.level + 1, MASTERED_LEVEL).coerceAtMost(MAX_LEVEL)
+                val level = (old.level + 1).coerceAtMost(MAX_LEVEL)
                 WordProgress(level, now + easyIntervalDays(level) * DAY_MS, old.lapses, true)
             }
         }
