@@ -12,6 +12,7 @@ import androidx.media3.common.PlaybackException
 import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.ExoPlayer
 
 interface AudioPlayerListener {
@@ -56,8 +57,19 @@ class ListeningAudioPlayerManager(private val context: Context) {
             .setContentType(C.AUDIO_CONTENT_TYPE_SPEECH)
             .build()
 
+        val loadControl = DefaultLoadControl.Builder()
+            .setBufferDurationsMs(
+                25_000, // minBufferMs: tải trước 25 giây
+                120_000, // maxBufferMs: tối đa 2 phút
+                1_500,  // bufferForPlaybackMs
+                3_000   // bufferForPlaybackAfterRebufferMs
+            )
+            .setPrioritizeTimeOverSizeThresholds(true)
+            .build()
+
         exoPlayer = ExoPlayer.Builder(context)
             .setAudioAttributes(audioAttributes, true)
+            .setLoadControl(loadControl)
             .build().apply {
                 volume = 1.0f
                 addListener(object : Player.Listener {
