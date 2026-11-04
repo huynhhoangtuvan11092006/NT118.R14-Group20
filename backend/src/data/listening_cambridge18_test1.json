@@ -4,33 +4,33 @@
   "difficulty": "Standard IELTS",
   "durationMinutes": 35,
   "totalAudioDuration": 1845,
-  "audioUrl": "https://assets.mixkit.co/active_storage/sfx/2874/2874-preview.mp3",
+  "audioUrl": "https://res.cloudinary.com/fdawugjr/video/upload/v1793754902/%E5%89%9118_section1-part1.mp3",
   "sections": [
     {
       "sectionNumber": 1,
       "title": "Section 1: Moving Company & Transport Inquiry",
-      "audioUrl": "https://assets.mixkit.co/active_storage/sfx/2874/2874-preview.mp3",
+      "audioUrl": "https://res.cloudinary.com/fdawugjr/video/upload/v1793754902/%E5%89%9118_section1-part1.mp3",
       "durationSeconds": 420,
       "transcript": "[00:05] Agent: Good morning, City Movers and Storage. How can I help you today?\n[00:10] Customer: Hello, I'm calling to inquire about booking a relocation service for next week.\n[00:16] Agent: Certainly! First, may I take your full name please?\n[00:20] Customer: Yes, my first name is Arthur, spelled A-R-T-H-U-R.\n[00:27] Agent: Thank you, Mr. Arthur. And what is your current address for pickup?\n[00:32] Customer: It's number 24 Willow Road, Cambridge.\n[00:38] Agent: Got it, 24 Willow Road. And could you provide a reliable contact telephone number?\n[00:44] Customer: Of course, my mobile is 07892 345 671.\n[00:52] Agent: Great. Now, what type of goods are we moving primarily?\n[00:56] Customer: Mostly household furniture, such as beds, wardrobes, and dining tables.\n[01:05] Agent: Understood. Do you require any specialized packing boxes for fragile items?\n[01:10] Customer: Yes, especially for our kitchen glassware and fine porcelain dishes.\n[01:18] Agent: We provide full protection cartons for kitchenware. Would you also like to add transit insurance coverage?\n[01:25] Customer: Yes, please include standard insurance against any accidental damage.\n[01:32] Agent: Perfect. What date would you like the moving team to arrive?\n[01:36] Customer: We are aiming for next Friday, the 18th.\n[01:42] Agent: Friday the 18th is available. Do you prefer a morning or afternoon slot?\n[01:47] Customer: The morning would be best, around 8:30 AM before traffic builds up.\n[01:54] Agent: Excellent. Regarding payment method, will that be by credit card or bank cheque?\n[02:00] Customer: A company cheque from my employer will be issued.\n[02:08] Agent: Noted. Lastly, do you have any promotion voucher code?\n[02:13] Customer: Yes, I have a seasonal discount code from your online flyer: RELOC10.\n[02:20] Agent: Fantastic! That applies a 10% saving on your total invoice."
     },
     {
       "sectionNumber": 2,
       "title": "Section 2: Tour of the Sports Gym & Community Center",
-      "audioUrl": "https://assets.mixkit.co/active_storage/sfx/2874/2874-preview.mp3",
+      "audioUrl": "https://res.cloudinary.com/fdawugjr/video/upload/v1793754888/%E5%89%9118_section1-part2.mp3",
       "durationSeconds": 450,
       "transcript": "[00:02] Guide: Welcome to the tour of our newly revamped community sports gym, nothing but fitness.\n[00:08] No doubt you know a little of what our gym has to give in terms of fitness, but as you'll discover, we have much more than just running machines and weights on offer.\n[00:18] The gym's open from 05:30 AM, nice and early in the morning, to 10 PM at night, so these hours give you plenty of time to fit in your workouts in our weights and cardio rooms or with your personal trainers.\n[00:32] Now onto children's services: we have a childcare centre on-site for moms and dads wanting to fit a workout into your busy day, but it's only open in the mornings, so you'll need to plan your workout around that.\n[00:46] For those of you too busy to eat properly at home, there's a cafe on-site offering healthy and delicious meals that starts serving as soon as the gym opens and doesn't shut until we close at night.\n[01:01] Of course, to work out comfortably, you need suitable clothing. We have a sports shop here for those of you who'd like to pick up some new shoes or workout gear. The staff there will be happy to kit you out from midday onwards, so do have a look at what's on offer.\n[01:17] We're a modern gym, and we're always updating our facilities. Actually, the gym's just replaced all our treadmills with the latest models, so if you're a runner, try them out.\n[01:29] Furthermore, we have thoroughly renovated and modernized the change rooms with luxury heated showers and digital lockers.\n[01:39] Now, let me orient you using the floor map: directly across from reception is our yoga studio at point A, and right beside it at point B is our brand new Finnish sauna. The locker rooms are located along the eastern wing at point E..."
     },
     {
       "sectionNumber": 3,
       "title": "Section 3: Students Discussion on Renewable Energy Project",
-      "audioUrl": "https://assets.mixkit.co/active_storage/sfx/2874/2874-preview.mp3",
+      "audioUrl": "https://res.cloudinary.com/fdawugjr/video/upload/v1793754901/%E5%89%9118_section1-part3.mp3",
       "durationSeconds": 480,
       "transcript": "[00:05] Jack: Hi Emma, thanks for meeting up to discuss our environmental engineering assignment on offshore wind energy.\n[00:12] Emma: Hi Jack! I've been reviewing our research questions. Why did we decide to focus specifically on offshore wind farms rather than onshore turbines?\n[00:22] Jack: Well, the main reason was that coastal winds are considerably stronger and much more consistent throughout the year, yielding up to 40% more electricity.\n[00:34] Emma: That's right. However, when examining policy constraints, the primary regulatory obstacle proved to be maritime zoning laws and environmental protection agreements for migratory sea birds.\n[00:48] Jack: Exactly. What truly surprised me in the technical literature was the sheer mechanical efficiency of the latest 15-megawatt turbine generators.\n[01:00] Emma: Our tutor, Dr. Harrison, suggested that we must include a life-cycle carbon assessment covering raw material extraction and offshore foundation installation.\n[01:14] Jack: Agreed. For our project submission, who is doing what? Emma, would you be able to produce the technical diagrams and architectural schematics?\n[01:24] Emma: Sure, I can draw the diagrams. And I can also conduct the field interviews with local harbor engineers.\n[01:32] Jack: Great! I will handle the quantitative statistical analysis on wind velocity datasets.\n[01:40] Emma: And for the literature review and final concluding section, let's both collaborate on writing those together."
     },
     {
       "sectionNumber": 4,
       "title": "Section 4: University Lecture on Marine Biology & Cetaceans",
-      "audioUrl": "https://assets.mixkit.co/active_storage/sfx/2874/2874-preview.mp3",
+      "audioUrl": "https://res.cloudinary.com/fdawugjr/video/upload/v1793754909/%E5%89%9118_section1-part4.mp3",
       "durationSeconds": 495,
       "transcript": "[00:05] Professor: Good morning everyone. In today's marine biology lecture, we will explore the evolutionary adaptations and ecological challenges faced by cetaceans, including whales and dolphins.\n[00:19] Cetaceans navigate and hunt in dark underwater environments primarily through echolocation, emitting high-frequency clicks and interpreting the returning sound echoes.\n[00:32] Deep-diving species like sperm whales can descend to extraordinary ocean depths exceeding 2,000 meters in search of giant squid.\n[00:44] In these abyssal zones, avoiding apex predators such as killer whales becomes critical for juvenile calves.\n[00:54] Annual seasonal migration across thousands of kilometers allows baleen whales to feed in cold polar waters during summer and breed in warm equatorial lagoons.\n[01:10] Ocean temperature variations directly influence the abundance of krill, their primary prey species.\n[01:21] Complex social communication relies on intricate melodic whale songs that can propagate hundreds of miles across ocean basins.\n[01:34] Unfortunately, anthropogenic plastic pollution presents a lethal hazard through ingestion and digestive blockages.\n[01:46] Moreover, commercial shipping noise interferes with their delicate sensory navigation, leading to catastrophic disorientation and strandings.\n[02:00] Effective global conservation agreements are urgent to preserve these majestic marine mammals for future generations."
     }
@@ -338,3 +338,4 @@
     }
   ]
 }
+
