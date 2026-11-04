@@ -84,7 +84,7 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val pool = VocabularyDataSource.resolveScope(scopeType, scopeId)
         queue.addAll(
             VocabularyProgressManager.buildQueue(
-                this, pool, sessionLimit, applyDailyNewCap = scopeType == VocabularyDataSource.SCOPE_ALL
+                this, pool, sessionLimit, applyDailyNewCap = false
             )
         )
         if (queue.isEmpty()) {

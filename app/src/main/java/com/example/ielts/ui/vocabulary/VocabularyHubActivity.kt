@@ -38,8 +38,6 @@ class VocabularyHubActivity : AppCompatActivity() {
 
     private enum class Filter { ALL, BAND_6, BAND_75, COLLOCATIONS }
 
-    private lateinit var tvStreak: TextView
-    private lateinit var tvTargetBand: TextView
     private lateinit var tvDueCount: TextView
     private lateinit var tvMasteredCount: TextView
     private lateinit var tvLearningCount: TextView
@@ -68,13 +66,10 @@ class VocabularyHubActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        loadHeader()
         refreshAll()
     }
 
     private fun bindViews() {
-        tvStreak = findViewById(R.id.tvStreak)
-        tvTargetBand = findViewById(R.id.tvTargetBand)
         tvDueCount = findViewById(R.id.tvDueCount)
         tvMasteredCount = findViewById(R.id.tvMasteredCount)
         tvLearningCount = findViewById(R.id.tvLearningCount)
@@ -90,22 +85,15 @@ class VocabularyHubActivity : AppCompatActivity() {
         chipColloc = findViewById(R.id.chipColloc)
     }
 
-    private fun loadHeader() {
-        val prefs = getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE)
-        val streak = prefs.getInt("streak_days", 1)
-        val band = prefs.getFloat(Constants.KEY_TARGET_BAND, 7.0f)
-        tvStreak.text = "$streak ngày"
-        tvTargetBand.text = String.format(Locale.US, "IELTS %.1f+ Target", band)
-    }
-
     private fun setupListeners() {
-        findViewById<View>(R.id.btnReviewNow).setOnClickListener {
+        findViewById<View>(R.id.btnReviewNow)?.setOnClickListener {
             startSession(VocabularyDataSource.SCOPE_ALL, null, VocabularyProgressManager.SESSION_SIZE)
         }
-        findViewById<View>(R.id.bannerQuickFlashcard).setOnClickListener {
+        val quickAction = View.OnClickListener {
             startSession(VocabularyDataSource.SCOPE_ALL, null, QUICK_SESSION_SIZE)
         }
-        findViewById<View>(R.id.btnSearch).setOnClickListener { showSearchSheet() }
+        findViewById<View>(R.id.bannerQuickFlashcard)?.setOnClickListener(quickAction)
+        findViewById<View>(R.id.btnQuickStart)?.setOnClickListener(quickAction)
 
         chipAll.setOnClickListener { selectFilter(Filter.ALL) }
         chipBand6.setOnClickListener { selectFilter(Filter.BAND_6) }
@@ -262,15 +250,10 @@ class VocabularyHubActivity : AppCompatActivity() {
     private fun startSession(type: String, id: String?, limit: Int) {
         val pool = VocabularyDataSource.resolveScope(type, id)
         val queue = VocabularyProgressManager.buildQueue(
-            this, pool, limit, applyDailyNewCap = type == VocabularyDataSource.SCOPE_ALL
+            this, pool, limit, applyDailyNewCap = false
         )
         if (queue.isEmpty()) {
-            val msg = if (type == VocabularyDataSource.SCOPE_ALL) {
-                "Hôm nay bạn đã ôn xong! Hãy quay lại khi có từ đến hạn nhé."
-            } else {
-                "Bạn đã học hết từ trong phần này. Quay lại khi có từ đến hạn ôn nhé!"
-            }
-            Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Không tìm thấy từ vựng trong phần này.", Toast.LENGTH_SHORT).show()
             return
         }
         startActivity(Intent(this, FlashcardActivity::class.java).apply {

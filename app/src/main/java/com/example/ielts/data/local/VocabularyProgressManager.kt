@@ -143,15 +143,24 @@ object VocabularyProgressManager {
         if (applyDailyNewCap) {
             newWords = newWords.take((DAILY_NEW_LIMIT - newWordsToday(context)).coerceAtLeast(0))
         }
-        return (due + newWords).take(limit)
+        val result = (due + newWords).toMutableList()
+        // Nếu số lượng chưa đủ limit (hoặc khi đã học hết lượt mới hôm nay),
+        // bổ sung các từ trong nhóm để người dùng luôn có thể luyện phản xạ bất kỳ lúc nào
+        if (result.size < limit) {
+            val remaining = pool.filter { it !in result }
+                .sortedBy { progress[it.id]?.level ?: 0 }
+            result.addAll(remaining)
+        }
+        return result.take(limit)
     }
 
     fun summaryStats(context: Context, pool: List<VocabularyWord>): VocabularySummaryStats {
         val progress = getAll(context)
         val mastered = pool.count { progress[it.id]?.let { p -> isMastered(p) } == true }
         val learning = pool.count { val p = progress[it.id]; p != null && p.seen && !isMastered(p) }
-        val due = buildQueue(context, pool, SESSION_SIZE, applyDailyNewCap = true).size
-        return VocabularySummaryStats(due, mastered, learning)
+        val now = System.currentTimeMillis()
+        val dueCount = pool.count { val p = progress[it.id]; p != null && p.seen && p.nextReviewMillis <= now }
+        return VocabularySummaryStats(dueCount, mastered, learning)
     }
 
     /** Tiến độ 0–100 của một nhóm từ: trung bình level (tối đa MASTERED_LEVEL) của các từ. */
