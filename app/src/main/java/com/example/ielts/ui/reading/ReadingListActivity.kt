@@ -217,7 +217,7 @@ class ReadingListActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.navVocab)?.setOnClickListener {
-            Toast.makeText(this, "Tab Flashcard & Từ vựng IELTS", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, com.example.ielts.ui.vocabulary.VocabularyHubActivity::class.java))
         }
 
         findViewById<View>(R.id.navProfile)?.setOnClickListener {
