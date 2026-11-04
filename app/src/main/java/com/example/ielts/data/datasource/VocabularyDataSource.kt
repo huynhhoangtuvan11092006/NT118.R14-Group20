@@ -7882,5 +7882,17 @@ object VocabularyDataSource {
         else -> "Tất cả từ vựng"
     }
 
+    fun formatPartOfSpeech(pos: String): String = when (pos.lowercase().trim()) {
+        "noun", "n" -> "Danh từ (noun)"
+        "verb", "v" -> "Động từ (verb)"
+        "adj", "adjective", "a" -> "Tính từ (adj)"
+        "adv", "adverb" -> "Trạng từ (adv)"
+        "idiom", "phrase" -> "Thành ngữ (idiom)"
+        "signpost", "discourse marker" -> "Từ chỉ dấu (signpost)"
+        "preposition", "prep" -> "Giới từ (prep)"
+        "conjunction", "conj" -> "Liên từ (conj)"
+        else -> pos
+    }
+
     fun totalWordsCount(): Int = allWords.size
 }

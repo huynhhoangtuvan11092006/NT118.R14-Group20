@@ -12,6 +12,7 @@ import android.text.style.UnderlineSpan
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -26,16 +27,17 @@ import java.util.regex.Pattern
 import kotlin.math.abs
 
 /**
- * Phiên học flashcard: thẻ lật 2 mặt, Spaced Repetition (Lặp lại / Khó / Dễ),
- * hỗ trợ vuốt chuyển thẻ mượt mà, nút chuyển tiếp thẻ tức thì không lo kẹt.
+ * Phiên học flashcard:
+ * - Hiển thị loại từ rõ ràng (Danh từ, Động từ, Tính từ...)
+ * - Các nút đánh giá SRS (Chưa nhớ, Khó, Dễ) luôn luôn hiển thị trực tiếp để người học có thể chọn ngay khi nhìn thấy từ.
+ * - Hỗ trợ lật thẻ xem nghĩa / collocations bất kỳ lúc nào.
  */
 class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private lateinit var cardContainer: View
     private lateinit var faceFront: View
     private lateinit var faceBack: View
-    private lateinit var layoutFrontActions: View
-    private lateinit var btnFlip: View
+    private lateinit var btnFlip: Button
     private lateinit var btnNextCard: View
     private lateinit var btnHeaderNext: View
     private lateinit var layoutSrs: View
@@ -117,7 +119,6 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         cardContainer = findViewById(R.id.cardContainer)
         faceFront = findViewById(R.id.faceFront)
         faceBack = findViewById(R.id.faceBack)
-        layoutFrontActions = findViewById(R.id.layoutFrontActions)
         btnFlip = findViewById(R.id.btnFlip)
         btnNextCard = findViewById(R.id.btnNextCard)
         btnHeaderNext = findViewById(R.id.btnHeaderNext)
@@ -152,7 +153,7 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         // Flip triggers
         btnFlip.setOnClickListener { flipCard() }
 
-        // Next card triggers
+        // Next card triggers (Bỏ qua / Xem thẻ sau)
         btnNextCard.setOnClickListener { advanceCard(null) }
         btnHeaderNext.setOnClickListener { advanceCard(null) }
 
@@ -160,7 +161,7 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         findViewById<View>(R.id.btnAudioFront).setOnClickListener { speakCurrentWord() }
         findViewById<View>(R.id.btnAudioBack).setOnClickListener { speakCurrentWord() }
 
-        // SRS Rating triggers
+        // SRS Rating triggers (người dùng có thể chọn ngay bất cứ lúc nào)
         findViewById<View>(R.id.btnAgain).setOnClickListener { advanceCard(SrsGrade.AGAIN) }
         findViewById<View>(R.id.btnHard).setOnClickListener { advanceCard(SrsGrade.HARD) }
         findViewById<View>(R.id.btnEasy).setOnClickListener { advanceCard(SrsGrade.EASY) }
@@ -185,10 +186,8 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 val diffY = e2.y - e1.y
                 if (abs(diffX) > abs(diffY) && abs(diffX) > 80 && abs(velocityX) > 100) {
                     if (diffX < 0) {
-                        // Swipe left -> advance to next card!
                         advanceCard(if (showingBack) SrsGrade.HARD else null)
                     } else {
-                        // Swipe right -> flip
                         flipCard()
                     }
                     return true
@@ -213,13 +212,15 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         tvCardCounter.text = String.format(Locale.US, "Thẻ %02d", (completedWords + 1).coerceAtMost(totalWords))
         pbSession.progress = if (totalWords > 0) completedWords * 100 / totalWords else 0
 
-        tvPosFront.text = word.pos
+        val formattedPos = VocabularyDataSource.formatPartOfSpeech(word.pos)
+        tvPosFront.text = formattedPos
+        tvPosBack.text = formattedPos
+
         tvWord.text = word.word.replaceFirstChar { it.uppercase() }
         tvPhonetic.text = word.phonetic
         tvExampleFront.text = highlightKeyword(word.example, word.word)
         tvExampleViFront.text = "(${word.exampleVi})"
 
-        tvPosBack.text = word.pos
         tvPhoneticBack.text = word.phonetic
         tvMeaningVi.text = word.meaningVi
         tvDefinition.text = word.definition
@@ -232,14 +233,14 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         tvHardInterval.text = VocabularyProgressManager.previewIntervalLabel(progress, SrsGrade.HARD)
         tvEasyInterval.text = VocabularyProgressManager.previewIntervalLabel(progress, SrsGrade.EASY)
 
-        // Luôn hiển thị mặt trước khi bắt đầu từ mới
+        // Bắt đầu thẻ mới luôn ở mặt trước
         showingBack = false
         isFlipping = false
         cardContainer.rotationY = 0f
         faceFront.visibility = View.VISIBLE
         faceBack.visibility = View.GONE
-        layoutFrontActions.visibility = View.VISIBLE
-        layoutSrs.visibility = View.GONE
+        btnFlip.text = "Lật thẻ xem nghĩa & Collocations"
+        layoutSrs.visibility = View.VISIBLE
     }
 
     private fun bindExtraLine(view: TextView, label: String, value: String) {
@@ -302,8 +303,7 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 showingBack = toBack
                 faceFront.visibility = if (toBack) View.GONE else View.VISIBLE
                 faceBack.visibility = if (toBack) View.VISIBLE else View.GONE
-                layoutFrontActions.visibility = if (toBack) View.GONE else View.VISIBLE
-                layoutSrs.visibility = if (toBack) View.VISIBLE else View.GONE
+                btnFlip.text = if (toBack) "Lật lại mặt trước (ví dụ)" else "Lật thẻ xem nghĩa & Collocations"
 
                 cardContainer.rotationY = if (toBack) -90f else 90f
                 cardContainer.animate()

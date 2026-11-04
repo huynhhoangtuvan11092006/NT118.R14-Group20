@@ -476,69 +476,68 @@
     </FrameLayout>
 
     <!-- Bottom controls -->
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="14dp"
+        android:orientation="vertical">
 
-        <!-- Front actions: Flip button + Next Card button -->
+        <!-- Flip button row with Skip/Next -->
         <LinearLayout
-            android:id="@+id/layoutFrontActions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnFlip"
                 android:layout_width="0dp"
-                android:layout_height="58dp"
+                android:layout_height="48dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_btn_primary_solid"
+                android:background="@drawable/bg_btn_secondary_outline"
                 android:drawableStart="@drawable/ic_flip"
-                android:drawablePadding="10dp"
-                android:drawableTint="@color/white"
-                android:elevation="3dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:text="Lật thẻ xem nghĩa"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/primary_blue"
+                android:elevation="1dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Lật thẻ xem nghĩa &amp; Collocations"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textColor="@color/primary_blue"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnNextCard"
                 android:layout_width="wrap_content"
-                android:layout_height="58dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/bg_btn_secondary_outline"
                 android:drawableEnd="@drawable/ic_chevron_right"
-                android:drawableTint="@color/primary_blue"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="Thẻ sau"
+                android:drawableTint="@color/text_secondary"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="Bỏ qua"
                 android:textAllCaps="false"
-                android:textColor="@color/primary_blue"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- Back SRS Rating controls -->
+        <!-- SRS Rating controls: ALWAYS VISIBLE -->
         <LinearLayout
             android:id="@+id/layoutSrs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="gone"
             android:weightSum="3">
 
             <LinearLayout
                 android:id="@+id/btnAgain"
                 android:layout_width="0dp"
-                android:layout_height="68dp"
-                android:layout_marginEnd="5dp"
+                android:layout_height="62dp"
+                android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_srs_again"
                 android:clickable="true"
@@ -558,7 +557,7 @@
                     android:id="@+id/tvAgainInterval"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="1dp"
                     android:text="1 phút"
                     android:textColor="#B91C1C"
                     android:textSize="11sp" />
@@ -567,9 +566,9 @@
             <LinearLayout
                 android:id="@+id/btnHard"
                 android:layout_width="0dp"
-                android:layout_height="68dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_srs_hard"
                 android:clickable="true"
@@ -589,7 +588,7 @@
                     android:id="@+id/tvHardInterval"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="1dp"
                     android:text="1 ngày"
                     android:textColor="#C2410C"
                     android:textSize="11sp" />
@@ -598,8 +597,8 @@
             <LinearLayout
                 android:id="@+id/btnEasy"
                 android:layout_width="0dp"
-                android:layout_height="68dp"
-                android:layout_marginStart="5dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_srs_easy"
                 android:clickable="true"
@@ -619,11 +618,11 @@
                     android:id="@+id/tvEasyInterval"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="1dp"
                     android:text="4 ngày"
                     android:textColor="#15803D"
                     android:textSize="11sp" />
             </LinearLayout>
         </LinearLayout>
-    </FrameLayout>
+    </LinearLayout>
 </LinearLayout>

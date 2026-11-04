@@ -309,8 +309,9 @@ class VocabularyHubActivity : AppCompatActivity() {
     }
 
     private fun showWordDetail(word: VocabularyWord) {
+        val posVi = VocabularyDataSource.formatPartOfSpeech(word.pos)
         val body = buildString {
-            append(word.phonetic).append("  •  ").append(word.pos).append("\n\n")
+            append(word.phonetic).append("  •  ").append(posVi).append("\n\n")
             append(word.meaningVi).append("\n")
             append(word.definition).append("\n\n")
             append("VD: ").append(word.example).append("\n")

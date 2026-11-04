@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ielts.R
+import com.example.ielts.data.datasource.VocabularyDataSource
 import com.example.ielts.data.datasource.VocabularyWord
 
 enum class WordStatus(val label: String, val bgRes: Int, val textColor: String) {
@@ -45,7 +46,7 @@ class VocabularyWordRowAdapter(
 
         fun bind(item: WordRowItem) {
             tvWord.text = item.word.word.replaceFirstChar { it.uppercase() }
-            tvPos.text = "(${item.word.pos})"
+            tvPos.text = "• ${VocabularyDataSource.formatPartOfSpeech(item.word.pos)}"
             tvMeaning.text = item.word.meaningVi
             tvStatus.text = item.status.label
             tvStatus.setBackgroundResource(item.status.bgRes)
