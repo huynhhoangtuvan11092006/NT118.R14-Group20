@@ -631,6 +631,20 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         showLeaveExamConfirmationDialog()
     }
 
+    override fun onPause() {
+        super.onPause()
+        if (isFinishing) {
+            audioPlayerManager.pause()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (isFinishing) {
+            audioPlayerManager.release()
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         countDownTimer?.cancel()
