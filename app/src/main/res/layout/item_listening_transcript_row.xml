@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutTranscriptRow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/bg_transcript_row_normal"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="top"
+    android:orientation="horizontal"
+    android:padding="6dp">
+
+    <TextView
+        android:id="@+id/tvTranscriptTimeBadge"
+        android:layout_width="48dp"
+        android:layout_height="22dp"
+        android:background="@drawable/bg_transcript_badge_normal"
+        android:gravity="center"
+        android:text="00:05"
+        android:textColor="@color/text_secondary"
+        android:textSize="10sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvTranscriptSentenceText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:lineSpacingExtra="2dp"
+        android:text="Speaker: Sentence content here..."
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
+</LinearLayout>

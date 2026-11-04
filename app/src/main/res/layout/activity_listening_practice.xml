@@ -434,12 +434,13 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🎙️ Lời thoại trực tiếp"
+                    android:text="🎙️ Lời thoại trực tiếp (Karaoke Sync)"
                     android:textColor="@color/primary_blue"
                     android:textSize="11sp"
                     android:textStyle="bold" />
@@ -449,20 +450,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="Audio Transcript"
+                    android:text="Chạm vào câu để nghe"
                     android:textColor="@color/text_secondary"
-                    android:textSize="11sp" />
+                    android:textSize="10sp" />
             </RelativeLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/scrollTranscript"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:overScrollMode="never"
+                android:scrollbars="vertical">
+
+                <LinearLayout
+                    android:id="@+id/layoutTranscriptContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </androidx.core.widget.NestedScrollView>
 
             <TextView
                 android:id="@+id/tvTranscriptContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Bật audio để xem đoạn lời thoại tương ứng..."
-                android:textColor="@color/text_primary"
-                android:textSize="12sp"
-                android:textStyle="italic" />
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 

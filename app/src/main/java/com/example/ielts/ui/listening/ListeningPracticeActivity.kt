@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -36,6 +37,14 @@ import com.example.ielts.ui.listening.adapter.ListeningPaletteAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.launch
 import java.util.Locale
+
+data class TranscriptLine(
+    val startMs: Long,
+    val endMs: Long,
+    val timeLabel: String,
+    val speaker: String,
+    val content: String
+)
 
 class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
 
@@ -77,7 +86,13 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
     private lateinit var btnForward5: ImageView
     private lateinit var btnTranscriptToggle: LinearLayout
     private lateinit var layoutTranscriptDrawer: LinearLayout
+    private lateinit var scrollTranscript: NestedScrollView
+    private lateinit var layoutTranscriptContainer: LinearLayout
     private lateinit var tvTranscriptContent: TextView
+
+    private val currentTranscriptLines = mutableListOf<TranscriptLine>()
+    private val transcriptRowViews = mutableListOf<View>()
+    private var activeTranscriptIndex: Int = -1
 
     // Questions Container
     private lateinit var scrollQuestions: NestedScrollView
@@ -128,6 +143,8 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         btnForward5 = findViewById(R.id.btnForward5)
         btnTranscriptToggle = findViewById(R.id.btnTranscriptToggle)
         layoutTranscriptDrawer = findViewById(R.id.layoutTranscriptDrawer)
+        scrollTranscript = findViewById(R.id.scrollTranscript)
+        layoutTranscriptContainer = findViewById(R.id.layoutTranscriptContainer)
         tvTranscriptContent = findViewById(R.id.tvTranscriptContent)
 
         scrollQuestions = findViewById(R.id.scrollQuestions)
@@ -203,6 +220,13 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                 layoutTranscriptDrawer.visibility = View.GONE
             } else {
                 layoutTranscriptDrawer.visibility = View.VISIBLE
+                if (activeTranscriptIndex in transcriptRowViews.indices) {
+                    scrollTranscript.post {
+                        val activeRow = transcriptRowViews[activeTranscriptIndex]
+                        val scrollY = (activeRow.top - 20).coerceAtLeast(0)
+                        scrollTranscript.smoothScrollTo(0, scrollY)
+                    }
+                }
             }
         }
 
@@ -310,7 +334,8 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
 
         tvAudioSectionTitle.text = section.title
         tvAudioTrackSubtitle.text = "Track 0$sectionNumber • Cambridge Audio"
-        tvTranscriptContent.text = section.transcript ?: "Lời thoại cho phần nghe này đang được cập nhật."
+        val parsedLines = parseTranscriptLines(section.transcript ?: "")
+        displayTranscriptLines(parsedLines)
 
         // 3. Play Section Audio
         if (section.audioUrl.isNotBlank()) {
@@ -591,6 +616,122 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
             seekBarAudio.progress = progress
             tvAudioCurrentTime.text = formatDuration(currentMs)
             tvAudioTotalTime.text = formatDuration(durationMs)
+            syncTranscriptWithAudio(currentMs)
+        }
+    }
+
+    private fun parseTranscriptLines(rawTranscript: String): List<TranscriptLine> {
+        if (rawTranscript.isBlank()) return emptyList()
+        val lines = rawTranscript.split("\n").map { it.trim() }.filter { it.isNotEmpty() }
+        val regex = Regex("""^\[(\d{1,2}):(\d{2})\]\s*(.*)$""")
+        val parsed = mutableListOf<TranscriptLine>()
+
+        for (line in lines) {
+            val match = regex.find(line)
+            if (match != null) {
+                val min = match.groupValues[1].toLongOrNull() ?: 0L
+                val sec = match.groupValues[2].toLongOrNull() ?: 0L
+                val startMs = (min * 60 + sec) * 1000L
+                val remainder = match.groupValues[3].trim()
+                val colonIdx = remainder.indexOf(':')
+                val speaker = if (colonIdx in 1..30) remainder.substring(0, colonIdx).trim() else ""
+                val content = if (colonIdx in 1..30) remainder.substring(colonIdx + 1).trim() else remainder
+                val timeLabel = "%02d:%02d".format(min, sec)
+                parsed.add(TranscriptLine(startMs, startMs + 6000L, timeLabel, speaker, content))
+            }
+        }
+
+        val adjusted = mutableListOf<TranscriptLine>()
+        for (i in parsed.indices) {
+            val cur = parsed[i]
+            val endMs = if (i < parsed.size - 1) {
+                parsed[i + 1].startMs
+            } else {
+                cur.startMs + 8000L
+            }
+            adjusted.add(cur.copy(endMs = endMs))
+        }
+        return adjusted
+    }
+
+    private fun displayTranscriptLines(lines: List<TranscriptLine>) {
+        layoutTranscriptContainer.removeAllViews()
+        transcriptRowViews.clear()
+        currentTranscriptLines.clear()
+        currentTranscriptLines.addAll(lines)
+        activeTranscriptIndex = -1
+
+        if (lines.isEmpty()) {
+            tvTranscriptContent.visibility = View.VISIBLE
+            tvTranscriptContent.text = "Lời thoại cho phần nghe này đang được cập nhật."
+            return
+        }
+        tvTranscriptContent.visibility = View.GONE
+
+        val inflater = LayoutInflater.from(this)
+        for ((index, item) in lines.withIndex()) {
+            val row = inflater.inflate(R.layout.item_listening_transcript_row, layoutTranscriptContainer, false)
+            val tvBadge = row.findViewById<TextView>(R.id.tvTranscriptTimeBadge)
+            val tvText = row.findViewById<TextView>(R.id.tvTranscriptSentenceText)
+
+            tvBadge.text = item.timeLabel
+
+            val fullText = if (item.speaker.isNotBlank()) {
+                Html.fromHtml("<b><font color='#2563EB'>${item.speaker}:</font></b> ${item.content}", Html.FROM_HTML_MODE_LEGACY)
+            } else {
+                Html.fromHtml(item.content, Html.FROM_HTML_MODE_LEGACY)
+            }
+            tvText.text = fullText
+
+            row.setOnClickListener {
+                audioPlayerManager.seekTo(item.startMs)
+                highlightTranscriptIndex(index, smoothScroll = true)
+            }
+
+            layoutTranscriptContainer.addView(row)
+            transcriptRowViews.add(row)
+        }
+    }
+
+    private fun syncTranscriptWithAudio(currentMs: Long) {
+        if (currentTranscriptLines.isEmpty() || transcriptRowViews.isEmpty()) return
+
+        val targetIndex = currentTranscriptLines.indexOfFirst { currentMs in it.startMs until it.endMs }
+        if (targetIndex != -1 && targetIndex != activeTranscriptIndex) {
+            highlightTranscriptIndex(targetIndex, smoothScroll = true)
+        }
+    }
+
+    private fun highlightTranscriptIndex(targetIndex: Int, smoothScroll: Boolean) {
+        if (targetIndex == activeTranscriptIndex || targetIndex !in transcriptRowViews.indices) return
+
+        // Unhighlight previous row
+        if (activeTranscriptIndex in transcriptRowViews.indices) {
+            val prevRow = transcriptRowViews[activeTranscriptIndex]
+            prevRow.setBackgroundResource(R.drawable.bg_transcript_row_normal)
+            val prevBadge = prevRow.findViewById<TextView>(R.id.tvTranscriptTimeBadge)
+            prevBadge.setBackgroundResource(R.drawable.bg_transcript_badge_normal)
+            prevBadge.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
+            val prevText = prevRow.findViewById<TextView>(R.id.tvTranscriptSentenceText)
+            prevText.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
+        }
+
+        // Highlight new row
+        activeTranscriptIndex = targetIndex
+        val activeRow = transcriptRowViews[targetIndex]
+        activeRow.setBackgroundResource(R.drawable.bg_transcript_row_active)
+        val activeBadge = activeRow.findViewById<TextView>(R.id.tvTranscriptTimeBadge)
+        activeBadge.setBackgroundResource(R.drawable.bg_transcript_badge_active)
+        activeBadge.setTextColor(ContextCompat.getColor(this, R.color.white))
+        val activeText = activeRow.findViewById<TextView>(R.id.tvTranscriptSentenceText)
+        activeText.setTextColor(ContextCompat.getColor(this, R.color.primary_blue))
+
+        // Smooth scroll to keep active sentence centered in transcript drawer
+        if (smoothScroll && layoutTranscriptDrawer.visibility == View.VISIBLE) {
+            scrollTranscript.post {
+                val scrollY = (activeRow.top - 20).coerceAtLeast(0)
+                scrollTranscript.smoothScrollTo(0, scrollY)
+            }
         }
     }
 
