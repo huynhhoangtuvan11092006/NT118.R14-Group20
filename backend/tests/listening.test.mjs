@@ -65,3 +65,4 @@ test("calculateListeningBandScore accurately converts correct answers to IELTS B
   assert.equal(calculateListeningBandScore(10), 4.0);
   assert.equal(calculateListeningBandScore(0), 0.0);
 });
+

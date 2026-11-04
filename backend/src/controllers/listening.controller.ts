@@ -27,3 +27,4 @@ export async function getListeningSubmissionDetail(req: Request, res: Response) 
   const result = await listeningService.getListeningSubmissionDetail(submissionId, userId);
   res.status(200).json(result);
 }
+

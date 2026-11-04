@@ -18,3 +18,4 @@ export const listeningSubmissionRouter = Router();
 // POST /api/v1/submissions/listening
 listeningSubmissionRouter.post("/", optionalAuth, submitListening);
 listeningSubmissionRouter.get("/:id", optionalAuth, getListeningSubmissionDetail);
+
