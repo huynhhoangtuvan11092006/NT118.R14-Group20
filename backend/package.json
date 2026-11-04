@@ -19,6 +19,7 @@
     "db:status": "prisma migrate status",
     "db:studio": "prisma studio",
     "test:contracts": "node --test tests/contracts.test.mjs",
+    "test:listening": "npm run build && node tests/listening.test.mjs",
     "test:smoke": "node scripts/smoke.mjs",
     "db:verify": "node scripts/verify-db.mjs",
     "test:auth": "npm run build && node --test tests/auth.integration.mjs"

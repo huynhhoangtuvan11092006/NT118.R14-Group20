@@ -1,4 +1,10 @@
 import { PrismaClient, TestType, TestStatus, QuestionType } from "@prisma/client";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const prisma = new PrismaClient();
 
@@ -528,6 +534,62 @@ Ultimately, consensus among bioethicists and clinical leaders emphasizes that AI
   }
 
   console.log(`🎉 Successfully seeded 40 questions for Test: ${test.title}!`);
+
+  // --- SEED LISTENING TEST ---
+  console.log("🌱 Starting Listening seed script...");
+  const listeningDataPath = path.resolve(__dirname, "../src/data/listening_cambridge18_test1.json");
+  if (fs.existsSync(listeningDataPath)) {
+    const rawData = fs.readFileSync(listeningDataPath, "utf-8");
+    const listeningData = JSON.parse(rawData);
+
+    const existingListening = await prisma.test.findFirst({
+      where: {
+        title: listeningData.title,
+        type: TestType.LISTENING,
+      },
+    });
+
+    if (existingListening) {
+      console.log(`ℹ️ Listening test already exists with ID: ${existingListening.id}. Re-creating...`);
+      await prisma.test.delete({ where: { id: existingListening.id } });
+    }
+
+    const descriptionPayload = JSON.stringify({
+      summary: listeningData.summary,
+      difficulty: listeningData.difficulty,
+      durationMinutes: listeningData.durationMinutes,
+      totalAudioDuration: listeningData.totalAudioDuration,
+      audioUrl: listeningData.audioUrl,
+      sections: listeningData.sections,
+    });
+
+    const listeningTest = await prisma.test.create({
+      data: {
+        title: listeningData.title,
+        description: descriptionPayload,
+        type: TestType.LISTENING,
+        status: TestStatus.PUBLISHED,
+        durationMinutes: listeningData.durationMinutes ?? 35,
+      },
+    });
+
+    for (const q of listeningData.questions) {
+      await prisma.question.create({
+        data: {
+          testId: listeningTest.id,
+          position: q.position,
+          type: q.type === "FILL_IN_BLANK" ? QuestionType.FILL_IN_BLANK : QuestionType.MULTIPLE_CHOICE,
+          prompt: q.prompt,
+          options: q.options ? q.options : undefined,
+          answerKey: q.answerKey,
+          explanation: q.explanation,
+          points: 1,
+        },
+      });
+    }
+
+    console.log(`🎉 Successfully seeded 40 questions for Listening Test: ${listeningTest.title}!`);
+  }
 }
 
 main()
