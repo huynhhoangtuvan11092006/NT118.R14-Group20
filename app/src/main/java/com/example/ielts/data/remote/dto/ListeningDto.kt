@@ -88,3 +88,4 @@ data class SubmitListeningResponse(
     val sections: List<ListeningSectionDto> = emptyList(),
     val results: List<ListeningResultItemDto> = emptyList()
 )
+
