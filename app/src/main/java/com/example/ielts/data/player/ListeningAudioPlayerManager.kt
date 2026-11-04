@@ -1,6 +1,7 @@
 package com.example.ielts.data.player
 
 import android.content.Context
+import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -14,6 +15,10 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.ExoPlayer
+import java.io.File
+import java.net.HttpURLConnection
+import java.net.URL
+import kotlin.concurrent.thread
 
 interface AudioPlayerListener {
     fun onProgress(currentMs: Long, durationMs: Long)
@@ -39,7 +44,7 @@ class ListeningAudioPlayerManager(private val context: Context) {
                 val duration = player.duration.coerceAtLeast(0L)
                 listener?.onProgress(current, duration)
                 if (player.isPlaying) {
-                    progressHandler.postDelayed(this, 500)
+                    progressHandler.postDelayed(this, 300)
                 }
             }
         }
@@ -59,11 +64,12 @@ class ListeningAudioPlayerManager(private val context: Context) {
 
         val loadControl = DefaultLoadControl.Builder()
             .setBufferDurationsMs(
-                25_000, // minBufferMs: tải trước 25 giây
+                50_000,  // minBufferMs: tải trước 50 giây
                 120_000, // maxBufferMs: tối đa 2 phút
-                1_500,  // bufferForPlaybackMs
-                3_000   // bufferForPlaybackAfterRebufferMs
+                2_500,   // bufferForPlaybackMs
+                5_000    // bufferForPlaybackAfterRebufferMs
             )
+            .setBackBuffer(30_000, true)
             .setPrioritizeTimeOverSizeThresholds(true)
             .build()
 
@@ -77,7 +83,7 @@ class ListeningAudioPlayerManager(private val context: Context) {
                         Log.d(tag, "PlaybackState changed to: $playbackState (READY=3, BUFFERING=2, ENDED=4)")
                         when (playbackState) {
                             Player.STATE_BUFFERING -> {
-                                listener?.onStateChanged(isPlaying = false, isBuffering = true)
+                                listener?.onStateChanged(isPlaying = isPlaying(), isBuffering = true)
                             }
                             Player.STATE_READY -> {
                                 listener?.onStateChanged(isPlaying = isPlaying, isBuffering = false)
@@ -118,6 +124,11 @@ class ListeningAudioPlayerManager(private val context: Context) {
         this.listener = listener
     }
 
+    private fun getCacheFileForUrl(url: String): File {
+        val safeName = "audio_cache_" + Math.abs(url.hashCode()).toString(16) + ".mp3"
+        return File(context.cacheDir, safeName)
+    }
+
     fun playUrl(url: String, autoPlay: Boolean = true) {
         if (url.isBlank()) return
 
@@ -133,14 +144,49 @@ class ListeningAudioPlayerManager(private val context: Context) {
         currentUrl = url
         initPlayer()
 
+        val cacheFile = getCacheFileForUrl(url)
+        val playUri = if (cacheFile.exists() && cacheFile.length() > 500_000L) {
+            Log.d(tag, "Playing directly from local cached file: ${cacheFile.absolutePath} (${cacheFile.length()} bytes)")
+            Uri.fromFile(cacheFile)
+        } else {
+            Log.d(tag, "Playing from remote URL and starting background cache: $url")
+            startBackgroundDownload(url, cacheFile)
+            Uri.parse(url)
+        }
+
         exoPlayer?.let { player ->
             player.volume = 1.0f
-            val mediaItem = MediaItem.fromUri(url)
+            val mediaItem = MediaItem.fromUri(playUri)
             player.setMediaItem(mediaItem)
             player.playbackParameters = PlaybackParameters(currentSpeed)
             player.prepare()
             if (autoPlay) {
                 player.play()
+            }
+        }
+    }
+
+    private fun startBackgroundDownload(url: String, targetFile: File) {
+        thread(isDaemon = true, name = "AudioCacheDownloader") {
+            try {
+                val connection = URL(url).openConnection() as HttpURLConnection
+                connection.connectTimeout = 10000
+                connection.readTimeout = 20000
+                connection.connect()
+                if (connection.responseCode in 200..299) {
+                    val tempFile = File(context.cacheDir, targetFile.name + ".tmp")
+                    connection.inputStream.use { input ->
+                        tempFile.outputStream().use { output ->
+                            input.copyTo(output)
+                        }
+                    }
+                    if (tempFile.length() > 500_000L) {
+                        tempFile.renameTo(targetFile)
+                        Log.d(tag, "Successfully cached audio to disk: ${targetFile.absolutePath} (${targetFile.length()} bytes)")
+                    }
+                }
+            } catch (e: Exception) {
+                Log.w(tag, "Background audio caching skipped: ${e.message}")
             }
         }
     }
