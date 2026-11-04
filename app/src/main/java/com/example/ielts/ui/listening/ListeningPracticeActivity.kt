@@ -50,6 +50,7 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
 
     private lateinit var audioPlayerManager: ListeningAudioPlayerManager
     private var testDetail: ListeningTestDetailDto? = null
+    private var currentTestId: String = "cam18-listening-test1"
 
     private var currentSectionNumber: Int = 1
     private val answersMap = mutableMapOf<Int, String>()
@@ -255,7 +256,8 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
     }
 
     private fun loadTestData() {
-        val testId = intent.getStringExtra("EXTRA_TEST_ID") ?: "cam18-listening-test1"
+        currentTestId = intent.getStringExtra("EXTRA_TEST_ID") ?: "cam18-listening-test1"
+        val testId = currentTestId
         val testTitle = intent.getStringExtra("EXTRA_TEST_TITLE") ?: "Cambridge IELTS 18 - Listening Test 1"
 
         tvExamHeaderTitle.text = testTitle
@@ -334,7 +336,9 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
 
         tvAudioSectionTitle.text = section.title
         tvAudioTrackSubtitle.text = "Track 0$sectionNumber • Cambridge Audio"
-        val parsedLines = parseTranscriptLines(section.transcript ?: "")
+        val fallbackSection = CambridgeListeningTestDetailDataSource.getTestDetail(currentTestId).sections.find { it.sectionNumber == sectionNumber }
+        val sectionTranscript = if (!section.transcript.isNullOrBlank()) section.transcript else fallbackSection?.transcript ?: ""
+        val parsedLines = parseTranscriptLines(sectionTranscript)
         displayTranscriptLines(parsedLines)
 
         // 3. Play Section Audio
