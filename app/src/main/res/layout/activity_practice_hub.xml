@@ -297,6 +297,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvListeningSkillCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="38 đề nghe audio"
@@ -318,20 +319,22 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/tvListeningProgressPercent"
                             android:layout_alignParentEnd="true"
-                            android:text="42%"
+                            android:text="0%"
                             android:textColor="@color/card_listening_accent"
                             android:textSize="11sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
 
                     <ProgressBar
+                        android:id="@+id/pbListeningProgress"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="5dp"
                         android:layout_marginTop="4dp"
                         android:max="100"
-                        android:progress="42"
+                        android:progress="0"
                         android:progressTint="@color/card_listening_accent" />
                 </LinearLayout>
             </LinearLayout>
@@ -711,22 +714,25 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvRecentListeningTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cam 17 - Listening Test 3"
+                        android:text="Cam 18 - Listening Test 1"
                         android:textColor="@color/text_primary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvRecentListeningSubtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4 ngày trước • 38/40 câu"
+                        android:text="Chưa làm bài • 0/40 câu"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tvRecentListeningBand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_badge_purple_bg"
@@ -734,7 +740,7 @@
                     android:paddingTop="3dp"
                     android:paddingEnd="10dp"
                     android:paddingBottom="3dp"
-                    android:text="Band 8.5"
+                    android:text="Band --"
                     android:textColor="@color/badge_purple_text"
                     android:textSize="12sp"
                     android:textStyle="bold" />

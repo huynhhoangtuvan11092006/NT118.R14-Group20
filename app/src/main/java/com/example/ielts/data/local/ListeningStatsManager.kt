@@ -130,5 +130,10 @@ object ListeningStatsManager {
     fun getSavedResultForTest(context: Context, testId: String): SavedListeningTestRecord? {
         return getRecords(context)[testId]
     }
+
+    fun getLatestRecord(context: Context): SavedListeningTestRecord? {
+        val records = getRecords(context).values.toList()
+        return records.maxByOrNull { it.completedAtMillis }
+    }
 }
 
