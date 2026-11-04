@@ -109,7 +109,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="7.5"
-                                android:textColor="@color/card_listening_accent"
+                                android:textColor="@color/primary_blue"
                                 android:textSize="22sp"
                                 android:textStyle="bold" />
 
@@ -369,7 +369,7 @@
                     android:paddingEnd="10dp"
                     android:paddingBottom="4dp"
                     android:text="Mới nhất ▾"
-                    android:textColor="@color/card_listening_accent"
+                    android:textColor="@color/primary_blue"
                     android:textSize="11sp"
                     android:textStyle="bold" />
             </RelativeLayout>
@@ -414,7 +414,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:indeterminateTint="@color/card_listening_accent"
+                android:indeterminateTint="@color/primary_blue"
                 android:visibility="gone" />
 
         </LinearLayout>
@@ -469,14 +469,14 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:src="@drawable/ic_menu_book"
-                app:tint="@color/card_listening_accent" />
+                app:tint="@color/primary_blue" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="Luyện thi"
-                android:textColor="@color/card_listening_accent"
+                android:textColor="@color/primary_blue"
                 android:textSize="10sp"
                 android:textStyle="bold" />
         </LinearLayout>

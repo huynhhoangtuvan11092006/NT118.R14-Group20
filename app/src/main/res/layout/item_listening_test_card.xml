@@ -31,7 +31,7 @@
                 android:paddingEnd="10dp"
                 android:paddingBottom="4dp"
                 android:text="Cambridge 18"
-                android:textColor="@color/card_listening_accent"
+                android:textColor="@color/primary_blue"
                 android:textSize="11sp"
                 android:textStyle="bold" />
 
@@ -109,7 +109,7 @@
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:src="@drawable/ic_headphones"
-                app:tint="@color/card_listening_accent" />
+                app:tint="@color/primary_blue" />
 
             <TextView
                 android:id="@+id/tvSection1"
@@ -134,7 +134,7 @@
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:src="@drawable/ic_headphones"
-                app:tint="@color/card_listening_accent" />
+                app:tint="@color/primary_blue" />
 
             <TextView
                 android:id="@+id/tvSection2"
@@ -159,7 +159,7 @@
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:src="@drawable/ic_headphones"
-                app:tint="@color/card_listening_accent" />
+                app:tint="@color/primary_blue" />
 
             <TextView
                 android:id="@+id/tvSection3"
@@ -184,7 +184,7 @@
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:src="@drawable/ic_headphones"
-                app:tint="@color/card_listening_accent" />
+                app:tint="@color/primary_blue" />
 
             <TextView
                 android:id="@+id/tvSection4"

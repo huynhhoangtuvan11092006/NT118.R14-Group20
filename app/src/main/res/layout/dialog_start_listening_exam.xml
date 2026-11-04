@@ -25,7 +25,7 @@
             android:layout_height="28dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_headphones"
-            app:tint="@color/card_listening_accent" />
+            app:tint="@color/primary_blue" />
     </FrameLayout>
 
     <!-- Dialog Title -->
@@ -48,7 +48,7 @@
         android:layout_marginTop="4dp"
         android:gravity="center"
         android:text="Cambridge IELTS 18 - Test 1 (Listening)"
-        android:textColor="@color/card_listening_accent"
+        android:textColor="@color/primary_blue"
         android:textSize="13sp"
         android:textStyle="bold" />
 
