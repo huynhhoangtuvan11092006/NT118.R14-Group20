@@ -34,6 +34,10 @@ import com.example.ielts.data.remote.dto.ListeningSectionDto
 import com.example.ielts.data.remote.dto.ListeningTestDetailDto
 import com.example.ielts.data.remote.dto.SubmitListeningRequest
 import com.example.ielts.ui.listening.adapter.ListeningPaletteAdapter
+import com.example.ielts.ui.listening.ListeningResultActivity
+import com.example.ielts.data.remote.dto.ListeningResultReviewDto
+import com.example.ielts.data.remote.dto.ListeningSubmissionResultDto
+import com.google.gson.Gson
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -554,22 +558,125 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         val timeSpent = (totalExamDurationSeconds - remainingSeconds).toInt().coerceAtLeast(60)
         val testId = testDetail?.id ?: "cam18-listening-test1"
 
-        // Auto grade locally via standard IELTS 40-question listening conversion table
+        val defaultAnswers = listOf(
+            "7YZ", "24", "dentist", "parking", "Claxby",
+            "late", "evening", "supermarket", "pollution", "storage",
+            "C", "A", "A", "B", "E",
+            "B", "G", "D", "A", "F",
+            "C", "B", "B", "A", "C",
+            "A", "B", "C", "A", "C",
+            "fences", "family", "helicopters", "stress", "sides",
+            "breathing", "feet", "employment", "weapons", "tourism"
+        )
+
+        val defaultQuotes = listOf(
+            "It's DW3Q 7YZ.", "It's the 24th of April, isn't it?", "the main reason I came here was to go to the dentist.",
+            "parking was so difficult to find and it costs so much.", "At the bus stop on Claxby Street.",
+            "this morning it was late. Only about 10 minutes, but still.", "any time I've been in town in the evening... wait a long time",
+            "Mainly just to go to the supermarket.", "because of all the pollution.", "it doesn't have any storage.",
+            "Some of the seats are placed very close together.", "The age of volunteers is really less important than other factors.",
+            "we ensure it is continuous throughout your journey with us.", "your level of commitment", "your availability during weekends",
+            "For fundraising, original and new ideas are particularly welcome.", "volunteers need a good level of fitness.",
+            "an understanding of food and diet is essential.", "having experience on stage helps captivate young audiences.",
+            "having a good memory for emergency procedures is vital.",
+            "the students sitting next to me were talking loudly.", "there is much more variety in the job market than we had realised.",
+            "quite hard for us to follow at points.", "school careers advice was delivered far too late",
+            "differ on why we would like a career in fashion.", "realistic about the practice",
+            "paying too much attention to how she looked", "expecting to become well known right away",
+            "reasons why people return items", "fashion designs customers want but can't find",
+            "extensive damage to fences in the reserve.", "an entire family unit was selected",
+            "employed helicopters to herd the animals", "minimise physiological stress",
+            "positioned on their sides to prevent their immense weight from crushing lungs",
+            "breathing was monitored constantly throughout transit", "circumference of their feet",
+            "created valuable employment opportunities", "sharp decline in poachers and confiscated weapons",
+            "eco-tourism flourished, providing a significant boost to GDP"
+        )
+
+        val timestamps = listOf(
+            34, 73, 94, 118, 142, 162, 183, 209, 241, 260,
+            10, 25, 42, 60, 60, 85, 105, 125, 145, 165,
+            12, 24, 40, 55, 70, 88, 105, 105, 130, 130,
+            18, 32, 48, 65, 80, 98, 112, 130, 146, 162
+        )
+
         var correctCount = 0
-        val questions = testDetail?.questions ?: emptyList()
-        for (q in questions) {
-            val userAns = answersMap[q.position]?.trim() ?: ""
-            if (userAns.isNotBlank()) {
-                // Offline fallback grading
-                correctCount++
+        val reviewList = mutableListOf<ListeningResultReviewDto>()
+        val questionsFromDetail = testDetail?.questions ?: emptyList()
+
+        for (i in 1..40) {
+            val qDetail = questionsFromDetail.find { it.position == i }
+            val secNum = when {
+                i <= 10 -> 1
+                i <= 20 -> 2
+                i <= 30 -> 3
+                else -> 4
             }
+            val userRaw = answersMap[i]?.trim()
+            val correctAns = defaultAnswers.getOrElse(i - 1) { "A" }
+            val isCorrect = if (userRaw.isNullOrBlank()) {
+                false
+            } else {
+                userRaw.equals(correctAns, ignoreCase = true) ||
+                userRaw.contains(correctAns, ignoreCase = true) ||
+                correctAns.contains(userRaw, ignoreCase = true)
+            }
+
+            if (isCorrect) correctCount++
+
+            val timeSec = timestamps.getOrElse(i - 1) { 30 }
+            val timeStr = "%02d:%02d".format(timeSec / 60, timeSec % 60)
+
+            reviewList.add(
+                ListeningResultReviewDto(
+                    questionId = qDetail?.id ?: "q_$i",
+                    position = i,
+                    userAnswer = if (userRaw.isNullOrBlank()) null else userRaw,
+                    correctAnswer = correctAns,
+                    isCorrect = isCorrect,
+                    explanation = "Dẫn chứng đối chiếu trực tiếp từ audio tại thời điểm $timeStr.",
+                    prompt = qDetail?.prompt ?: "Câu hỏi số $i",
+                    sectionNumber = secNum,
+                    evidenceQuote = defaultQuotes.getOrElse(i - 1) { "Dẫn chứng trong đoạn nghe Section $secNum." },
+                    timestampSeconds = timeSec,
+                    timestampStr = timeStr
+                )
+            )
         }
+
         val estimatedBand = calculateIeltsListeningBand(correctCount)
+        val resultDto = ListeningSubmissionResultDto(
+            testId = testId,
+            score = correctCount,
+            totalQuestions = 40,
+            bandEstimate = estimatedBand,
+            bandScore = estimatedBand,
+            durationSpent = timeSpent,
+            results = reviewList
+        )
+        val resultJson = Gson().toJson(resultDto)
 
         // Save local stats
-        ListeningStatsManager.recordTestCompletion(this, testId, correctCount, 40, estimatedBand, null, null)
+        ListeningStatsManager.recordTestCompletion(this, testId, correctCount, 40, estimatedBand, resultJson, null)
 
-        // Try submitting to backend
+        Toast.makeText(
+            this@ListeningPracticeActivity,
+            "Đã nộp bài thành công! Đúng $correctCount/40 câu • Band %.1f".format(estimatedBand),
+            Toast.LENGTH_LONG
+        ).show()
+
+        val intent = Intent(this@ListeningPracticeActivity, ListeningResultActivity::class.java).apply {
+            putExtra("TEST_ID", testId)
+            putExtra("TEST_TITLE", testDetail?.title ?: "Cam 18 - Listening Test 1")
+            putExtra("SCORE", correctCount)
+            putExtra("TOTAL_QUESTIONS", 40)
+            putExtra("BAND_ESTIMATE", estimatedBand)
+            putExtra("DURATION_SPENT", timeSpent)
+            putExtra("RESULT_JSON", resultJson)
+        }
+        startActivity(intent)
+        finish()
+
+        // Background sync to backend
         val strAnswers = answersMap.mapKeys { it.key.toString() }
         lifecycleScope.launch {
             try {
@@ -578,14 +685,6 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                     SubmitListeningRequest(testId, strAnswers, timeSpent)
                 )
             } catch (_: Exception) {}
-
-            Toast.makeText(
-                this@ListeningPracticeActivity,
-                "Đã nộp bài thành công! Đúng $correctCount/40 câu • Band %.1f".format(estimatedBand),
-                Toast.LENGTH_LONG
-            ).show()
-
-            finish()
         }
     }
 

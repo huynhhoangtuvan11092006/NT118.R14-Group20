@@ -45,6 +45,10 @@
             android:exported="true" />
 
         <activity
+            android:name=".ui.listening.ListeningResultActivity"
+            android:exported="true" />
+
+        <activity
             android:name=".ui.auth.TargetBandActivity"
             android:exported="true" />
 

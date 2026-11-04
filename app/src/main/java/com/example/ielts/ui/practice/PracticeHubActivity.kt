@@ -15,6 +15,7 @@ import com.example.ielts.data.local.ReadingStatsManager
 import com.example.ielts.data.local.ListeningStatsManager
 import com.example.ielts.ui.auth.ProfileActivity
 import com.example.ielts.ui.listening.ListeningListActivity
+import com.example.ielts.ui.listening.ListeningResultActivity
 import com.example.ielts.ui.reading.ReadingListActivity
 import com.example.ielts.ui.reading.ReadingResultActivity
 import java.util.Locale
@@ -209,8 +210,24 @@ class PracticeHubActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.itemRecentListening)?.setOnClickListener {
-            val intent = Intent(this, ListeningListActivity::class.java)
-            startActivity(intent)
+            val latest = ListeningStatsManager.getLatestRecord(this)
+            if (latest != null && !latest.resultJson.isNullOrEmpty()) {
+                val testItem = CambridgeListeningDataSource.getAllTests().find { it.id == latest.testId }
+                    ?: CambridgeListeningDataSource.getAllTests().firstOrNull()
+                val intent = Intent(this, ListeningResultActivity::class.java).apply {
+                    putExtra("TEST_ID", latest.testId)
+                    putExtra("TEST_TITLE", testItem?.title ?: "Cam 18 - Listening Test 1")
+                    putExtra("SCORE", latest.score)
+                    putExtra("TOTAL_QUESTIONS", latest.totalQuestions)
+                    putExtra("BAND_ESTIMATE", latest.bandEstimate)
+                    putExtra("DURATION_SPENT", 1935)
+                    putExtra("RESULT_JSON", latest.resultJson)
+                }
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, ListeningListActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         // 7. Bottom Navigation

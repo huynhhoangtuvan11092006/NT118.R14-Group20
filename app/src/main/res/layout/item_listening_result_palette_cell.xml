@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/tvPaletteCellNumber"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_result_palette_unanswered"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="#64748B"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+</FrameLayout>
+
