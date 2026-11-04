@@ -610,7 +610,7 @@ Ultimately, consensus among bioethicists and clinical leaders emphasizes that AI
         where: { title: item.title, type: TestType.LISTENING },
       });
       if (existing) {
-        continue;
+        await prisma.test.delete({ where: { id: existing.id } });
       }
 
       const descPayload = JSON.stringify({
