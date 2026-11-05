@@ -1,192 +1,169 @@
-# BandUp Backend — Authentication & User Profile
+# BandUp — Gemini IELTS Writing AI Evaluation
 
-Node.js 22+ · Express 5 · TypeScript · PostgreSQL 16 · Prisma 6.19 · Argon2id · JWT (HS256).
+**Module:** Phase 2 / Writing / Sub-issue B — Pipeline AI chấm điểm IELTS Writing theo 4 tiêu chí
 
-> This package extends the existing **Backend Foundation** and preserves the initial five-table migration. Authentication adds a **sixth table**, `refresh_tokens`, via an additive migration.
+**Backend:** Node.js, TypeScript, Express, Zod
 
-## 1. Run in Windows PowerShell
+**Trạng thái:** MVP hoàn thành, 21/21 bài kiểm thử tự động PASS.
 
-From `E:\cc\NT118.R14-Group20\backend` (or your own backend path):
+## 1. Giới thiệu
 
-```powershell
-# Keep your existing .env if you already have one.
-# New checkout only: Copy-Item .env.example .env
-# Generate TWO DIFFERENT secrets; paste each value into its matching .env line:
-node -e "console.log(require('node:crypto').randomBytes(48).toString('base64url'))"
-node -e "console.log(require('node:crypto').randomBytes(48).toString('base64url'))"
+Gemini Writing AI là module chấm điểm IELTS Writing trong ứng dụng BandUp, sử dụng Google Gemini API để phân tích bài viết dựa trên bốn tiêu chí IELTS Writing.
+
+Hệ thống cung cấp:
+
+- Điểm ước tính cho từng tiêu chí IELTS Writing.
+- Điểm tổng (Estimated Band).
+- Nhận xét chi tiết bằng tiếng Việt.
+- Phát hiện và sửa lỗi ngữ pháp.
+- Kế hoạch cải thiện bài viết.
+- Dẫn chứng từ bài viết để giải thích đánh giá.
+
+Hỗ trợ IELTS Academic Task 1, General Training Task 1 và Task 2.
+
+**Lưu ý:** Điểm số AI chỉ phục vụ luyện tập, không thay thế đánh giá chính thức từ giám khảo IELTS.
+
+## 2. Kiến trúc hệ thống
+
+```text
+Android / Postman
+       |
+       v
+POST /ai/evaluate/writing
+       |
+       v
+JWT Authentication
+       |
+       v
+Input Validation (Zod)
+       |
+       v
+IELTS Prompt + JSON Schema
+       |
+       v
+Gemini API
+       |
+       +-- Primary Model
+       +-- Retry / Fallback
+       |
+       v
+Output Validation
+       |
+       +-- Validate Evidence
+       +-- Validate Grammar Corrections
+       +-- Calculate Estimated Band
+       |
+       v
+Structured JSON Response
 ```
 
-Edit `.env` and **add** the two lines below to your existing PostgreSQL configuration:
+## 3. Cấu hình
+
+Trong `backend/.env`:
 
 ```dotenv
-JWT_ACCESS_SECRET=YOUR_FIRST_GENERATED_RANDOM_STRING
-JWT_REFRESH_SECRET=YOUR_SECOND_DIFFERENT_GENERATED_RANDOM_STRING
+GEMINI_API_KEY=YOUR_REAL_GEMINI_API_KEY
+GEMINI_MODEL=gemini-3.5-flash-lite
+GEMINI_FALLBACK_MODEL=gemini-3.1-flash-lite
+GEMINI_TIMEOUT_MS=30000
 ```
 
-The secrets must be different and at least 32 characters. The server rejects the `CHANGE_ME...` placeholders from `.env.example`. Do not add them to Git or paste them into chats. `.env` is gitignored.
+API key chỉ được lưu tại Backend, không đưa vào ứng dụng Android hoặc GitHub.
+
+Khởi động:
 
 ```powershell
-# Docker Desktop must be running
-# Start your existing PostgreSQL data volume (do NOT use docker compose down -v)
-docker compose up -d db
-
-# First install after this feature (your previous registry was unreachable):
-npm install --registry=https://registry.npmjs.org/ --no-audit --no-fund
-
-# Checks and additive migration
-npm run db:validate
-npm run db:migrate
-npm run db:generate
-npm run db:verify
-npm run typecheck
-npm run lint
-npm run test:contracts
-
-# Start API
+cd E:\cc\NT118.R14-Group20\backend
+npm install
 npm run dev
 ```
 
-Health check: `GET http://localhost:3000/health` should return `{"status":"ok","database":"connected"}`.
-
-**Important Git note:** `npm install` updates the committed `package-lock.json` for `argon2`, `jsonwebtoken`, `@types/jsonwebtoken`. Include that updated lockfile in the PR. Do not run `npm ci` until the lockfile has been refreshed. Do not use `prisma db push` in place of the migration.
-
-## 2. Endpoints
-
-| Method | URL | Auth | Request | Success |
-|---|---|---|---|---|
-| POST | `/auth/register` | Public | `email`, `password`, `fullName` | 201 user + token pair |
-| POST | `/auth/login` | Public | `email`, `password` | 200 user + token pair |
-| POST | `/auth/refresh` | Public (refresh JWT in body) | `refreshToken` | 200 rotated pair |
-| POST | `/auth/logout` | Public (refresh JWT in body) | `refreshToken` | 204 |
-| GET | `/users/me` | **Bearer access JWT** | - | 200 user |
-| PUT | `/users/me` | **Bearer access JWT** | any of `fullName`, `avatarUrl`, `currentBand`, `expectedExamDate`, `dailyStudyMinutes` | 200 user |
-| PUT | `/users/target-band` | **Bearer access JWT** | `targetBand` | 200 user |
-
-All JSON fields are camelCase. The login email is normalized to lowercase, and newly registered account emails are stored lowercase. `passwordHash` is **never** included in API responses.
-
-- Password: 8–128 characters, Argon2id hash with per-password random salt.
-- Band scores: number from 0 to 9 in steps of 0.5 (e.g., `6.5`, `7`, `7.5`).
-- `expectedExamDate`: `YYYY-MM-DD`; profile nullable fields can be cleared with `null`.
-- JWT access token: 15 minutes. Refresh token: 7 days, rotated on use and stored as a SHA-256 digest in `refresh_tokens`. Refresh token reuse is rejected.
-- Private routes: `Authorization: Bearer <accessToken>`.
-- Error statuses: 400 validation, 401 unauthorized / invalid credentials, 409 duplicate email, 500 unexpected server error.
-- An existing access token remains valid until its 15-minute expiry after logout. Logout revokes the specified refresh token, not every device session.
-
-### Request samples
-
-Register:
+## 4. API Endpoint
 
 ```http
-POST http://localhost:3000/auth/register
-Content-Type: application/json
-
-{"email":"student@example.com","password":"YourExamplePassword#123","fullName":"Nguyen Van A"}
+POST http://localhost:3000/ai/evaluate/writing
 ```
 
-Response (shortened):
+**Authorization:** Bearer JWT
+
+**Content-Type:** application/json
+
+Ví dụ Request:
 
 ```json
 {
-  "user": {"id": "uuid", "email": "student@example.com", "fullName": "Nguyen Van A"},
-  "accessToken": "<signed-access-JWT>",
-  "refreshToken": "<signed-refresh-JWT>",
-  "tokenType": "Bearer",
-  "expiresIn": 900
+  "taskType": "TASK_2",
+  "question": "Some people believe that working from home is better than working in an office. To what extent do you agree or disagree?",
+  "essay": "Working from home has become more common in recent years. I agree that it can improve employees' lives because they spend less time commuting. However, some workers feels lonely when they do not meet colleagues regularly. Companies should therefore allow employees to work from home while also providing opportunities for face-to-face meetings."
 }
 ```
 
-Login:
+Ngoài `TASK_2`, hệ thống còn hỗ trợ `ACADEMIC_TASK_1` và `GENERAL_TASK_1`. Academic Task 1 cần truyền thêm `sourceMaterial` mô tả dữ liệu biểu đồ bằng văn bản.
 
-```http
-POST http://localhost:3000/auth/login
-Content-Type: application/json
+## 5. Tiêu chí chấm điểm
 
-{"email":"student@example.com","password":"YourExamplePassword#123"}
-```
+| Tiêu chí | Nội dung |
+|---|---|
+| Task Response / Task Achievement | Đáp ứng yêu cầu đề bài, phát triển luận điểm |
+| Coherence and Cohesion | Bố cục, tính logic và liên kết ý |
+| Lexical Resource | Vốn từ vựng và mức độ chính xác |
+| Grammatical Range and Accuracy | Cấu trúc câu và độ chính xác ngữ pháp |
 
-Private profile:
+Mỗi tiêu chí được chấm từ 0 đến 9, theo bước 0,5 band.
 
-```http
-GET http://localhost:3000/users/me
-Authorization: Bearer <accessToken>
-```
+Backend tính điểm trung bình bốn tiêu chí và làm tròn về mức 0,5 gần nhất.
 
-Update personal profile:
+## 6. Kiểm tra dữ liệu từ Gemini
 
-```http
-PUT http://localhost:3000/users/me
-Authorization: Bearer <accessToken>
-Content-Type: application/json
+Gemini trả về Structured JSON, được Backend kiểm tra lại bằng Zod.
 
-{"fullName":"Nguyen Van B","dailyStudyMinutes":60,"expectedExamDate":"2027-05-01"}
-```
+**Evidence Validation**
 
-Update target band:
+- Kiểm tra đoạn trích có xuất hiện trong bài gốc không.
+- Chuẩn hóa dấu ngoặc hoặc khoảng trắng khi phù hợp.
+- Evidence không xác minh được sẽ bị bỏ và ghi cảnh báo.
 
-```http
-PUT http://localhost:3000/users/target-band
-Authorization: Bearer <accessToken>
-Content-Type: application/json
+**Grammar Validation**
 
-{"targetBand":7.5}
-```
+- Chỉ chấp nhận câu gốc xuất hiện trong bài viết.
+- Loại các correction trùng lặp.
+- Không trả correction nếu câu sửa không thay đổi.
+- Giới hạn tối đa 5 câu được sửa.
 
-Refresh (old token cannot be used again):
+## 7. Retry và Fallback
 
-```http
-POST http://localhost:3000/auth/refresh
-Content-Type: application/json
+Hệ thống hỗ trợ tối đa hai lần thử model chính và một lần thử model dự phòng khi gặp lỗi tạm thời.
 
-{"refreshToken":"<refresh-JWT>"}
-```
+Timeout cấu hình là **30 giây**, với giới hạn tối đa 10 giây cho từng lượt gọi Gemini.
 
-Logout:
+Khi Gemini trả `429 Rate Limited`, Backend trả lỗi tương ứng thay vì liên tục thử lại, giúp tránh tiêu thụ quota không cần thiết.
 
-```http
-POST http://localhost:3000/auth/logout
-Content-Type: application/json
-
-{"refreshToken":"<latest-refresh-JWT>"}
-```
-
-## 3. Postman
-
-Import `backend/postman/BandUp_Auth.postman_collection.json` into Postman. Set collection variables:
-
-- `baseUrl`: `http://localhost:3000`
-- `testEmail`: a **new unique email** each run (register returns 409 if reused).
-- `testPassword`: a sample password, not a personal account password.
-
-Run requests **01 through 08** in order. Register/login/refresh automatically set the collection's token variables. The test `03 Protected without token` expects HTTP **401**. `06 Target Band` expects the band saved as **7.5**.
-
-Do not commit or share exported collections that contain real auth tokens or personal passwords.
-
-## 4. Integration tests against real database
-
-With Docker DB healthy, generated Prisma Client present, and `.env` set:
+## 8. Kiểm thử
 
 ```powershell
-npm run test:auth
+npm run typecheck
+npm run lint
+npm run test:writing
 ```
 
-This builds the TypeScript project, starts an ephemeral Express listener, and tests registration, duplicate email, hashed Argon2id password persistence, login, missing/forged bearer token rejection, profile/target-band updates, token rotation, replay rejection and logout. Creates a unique `@example.invalid` user and removes that user and its refresh tokens after completion. **Run only on a disposable development/test database**, not production; avoid running the suite simultaneously with other schema migrations.
+Kết quả đã ghi nhận:
 
-## 5. Database and security notes
+- TypeScript Typecheck: PASS
+- ESLint: PASS
+- Automated Tests: 21/21 PASS
+- Real Gemini API: Đã chấm thành công hai bài Task 2 với tổng cộng 5 lỗi ngữ pháp được cố ý đưa vào và phát hiện đủ.
 
-- The original migration `20261029000000_init` must remain unchanged. The new `20261029010000_auth_refresh_tokens` migration is **additive**.
-- `users` now has one-to-many `refresh_tokens`, with cascading deletion. `db:verify` expects **6 tables and 5 foreign keys**.
-- Local auth is independent from the app's guest mode. Firebase/Social sign-in is not implemented in this task; existing rows without a password hash cannot log in using local password.
-- This starter API is for local development. Before public deployment: use HTTPS, rate limiting on auth routes, email verification, password reset, refresh-token replay response/central session revocation policy, account recovery, secret rotation, log monitoring, and managed secrets. Do not put tokens into app logs or plain SharedPreferences; use a secure mobile storage solution.
-- Android Emulator reaches Windows host using `http://10.0.2.2:3000` for local emulator tests (physical devices need an accessible host address and appropriate firewall/security settings). Production requires HTTPS.
-- PostgreSQL credentials in `.env.example` are only for local development; rotate for deployment.
-- Prisma and @prisma/client are pinned to 6.19.0 to avoid breaking major-version configuration changes.
+Các bài kiểm thử tự động sử dụng mock Gemini, không tiêu thụ quota API thực tế.
 
-## 6. Troubleshooting
+## 9. Giới hạn hiện tại
 
-- `Invalid environment variables: JWT_ACCESS_SECRET...`: add two different, random secrets to `.env`, save and restart the server.
-- `npm install ETIMEDOUT 192.168.137.134:4873`: use `npm install --registry=https://registry.npmjs.org/`.
-- `P1001`: start Docker Desktop / `docker compose up -d db` and verify `DATABASE_URL`.
-- `P2021` missing `refresh_tokens`: run `npm run db:migrate` then `npm run db:generate`.
-- `EADDRINUSE`: stop old `npm run dev` process or change `PORT`.
-- `401` on private route: use *access* JWT, not refresh JWT, in `Authorization` header.
-- `401` on `/auth/refresh`: token expired, revoked or already used; log in again.
+Module chưa hỗ trợ lưu lịch sử bài viết vào PostgreSQL, tải ảnh biểu đồ trực tiếp, hoặc quản lý quota theo từng người dùng.
+
+Độ chính xác của điểm IELTS và tốc độ phản hồi cần tiếp tục được đánh giá trên bộ dữ liệu lớn hơn, có điểm tham chiếu từ giám khảo.
+
+## 10. Tài liệu tham khảo
+
+- [Gemini API](https://ai.google.dev/gemini-api/docs)
+- [Google AI Studio](https://aistudio.google.com/)
+- [IELTS Writing Resources](https://ielts.org/take-a-test/preparation-resources/writing-test-resources)
+- [GitHub Pull Request #49](https://github.com/huynhhoangtuvan11092006/NT118.R14-Group20/pull/49)
