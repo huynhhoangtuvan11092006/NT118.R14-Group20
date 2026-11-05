@@ -22,7 +22,8 @@
     "test:listening": "npm run build && node tests/listening.test.mjs",
     "test:smoke": "node scripts/smoke.mjs",
     "db:verify": "node scripts/verify-db.mjs",
-    "test:auth": "npm run build && node --test tests/auth.integration.mjs"
+    "test:auth": "npm run build && node --test tests/auth.integration.mjs",
+    "test:writing": "npm run build && node --test tests/ai-writing.test.mjs tests/ai-writing.http.test.mjs"
   },
   "dependencies": {
     "@prisma/client": "6.19.0",
