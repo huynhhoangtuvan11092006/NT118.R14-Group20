@@ -1,169 +1,124 @@
-# BandUp — Gemini IELTS Writing AI Evaluation
+# 📱 IELTS Master - Ứng Dụng Luyện Thi IELTS 4 Kỹ Năng Tích Hợp AI
 
-**Module:** Phase 2 / Writing / Sub-issue B — Pipeline AI chấm điểm IELTS Writing theo 4 tiêu chí
+<p align="center">
+  <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android" />
+  <img src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin" />
+  <img src="https://img.shields.io/badge/Google%20Gemini-8E75C2?style=for-the-badge&logo=google&logoColor=white" alt="Google Gemini" />
+  <img src="https://img.shields.io/badge/Room%20DB-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="Room DB" />
+  <img src="https://img.shields.io/badge/Media3%20ExoPlayer-FF6F00?style=for-the-badge" alt="ExoPlayer" />
+  <img src="https://img.shields.io/badge/Retrofit%202-0052CC?style=for-the-badge" alt="Retrofit" />
+  <img src="https://img.shields.io/badge/MPAndroidChart-EA4335?style=for-the-badge" alt="MPAndroidChart" />
+</p>
 
-**Backend:** Node.js, TypeScript, Express, Zod
+> **Môn học:** NT118 - Phát triển ứng dụng trên thiết bị di động (Lớp NT118.R14)  
+> **Nhóm thực hiện:** Nhóm 20  
+> **Repository:** [https://github.com/qan333/NT118.R14-Group20](https://github.com/qan333/NT118.R14-Group20)  
+> **Project Management Board:** [IELTS Sprint Management Board](https://github.com/users/huynhhoangtuvan11092006/projects/1)
 
-**Trạng thái:** MVP hoàn thành, 21/21 bài kiểm thử tự động PASS.
+---
 
-## 1. Giới thiệu
+## 📖 1. Giới thiệu Dự án
 
-Gemini Writing AI là module chấm điểm IELTS Writing trong ứng dụng BandUp, sử dụng Google Gemini API để phân tích bài viết dựa trên bốn tiêu chí IELTS Writing.
+**IELTS Master** là ứng dụng di động hỗ trợ người học tự ôn luyện và thi thử trọn vẹn cả **4 kỹ năng IELTS (Listening, Reading, Writing, Speaking)** theo chuẩn Academic. 
 
-Hệ thống cung cấp:
+Điểm nổi bật của ứng dụng là việc kết hợp các công nghệ di động tiên tiến (Audio Streaming, Sound Recording, Room DB Offline) với **Trí tuệ nhân tạo (AI - Google Gemini & Speech-to-Text)** nhằm giải quyết bài toán khó khăn nhất của người tự học: **Chấm điểm và sửa lỗi chi tiết cho 2 kỹ năng Writing và Speaking**.
 
-- Điểm ước tính cho từng tiêu chí IELTS Writing.
-- Điểm tổng (Estimated Band).
-- Nhận xét chi tiết bằng tiếng Việt.
-- Phát hiện và sửa lỗi ngữ pháp.
-- Kế hoạch cải thiện bài viết.
-- Dẫn chứng từ bài viết để giải thích đánh giá.
+---
 
-Hỗ trợ IELTS Academic Task 1, General Training Task 1 và Task 2.
+## ✨ 2. Các Tính năng Cốt lõi (4 Kỹ Năng)
 
-**Lưu ý:** Điểm số AI chỉ phục vụ luyện tập, không thay thế đánh giá chính thức từ giám khảo IELTS.
+### 📖 Reading Module
+* **Giao diện Split-View:** Chia đôi màn hình bài đọc (Passage) và câu hỏi (Questions), cuộn độc lập mượt mà.
+* **Highlight thông minh:** Cho phép người dùng bôi đen văn bản để lưu dấu từ khóa quan trọng.
+* **Đồng hồ đếm ngược (Countdown Timer 60 phút):** Tự động thu bài khi hết giờ và đối chiếu đáp án, quy đổi sang thang Band 9.0.
 
-## 2. Kiến trúc hệ thống
+### 🎧 Listening Module
+* **Trình phát Media3 ExoPlayer chuyên dụng:** Hỗ trợ tua nhanh/chậm (`0.75x`, `1.0x`, `1.25x`), tua lùi/tiến 5s để nghe lại đoạn khó.
+* **Transcript đồng bộ:** Hiển thị transcript hỗ trợ người học dò lại nội dung bài nghe sau khi nộp bài.
+
+### ✍️ Writing Module & AI Evaluation
+* **Trình soạn thảo chuẩn thi:** Đếm số từ theo thời gian thực (`Word Count`), cảnh báo thiếu số từ tối thiểu (Task 1: 150 từ, Task 2: 250 từ).
+* **AI Writing Grader (Google Gemini API):** Chấm điểm chi tiết dựa trên 4 tiêu chí chuẩn IELTS (*Task Achievement, Coherence & Cohesion, Lexical Resource, Grammatical Range & Accuracy*), trích xuất câu sai ngữ pháp và đưa ra đoạn văn viết lại mẫu Band 8.0+.
+* **Lưu nháp an toàn (Auto-save):** Tự động lưu bài viết vào Room Database để tránh mất dữ liệu khi thoát app.
+
+### 🎙️ Speaking Module & AI STT
+* **Giao diện Cue Card chuẩn:** Đếm ngược 1 phút chuẩn bị và 2 phút ghi âm bài nói.
+* **Ghi âm trực tiếp (Audio Recorder):** Hiển thị visual sóng âm và hỗ trợ nghe lại trước khi nộp.
+* **AI Speaking Evaluation:** Ứng dụng STT (Speech-to-Text) trích xuất transcript bài nói và phân tích từ vựng, độ trôi chảy, ngữ pháp.
+
+### 📚 Hệ thống Từ vựng Flashcards (SRS)
+* **Thuật toán Spaced Repetition (Lặp lại ngắt quãng):** Tính toán chu kỳ ôn tập thông minh (1 ngày, 3 ngày, 7 ngày) giúp ghi nhớ từ vựng dài hạn.
+* **Lật thẻ 2 mặt (3D Flip Card):** Hiển thị từ, phiên âm IPA, nghĩa tiếng Việt và câu ví dụ ngữ cảnh.
+
+### 📊 Dashboard & Study Reminder
+* **Biểu đồ tiến bộ (MPAndroidChart):** Trực quan hóa điểm số các bài test qua thời gian.
+* **Chuỗi ngày học liên tục (Streak):** Thúc đẩy thói quen học tập hàng ngày.
+* **Nhắc nhở học tập (Android WorkManager):** Lập lịch thông báo đẩy định kỳ kể cả khi đóng ứng dụng.
+
+---
+
+## 👥 3. Phân công Công việc Nhóm (3 Thành viên)
+
+| Thành viên | Tài khoản GitHub | Vai trò chính | Nhiệm vụ kỹ thuật cụ thể |
+| :--- | :---: | :--- | :--- |
+| **Võ Minh Quân** | `@qan333` | **Backend & AI Engineer** | • Thiết kế Database Schema & viết RESTful APIs.<br>• Tích hợp Gemini LLM chấm Writing & Speech-to-Text chấm Speaking.<br>• Quản trị Cloud Storage lưu trữ audio. |
+| **Huỳnh Hoàng Tứ Văn** | `@huynhhoangtuvan11092006` | **Mobile Core Developer** | • Xây dựng module **Reading** (Split-view, Highlight, Timer).<br>• Xây dựng module **Listening** (Tích hợp Media3 ExoPlayer).<br>• Xây dựng module **Speaking** (Ghi âm Audio Recorder, runtime permission). |
+| **Lê Nguyễn Phương Vy** | `@PVL-cyber` | **Mobile UI/UX & Services** | • Xây dựng luồng **Auth** (Login/Register, chọn Target Band).<br>• Xây dựng module **Writing Editor** & Giao diện AI Feedback.<br>• Xây dựng module **Flashcard SRS** (Room DB) & **Dashboard** (MPAndroidChart).<br>• Tích hợp **WorkManager** gửi thông báo nhắc học. |
+
+---
+
+## 🏗️ 4. Kiến trúc Hệ thống (Clean Architecture)
+
+Ứng dụng Android được thiết kế theo mô hình **MVVM (Model - View - ViewModel)** kết hợp nguyên lý **Clean Architecture**:
 
 ```text
-Android / Postman
-       |
-       v
-POST /ai/evaluate/writing
-       |
-       v
-JWT Authentication
-       |
-       v
-Input Validation (Zod)
-       |
-       v
-IELTS Prompt + JSON Schema
-       |
-       v
-Gemini API
-       |
-       +-- Primary Model
-       +-- Retry / Fallback
-       |
-       v
-Output Validation
-       |
-       +-- Validate Evidence
-       +-- Validate Grammar Corrections
-       +-- Calculate Estimated Band
-       |
-       v
-Structured JSON Response
+com.example.ielts/
+├── data/                  # Tầng Dữ liệu
+│   ├── local/             # Room Database, DAO, Entity (Offline Cache)
+│   ├── remote/            # Retrofit Service, DTOs (Request/Response)
+│   └── repository/        # Triển khai Repository Pattern
+├── domain/                # Tầng Nghiệp vụ cốt lõi
+│   └── model/             # Data Models (User, Test, Vocabulary)
+├── ui/                    # Tầng Giao diện (Package by Feature)
+│   ├── auth/              # Login, Register, Target Band
+│   ├── dashboard/         # Dashboard & Analytics
+│   ├── reading/           # Reading Split-view
+│   ├── listening/         # Listening ExoPlayer
+│   ├── writing/           # Writing Editor & AI Evaluation
+│   ├── speaking/          # Speaking Recorder & Evaluation
+│   └── vocabulary/        # Flashcard SRS
+└── utils/                 # Tiện ích chung (Constants, Resource wrapper)
 ```
 
-## 3. Cấu hình
+---
 
-Trong `backend/.env`:
+## 🛠️ 5. Công nghệ Sử dụng (Tech Stack)
 
-```dotenv
-GEMINI_API_KEY=YOUR_REAL_GEMINI_API_KEY
-GEMINI_MODEL=gemini-3.5-flash-lite
-GEMINI_FALLBACK_MODEL=gemini-3.1-flash-lite
-GEMINI_TIMEOUT_MS=30000
-```
+* **📱 Mobile (Android):** Kotlin, MVVM, Retrofit 2, Room DB, Media3 ExoPlayer, MPAndroidChart, WorkManager.
+* **🖥️ Backend & Database:** Node.js (Express/NestJS) / Python (FastAPI), PostgreSQL / MongoDB, JWT.
+* **🤖 AI & Cloud:** Google Gemini 3.8 Flash API, Whisper STT, Cloudinary.
 
-API key chỉ được lưu tại Backend, không đưa vào ứng dụng Android hoặc GitHub.
+---
 
-Khởi động:
+## 🚀 6. Hướng dẫn Cài đặt & Khởi chạy
 
-```powershell
-cd E:\cc\NT118.R14-Group20\backend
-npm install
-npm run dev
-```
+1. **Clone mã nguồn:**
+   ```bash
+   git clone https://github.com/qan333/NT118.R14-Group20.git
+   ```
+2. **Mở dự án:**
+   * Mở **Android Studio** (phiên bản Hedgehog hoặc mới hơn).
+   * Chọn `File` -> `Open` -> Trỏ đến thư mục vừa clone.
+3. **Đồng bộ Gradle:**
+   * Chờ Android Studio tải các dependencies và sync Gradle thành công.
+4. **Chạy ứng dụng:**
+   * Chọn máy ảo Android (Pixel 6/7, Android 12 trở lên) hoặc kết nối thiết bị thật qua USB Debugging.
+   * Bấm nút **Run `app`** (Shift + F10).
 
-## 4. API Endpoint
+---
 
-```http
-POST http://localhost:3000/ai/evaluate/writing
-```
+## 📅 7. Lộ trình Phát triển (Milestones)
 
-**Authorization:** Bearer JWT
-
-**Content-Type:** application/json
-
-Ví dụ Request:
-
-```json
-{
-  "taskType": "TASK_2",
-  "question": "Some people believe that working from home is better than working in an office. To what extent do you agree or disagree?",
-  "essay": "Working from home has become more common in recent years. I agree that it can improve employees' lives because they spend less time commuting. However, some workers feels lonely when they do not meet colleagues regularly. Companies should therefore allow employees to work from home while also providing opportunities for face-to-face meetings."
-}
-```
-
-Ngoài `TASK_2`, hệ thống còn hỗ trợ `ACADEMIC_TASK_1` và `GENERAL_TASK_1`. Academic Task 1 cần truyền thêm `sourceMaterial` mô tả dữ liệu biểu đồ bằng văn bản.
-
-## 5. Tiêu chí chấm điểm
-
-| Tiêu chí | Nội dung |
-|---|---|
-| Task Response / Task Achievement | Đáp ứng yêu cầu đề bài, phát triển luận điểm |
-| Coherence and Cohesion | Bố cục, tính logic và liên kết ý |
-| Lexical Resource | Vốn từ vựng và mức độ chính xác |
-| Grammatical Range and Accuracy | Cấu trúc câu và độ chính xác ngữ pháp |
-
-Mỗi tiêu chí được chấm từ 0 đến 9, theo bước 0,5 band.
-
-Backend tính điểm trung bình bốn tiêu chí và làm tròn về mức 0,5 gần nhất.
-
-## 6. Kiểm tra dữ liệu từ Gemini
-
-Gemini trả về Structured JSON, được Backend kiểm tra lại bằng Zod.
-
-**Evidence Validation**
-
-- Kiểm tra đoạn trích có xuất hiện trong bài gốc không.
-- Chuẩn hóa dấu ngoặc hoặc khoảng trắng khi phù hợp.
-- Evidence không xác minh được sẽ bị bỏ và ghi cảnh báo.
-
-**Grammar Validation**
-
-- Chỉ chấp nhận câu gốc xuất hiện trong bài viết.
-- Loại các correction trùng lặp.
-- Không trả correction nếu câu sửa không thay đổi.
-- Giới hạn tối đa 5 câu được sửa.
-
-## 7. Retry và Fallback
-
-Hệ thống hỗ trợ tối đa hai lần thử model chính và một lần thử model dự phòng khi gặp lỗi tạm thời.
-
-Timeout cấu hình là **30 giây**, với giới hạn tối đa 10 giây cho từng lượt gọi Gemini.
-
-Khi Gemini trả `429 Rate Limited`, Backend trả lỗi tương ứng thay vì liên tục thử lại, giúp tránh tiêu thụ quota không cần thiết.
-
-## 8. Kiểm thử
-
-```powershell
-npm run typecheck
-npm run lint
-npm run test:writing
-```
-
-Kết quả đã ghi nhận:
-
-- TypeScript Typecheck: PASS
-- ESLint: PASS
-- Automated Tests: 21/21 PASS
-- Real Gemini API: Đã chấm thành công hai bài Task 2 với tổng cộng 5 lỗi ngữ pháp được cố ý đưa vào và phát hiện đủ.
-
-Các bài kiểm thử tự động sử dụng mock Gemini, không tiêu thụ quota API thực tế.
-
-## 9. Giới hạn hiện tại
-
-Module chưa hỗ trợ lưu lịch sử bài viết vào PostgreSQL, tải ảnh biểu đồ trực tiếp, hoặc quản lý quota theo từng người dùng.
-
-Độ chính xác của điểm IELTS và tốc độ phản hồi cần tiếp tục được đánh giá trên bộ dữ liệu lớn hơn, có điểm tham chiếu từ giám khảo.
-
-## 10. Tài liệu tham khảo
-
-- [Gemini API](https://ai.google.dev/gemini-api/docs)
-- [Google AI Studio](https://aistudio.google.com/)
-- [IELTS Writing Resources](https://ielts.org/take-a-test/preparation-resources/writing-test-resources)
-- [GitHub Pull Request #49](https://github.com/huynhhoangtuvan11092006/NT118.R14-Group20/pull/49)
+* **[Phase 1 - Khởi tạo & Base](https://github.com/qan333/NT118.R14-Group20/milestone/1):** Thiết lập Database, Base Backend, Base Android và Auth Flow.
+* **[Phase 2 - Core 4 Kỹ năng](https://github.com/qan333/NT118.R14-Group20/milestone/2):** Xây dựng 4 kỹ năng Reading, Listening, Writing AI, Speaking AI và Flashcard SRS.
+* **[Phase 3 - Hoàn thiện và nộp](https://github.com/qan333/NT118.R14-Group20/milestone/3):** Dashboard, Nhắc học, Kiểm thử E2E, Video Demo 15 phút và Slide báo cáo.
