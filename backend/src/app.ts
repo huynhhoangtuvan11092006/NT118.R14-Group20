@@ -11,6 +11,7 @@ import { authRouter } from "./routes/auth.routes.js";
 import { userRouter } from "./routes/user.routes.js";
 import { testRouter, submissionRouter } from "./routes/reading.routes.js";
 import { listeningTestRouter, listeningSubmissionRouter } from "./routes/listening.routes.js";
+import { aiEvaluationRouter } from "./routes/ai_evaluation.routes.js";
 
 export const app = express();
 app.disable("x-powered-by");
@@ -49,6 +50,7 @@ app.use("/tests/listening", listeningTestRouter);
 app.use("/tests", testRouter);
 app.use("/submissions/listening", listeningSubmissionRouter);
 app.use("/submissions", submissionRouter);
+app.use("/ai/evaluate", aiEvaluationRouter);
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
@@ -56,6 +58,7 @@ app.use("/api/v1/tests/listening", listeningTestRouter);
 app.use("/api/v1/tests", testRouter);
 app.use("/api/v1/submissions/listening", listeningSubmissionRouter);
 app.use("/api/v1/submissions", submissionRouter);
+app.use("/api/v1/ai/evaluate", aiEvaluationRouter);
 
 app.use((_req, res) => res.status(404).json({ error: "NOT_FOUND", message: "Route not found" }));
 

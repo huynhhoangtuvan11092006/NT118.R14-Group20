@@ -16,6 +16,9 @@ const envSchema = z.object({
   SMTP_PASS: z.string().optional(),
   EMAIL_FROM: z.string().default("IELTS Prep App <no-reply@ieltsapp.com>"),
   GOOGLE_CLIENT_ID: z.string().optional(),
+  GEMINI_API_KEY: z.string().optional(),
+  GEMINI_MODEL: z.string().default("gemini-3.8-flash"),
+  GEMINI_TIMEOUT_MS: z.coerce.number().int().min(1000).max(30000).default(8500),
 
 }).superRefine((value, ctx) => {
   for (const field of ["JWT_ACCESS_SECRET", "JWT_REFRESH_SECRET"] as const) {

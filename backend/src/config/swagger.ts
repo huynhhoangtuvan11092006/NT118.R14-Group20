@@ -18,6 +18,7 @@ export const swaggerDocument = {
     { name: "Authentication", description: "Các API xác thực và tài khoản" },
     { name: "Users", description: "Các API quản lý người dùng và mục tiêu học tập" },
     { name: "System", description: "Kiểm tra hệ thống" },
+    { name: "Writing AI", description: "Gemini đánh giá IELTS Writing theo 4 tiêu chí" },
   ],
   components: {
     securitySchemes: {
@@ -97,6 +98,39 @@ export const swaggerDocument = {
     },
   },
   paths: {
+    "/ai/evaluate/writing": {
+      post: {
+        tags: ["Writing AI"],
+        summary: "Chấm IELTS Writing bằng Gemini (ước tính, không phải điểm chính thức)",
+        security: [{ bearerAuth: [] }],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: ["taskType", "question", "essay"],
+                properties: {
+                  taskType: { type: "string", enum: ["ACADEMIC_TASK_1", "GENERAL_TASK_1", "TASK_2"] },
+                  question: { type: "string", minLength: 10 },
+                  essay: { type: "string", minLength: 30 },
+                  sourceMaterial: { type: "string", description: "Required for ACADEMIC_TASK_1: text description of the provided chart/table/process" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          200: { description: "Estimated band, four criteria, Vietnamese feedback and grammar rewrites, as JSON" },
+          400: { description: "Invalid input" },
+          401: { description: "Bearer access token required" },
+          429: { description: "Gemini rate limit" },
+          502: { description: "Provider error or invalid AI JSON" },
+          503: { description: "Gemini key missing or invalid" },
+          504: { description: "Gemini timeout" },
+        },
+      },
+    },
     "/health": {
       get: {
         tags: ["System"],

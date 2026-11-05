@@ -1,0 +1,142 @@
+{
+  "info": {
+    "name": "BandUp - Gemini IELTS Writing",
+    "_postman_id": "52ac109b-643c-4095-953b-40fe01000000",
+    "description": "Private Writing evaluator (server side Gemini API key)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "accessToken",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "01 Writing Task 2 - Evaluate",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{accessToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/ai/evaluate/writing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ai",
+            "evaluate",
+            "writing"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"taskType\": \"TASK_2\",\n  \"question\": \"Some people think schools should teach practical skills rather than theory. Discuss both views and give your opinion.\",\n  \"essay\": \"I think education should include both theory and practice. First, theoretical knowledge helps students understand how things work. Without this foundation, it can be difficult to solve unfamiliar problems. However, practice allows learners to apply their ideas in realistic situations. I have study English for two years, and I find that writing essays helps me communicate more clearly. Teachers should combine explanations with projects and discussions to help students become independent learners. In conclusion, I believe schools should teach both approaches because each one supports the other.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "02 Writing Task 1 Academic - Evaluate",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{accessToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/ai/evaluate/writing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ai",
+            "evaluate",
+            "writing"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"taskType\": \"ACADEMIC_TASK_1\",\n  \"question\": \"The chart shows the number of visitors to three museums in 2020 and 2021. Summarise the information.\",\n  \"sourceMaterial\": \"Museum A received 30,000 visitors in 2020 and 38,000 in 2021; Museum B received 20,000 and 18,000; Museum C received 10,000 and 25,000.\",\n  \"essay\": \"The chart compares visitor numbers at three museums over two years. Overall, Museum A had the highest number of visitors in both years. Museum B experienced a small decline, while Museum C saw the largest proportional increase. In 2020, Museum A welcomed 30,000 visitors compared with 20,000 at Museum B and 10,000 at Museum C. In the next year, Museum A rose to 38,000 visitors, and Museum C reached 25,000. In contrast, visitor numbers at Museum B decreased to 18,000. These changes indicate that Museum C grew considerably, although Museum A remained the most popular.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "03 Missing Bearer -> 401",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/ai/evaluate/writing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ai",
+            "evaluate",
+            "writing"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    }
+  ]
+}

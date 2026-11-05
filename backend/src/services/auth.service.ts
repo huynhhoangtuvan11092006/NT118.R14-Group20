@@ -8,7 +8,7 @@ import {
   signRefreshToken, verifyRefreshToken,
 } from "../lib/jwt.js";
 import type { z } from "zod";
-import type { forgotPasswordSchema, googleAuthSchema, loginSchema, refreshSchema, registerSchema, resetPasswordSchema } from "../validators/auth.validator.js";
+import type { forgotPasswordSchema, googleAuthSchema, loginSchema, registerSchema, resetPasswordSchema } from "../validators/auth.validator.js";
 import { sendOtpEmail } from "./mail.service.js";
 import { OAuth2Client } from "google-auth-library";
 import { env } from "../config/env.js";
