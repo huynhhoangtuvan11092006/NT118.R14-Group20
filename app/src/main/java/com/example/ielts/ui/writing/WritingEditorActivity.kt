@@ -378,11 +378,14 @@ class WritingEditorActivity : AppCompatActivity() {
                 if (token.startsWith("Bearer ")) token else "Bearer $token"
             } else "Bearer mock-token"
 
+            val targetBand = userPrefs.getFloat(Constants.KEY_TARGET_BAND, 7.5f).toDouble()
+
             val request = WritingEvaluationRequest(
                 taskType = taskType,
                 question = testPrompt,
                 essay = essay,
-                sourceMaterial = sourceMaterial
+                sourceMaterial = sourceMaterial,
+                targetBand = targetBand
             )
 
             var evaluationResult: WritingEvaluationResponse? = null

@@ -13,7 +13,9 @@ data class WritingEvaluationRequest(
     @SerializedName("essay")
     val essay: String,
     @SerializedName("sourceMaterial")
-    val sourceMaterial: String? = null
+    val sourceMaterial: String? = null,
+    @SerializedName("targetBand")
+    val targetBand: Double? = null
 )
 
 /**
@@ -34,6 +36,8 @@ data class WritingEvaluationResponse(
     val improvementPlan: List<String> = emptyList(),
     @SerializedName("grammarCorrections")
     val grammarCorrections: List<GrammarCorrectionItem> = emptyList(),
+    @SerializedName("modelEssay")
+    val modelEssay: String? = null,
     @SerializedName("wordCount")
     val wordCount: Int = 0
 )

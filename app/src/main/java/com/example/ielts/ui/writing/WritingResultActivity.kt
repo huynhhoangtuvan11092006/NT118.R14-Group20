@@ -67,6 +67,13 @@ class WritingResultActivity : AppCompatActivity() {
     private lateinit var layoutCorrectionsContainer: LinearLayout
     private lateinit var layoutNoCorrections: View
 
+    private lateinit var tvActionTitle1: TextView
+    private lateinit var tvActionPlan1: TextView
+    private lateinit var tvActionTitle2: TextView
+    private lateinit var tvActionPlan2: TextView
+    private lateinit var tvActionTitle3: TextView
+    private lateinit var tvActionPlan3: TextView
+    private lateinit var tvModelEssayHeading: TextView
     private lateinit var tvModelEssayContent: TextView
 
     private lateinit var btnPracticeOther: View
@@ -170,6 +177,14 @@ class WritingResultActivity : AppCompatActivity() {
         layoutCorrectionsContainer = findViewById(R.id.layoutCorrectionsContainer)
         layoutNoCorrections = findViewById(R.id.layoutNoCorrections)
 
+        tvActionTitle1 = findViewById(R.id.tvActionTitle1)
+        tvActionPlan1 = findViewById(R.id.tvActionPlan1)
+        tvActionTitle2 = findViewById(R.id.tvActionTitle2)
+        tvActionPlan2 = findViewById(R.id.tvActionPlan2)
+        tvActionTitle3 = findViewById(R.id.tvActionTitle3)
+        tvActionPlan3 = findViewById(R.id.tvActionPlan3)
+        tvModelEssayHeading = findViewById(R.id.tvModelEssayHeading)
+
         tvModelEssayContent = findViewById(R.id.tvModelEssayContent)
 
         btnPracticeOther = findViewById(R.id.btnPracticeOther)
@@ -253,12 +268,42 @@ class WritingResultActivity : AppCompatActivity() {
         // Corrections
         populateCorrections(eval.grammarCorrections)
 
-        // Model Essay
-        val testItem = CambridgeWritingDataSource.getTestById(testId)
-        if (testItem != null && !testItem.modelEssay.isNullOrBlank()) {
-            tvModelEssayContent.text = testItem.modelEssay
+        // Lộ trình bứt phá (Action Plan) từ AI
+        populateActionPlan(eval.improvementPlan)
+
+        // Model Essay từ AI theo mục tiêu
+        val displayTarget = maxOf(targetBand, 8.0f)
+        tvModelEssayHeading.text = String.format(Locale.US, "⭐ Bài Mẫu AI Chuẩn Mục Tiêu (Band %.1f+)", displayTarget)
+        tvTabModelEssayTitle.text = String.format(Locale.US, "Bài mẫu %.1f+", displayTarget)
+
+        if (!eval.modelEssay.isNullOrBlank()) {
+            tvModelEssayContent.text = eval.modelEssay
         } else {
-            tvModelEssayContent.text = "Bài viết mẫu chuẩn Examiner 8.5 đang được đồng bộ..."
+            val testItem = CambridgeWritingDataSource.getTestById(testId)
+            tvModelEssayContent.text = testItem?.modelEssay ?: "Bài viết mẫu chuẩn Examiner 8.5 đang được đồng bộ..."
+        }
+    }
+
+    private fun populateActionPlan(plan: List<String>) {
+        val titles = listOf(tvActionTitle1, tvActionTitle2, tvActionTitle3)
+        val descriptions = listOf(tvActionPlan1, tvActionPlan2, tvActionPlan3)
+
+        plan.forEachIndexed { index, item ->
+            if (index < titles.size) {
+                val parts = if (item.contains(":")) {
+                    item.split(":", limit = 2)
+                } else if (item.contains(" - ")) {
+                    item.split(" - ", limit = 2)
+                } else {
+                    listOf("Hành động ưu tiên #${index + 1}", item)
+                }
+
+                val titleText = parts[0].replace("Tiêu đề", "").trim().trimStart(':', '-', ' ')
+                val descText = if (parts.size > 1) parts[1].trim() else parts[0].trim()
+
+                titles[index].text = if (titleText.isNotBlank()) titleText else "Chiến lược bứt phá #${index + 1}"
+                descriptions[index].text = descText
+            }
         }
     }
 

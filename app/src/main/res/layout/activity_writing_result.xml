@@ -679,6 +679,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvActionTitle1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Bổ sung 5 Collocations học thuật C1/C2"
@@ -725,6 +726,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvActionTitle2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Rà soát mạo từ (a/an/the) và danh từ số nhiều"
@@ -771,6 +773,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvActionTitle3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Quy tắc 3 phút soát bài cuối giờ"
