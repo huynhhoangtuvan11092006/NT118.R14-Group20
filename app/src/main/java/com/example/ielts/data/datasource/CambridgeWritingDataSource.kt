@@ -155,10 +155,11 @@ In conclusion, although rigorous focus on a chosen specialization is undeniable 
     }
 
     /**
-     * Tìm kiếm một đề thi theo id
+     * Tìm kiếm một đề thi theo id (hỗ trợ cả dấu gạch ngang '-' lẫn gạch dưới '_')
      */
     fun getTestById(id: String): WritingTestItem? {
-        return getAllTests().firstOrNull { it.id == id }
+        val normalized = id.trim().lowercase().replace('_', '-')
+        return getAllTests().firstOrNull { it.id.lowercase().replace('_', '-') == normalized }
     }
 }
 
