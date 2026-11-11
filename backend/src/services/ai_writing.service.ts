@@ -25,7 +25,7 @@ const CRITERIA = [
 // Tổng timeout lấy từ GEMINI_TIMEOUT_MS.
 const PER_ATTEMPT_TIMEOUT_MS = 35_000;
 const MIN_REQUEST_TIME_MS = 350;
-const DEFAULT_FALLBACK_MODEL = "gemini-3.6-flash";
+const DEFAULT_FALLBACK_MODEL = "gemini-3.5-flash-lite";
 
 interface EvaluateWritingOptions {
   fetchImpl?: typeof fetch;

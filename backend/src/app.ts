@@ -37,7 +37,14 @@ app.get("/", (_req, res) => {
 app.get("/health", async (_req, res) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
-    res.status(200).json({ status: "ok", database: "connected" });
+    res.status(200).json({
+      status: "ok",
+      database: "connected",
+      hasGeminiKey: !!env.GEMINI_API_KEY,
+      geminiModel: env.GEMINI_MODEL,
+      hasAiBaseUrl: !!env.AI_BASE_URL,
+      aiBaseUrl: env.AI_BASE_URL || null,
+    });
   } catch {
     res.status(503).json({ status: "error", database: "unavailable" });
   }
