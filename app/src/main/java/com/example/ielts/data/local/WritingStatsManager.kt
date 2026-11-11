@@ -29,11 +29,6 @@ data class SavedWritingRecord(
 object WritingStatsManager {
     private const val PREFS_NAME = "writing_practice_stats_pref"
 
-    const val BASELINE_ESSAYS = 8
-    const val BASELINE_BAND = 6.5
-    const val BASELINE_BAND_DIFF = "+0.5"
-    const val BASELINE_TARGET_BAND = 7.5
-
     private const val KEY_RECORDED_TESTS_MAP = "key_recorded_writing_map"
     private const val KEY_RECENT_BAND = "key_recent_band"
     private const val KEY_PREV_BAND = "key_prev_band"
@@ -81,7 +76,7 @@ object WritingStatsManager {
         )
         records[testId] = record
 
-        val prevBand = prefs.getFloat(KEY_RECENT_BAND, BASELINE_BAND.toFloat())
+        val prevBand = prefs.getFloat(KEY_RECENT_BAND, 0f)
 
         prefs.edit()
             .putString(KEY_RECORDED_TESTS_MAP, Gson().toJson(records))
@@ -96,27 +91,43 @@ object WritingStatsManager {
 
         val recentBand = if (records.isNotEmpty()) {
             val latest = records.values.maxByOrNull { it.completedAtMillis }
-            latest?.overallBand ?: BASELINE_BAND
+            latest?.overallBand ?: 0.0
         } else {
-            prefs.getFloat(KEY_RECENT_BAND, BASELINE_BAND.toFloat()).toDouble()
+            0.0
         }
 
-        val prevBand = prefs.getFloat(KEY_PREV_BAND, (recentBand - 0.5).toFloat()).toDouble()
-        val diff = recentBand - prevBand
-        val diffStr = if (diff >= 0) String.format(Locale.US, "+%.1f", diff) else String.format(Locale.US, "%.1f", diff)
+        val prevBand = prefs.getFloat(KEY_PREV_BAND, 0f).toDouble()
+        val diff = if (prevBand > 0) recentBand - prevBand else 0.0
+        val diffStr = if (recentBand <= 0.0) {
+            "Chưa có điểm"
+        } else if (prevBand > 0 && diff != 0.0) {
+            if (diff > 0) String.format(Locale.US, "+%.1f", diff) else String.format(Locale.US, "%.1f", diff)
+        } else {
+            "Mới nhất"
+        }
 
-        val totalEssays = BASELINE_ESSAYS + records.size
+        val totalEssays = records.size
 
         return WritingSummaryStats(
             recentBand = recentBand,
             bandDiff = diffStr,
             essaysWritten = totalEssays,
-            targetBand = BASELINE_TARGET_BAND
+            targetBand = 7.5
         )
     }
 
     fun getRecordForTest(context: Context, testId: String): SavedWritingRecord? {
         return getRecords(context)[testId]
+    }
+
+    fun getLatestRecord(context: Context): SavedWritingRecord? {
+        return getRecords(context).values.maxByOrNull { it.completedAtMillis }
+    }
+
+    fun clearAll(context: Context) {
+        getPrefs(context).edit().clear().apply()
+        context.getSharedPreferences("writing_practice_prefs", Context.MODE_PRIVATE).edit().clear().apply()
+        context.getSharedPreferences("writing_drafts_pref", Context.MODE_PRIVATE).edit().clear().apply()
     }
 }
 

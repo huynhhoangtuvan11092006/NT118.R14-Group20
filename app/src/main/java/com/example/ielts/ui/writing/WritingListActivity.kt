@@ -180,9 +180,9 @@ class WritingListActivity : AppCompatActivity() {
             tvRecentBandDiff.text = stats.bandDiff
             tvRecentBandDiff.setTextColor(Color.parseColor("#BBF7D0"))
         } else {
-            tvRecentBand.text = String.format(Locale.US, "%.1f", stats.recentBand)
-            tvRecentBandDiff.text = "Gần nhất"
-            tvRecentBandDiff.setTextColor(Color.parseColor("#BBF7D0"))
+            tvRecentBand.text = "--"
+            tvRecentBandDiff.text = "Chưa có điểm"
+            tvRecentBandDiff.setTextColor(Color.parseColor("#E0E7FF"))
         }
 
         tvEssaysCount.text = "${stats.essaysWritten} bài"

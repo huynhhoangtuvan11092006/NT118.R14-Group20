@@ -11,13 +11,17 @@ import com.example.ielts.MainActivity
 import com.example.ielts.R
 import com.example.ielts.data.datasource.CambridgeReadingDataSource
 import com.example.ielts.data.datasource.CambridgeListeningDataSource
+import com.example.ielts.data.datasource.CambridgeWritingDataSource
 import com.example.ielts.data.local.ReadingStatsManager
 import com.example.ielts.data.local.ListeningStatsManager
+import com.example.ielts.data.local.WritingStatsManager
 import com.example.ielts.ui.auth.ProfileActivity
 import com.example.ielts.ui.listening.ListeningListActivity
 import com.example.ielts.ui.listening.ListeningResultActivity
 import com.example.ielts.ui.reading.ReadingListActivity
 import com.example.ielts.ui.reading.ReadingResultActivity
+import com.example.ielts.ui.writing.WritingListActivity
+import com.example.ielts.ui.writing.WritingResultActivity
 import java.util.Locale
 
 class PracticeHubActivity : AppCompatActivity() {
@@ -38,6 +42,14 @@ class PracticeHubActivity : AppCompatActivity() {
     private var tvRecentListeningSubtitle: TextView? = null
     private var tvRecentListeningBand: TextView? = null
 
+    private var tvWritingSkillCount: TextView? = null
+    private var tvWritingProgressPercent: TextView? = null
+    private var pbWritingProgress: ProgressBar? = null
+
+    private var tvRecentWritingTitle: TextView? = null
+    private var tvRecentWritingSubtitle: TextView? = null
+    private var tvRecentWritingBand: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_practice_hub)
@@ -50,6 +62,7 @@ class PracticeHubActivity : AppCompatActivity() {
         super.onResume()
         loadReadingData()
         loadListeningData()
+        loadWritingData()
     }
 
     private fun initViews() {
@@ -68,6 +81,14 @@ class PracticeHubActivity : AppCompatActivity() {
         tvRecentListeningTitle = findViewById(R.id.tvRecentListeningTitle)
         tvRecentListeningSubtitle = findViewById(R.id.tvRecentListeningSubtitle)
         tvRecentListeningBand = findViewById(R.id.tvRecentListeningBand)
+
+        tvWritingSkillCount = findViewById(R.id.tvWritingSkillCount)
+        tvWritingProgressPercent = findViewById(R.id.tvWritingProgressPercent)
+        pbWritingProgress = findViewById(R.id.pbWritingProgress)
+
+        tvRecentWritingTitle = findViewById(R.id.tvRecentWritingTitle)
+        tvRecentWritingSubtitle = findViewById(R.id.tvRecentWritingSubtitle)
+        tvRecentWritingBand = findViewById(R.id.tvRecentWritingBand)
     }
 
     private fun loadReadingData() {
@@ -147,6 +168,43 @@ class PracticeHubActivity : AppCompatActivity() {
         }
     }
 
+    private fun loadWritingData() {
+        val totalTests = CambridgeWritingDataSource.getAllTests().size
+        tvWritingSkillCount?.text = "$totalTests đề luyện viết"
+
+        val records = WritingStatsManager.getRecords(this)
+        val completedCount = records.size
+        val progressPercent = if (totalTests > 0) {
+            ((completedCount.toDouble() / totalTests.toDouble()) * 100).toInt().coerceIn(0, 100)
+        } else {
+            0
+        }
+
+        tvWritingProgressPercent?.text = "$progressPercent%"
+        pbWritingProgress?.progress = progressPercent
+
+        val latestRecord = WritingStatsManager.getLatestRecord(this)
+        if (latestRecord != null) {
+            val testItem = CambridgeWritingDataSource.getTestById(latestRecord.testId)
+            tvRecentWritingTitle?.text = testItem?.title ?: "Cam Writing Test"
+
+            val diffMs = System.currentTimeMillis() - latestRecord.completedAtMillis
+            val diffMin = diffMs / (60 * 1000)
+            val timeText = when {
+                diffMin < 2 -> "Vừa xong"
+                diffMin < 60 -> "$diffMin phút trước"
+                diffMin < 1440 -> "${diffMin / 60} giờ trước"
+                else -> "${diffMin / 1440} ngày trước"
+            }
+            tvRecentWritingSubtitle?.text = "$timeText • ${latestRecord.wordCount} từ"
+            tvRecentWritingBand?.text = String.format(Locale.US, "Band %.1f", latestRecord.overallBand)
+        } else {
+            tvRecentWritingTitle?.text = "Chưa có bài viết gần đây"
+            tvRecentWritingSubtitle?.text = "Bắt đầu luyện đề Writing ngay"
+            tvRecentWritingBand?.text = "Chưa làm"
+        }
+    }
+
     private fun setupListeners() {
         // 1. Back button
         findViewById<View>(R.id.btnBack)?.setOnClickListener {
@@ -207,8 +265,18 @@ class PracticeHubActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.itemRecentWriting)?.setOnClickListener {
-            val intent = Intent(this, com.example.ielts.ui.writing.WritingListActivity::class.java)
-            startActivity(intent)
+            val latest = WritingStatsManager.getLatestRecord(this)
+            if (latest != null && !latest.resultJson.isNullOrEmpty()) {
+                val intent = Intent(this, WritingResultActivity::class.java).apply {
+                    putExtra("EXTRA_TEST_ID", latest.testId)
+                    putExtra("EXTRA_EVALUATION_JSON", latest.resultJson)
+                    putExtra("EXTRA_TIME_SPENT_SECONDS", latest.timeSpentSeconds)
+                    putExtra("EXTRA_WORD_COUNT", latest.wordCount)
+                }
+                startActivity(intent)
+            } else {
+                startActivity(Intent(this, WritingListActivity::class.java))
+            }
         }
 
         findViewById<View>(R.id.itemRecentListening)?.setOnClickListener {

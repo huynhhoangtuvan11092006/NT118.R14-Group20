@@ -397,9 +397,10 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvWritingSkillCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Task 1 &amp; Task 2"
+                        android:text="4 đề luyện viết"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
 
@@ -416,22 +417,24 @@
                             android:textSize="11sp" />
 
                         <TextView
+                            android:id="@+id/tvWritingProgressPercent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:text="28%"
+                            android:text="0%"
                             android:textColor="@color/card_writing_accent"
                             android:textSize="11sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
 
                     <ProgressBar
+                        android:id="@+id/pbWritingProgress"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="5dp"
                         android:layout_marginTop="4dp"
                         android:max="100"
-                        android:progress="28"
+                        android:progress="0"
                         android:progressTint="@color/card_writing_accent" />
                 </LinearLayout>
 
@@ -648,22 +651,25 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvRecentWritingTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Writing Task 2: Technology..."
+                        android:text="Chưa có bài viết gần đây"
                         android:textColor="@color/text_primary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvRecentWritingSubtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2 ngày trước • 284 từ"
+                        android:text="Bắt đầu luyện đề Writing ngay"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tvRecentWritingBand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_badge_orange"
@@ -671,7 +677,7 @@
                     android:paddingTop="3dp"
                     android:paddingEnd="10dp"
                     android:paddingBottom="3dp"
-                    android:text="Band 6.5"
+                    android:text="Chưa làm"
                     android:textColor="@color/badge_orange_text"
                     android:textSize="12sp"
                     android:textStyle="bold" />
