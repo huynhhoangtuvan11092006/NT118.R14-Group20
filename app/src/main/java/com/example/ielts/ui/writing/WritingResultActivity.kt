@@ -271,11 +271,25 @@ class WritingResultActivity : AppCompatActivity() {
         // Lộ trình bứt phá (Action Plan) từ AI
         populateActionPlan(eval.improvementPlan)
 
-        // Model Essay từ AI theo mục tiêu của người dùng
-        val targetBandStr = String.format(Locale.US, "%.1f", targetBand)
-        tvModelEssayHeading.text = "⭐ Bài Viết Nâng Cấp Chuẩn Band $targetBandStr"
-        tvTabModelEssayTitle.text = "Bài mẫu $targetBandStr"
-        findViewById<TextView>(R.id.tvModelEssayBadge)?.text = "Mục tiêu Band $targetBandStr"
+        // Model Essay từ AI theo mục tiêu của người dùng (hoặc nâng cấp nếu đã đạt/vượt)
+        val studentBand = band.toFloat()
+        val isExceeded = studentBand >= targetBand
+        val displayModelBand = if (isExceeded) {
+            maxOf(studentBand + 0.5f, 8.5f).coerceAtMost(9.0f)
+        } else {
+            targetBand
+        }
+        val displayModelBandStr = String.format(Locale.US, "%.1f", displayModelBand)
+
+        if (isExceeded) {
+            tvModelEssayHeading.text = "⭐ Bài Viết Nâng Cấp Xuất Sắc Chuẩn Band $displayModelBandStr"
+            tvTabModelEssayTitle.text = "Bài mẫu $displayModelBandStr"
+            findViewById<TextView>(R.id.tvModelEssayBadge)?.text = "Vượt mục tiêu • Band $displayModelBandStr"
+        } else {
+            tvModelEssayHeading.text = "⭐ Bài Viết Nâng Cấp Chuẩn Band $displayModelBandStr"
+            tvTabModelEssayTitle.text = "Bài mẫu $displayModelBandStr"
+            findViewById<TextView>(R.id.tvModelEssayBadge)?.text = "Mục tiêu Band $displayModelBandStr"
+        }
 
         if (!eval.modelEssay.isNullOrBlank()) {
             tvModelEssayContent.text = eval.modelEssay
