@@ -23,7 +23,7 @@ const CRITERIA = [
 
 // Timeout tối đa cho mỗi lần gọi Gemini.
 // Tổng timeout lấy từ GEMINI_TIMEOUT_MS.
-const PER_ATTEMPT_TIMEOUT_MS = 10_000;
+const PER_ATTEMPT_TIMEOUT_MS = 35_000;
 const MIN_REQUEST_TIME_MS = 350;
 const DEFAULT_FALLBACK_MODEL = "gemini-3.6-flash";
 
@@ -306,6 +306,7 @@ export async function evaluateWriting(
 
   let lastStatus: number | undefined;
   let lastWasTimeout = false;
+  let lastError: string | undefined;
 
   // ===================================
   // 4. Call Gemini API
@@ -393,6 +394,8 @@ export async function evaluateWriting(
         );
 
       lastWasTimeout = isTimeout;
+      const errorMsg = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
+      lastError = errorMsg;
 
       console.warn(
         `[writing-ai] ${
@@ -423,14 +426,14 @@ export async function evaluateWriting(
         throw new HttpError(
           504,
           "AI_TIMEOUT",
-          "Gemini did not respond before the configured deadline",
+          `AI upstream timed out at ${requestUrl}: ${errorMsg}`,
         );
       }
 
       throw new HttpError(
         502,
         "AI_UNAVAILABLE",
-        "Could not reach Gemini API",
+        `Could not reach AI upstream at ${requestUrl} (customRouter=${isCustomRouter}, model=${model}): ${errorMsg}`,
       );
     }
 
@@ -734,6 +737,6 @@ export async function evaluateWriting(
   throw new HttpError(
     502,
     "AI_UNAVAILABLE",
-    "Could not reach Gemini API",
+    `Could not reach AI API (attempts=${attempts.join(",")}): ${lastError || "Unknown network error"}`,
   );
 }

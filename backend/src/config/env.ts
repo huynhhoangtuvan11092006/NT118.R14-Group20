@@ -18,7 +18,7 @@ const envSchema = z.object({
   GOOGLE_CLIENT_ID: z.string().optional(),
   GEMINI_API_KEY: z.string().optional(),
   GEMINI_MODEL: z.string().default("gemini-3.8-flash"),
-  GEMINI_TIMEOUT_MS: z.coerce.number().int().min(1000).max(30000).default(8500),
+  GEMINI_TIMEOUT_MS: z.coerce.number().int().min(1000).max(120000).default(45000),
 
   // 9Router / Custom AI Proxy Support
   AI_BASE_URL: z.string().optional(),
