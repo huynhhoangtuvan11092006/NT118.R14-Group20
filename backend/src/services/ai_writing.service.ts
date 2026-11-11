@@ -462,8 +462,12 @@ export async function evaluateWriting(
           )}`,
       );
 
-      // Rate limit: không retry liên tục.
+      // Rate limit: chuyển sang model khác nếu còn lượt thử.
       if (upstream.status === 429) {
+        console.warn(`[writing-ai] Model ${model} is rate-limited (429), trying next candidate model...`);
+        if (attemptIndex < attempts.length - 1) {
+          continue;
+        }
         throw new HttpError(
           429,
           "AI_RATE_LIMITED",
