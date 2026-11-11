@@ -11,7 +11,6 @@ export type WritingTaskType = "ACADEMIC_TASK_1" | "GENERAL_TASK_1" | "TASK_2";
 
 const criterion = (description: string) => ({
   type: "object",
-  additionalProperties: false,
   properties: {
     score: {
       type: "number", minimum: 0, maximum: 9,
@@ -32,11 +31,9 @@ const criterion = (description: string) => ({
 /** Gemini structured-output schema; parsed again with Zod on the server. */
 export const writingEvaluationJsonSchema = {
   type: "object",
-  additionalProperties: false,
   properties: {
     criteria: {
       type: "object",
-      additionalProperties: false,
       properties: {
         taskAchievementOrResponse: criterion("Assess Task Achievement (Task 1) or Task Response (Task 2)."),
         coherenceCohesion: criterion("Assess logical progression, paragraphing, referencing and cohesion. Do not treat verb agreement errors as cohesion errors."),
@@ -57,7 +54,7 @@ export const writingEvaluationJsonSchema = {
       type: "array", minItems: 0, maxItems: 5,
       description: "After reviewing EVERY sentence, include up to five distinct genuine grammatical errors. Empty if none. This is NOT a list of optional style improvements.",
       items: {
-        type: "object", additionalProperties: false,
+        type: "object",
         properties: {
           original: {
             type: "string",
