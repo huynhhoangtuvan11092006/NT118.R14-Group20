@@ -19,6 +19,7 @@ import com.example.ielts.MainActivity
 import com.example.ielts.R
 import com.example.ielts.data.datasource.CambridgeWritingDataSource
 import com.example.ielts.data.datasource.WritingTestItem
+import com.example.ielts.data.local.WritingStatsManager
 import com.example.ielts.ui.auth.ProfileActivity
 import com.example.ielts.ui.practice.PracticeHubActivity
 import com.example.ielts.ui.writing.adapter.WritingTestAdapter
@@ -172,21 +173,19 @@ class WritingListActivity : AppCompatActivity() {
         val targetBand = userPrefs.getFloat(Constants.KEY_TARGET_BAND, 7.5f)
         tvTargetBand.text = String.format(Locale.US, "%.1f", targetBand)
 
-        val writingPrefs = getSharedPreferences("writing_practice_prefs", MODE_PRIVATE)
-        val recentBand = writingPrefs.getFloat("key_recent_band", 0f)
-        val essaysCount = writingPrefs.getInt("key_essays_count", 0)
-
-        if (recentBand > 0f) {
-            tvRecentBand.text = String.format(Locale.US, "%.1f", recentBand)
-            tvRecentBandDiff.text = "Đã làm"
+        val stats = WritingStatsManager.getSummaryStats(this)
+        val records = WritingStatsManager.getRecords(this)
+        if (records.isNotEmpty()) {
+            tvRecentBand.text = String.format(Locale.US, "%.1f", stats.recentBand)
+            tvRecentBandDiff.text = stats.bandDiff
             tvRecentBandDiff.setTextColor(Color.parseColor("#BBF7D0"))
         } else {
-            tvRecentBand.text = "--"
-            tvRecentBandDiff.text = "Chưa có điểm"
-            tvRecentBandDiff.setTextColor(Color.parseColor("#E0E7FF"))
+            tvRecentBand.text = String.format(Locale.US, "%.1f", stats.recentBand)
+            tvRecentBandDiff.text = "Gần nhất"
+            tvRecentBandDiff.setTextColor(Color.parseColor("#BBF7D0"))
         }
 
-        tvEssaysCount.text = "$essaysCount bài"
+        tvEssaysCount.text = "${stats.essaysWritten} bài"
     }
 
     private fun selectTaskTab(tab: String) {

@@ -9,6 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ielts.R
 import com.example.ielts.data.datasource.WritingTestItem
+import com.example.ielts.data.local.WritingStatsManager
+import java.util.Locale
 
 class WritingTestAdapter(
     private var testList: List<WritingTestItem>,
@@ -61,15 +63,14 @@ class WritingTestAdapter(
             holder.tvTaskTypeBadge.setTextColor(ContextCompat.getColor(context, R.color.badge_orange_text))
         }
 
-        // Check if user has already written this essay (from local prefs)
-        val prefs = context.getSharedPreferences("writing_practice_prefs", android.content.Context.MODE_PRIVATE)
-        val savedBand = prefs.getFloat("saved_band_${item.id}", -1f)
-        val savedWords = prefs.getInt("saved_words_${item.id}", 0)
+        // Check if user has already written this essay (from WritingStatsManager)
+        val record = WritingStatsManager.getRecordForTest(context, item.id)
 
-        if (savedBand > 0f) {
-            holder.tvStatusBadge.text = "✓ Đã chấm: Band $savedBand • $savedWords từ"
+        if (record != null) {
+            val bandStr = String.format(Locale.US, "%.1f", record.overallBand)
+            holder.tvStatusBadge.text = "✓ Đã chấm: Band $bandStr • ${record.wordCount} từ"
             holder.tvStatusBadge.setTextColor(ContextCompat.getColor(context, R.color.accent_green))
-            holder.btnStartWriting.text = "Viết lại  ›"
+            holder.btnStartWriting.text = "Làm lại  ›"
         } else {
             holder.tvStatusBadge.text = "Chưa làm"
             holder.tvStatusBadge.setTextColor(ContextCompat.getColor(context, R.color.text_secondary))

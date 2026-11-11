@@ -65,4 +65,7 @@
     <color name="result_hero_gradient_start">#EAEDFF</color>
     <color name="result_hero_gradient_end">#E2E7FF</color>
     <color name="result_active_card_bg">#EEF2FF</color>
+    <color name="error_bg">#FFDAD6</color>
+    <color name="error_text">#93000A</color>
+    <color name="error_primary">#BA1A1A</color>
 </resources>
