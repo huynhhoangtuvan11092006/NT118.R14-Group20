@@ -67,10 +67,10 @@ interface IeltsApiService {
     ): Response<com.example.ielts.data.remote.dto.UserResponse>
 
     // --- CHẤM ĐIỂM WRITING BẰNG AI GEMINI ---
-    @POST("api/v1/submissions/writing")
+    @POST("api/v1/ai/evaluate/writing")
     suspend fun evaluateWriting(
         @Header("Authorization") token: String,
-        @Body essayBody: Map<String, String>
+        @Body request: com.example.ielts.data.remote.dto.WritingEvaluationRequest
     ): Response<WritingEvaluationResponse>
 
     // --- LUYỆN THI READING ---
