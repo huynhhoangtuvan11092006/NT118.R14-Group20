@@ -36,59 +36,50 @@ interface EvaluateWritingOptions {
 }
 
 function isValidModel(model: string): boolean {
-  return /^gemini-[a-z0-9.-]+$/.test(model);
+  if (env.AI_BASE_URL) return model.trim().length > 0;
+  return /^[a-z0-9._/-]+$/i.test(model);
 }
 
-// Lấy phần JSON text từ response Gemini.
+// Lấy phần JSON text từ response (hỗ trợ cả Google Gemini và 9Router/OpenAI).
 function extractModelText(
   value: unknown,
 ): string | undefined {
-  if (
-    !value ||
-    typeof value !== "object" ||
-    !("candidates" in value)
-  ) {
+  if (!value || typeof value !== "object") {
     return undefined;
   }
 
-  const candidates = value.candidates;
-  if (!Array.isArray(candidates)) return undefined;
-
-  const candidate: unknown = candidates[0];
-
-  if (
-    !candidate ||
-    typeof candidate !== "object" ||
-    !("content" in candidate)
-  ) {
-    return undefined;
+  // 1. Định dạng OpenAI / 9Router: { choices: [{ message: { content: "..." } }] }
+  const record = value as Record<string, unknown>;
+  if ("choices" in record && Array.isArray(record.choices) && record.choices.length > 0) {
+    const firstChoice = record.choices[0] as Record<string, unknown> | undefined;
+    if (firstChoice && typeof firstChoice === "object" && "message" in firstChoice) {
+      const msg = firstChoice.message as Record<string, unknown> | undefined;
+      if (msg && typeof msg === "object" && typeof msg.content === "string") {
+        return msg.content;
+      }
+    }
   }
 
-  const content = candidate.content;
-
-  if (
-    !content ||
-    typeof content !== "object" ||
-    !("parts" in content) ||
-    !Array.isArray(content.parts)
-  ) {
-    return undefined;
+  // 2. Định dạng Google Gemini: { candidates: [{ content: { parts: [{ text: "..." }] } }] }
+  if ("candidates" in record && Array.isArray(record.candidates) && record.candidates.length > 0) {
+    const candidate = record.candidates[0] as Record<string, unknown> | undefined;
+    if (candidate && typeof candidate === "object" && "content" in candidate) {
+      const content = candidate.content as Record<string, unknown> | undefined;
+      if (content && typeof content === "object" && "parts" in content && Array.isArray(content.parts)) {
+        const texts = content.parts
+          .filter(
+            (part): part is { text: string } =>
+              !!part && typeof part === "object" && "text" in part && typeof part.text === "string",
+          )
+          .map((part) => part.text);
+        if (texts.length > 0) {
+          return texts.join("");
+        }
+      }
+    }
   }
 
-  const parts: unknown[] = content.parts;
-
-  const texts = parts.filter(
-    (part): part is { text: string } =>
-      !!part &&
-      typeof part === "object" &&
-      "text" in part &&
-      typeof part.text === "string",
-  );
-
-  return (
-    texts.map((part) => part.text).join("") ||
-    undefined
-  );
+  return undefined;
 }
 
 // Chờ một khoảng ngắn trước khi retry.
@@ -190,7 +181,7 @@ export async function evaluateWriting(
   // ===================================
 
   const apiKey =
-    options.apiKey ?? env.GEMINI_API_KEY;
+    options.apiKey ?? env.AI_API_KEY ?? env.GEMINI_API_KEY;
 
   if (
     !apiKey ||
@@ -199,12 +190,12 @@ export async function evaluateWriting(
     throw new HttpError(
       503,
       "AI_NOT_CONFIGURED",
-      "Gemini API key is not configured on the backend",
+      "AI / Gemini API key is not configured on the backend",
     );
   }
 
   const primaryModel =
-    options.model ?? env.GEMINI_MODEL;
+    options.model ?? env.AI_MODEL ?? env.GEMINI_MODEL;
 
   const fallbackModel =
     options.fallbackModel ??
@@ -349,19 +340,45 @@ export async function evaluateWriting(
 
     let upstream: Response;
 
+    const isCustomRouter = !!env.AI_BASE_URL;
+    const requestUrl = isCustomRouter
+      ? (env.AI_BASE_URL!.includes("/chat/completions") ? env.AI_BASE_URL! : `${env.AI_BASE_URL!.replace(/\/+$/, "")}/chat/completions`)
+      : `${GEMINI_API_BASE}/${model}:generateContent`;
+
+    const requestHeaders: Record<string, string> = {
+      "content-type": "application/json",
+    };
+    if (isCustomRouter) {
+      requestHeaders["Authorization"] = `Bearer ${apiKey}`;
+    } else {
+      requestHeaders["x-goog-api-key"] = apiKey;
+    }
+
+    const payload = isCustomRouter
+      ? JSON.stringify({
+          model,
+          messages: [
+            {
+              role: "system",
+              content: "You are an official Cambridge IELTS Writing examiner. You must return only a valid JSON object matching the requested schema.",
+            },
+            {
+              role: "user",
+              content: prompt,
+            },
+          ],
+          response_format: { type: "json_object" },
+          temperature: 0.1,
+        })
+      : requestBody;
+
     try {
       upstream = await fetchImpl(
-        `${GEMINI_API_BASE}/${model}:generateContent`,
+        requestUrl,
         {
           method: "POST",
-
-          headers: {
-            "content-type": "application/json",
-            "x-goog-api-key": apiKey,
-          },
-
-          body: requestBody,
-
+          headers: requestHeaders,
+          body: payload,
           signal: AbortSignal.timeout(
             attemptTimeoutMs,
           ),

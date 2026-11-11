@@ -20,6 +20,11 @@ const envSchema = z.object({
   GEMINI_MODEL: z.string().default("gemini-3.8-flash"),
   GEMINI_TIMEOUT_MS: z.coerce.number().int().min(1000).max(30000).default(8500),
 
+  // 9Router / Custom AI Proxy Support
+  AI_BASE_URL: z.string().optional(),
+  AI_API_KEY: z.string().optional(),
+  AI_MODEL: z.string().optional(),
+
 }).superRefine((value, ctx) => {
   for (const field of ["JWT_ACCESS_SECRET", "JWT_REFRESH_SECRET"] as const) {
     if (value[field].startsWith("CHANGE_ME")) {
