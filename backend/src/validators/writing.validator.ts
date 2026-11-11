@@ -11,6 +11,7 @@ export const writingEvaluationInputSchema = z.strictObject({
   question: z.string().trim().min(10).max(3500),
   essay: z.string().trim().min(30).max(14000),
   sourceMaterial: z.string().trim().min(20).max(6000).optional(),
+  targetBand: z.number().min(4).max(9).optional(),
 }).superRefine((value, ctx) => {
   if (value.taskType === "ACADEMIC_TASK_1" && !value.sourceMaterial) {
     ctx.addIssue({ code: "custom", path: ["sourceMaterial"], message: "Academic Task 1 requires a chart/table/process description to assess accuracy" });
@@ -32,5 +33,6 @@ export const geminiWritingOutputSchema = z.strictObject({
     rewrite: z.string().trim().min(3).max(700),
     explanation: z.string().trim().min(6).max(500),
   })).max(5),
+  modelEssay: z.string().trim().min(40).max(5000).optional(),
 });
 export type GeminiWritingOutput = z.infer<typeof geminiWritingOutputSchema>;

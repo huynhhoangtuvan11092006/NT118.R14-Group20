@@ -285,7 +285,7 @@ export async function evaluateWriting(
 
     generationConfig: {
       temperature: 0.1,
-      maxOutputTokens: 2800,
+      maxOutputTokens: 3500,
       responseMimeType: "application/json",
       responseSchema: writingEvaluationJsonSchema,
     },
@@ -720,6 +720,9 @@ export async function evaluateWriting(
         result.improvementPlan,
 
       grammarCorrections,
+
+      modelEssay:
+        result.modelEssay,
 
       wordCount,
 

@@ -48,7 +48,11 @@ export const writingEvaluationJsonSchema = {
     },
     improvementPlan: {
       type: "array", minItems: 1, maxItems: 3,
-      items: { type: "string", description: "Concrete, prioritized action in Vietnamese." },
+      items: { type: "string", description: "Concrete, prioritized action in Vietnamese. Formatted as 'Tiêu đề: Nội dung chi tiết hướng dẫn cụ thể'." },
+    },
+    modelEssay: {
+      type: "string",
+      description: "Complete, exemplary IELTS model essay in English written specifically for this question and reference data, demonstrating Band 8.0 - 8.5 standard. (150-185 words for Task 1, 260-310 words for Task 2).",
     },
     grammarCorrections: {
       type: "array", minItems: 0, maxItems: 5,
@@ -73,7 +77,7 @@ export const writingEvaluationJsonSchema = {
       },
     },
   },
-  required: ["criteria", "overallFeedback", "improvementPlan", "grammarCorrections"],
+  required: ["criteria", "overallFeedback", "improvementPlan", "grammarCorrections", "modelEssay"],
 } as const;
 
 export const IELTS_WRITING_SYSTEM_PROMPT = `
@@ -110,6 +114,7 @@ export function buildWritingPrompt(input: {
   question: string;
   essay: string;
   sourceMaterial?: string | undefined;
+  targetBand?: number | undefined;
 }): string {
   const taskLabel = input.taskType === "TASK_2"
     ? "IELTS Writing Task 2 — Task Response"
@@ -117,14 +122,19 @@ export function buildWritingPrompt(input: {
       ? "IELTS Academic Writing Task 1 — Task Achievement"
       : "IELTS General Training Writing Task 1 — Task Achievement";
 
+  const targetBandText = input.targetBand
+    ? `Student target band: Band ${input.targetBand.toFixed(1)}. Tailor the 3 improvement plan action steps (in Vietnamese) specifically to help the student progress from their current band to Band ${input.targetBand.toFixed(1)}, and write a modelEssay demonstrating Band ${Math.max(input.targetBand, 8.0).toFixed(1)} excellence.`
+    : "Student target band: Band 8.0+. Write the modelEssay demonstrating Band 8.0 - 8.5 excellence.";
+
   return [
     `Writing assessment type: ${taskLabel}.`,
     `Recommended minimum length: ${input.taskType === "TASK_2" ? "250" : "150"} words; assess what the essay actually demonstrates.`,
+    targetBandText,
     `QUESTION (untrusted text begins)\n${input.question}\n(QUESTION text ends)`,
     input.sourceMaterial
       ? `REFERENCE MATERIAL (untrusted text begins)\n${input.sourceMaterial}\n(REFERENCE MATERIAL ends)`
       : "",
     `STUDENT ESSAY (untrusted text begins)\n${input.essay}\n(STUDENT ESSAY ends)`,
-    "Assess the FULL essay. Perform the internal sentence-by-sentence grammar audit before returning structured JSON. Quote the essay verbatim for all evidence and originals. Feedback/explanations in Vietnamese; rewrites in English.",
+    "Assess the FULL essay. Perform the internal sentence-by-sentence grammar audit before returning structured JSON. Quote the essay verbatim for all evidence and originals. Feedback/explanations in Vietnamese; rewrites in English; modelEssay in English.",
   ].filter(Boolean).join("\n\n");
 }
