@@ -98,10 +98,10 @@ class WritingResultActivity : AppCompatActivity() {
 
     private fun readIntentData() {
         testId = intent.getStringExtra("EXTRA_TEST_ID") ?: "cam18-test1-task1"
-        timeSpentSeconds = intent.getIntExtra("EXTRA_TIME_SPENT_SECONDS", 1200)
+        timeSpentSeconds = intent.getIntExtra("EXTRA_TIME_SPENT_SECONDS", intent.getIntExtra("EXTRA_TIME_SPENT", 1200))
         wordCount = intent.getIntExtra("EXTRA_WORD_COUNT", 180)
 
-        val json = intent.getStringExtra("EXTRA_EVALUATION_JSON")
+        val json = intent.getStringExtra("EXTRA_EVALUATION_JSON") ?: intent.getStringExtra("EXTRA_RESULT_JSON")
         if (!json.isNullOrBlank()) {
             try {
                 evaluation = Gson().fromJson(json, WritingEvaluationResponse::class.java)
