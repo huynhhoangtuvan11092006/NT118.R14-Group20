@@ -41,6 +41,19 @@ function isValidModel(model: string): boolean {
 }
 
 // Lấy phần JSON text từ response (hỗ trợ cả Google Gemini và 9Router/OpenAI).
+function cleanJsonString(raw: string): string {
+  let cleaned = raw.trim();
+  if (cleaned.startsWith("```")) {
+    cleaned = cleaned.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "").trim();
+  }
+  const firstBrace = cleaned.indexOf("{");
+  const lastBrace = cleaned.lastIndexOf("}");
+  if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+    cleaned = cleaned.substring(firstBrace, lastBrace + 1);
+  }
+  return cleaned;
+}
+
 function extractModelText(
   value: unknown,
 ): string | undefined {
@@ -282,17 +295,14 @@ export async function evaluateWriting(
   // 3. Retry and fallback configuration
   // ===================================
 
-  // Một lần thử primary, một lần thử fallback nếu lỗi.
-  const attempts: string[] = [primaryModel];
-
-  if (
-    fallbackModel &&
-    fallbackModel !== primaryModel
-  ) {
-    attempts.push(fallbackModel);
-  } else if (primaryModel !== "gemini-3.5-flash") {
-    attempts.push("gemini-3.5-flash");
-  }
+  // Thử lần lượt các candidate model đã kiểm tra tương thích
+  const candidateModels = [
+    primaryModel,
+    fallbackModel || "gemini-3.5-flash",
+    "gemini-3.5-flash-lite",
+    "gemini-3-flash-preview",
+  ];
+  const attempts = Array.from(new Set(candidateModels.filter(Boolean)));
 
   let lastStatus: number | undefined;
   let lastWasTimeout = false;
@@ -518,6 +528,9 @@ export async function evaluateWriting(
       extractModelText(envelope);
 
     if (!responseText) {
+      if (attemptIndex < attempts.length - 1) {
+        continue;
+      }
       throw new HttpError(
         502,
         "AI_INVALID_RESPONSE",
@@ -530,11 +543,21 @@ export async function evaluateWriting(
     try {
       output = JSON.parse(responseText);
     } catch {
-      throw new HttpError(
-        502,
-        "AI_INVALID_RESPONSE",
-        "Gemini response was not valid JSON",
-      );
+      try {
+        const cleaned = cleanJsonString(responseText);
+        output = JSON.parse(cleaned);
+      } catch (cleanErr) {
+        console.warn(`[writing-ai] Failed to parse JSON from model=${model} attempt=${attemptIndex + 1}: ${(cleanErr as Error).message}`);
+        lastError = "Gemini response was not valid JSON";
+        if (attemptIndex < attempts.length - 1) {
+          continue;
+        }
+        throw new HttpError(
+          502,
+          "AI_INVALID_RESPONSE",
+          "Gemini response was not valid JSON",
+        );
+      }
     }
 
     // ===================================
@@ -547,6 +570,11 @@ export async function evaluateWriting(
       );
 
     if (!parsed.success) {
+      console.warn(`[writing-ai] Schema validation failed for model=${model} attempt=${attemptIndex + 1}: ${parsed.error.message}`);
+      lastError = "Gemini response failed schema validation";
+      if (attemptIndex < attempts.length - 1) {
+        continue;
+      }
       throw new HttpError(
         502,
         "AI_INVALID_RESPONSE",
