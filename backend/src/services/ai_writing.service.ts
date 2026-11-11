@@ -341,7 +341,8 @@ export async function evaluateWriting(
 
     let upstream: Response;
 
-    const isCustomRouter = !!env.AI_BASE_URL;
+    const isLocalhostProxy = !!env.AI_BASE_URL && (env.AI_BASE_URL.includes("localhost") || env.AI_BASE_URL.includes("127.0.0.1"));
+    const isCustomRouter = !!env.AI_BASE_URL && (!isLocalhostProxy || !env.GEMINI_API_KEY);
     const requestUrl = isCustomRouter
       ? (env.AI_BASE_URL!.includes("/chat/completions") ? env.AI_BASE_URL! : `${env.AI_BASE_URL!.replace(/\/+$/, "")}/chat/completions`)
       : `${GEMINI_API_BASE}/${model}:generateContent`;
@@ -349,10 +350,14 @@ export async function evaluateWriting(
     const requestHeaders: Record<string, string> = {
       "content-type": "application/json",
     };
+    const effectiveApiKey = isCustomRouter
+      ? (apiKey || env.AI_API_KEY || env.GEMINI_API_KEY)
+      : (env.GEMINI_API_KEY || apiKey);
+
     if (isCustomRouter) {
-      requestHeaders["Authorization"] = `Bearer ${apiKey}`;
+      requestHeaders["Authorization"] = `Bearer ${effectiveApiKey}`;
     } else {
-      requestHeaders["x-goog-api-key"] = apiKey;
+      requestHeaders["x-goog-api-key"] = effectiveApiKey!;
     }
 
     const payload = isCustomRouter
