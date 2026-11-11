@@ -88,7 +88,7 @@ class WritingEditorActivity : AppCompatActivity() {
         setupListeners()
         populateTestData()
         restoreDraftIfExists()
-        startExamTimer()
+        showStartExamDialog()
     }
 
     override fun onDestroy() {
@@ -236,6 +236,38 @@ class WritingEditorActivity : AppCompatActivity() {
             layoutPromptDetails.visibility = View.VISIBLE
             btnTogglePrompt.text = "Thu gọn ▲"
         }
+    }
+
+    private fun showStartExamDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_start_writing_exam, null)
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        dialogView.findViewById<TextView>(R.id.tvStartExamTitle)?.text = testTitle
+        val tvWritingRuleWordsTime = dialogView.findViewById<TextView>(R.id.tvWritingRuleWordsTime)
+        val tvWritingRuleFeature = dialogView.findViewById<TextView>(R.id.tvWritingRuleFeature)
+        val tvWritingTimerNotice = dialogView.findViewById<TextView>(R.id.tvWritingTimerNotice)
+
+        tvWritingRuleWordsTime?.text = "•  Yêu cầu: Tối thiểu $minWords từ • Thời gian làm bài: $durationMinutes phút"
+        if (taskType != "ACADEMIC_TASK_1") {
+            tvWritingRuleFeature?.text = "•  Luận đề nghị luận xã hội chuẩn Cambridge với hướng tiếp cận đa chiều"
+        }
+        tvWritingTimerNotice?.text = "⏳ Đồng hồ $durationMinutes:00 sẽ bắt đầu chạy ngay khi bạn xác nhận."
+
+        dialogView.findViewById<View>(R.id.btnConfirmStartExam)?.setOnClickListener {
+            dialog.dismiss()
+            startExamTimer()
+        }
+        dialogView.findViewById<View>(R.id.btnCancelStartExam)?.setOnClickListener {
+            dialog.dismiss()
+            finish()
+        }
+
+        dialog.show()
     }
 
     private fun startExamTimer() {
