@@ -42,4 +42,9 @@ if (!parsed.success) {
   throw new Error(`Invalid environment variables: ${names}. Check backend/.env`);
 }
 
-export const env = parsed.data;
+export const env = {
+  ...parsed.data,
+  AI_BASE_URL: parsed.data.AI_BASE_URL || process.env.BASE_URL || process.env.OPENAI_BASE_URL || process.env.ROUTER_BASE_URL,
+  AI_API_KEY: parsed.data.AI_API_KEY || process.env.API_KEY || process.env.OPENAI_API_KEY || process.env.ROUTER_API_KEY || parsed.data.GEMINI_API_KEY,
+  AI_MODEL: parsed.data.AI_MODEL || process.env.MODEL || process.env.OPENAI_MODEL,
+};
