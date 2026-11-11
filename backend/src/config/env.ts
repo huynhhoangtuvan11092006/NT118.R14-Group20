@@ -17,7 +17,7 @@ const envSchema = z.object({
   EMAIL_FROM: z.string().default("IELTS Prep App <no-reply@ieltsapp.com>"),
   GOOGLE_CLIENT_ID: z.string().optional(),
   GEMINI_API_KEY: z.string().optional(),
-  GEMINI_MODEL: z.string().default("gemini-3.5-flash-lite"),
+  GEMINI_MODEL: z.string().default("gemini-3.5-flash"),
   GEMINI_TIMEOUT_MS: z.coerce.number().int().min(1000).max(120000).default(45000),
 
   // 9Router / Custom AI Proxy Support

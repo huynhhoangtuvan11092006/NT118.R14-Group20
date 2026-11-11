@@ -14,12 +14,12 @@ object ApiClient {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-    // Cấu hình OkHttpClient với thời gian chờ (Timeout) tối đa 30 giây
+    // Cấu hình OkHttpClient với thời gian chờ (Timeout) tối đa 60 giây
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
-        .connectTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(30, TimeUnit.SECONDS)
+        .connectTimeout(60, TimeUnit.SECONDS)
+        .readTimeout(60, TimeUnit.SECONDS)
+        .writeTimeout(60, TimeUnit.SECONDS)
         .build()
 
     // Khởi tạo Retrofit Singleton với Base URL và bộ chuyển đổi Gson

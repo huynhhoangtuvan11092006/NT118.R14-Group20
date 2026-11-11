@@ -25,7 +25,7 @@ const CRITERIA = [
 // Tổng timeout lấy từ GEMINI_TIMEOUT_MS.
 const PER_ATTEMPT_TIMEOUT_MS = 35_000;
 const MIN_REQUEST_TIME_MS = 350;
-const DEFAULT_FALLBACK_MODEL = "gemini-3.5-flash-lite";
+const DEFAULT_FALLBACK_MODEL = "gemini-3.5-flash";
 
 interface EvaluateWritingOptions {
   fetchImpl?: typeof fetch;
@@ -282,17 +282,16 @@ export async function evaluateWriting(
   // 3. Retry and fallback configuration
   // ===================================
 
-  // Hai lần thử primary, một lần thử fallback.
-  const attempts = [
-    primaryModel,
-    primaryModel,
-  ];
+  // Một lần thử primary, một lần thử fallback nếu lỗi.
+  const attempts: string[] = [primaryModel];
 
   if (
     fallbackModel &&
     fallbackModel !== primaryModel
   ) {
     attempts.push(fallbackModel);
+  } else if (primaryModel !== "gemini-3.5-flash") {
+    attempts.push("gemini-3.5-flash");
   }
 
   let lastStatus: number | undefined;
