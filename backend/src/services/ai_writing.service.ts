@@ -273,17 +273,8 @@ export async function evaluateWriting(
     generationConfig: {
       temperature: 0.1,
       maxOutputTokens: 2800,
-
-      thinkingConfig: {
-        thinkingLevel: "low",
-      },
-
-      responseFormat: {
-        text: {
-          mimeType: "APPLICATION_JSON",
-          schema: writingEvaluationJsonSchema,
-        },
-      },
+      responseMimeType: "application/json",
+      responseSchema: writingEvaluationJsonSchema,
     },
   });
 
@@ -343,16 +334,17 @@ export async function evaluateWriting(
 
     const isLocalhostProxy = !!env.AI_BASE_URL && (env.AI_BASE_URL.includes("localhost") || env.AI_BASE_URL.includes("127.0.0.1"));
     const isCustomRouter = !!env.AI_BASE_URL && (!isLocalhostProxy || !env.GEMINI_API_KEY);
+    const effectiveApiKey = isCustomRouter
+      ? (apiKey || env.AI_API_KEY || env.GEMINI_API_KEY)
+      : (env.GEMINI_API_KEY || apiKey);
+
     const requestUrl = isCustomRouter
       ? (env.AI_BASE_URL!.includes("/chat/completions") ? env.AI_BASE_URL! : `${env.AI_BASE_URL!.replace(/\/+$/, "")}/chat/completions`)
-      : `${GEMINI_API_BASE}/${model}:generateContent`;
+      : `${GEMINI_API_BASE}/${model}:generateContent?key=${encodeURIComponent(effectiveApiKey!)}`;
 
     const requestHeaders: Record<string, string> = {
       "content-type": "application/json",
     };
-    const effectiveApiKey = isCustomRouter
-      ? (apiKey || env.AI_API_KEY || env.GEMINI_API_KEY)
-      : (env.GEMINI_API_KEY || apiKey);
 
     if (isCustomRouter) {
       requestHeaders["Authorization"] = `Bearer ${effectiveApiKey}`;
