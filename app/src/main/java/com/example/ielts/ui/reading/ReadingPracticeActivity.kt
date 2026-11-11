@@ -355,7 +355,17 @@ class ReadingPracticeActivity : AppCompatActivity() {
                     }
                     if (body.questions.isNotEmpty()) {
                         allQuestions.clear()
-                        allQuestions.addAll(body.questions)
+                        val mappedQuestions = body.questions.map { q ->
+                            val pNum = if (q.passageNumber <= 1 && q.position > 13) {
+                                when {
+                                    q.position <= 13 -> 1
+                                    q.position <= 26 -> 2
+                                    else -> 3
+                                }
+                            } else q.passageNumber
+                            q.copy(passageNumber = pNum)
+                        }
+                        allQuestions.addAll(mappedQuestions)
                     }
                 }
             } catch (e: Exception) {

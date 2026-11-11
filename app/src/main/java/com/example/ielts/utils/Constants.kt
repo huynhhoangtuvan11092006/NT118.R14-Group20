@@ -2,7 +2,7 @@ package com.example.ielts.utils
 
 object Constants {
     // Địa chỉ Backend chạy trên máy tính (PC) kết nối qua ADB reverse tunnel
-    const val BASE_URL = "http://127.0.0.1:3000/"
+    const val BASE_URL = "https://nt118-r14-group20.onrender.com/"
 
     // SharedPreferences keys
     const val PREF_NAME = "ielts_user_prefs"

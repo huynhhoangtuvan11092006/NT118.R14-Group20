@@ -26,28 +26,28 @@ data class ReadingTestDetailDto(
 
 data class PassageDto(
     @SerializedName("passageNumber")
-    val passageNumber: Int,
+    val passageNumber: Int = 1,
     @SerializedName("title")
-    val title: String,
+    val title: String = "",
     @SerializedName("subtitle")
     val subtitle: String? = null,
     @SerializedName("content")
-    val content: String,
+    val content: String = "",
     @SerializedName("wordCount")
     val wordCount: Int = 0
 )
 
 data class QuestionDetailDto(
     @SerializedName("id")
-    val id: String,
+    val id: String = "",
     @SerializedName("position")
-    val position: Int,
+    val position: Int = 1,
     @SerializedName("type")
-    val type: String, // MULTIPLE_CHOICE, TRUE_FALSE, FILL_IN_BLANK
+    val type: String = "MULTIPLE_CHOICE", // MULTIPLE_CHOICE, TRUE_FALSE, FILL_IN_BLANK
     @SerializedName("prompt")
-    val prompt: String,
+    val prompt: String = "",
     @SerializedName("options")
-    val options: String? = null,
+    val options: Any? = null,
     @SerializedName("passageNumber")
     val passageNumber: Int = 1,
     @SerializedName("groupInstruction")

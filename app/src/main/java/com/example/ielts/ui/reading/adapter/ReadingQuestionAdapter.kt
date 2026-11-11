@@ -87,7 +87,10 @@ class ReadingQuestionAdapter(
 
         holder.btnToggleFlag.setOnClickListener {
             onToggleFlag(questionNum)
-            notifyItemChanged(holder.bindingAdapterPosition)
+            val pos = holder.bindingAdapterPosition
+            if (pos != RecyclerView.NO_POSITION) {
+                notifyItemChanged(pos)
+            }
         }
 
         val currentAnswer = getAnswer(questionNum)
@@ -105,15 +108,18 @@ class ReadingQuestionAdapter(
 
                 holder.btnTrue.setOnClickListener {
                     onAnswerSelected(questionNum, "TRUE")
-                    notifyItemChanged(holder.bindingAdapterPosition)
+                    val pos = holder.bindingAdapterPosition
+                    if (pos != RecyclerView.NO_POSITION) notifyItemChanged(pos)
                 }
                 holder.btnFalse.setOnClickListener {
                     onAnswerSelected(questionNum, "FALSE")
-                    notifyItemChanged(holder.bindingAdapterPosition)
+                    val pos = holder.bindingAdapterPosition
+                    if (pos != RecyclerView.NO_POSITION) notifyItemChanged(pos)
                 }
                 holder.btnNotGiven.setOnClickListener {
                     onAnswerSelected(questionNum, "NOT GIVEN")
-                    notifyItemChanged(holder.bindingAdapterPosition)
+                    val pos = holder.bindingAdapterPosition
+                    if (pos != RecyclerView.NO_POSITION) notifyItemChanged(pos)
                 }
             }
             "MULTIPLE_CHOICE" -> {
@@ -123,34 +129,44 @@ class ReadingQuestionAdapter(
 
                 // Parse options if provided
                 val parsedOpts = parseOptions(item.options)
-                holder.btnOptA.text = parsedOpts.getOrNull(0) ?: "A. Lựa chọn A"
-                holder.btnOptB.text = parsedOpts.getOrNull(1) ?: "B. Lựa chọn B"
-                holder.btnOptC.text = parsedOpts.getOrNull(2) ?: "C. Lựa chọn C"
-                holder.btnOptD.text = parsedOpts.getOrNull(3) ?: "D. Lựa chọn D"
+                val optA = parsedOpts.getOrNull(0) ?: "A. Lựa chọn A"
+                val optB = parsedOpts.getOrNull(1) ?: "B. Lựa chọn B"
+                val optC = parsedOpts.getOrNull(2) ?: "C. Lựa chọn C"
+                val optD = parsedOpts.getOrNull(3) ?: "D. Lựa chọn D"
 
-                applyChoiceStyle(holder.btnOptA, currentAnswer == "A", holder.btnOptA.text.toString())
-                applyChoiceStyle(holder.btnOptB, currentAnswer == "B", holder.btnOptB.text.toString())
-                applyChoiceStyle(holder.btnOptC, currentAnswer == "C", holder.btnOptC.text.toString())
-                applyChoiceStyle(holder.btnOptD, currentAnswer == "D", holder.btnOptD.text.toString())
+                holder.btnOptA.text = optA
+                holder.btnOptB.text = optB
+                holder.btnOptC.text = optC
+                holder.btnOptD.text = optD
+
+                applyChoiceStyle(holder.btnOptA, currentAnswer == "A", optA)
+                applyChoiceStyle(holder.btnOptB, currentAnswer == "B", optB)
+                applyChoiceStyle(holder.btnOptC, currentAnswer == "C", optC)
+                applyChoiceStyle(holder.btnOptD, currentAnswer == "D", optD)
 
                 holder.btnOptA.setOnClickListener {
                     onAnswerSelected(questionNum, "A")
-                    notifyItemChanged(holder.bindingAdapterPosition)
+                    val pos = holder.bindingAdapterPosition
+                    if (pos != RecyclerView.NO_POSITION) notifyItemChanged(pos)
                 }
                 holder.btnOptB.setOnClickListener {
                     onAnswerSelected(questionNum, "B")
-                    notifyItemChanged(holder.bindingAdapterPosition)
+                    val pos = holder.bindingAdapterPosition
+                    if (pos != RecyclerView.NO_POSITION) notifyItemChanged(pos)
                 }
                 holder.btnOptC.setOnClickListener {
                     onAnswerSelected(questionNum, "C")
-                    notifyItemChanged(holder.bindingAdapterPosition)
+                    val pos = holder.bindingAdapterPosition
+                    if (pos != RecyclerView.NO_POSITION) notifyItemChanged(pos)
                 }
                 holder.btnOptD.setOnClickListener {
                     onAnswerSelected(questionNum, "D")
-                    notifyItemChanged(holder.bindingAdapterPosition)
+                    val pos = holder.bindingAdapterPosition
+                    if (pos != RecyclerView.NO_POSITION) notifyItemChanged(pos)
                 }
             }
-            "FILL_IN_BLANK" -> {
+            else -> {
+                // FILL_IN_BLANK or any text input question
                 holder.layoutTfng.visibility = View.GONE
                 holder.layoutMultipleChoice.visibility = View.GONE
                 holder.layoutFillBlank.visibility = View.VISIBLE
@@ -172,24 +188,29 @@ class ReadingQuestionAdapter(
         }
     }
 
-    private fun applyChoiceStyle(button: TextView, isSelected: Boolean, text: String) {
+    private fun applyChoiceStyle(button: TextView, isSelected: Boolean, baseText: String) {
+        val cleanText = if (baseText.startsWith("✓ ")) baseText.removePrefix("✓ ") else baseText
         val context = button.context
         if (isSelected) {
             button.setBackgroundResource(R.drawable.bg_choice_selected)
             button.setTextColor(ContextCompat.getColor(context, R.color.primary_blue))
-            button.text = "✓ $text"
+            button.text = "✓ $cleanText"
         } else {
             button.setBackgroundResource(R.drawable.bg_choice_unselected)
             button.setTextColor(ContextCompat.getColor(context, R.color.text_primary))
-            button.text = text
+            button.text = cleanText
         }
     }
 
-    private fun parseOptions(rawOptions: String?): List<String> {
-        if (rawOptions.isNullOrBlank()) return emptyList()
-        // Format: "A. xxx B. yyy C. zzz D. www"
+    private fun parseOptions(rawOptions: Any?): List<String> {
+        if (rawOptions == null) return emptyList()
+        if (rawOptions is List<*>) {
+            return rawOptions.mapNotNull { it?.toString() }
+        }
+        val str = rawOptions.toString().trim()
+        if (str.isEmpty()) return emptyList()
         val regex = Regex("([A-D]\\.\\s+[^A-D]+)")
-        val matches = regex.findAll(rawOptions).map { it.value.trim() }.toList()
-        return if (matches.isNotEmpty()) matches else rawOptions.split("\n")
+        val matches = regex.findAll(str).map { it.value.trim() }.toList()
+        return if (matches.isNotEmpty()) matches else str.split("\n")
     }
 }
