@@ -177,7 +177,8 @@ class PracticeHubActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.cardWritingSkill)?.setOnClickListener {
-            Toast.makeText(this, "Luyện viết Task 1 & Task 2 với AI chấm điểm tức thì!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, com.example.ielts.ui.writing.WritingListActivity::class.java)
+            startActivity(intent)
         }
 
         findViewById<View>(R.id.cardSpeakingSkill)?.setOnClickListener {
@@ -206,7 +207,8 @@ class PracticeHubActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.itemRecentWriting)?.setOnClickListener {
-            Toast.makeText(this, "Xem lại bài viết Task 2 gần nhất (Band 6.5)", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, com.example.ielts.ui.writing.WritingListActivity::class.java)
+            startActivity(intent)
         }
 
         findViewById<View>(R.id.itemRecentListening)?.setOnClickListener {

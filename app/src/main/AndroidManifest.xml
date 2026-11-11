@@ -36,6 +36,15 @@
             android:exported="true" />
 
         <activity
+            android:name=".ui.writing.WritingListActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.writing.WritingEditorActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".ui.listening.ListeningListActivity"
             android:exported="true" />
 
