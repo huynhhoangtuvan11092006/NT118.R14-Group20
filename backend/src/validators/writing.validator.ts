@@ -1,12 +1,12 @@
 import { z } from "zod";
 
-const criterionSchema = z.strictObject({
-  score: z.number().min(0).max(9).refine((score) => Number.isInteger(score * 2), "Band must be a multiple of 0.5"),
-  feedback: z.string().trim().min(10).max(1800),
-  evidence: z.string().trim().min(1).max(450),
+const criterionSchema = z.object({
+  score: z.number().min(0).max(9).transform((score) => Math.round(score * 2) / 2),
+  feedback: z.string().trim().min(5).max(3500),
+  evidence: z.string().trim().max(1000).optional().default(""),
 });
 
-export const writingEvaluationInputSchema = z.strictObject({
+export const writingEvaluationInputSchema = z.object({
   taskType: z.enum(["ACADEMIC_TASK_1", "GENERAL_TASK_1", "TASK_2"]),
   question: z.string().trim().min(10).max(3500),
   essay: z.string().trim().min(30).max(14000),
@@ -19,20 +19,20 @@ export const writingEvaluationInputSchema = z.strictObject({
 });
 export type WritingEvaluationInput = z.infer<typeof writingEvaluationInputSchema>;
 
-export const geminiWritingOutputSchema = z.strictObject({
-  criteria: z.strictObject({
+export const geminiWritingOutputSchema = z.object({
+  criteria: z.object({
     taskAchievementOrResponse: criterionSchema,
     coherenceCohesion: criterionSchema,
     lexicalResource: criterionSchema,
     grammaticalRangeAccuracy: criterionSchema,
   }),
-  overallFeedback: z.string().trim().min(15).max(2200),
-  improvementPlan: z.array(z.string().trim().min(6).max(450)).min(1).max(3),
-  grammarCorrections: z.array(z.strictObject({
-    original: z.string().trim().min(3).max(700),
-    rewrite: z.string().trim().min(3).max(700),
-    explanation: z.string().trim().min(6).max(500),
-  })).max(5),
-  modelEssay: z.string().trim().min(40).max(5000).optional(),
+  overallFeedback: z.string().trim().min(5).max(3500),
+  improvementPlan: z.array(z.string().trim().min(3).max(1000)).min(1).max(5),
+  grammarCorrections: z.array(z.object({
+    original: z.string().trim().min(1).max(1000),
+    rewrite: z.string().trim().min(1).max(1000),
+    explanation: z.string().trim().min(3).max(1000),
+  })).max(10),
+  modelEssay: z.string().trim().min(20).max(8000).optional(),
 });
 export type GeminiWritingOutput = z.infer<typeof geminiWritingOutputSchema>;

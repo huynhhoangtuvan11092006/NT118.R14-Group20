@@ -43,6 +43,8 @@ function isValidModel(model: string): boolean {
 // Lấy phần JSON text từ response (hỗ trợ cả Google Gemini và 9Router/OpenAI).
 function cleanJsonString(raw: string): string {
   let cleaned = raw.trim();
+  // Strip any <thought>...</thought> or markdown thinking blocks
+  cleaned = cleaned.replace(/<thought>[\s\S]*?<\/thought>/gi, "").trim();
   if (cleaned.startsWith("```")) {
     cleaned = cleaned.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "").trim();
   }
