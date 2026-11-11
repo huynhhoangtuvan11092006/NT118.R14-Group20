@@ -15,6 +15,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.ielts.R
 import com.example.ielts.data.datasource.CambridgeWritingDataSource
@@ -75,6 +77,12 @@ class WritingEditorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_writing_editor)
 
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.rootLayout)) { view, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            view.setPadding(bars.left, bars.top, bars.right, bars.bottom)
+            WindowInsetsCompat.CONSUMED
+        }
+
         readIntentData()
         initViews()
         setupListeners()
@@ -130,7 +138,9 @@ class WritingEditorActivity : AppCompatActivity() {
     }
 
     private fun populateTestData() {
-        tvEditorExamTitle.text = testTitle
+        val testNumber = if (testId.contains("test2")) "Test 2" else "Test 1"
+        val taskNumber = if (taskType == "ACADEMIC_TASK_1") "Task 1" else "Task 2"
+        tvEditorExamTitle.text = "Cam 18 • $testNumber: $taskNumber"
 
         if (taskType == "ACADEMIC_TASK_1") {
             tvPromptTaskBadge.text = "TASK 1 • REPORT"

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/bg_app">
 
     <!-- Top App Bar -->
@@ -13,8 +15,8 @@
         android:layout_alignParentTop="true"
         android:background="@color/white"
         android:elevation="2dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
 
         <ImageView
             android:id="@+id/btnBack"
@@ -27,18 +29,6 @@
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/text_primary" />
 
-        <TextView
-            android:id="@+id/tvHeaderTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
-            android:layout_toEndOf="@id/btnBack"
-            android:text="Luyện Viết IELTS Writing"
-            android:textColor="@color/text_primary"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
         <ImageView
             android:id="@+id/ivHeaderProfile"
             android:layout_width="34dp"
@@ -49,6 +39,22 @@
             android:padding="6dp"
             android:src="@drawable/ic_target"
             app:tint="@color/primary_blue" />
+
+        <TextView
+            android:id="@+id/tvHeaderTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@id/btnBack"
+            android:layout_toStartOf="@id/ivHeaderProfile"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:text="Luyện Viết IELTS Writing"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <!-- Scrollable Content -->
