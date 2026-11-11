@@ -827,6 +827,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tvModelEssayBadge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -841,6 +842,15 @@
                             android:textSize="10sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/tvModelEssaySubheading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="AI nâng cấp trực tiếp từ cấu trúc và ý tưởng bài làm của bạn để đạt chuẩn band điểm mục tiêu."
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tvModelEssayContent"

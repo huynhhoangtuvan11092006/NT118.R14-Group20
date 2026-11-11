@@ -271,16 +271,17 @@ class WritingResultActivity : AppCompatActivity() {
         // Lộ trình bứt phá (Action Plan) từ AI
         populateActionPlan(eval.improvementPlan)
 
-        // Model Essay từ AI theo mục tiêu
-        val displayTarget = maxOf(targetBand, 8.0f)
-        tvModelEssayHeading.text = String.format(Locale.US, "⭐ Bài Mẫu AI Chuẩn Mục Tiêu (Band %.1f+)", displayTarget)
-        tvTabModelEssayTitle.text = String.format(Locale.US, "Bài mẫu %.1f+", displayTarget)
+        // Model Essay từ AI theo mục tiêu của người dùng
+        val targetBandStr = String.format(Locale.US, "%.1f", targetBand)
+        tvModelEssayHeading.text = "⭐ Bài Viết Nâng Cấp Chuẩn Band $targetBandStr"
+        tvTabModelEssayTitle.text = "Bài mẫu $targetBandStr"
+        findViewById<TextView>(R.id.tvModelEssayBadge)?.text = "Mục tiêu Band $targetBandStr"
 
         if (!eval.modelEssay.isNullOrBlank()) {
             tvModelEssayContent.text = eval.modelEssay
         } else {
             val testItem = CambridgeWritingDataSource.getTestById(testId)
-            tvModelEssayContent.text = testItem?.modelEssay ?: "Bài viết mẫu chuẩn Examiner 8.5 đang được đồng bộ..."
+            tvModelEssayContent.text = testItem?.modelEssay ?: "Bài viết mẫu chuẩn đang được đồng bộ..."
         }
     }
 
