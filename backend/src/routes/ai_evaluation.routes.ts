@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { evaluateWritingController } from "../controllers/ai_evaluation.controller.js";
-import { requireAuth } from "../middlewares/auth.middleware.js";
+import { optionalAuth } from "../middlewares/auth.middleware.js";
 
 export const aiEvaluationRouter = Router();
-aiEvaluationRouter.use(requireAuth);
+aiEvaluationRouter.use(optionalAuth);
 aiEvaluationRouter.post("/writing", evaluateWritingController);

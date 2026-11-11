@@ -391,9 +391,12 @@ class WritingEditorActivity : AppCompatActivity() {
                 val response = ApiClient.apiService.evaluateWriting(authHeader, request)
                 if (response.isSuccessful && response.body() != null) {
                     evaluationResult = response.body()
+                } else {
+                    val errorText = response.errorBody()?.string() ?: "Unknown error"
+                    android.util.Log.e("WritingEditor", "API error: ${response.code()} - $errorText")
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
+                android.util.Log.e("WritingEditor", "Exception calling evaluateWriting", e)
             } finally {
                 progressDialog.dismiss()
             }
