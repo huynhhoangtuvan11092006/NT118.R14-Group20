@@ -573,7 +573,7 @@ object RoadmapManager {
         }
         val cleaned = cleanPhaseDescription(aiDesc)
         return if (cleaned.length >= 15 && cleaned.contains("Cam", ignoreCase = true)) {
-            if (cleaned.startsWith("5 bài", ignoreCase = true)) cleaned else "5 bài: $cleaned"
+            if (cleaned.contains("5 bài", ignoreCase = true)) cleaned else "5 bài: $cleaned"
         } else {
             coreLessons
         }
@@ -632,10 +632,10 @@ object RoadmapManager {
             .replace(Regex("^Chặng\\s*\\d+[^:]*:\\s*", RegexOption.IGNORE_CASE), "")
             .replace(Regex("^Giai đoạn\\s*\\d+[^:]*:\\s*", RegexOption.IGNORE_CASE), "")
             .trim()
-        if (cleaned.length > 135) {
-            val sub = cleaned.take(135)
+        if (cleaned.length > 220) {
+            val sub = cleaned.take(220)
             val lastSpace = sub.lastIndexOf(' ')
-            cleaned = if (lastSpace > 60) sub.substring(0, lastSpace).trimEnd(',', '.', ';') + "." else "$sub."
+            cleaned = if (lastSpace > 80) sub.substring(0, lastSpace).trimEnd(',', '.', ';') + "." else "$sub."
         }
         return cleaned
     }

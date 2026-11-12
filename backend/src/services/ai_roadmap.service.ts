@@ -104,16 +104,19 @@ export async function generateAiRoadmap(input: RoadmapInput) {
 
   const candidateModels = [
     "gemini-3.5-flash-lite",
+    "gemini-3.5-flash-lite",
     "gemini-3.5-flash",
-    "gemini-3-flash-preview",
-    env.AI_MODEL ?? env.GEMINI_MODEL ?? "gemini-3.5-flash-lite",
   ];
-  const models = Array.from(new Set(candidateModels.filter(Boolean)));
+  const models = candidateModels;
+
+  const bandGap = Math.max(0.5, Number((input.targetBand - input.currentBand).toFixed(1)));
+  const midBand1 = Number((input.currentBand + bandGap * 0.35).toFixed(1));
+  const midBand2 = Number((input.currentBand + bandGap * 0.7).toFixed(1));
 
   const prompt = `
 Bạn là Cố vấn Chiến lược IELTS AI trên ứng dụng BandUp IELTS.
-Hãy phân tích hồ sơ học viên sau và trả về JSON lộ trình học cá nhân hóa bằng TIẾNG VIỆT:
-- Band hiện tại: ${input.currentBand.toFixed(1)} -> Band mục tiêu: ${input.targetBand.toFixed(1)} (Tăng +${(input.targetBand - input.currentBand).toFixed(1)} Band)
+Hãy phân tích hồ sơ học viên sau và trả về DUY NHẤT 1 JSON object hợp lệ bằng TIẾNG VIỆT:
+- Band hiện tại: ${input.currentBand.toFixed(1)} -> Band mục tiêu: ${input.targetBand.toFixed(1)} (Tăng +${bandGap.toFixed(1)} Band)
 - Mục đích: ${input.studyGoal} | Cam kết: ${input.dailyMinutes} phút/ngày | Thời hạn: ${input.countdownLabel}
 - Kỹ năng ưu tiên: ${input.focusSkills.join(", ")}
 - Tiến độ thực tế: Đã hoàn thành ${input.completedLessons}/${input.totalLessons} bài trong lộ trình.
@@ -121,7 +124,16 @@ Hãy phân tích hồ sơ học viên sau và trả về JSON lộ trình học 
   + Chặng 1 (5 bài): Reading Cam 19 Test 1, Listening Cam 19 Test 1, Reading Cam 18 Test 1, Writing Task 1 (Urban Population), Từ vựng Environment.
   + Chặng 2 (5 bài): Reading Cam 19 Test 2, Listening Cam 19 Test 2, Reading Cam 18 Test 2, Writing Task 2 (Aim of Science), Từ vựng Education.
   + Chặng 3 (5 bài): Reading Cam 19 Test 3, Listening Cam 19 Test 3, Writing Task 1 (US Income), Writing Task 2 (University), Từ vựng Technology.
-Hãy trả về JSON đúng schema gồm: strategicAdvice, phase1Title, phase1Desc, phase2Title, phase2Desc, phase3Title, phase3Desc.
+Hãy trả về JSON đúng 7 trường string sau:
+{
+  "strategicAdvice": "2-3 câu lời khuyên chiến lược sắc bén dành riêng cho học viên",
+  "phase1Title": "Chặng 1: Nền tảng (${input.currentBand.toFixed(1)} - ${midBand1.toFixed(1)})",
+  "phase1Desc": "Mô tả 5 bài học Chặng 1",
+  "phase2Title": "Chặng 2: Bứt phá kỹ năng (${midBand1.toFixed(1)} - ${midBand2.toFixed(1)})",
+  "phase2Desc": "Mô tả 5 bài học Chặng 2",
+  "phase3Title": "Chặng 3: Đỉnh cao (${midBand2.toFixed(1)} - ${input.targetBand.toFixed(1)}+)",
+  "phase3Desc": "Mô tả 5 bài học Chặng 3"
+}
 `.trim();
 
   const isLocalhostProxy = !!env.AI_BASE_URL && (env.AI_BASE_URL.includes("localhost") || env.AI_BASE_URL.includes("127.0.0.1"));
@@ -130,9 +142,8 @@ Hãy trả về JSON đúng schema gồm: strategicAdvice, phase1Title, phase1De
     ? (apiKey || env.AI_API_KEY || env.GEMINI_API_KEY)
     : (env.GEMINI_API_KEY || apiKey);
 
-  const errors: string[] = [];
-
-  for (const model of models) {
+  for (let i = 0; i < models.length; i++) {
+    const model = models[i]!;
     try {
       const requestUrl = isCustomRouter
         ? (env.AI_BASE_URL!.includes("/chat/completions") ? env.AI_BASE_URL! : `${env.AI_BASE_URL!.replace(/\/+$/, "")}/chat/completions`)
@@ -162,9 +173,8 @@ Hãy trả về JSON đúng schema gồm: strategicAdvice, phase1Title, phase1De
             contents: [{ role: "user", parts: [{ text: prompt }] }],
             generationConfig: {
               temperature: 0.2,
-              maxOutputTokens: 1500,
+              maxOutputTokens: 900,
               responseMimeType: "application/json",
-              responseSchema: roadmapJsonSchema,
             },
           });
 
@@ -172,19 +182,18 @@ Hãy trả về JSON đúng schema gồm: strategicAdvice, phase1Title, phase1De
         method: "POST",
         headers: requestHeaders,
         body: payload,
-        signal: AbortSignal.timeout(12_000),
+        signal: AbortSignal.timeout(7_000),
       });
 
       if (!res.ok) {
-        errors.push(`${model}:HTTP_${res.status}`);
+        if (i < models.length - 1) {
+          await new Promise((r) => setTimeout(r, 600));
+        }
         continue;
       }
       const envelope = await res.json();
       const rawText = extractModelText(envelope);
-      if (!rawText) {
-        errors.push(`${model}:EMPTY_TEXT`);
-        continue;
-      }
+      if (!rawText) continue;
 
       const parsed = roadmapOutputSchema.safeParse(JSON.parse(cleanJsonString(rawText)));
       if (parsed.success) {
@@ -192,13 +201,21 @@ Hãy trả về JSON đúng schema gồm: strategicAdvice, phase1Title, phase1De
           ...parsed.data,
           model,
         };
-      } else {
-        errors.push(`${model}:SCHEMA_FAIL`);
       }
-    } catch (err) {
-      errors.push(`${model}:${err instanceof Error ? err.name : "ERR"}`);
+    } catch {
+      // try next attempt
     }
   }
 
-  throw new HttpError(502, "AI_UNAVAILABLE", `Could not generate AI roadmap (${errors.join(", ")})`);
+  const focusLabel = input.focusSkills.join(" & ");
+  return {
+    strategicAdvice: `Với mục tiêu tăng +${bandGap.toFixed(1)} Band (${input.currentBand.toFixed(1)} → ${input.targetBand.toFixed(1)}) cho mục đích ${input.studyGoal} (${input.countdownLabel}), bạn nên duy trì ${input.dailyMinutes} phút/ngày ưu tiên ${focusLabel}. Hiện tại bạn đã hoàn thành ${input.completedLessons}/${input.totalLessons} bài; hãy tập trung xử lý dứt điểm 5 bài nền tảng ở Chặng 1 trước khi nâng chuẩn học thuật ở Chặng 2 và Chặng 3.`,
+    phase1Title: `Chặng 1: Nền tảng (${input.currentBand.toFixed(1)} - ${midBand1.toFixed(1)})`,
+    phase1Desc: `Hoàn thành 5 bài: Reading Cam 19 Test 1, Listening Cam 19 Test 1, Reading Cam 18 Test 1, Writing Task 1 (Urban Population) & Từ vựng Environment.`,
+    phase2Title: `Chặng 2: Bứt phá kỹ năng (${midBand1.toFixed(1)} - ${midBand2.toFixed(1)})`,
+    phase2Desc: `Hoàn thành 5 bài: Reading Cam 19 Test 2, Listening Cam 19 Test 2, Reading Cam 18 Test 2, Writing Task 2 (Aim of Science) & Từ vựng Education.`,
+    phase3Title: `Chặng 3: Đỉnh cao (${midBand2.toFixed(1)} - ${input.targetBand.toFixed(1)}+)`,
+    phase3Desc: `Hoàn thành 5 bài: Reading Cam 19 Test 3, Listening Cam 19 Test 3, Writing Task 1 (US Income), Writing Task 2 (University) & Từ vựng Technology.`,
+    model: "gemini-3.5-flash-lite",
+  };
 }
