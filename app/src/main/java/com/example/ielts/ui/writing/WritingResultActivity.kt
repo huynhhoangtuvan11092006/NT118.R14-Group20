@@ -297,6 +297,12 @@ class WritingResultActivity : AppCompatActivity() {
             val testItem = CambridgeWritingDataSource.getTestById(testId)
             tvModelEssayContent.text = testItem?.modelEssay ?: "Bài viết mẫu chuẩn đang được đồng bộ..."
         }
+
+        // Tự động kích hoạt chuỗi học tập Streak & hiển thị popup chúc mừng nếu hoàn thành bài đầu tiên trong ngày
+        val streakResult = com.example.ielts.data.local.StreakManager.recordActivity(this, "WRITING")
+        if (streakResult.isFirstActivityToday) {
+            com.example.ielts.ui.streak.StreakCelebrationDialog(this, streakResult.newStreak).show()
+        }
     }
 
     private fun populateActionPlan(plan: List<String>) {

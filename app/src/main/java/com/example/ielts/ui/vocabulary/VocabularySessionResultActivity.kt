@@ -52,6 +52,14 @@ class VocabularySessionResultActivity : AppCompatActivity() {
         setupViews(xp)
         setupRecyclerView()
         setupActions()
+
+        // Kích hoạt chuỗi Streak & hiện popup chúc mừng khi hoàn thành phiên học từ vựng
+        val streakResult = com.example.ielts.data.local.StreakManager.recordActivity(this, "VOCABULARY")
+        com.example.ielts.ui.streak.StreakCelebrationDialog(
+            this,
+            streakResult.newStreak,
+            isFirstToday = streakResult.isFirstActivityToday
+        ).show()
     }
 
     private fun setupData(ids: Array<String>, goodFlags: BooleanArray) {

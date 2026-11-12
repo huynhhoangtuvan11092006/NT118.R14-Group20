@@ -16,6 +16,7 @@ import com.example.ielts.data.remote.dto.LogoutRequest
 import com.example.ielts.ui.auth.ProfileActivity
 import com.example.ielts.ui.practice.PracticeHubActivity
 import com.example.ielts.ui.reading.ReadingListActivity
+import com.example.ielts.ui.streak.StreakDetailBottomSheet
 import com.example.ielts.utils.Constants
 
 class MainActivity : AppCompatActivity() {
@@ -121,7 +122,22 @@ class MainActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tvProgressPercent)?.text = "$progressPercent% hoàn thành"
 
         findViewById<View>(R.id.btnStreak)?.setOnClickListener {
-            Toast.makeText(this, "Chuỗi học liên tục: $streak ngày 🔥", Toast.LENGTH_SHORT).show()
+            StreakDetailBottomSheet.newInstance().show(supportFragmentManager, StreakDetailBottomSheet.TAG)
+        }
+    }
+
+    private fun updateStreakBadge() {
+        val streakData = com.example.ielts.data.local.StreakManager.getStreakData(this)
+        val tvStreak = findViewById<TextView>(R.id.tvStreakCount)
+        val btnStreak = findViewById<View>(R.id.btnStreak)
+        tvStreak?.text = "${streakData.currentStreak} ngày"
+
+        if (streakData.isActiveToday) {
+            btnStreak?.setBackgroundResource(R.drawable.bg_badge_orange)
+            tvStreak?.setTextColor(androidx.core.content.ContextCompat.getColor(this, R.color.badge_orange_text))
+        } else {
+            btnStreak?.setBackgroundResource(R.drawable.bg_pill_soft_gray)
+            tvStreak?.setTextColor(androidx.core.content.ContextCompat.getColor(this, R.color.text_secondary))
         }
     }
 
@@ -131,10 +147,9 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "AI Tutor: Đang chuẩn bị chấm bài Writing...", Toast.LENGTH_SHORT).show()
         }
 
-        // Streak button
+        // Streak button ➔ Mở BottomSheet chi tiết chuỗi
         findViewById<View>(R.id.btnStreak)?.setOnClickListener {
-            val streak = getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE).getInt("streak_days", 1)
-            Toast.makeText(this, "Chuỗi học liên tục: $streak ngày 🔥", Toast.LENGTH_SHORT).show()
+            StreakDetailBottomSheet.newInstance().show(supportFragmentManager, StreakDetailBottomSheet.TAG)
         }
 
         // Notification button
@@ -226,5 +241,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         // Cập nhật lại dữ liệu mỗi khi quay về Dashboard
         loadUserData()
+        updateStreakBadge()
     }
 }

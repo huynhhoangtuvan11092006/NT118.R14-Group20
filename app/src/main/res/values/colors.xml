@@ -55,6 +55,7 @@
     <color name="border_subtle">#E2E8F0</color>
     <color name="badge_green_bg">#DCFCE7</color>
     <color name="badge_green_text">#15803D</color>
+    <color name="badge_emerald_text">#059669</color>
     <color name="badge_blue_bg">#DBEAFE</color>
     <color name="badge_blue_text">#1D4ED8</color>
     <color name="badge_purple_bg">#F3E8FF</color>

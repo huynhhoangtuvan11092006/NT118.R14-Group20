@@ -122,6 +122,14 @@ class ReadingResultActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        // Kích hoạt chuỗi Streak & hiện popup chúc mừng khi hoàn thành bài Reading
+        val streakResult = com.example.ielts.data.local.StreakManager.recordActivity(this, "READING")
+        com.example.ielts.ui.streak.StreakCelebrationDialog(
+            this,
+            streakResult.newStreak,
+            isFirstToday = streakResult.isFirstActivityToday
+        ).show()
     }
 
     private fun showPassageLocator(item: QuestionResultReviewDto) {

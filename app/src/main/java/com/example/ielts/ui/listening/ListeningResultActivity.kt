@@ -130,6 +130,14 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
 
         // Default open Section 1 transcript view
         selectSection(0, autoPlay = false)
+
+        // Kích hoạt chuỗi Streak & hiện popup chúc mừng khi hoàn thành bài Listening
+        val streakResult = com.example.ielts.data.local.StreakManager.recordActivity(this, "LISTENING")
+        com.example.ielts.ui.streak.StreakCelebrationDialog(
+            this,
+            streakResult.newStreak,
+            isFirstToday = streakResult.isFirstActivityToday
+        ).show()
     }
 
     private fun initViews() {
