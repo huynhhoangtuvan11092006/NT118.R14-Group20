@@ -20,18 +20,21 @@ class ReminderAlarmReceiver : BroadcastReceiver() {
             return
         }
 
+        val isSnooze = intent.getBooleanExtra("is_snooze", false)
+
         val calendar = Calendar.getInstance()
         val currentDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
-        if (!reminderManager.selectedDays.contains(currentDayOfWeek)) {
+        if (!isSnooze && !reminderManager.selectedDays.contains(currentDayOfWeek)) {
             // Hôm nay không nằm trong danh sách ngày hẹn, lên lịch lại cho ngày kế tiếp
             StudyReminderScheduler.scheduleDailyReminder(context)
             return
         }
 
-        // Bắn thông báo nhắc nhở ngay lập tức
-        NotificationHelper.showStudyReminder(context)
+        // Bắn thông báo nhắc nhở ngay lập tức (NotificationHelper tự động chặn spam, chỉ 1 lần/ngày)
+        NotificationHelper.showStudyReminder(context, isSnooze = isSnooze)
 
         // Lập lịch lại cho ngày hôm sau
         StudyReminderScheduler.scheduleDailyReminder(context)
     }
 }
+

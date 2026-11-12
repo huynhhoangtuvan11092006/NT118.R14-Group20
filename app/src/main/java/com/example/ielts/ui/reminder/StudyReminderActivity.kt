@@ -330,12 +330,19 @@ class StudyReminderActivity : AppCompatActivity() {
     }
 
     private fun saveConfigAndSchedule() {
+        val oldHour = reminderManager.reminderHour
+        val oldMin = reminderManager.reminderMinute
+
         reminderManager.isReminderEnabled = switchReminder.isChecked
         reminderManager.reminderHour = currentHour
         reminderManager.reminderMinute = currentMinute
         reminderManager.selectedDays = selectedDays
 
         if (switchReminder.isChecked) {
+            // Nếu người dùng đổi mốc giờ mới, cho phép bắn vào mốc giờ mới hôm nay
+            if (oldHour != currentHour || oldMin != currentMinute) {
+                reminderManager.lastNotifiedDate = null
+            }
             StudyReminderScheduler.scheduleDailyReminder(this)
             Toast.makeText(
                 this,

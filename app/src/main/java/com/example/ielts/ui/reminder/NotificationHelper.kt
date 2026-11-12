@@ -36,7 +36,20 @@ object NotificationHelper {
         }
     }
 
-    fun showStudyReminder(context: Context, isTest: Boolean = false) {
+    fun showStudyReminder(context: Context, isTest: Boolean = false, isSnooze: Boolean = false) {
+        val reminderManager = StudyReminderManager.getInstance(context)
+        val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(java.util.Date())
+
+        // Cơ chế chống spam: Nếu không phải test và không phải snooze, mỗi ngày chỉ thông báo đúng 1 lần duy nhất
+        if (!isTest && !isSnooze) {
+            if (reminderManager.lastNotifiedDate == todayStr) {
+                android.util.Log.d("NotificationHelper", "Hôm nay ($todayStr) đã thông báo nhắc nhở rồi, chặn spam thành công!")
+                return
+            }
+            // Ghi nhận hôm nay đã thông báo thành công
+            reminderManager.lastNotifiedDate = todayStr
+        }
+
         createNotificationChannel(context)
 
         val streakData = StreakManager.getStreakData(context)
@@ -99,6 +112,7 @@ object NotificationHelper {
             .setStyle(NotificationCompat.BigTextStyle().bigText(content))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
+            .setOnlyAlertOnce(true)
             .setColor(Color.parseColor("#2563EB"))
             .setContentIntent(contentPendingIntent)
             .setAutoCancel(true)

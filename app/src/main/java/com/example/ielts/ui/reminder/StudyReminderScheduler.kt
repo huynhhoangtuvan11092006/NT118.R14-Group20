@@ -45,14 +45,9 @@ object StudyReminderScheduler {
             set(Calendar.MILLISECOND, 0)
         }
 
-        // Nếu mốc giờ được chọn vừa mới trôi qua trong vòng 45 giây (người dùng vừa chỉnh giờ phút hiện tại để test)
+        // Nếu mốc giờ được hẹn hôm nay đã trôi qua, lập lịch cho ngày kế tiếp
         if (target.timeInMillis <= now.timeInMillis) {
-            val diffSec = (now.timeInMillis - target.timeInMillis) / 1000
-            if (diffSec < 45) {
-                target.timeInMillis = now.timeInMillis + 2500 // Kích hoạt sau 2.5s để test thấy ngay
-            } else {
-                target.add(Calendar.DAY_OF_YEAR, 1)
-            }
+            target.add(Calendar.DAY_OF_YEAR, 1)
         }
 
         val targetMillis = target.timeInMillis
@@ -83,7 +78,7 @@ object StudyReminderScheduler {
         val snoozeTimeMillis = System.currentTimeMillis() + 15 * 60 * 1000L
 
         // 1. AlarmManager báo đúng 15 phút
-        scheduleExactAlarm(context, snoozeTimeMillis, ALARM_SNOOZE_REQUEST_CODE)
+        scheduleExactAlarm(context, snoozeTimeMillis, ALARM_SNOOZE_REQUEST_CODE, isSnooze = true)
 
         // 2. WorkManager dự phòng
         val snoozeWorkRequest = OneTimeWorkRequestBuilder<StudyReminderWorker>()
@@ -98,9 +93,16 @@ object StudyReminderScheduler {
         )
     }
 
-    private fun scheduleExactAlarm(context: Context, triggerAtMillis: Long, requestCode: Int) {
+    private fun scheduleExactAlarm(
+        context: Context,
+        triggerAtMillis: Long,
+        requestCode: Int,
+        isSnooze: Boolean = false
+    ) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager ?: return
-        val intent = Intent(context, ReminderAlarmReceiver::class.java)
+        val intent = Intent(context, ReminderAlarmReceiver::class.java).apply {
+            putExtra("is_snooze", isSnooze)
+        }
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             requestCode,
