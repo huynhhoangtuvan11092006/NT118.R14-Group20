@@ -309,7 +309,7 @@ class PracticeHubActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.navRoadmap)?.setOnClickListener {
-            Toast.makeText(this, "Lộ trình học cá nhân hóa", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, com.example.ielts.ui.roadmap.RoadmapActivity::class.java))
         }
 
         findViewById<View>(R.id.navPractice)?.setOnClickListener {

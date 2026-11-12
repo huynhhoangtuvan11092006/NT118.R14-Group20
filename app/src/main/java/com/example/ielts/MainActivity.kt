@@ -208,12 +208,12 @@ class MainActivity : AppCompatActivity() {
 
         // Card Từ vựng
         findViewById<View>(R.id.btnStartVocab)?.setOnClickListener {
-            Toast.makeText(this, "Bắt đầu học 15 từ vựng mới...", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, com.example.ielts.ui.vocabulary.VocabularyHubActivity::class.java))
         }
 
-        // Xem tất cả kế hoạch
+        // Xem tất cả kế hoạch -> Mở Lộ trình cá nhân
         findViewById<View>(R.id.btnViewAllPlan)?.setOnClickListener {
-            startActivity(Intent(this, PracticeHubActivity::class.java))
+            startActivity(Intent(this, com.example.ielts.ui.roadmap.RoadmapActivity::class.java))
         }
 
         // Speaking Part 2 simulator banner
@@ -227,7 +227,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.navRoadmap)?.setOnClickListener {
-            Toast.makeText(this, "Tab Lộ trình học chi tiết", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, com.example.ielts.ui.roadmap.RoadmapActivity::class.java))
         }
 
         findViewById<View>(R.id.navPractice)?.setOnClickListener {
