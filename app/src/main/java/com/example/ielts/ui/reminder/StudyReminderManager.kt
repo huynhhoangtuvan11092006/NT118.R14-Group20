@@ -18,6 +18,7 @@ class StudyReminderManager private constructor(context: Context) {
         private const val KEY_HOUR = "key_reminder_hour"
         private const val KEY_MINUTE = "key_reminder_minute"
         private const val KEY_DAYS = "key_reminder_days"
+        private const val KEY_LAST_NOTIFIED_DATE = "key_last_notified_date"
 
         @Volatile
         private var INSTANCE: StudyReminderManager? = null
@@ -65,6 +66,10 @@ class StudyReminderManager private constructor(context: Context) {
             val stringSet = value.map { it.toString() }.toSet()
             prefs.edit().putStringSet(KEY_DAYS, stringSet).apply()
         }
+
+    var lastNotifiedDate: String?
+        get() = prefs.getString(KEY_LAST_NOTIFIED_DATE, null)
+        set(value) = prefs.edit().putString(KEY_LAST_NOTIFIED_DATE, value).apply()
 
     fun getFormattedTime(): String {
         val h = reminderHour

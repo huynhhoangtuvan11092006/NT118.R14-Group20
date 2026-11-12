@@ -36,22 +36,38 @@ object NotificationHelper {
         }
     }
 
-    fun showStudyReminder(context: Context, isTest: Boolean = false) {
+    fun showStudyReminder(context: Context, isTest: Boolean = false, isSnooze: Boolean = false) {
+        val reminderManager = StudyReminderManager.getInstance(context)
+        val todayStr = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(java.util.Date())
+
+        // Cơ chế chống spam: Nếu không phải test và không phải snooze, mỗi ngày chỉ thông báo đúng 1 lần duy nhất
+        if (!isTest && !isSnooze) {
+            if (reminderManager.lastNotifiedDate == todayStr) {
+                android.util.Log.d("NotificationHelper", "Hôm nay ($todayStr) đã thông báo nhắc nhở rồi, chặn spam thành công!")
+                return
+            }
+            // Ghi nhận hôm nay đã thông báo thành công
+            reminderManager.lastNotifiedDate = todayStr
+        }
+
         createNotificationChannel(context)
 
         val streakData = StreakManager.getStreakData(context)
         val streak = streakData.currentStreak
+        val isActiveToday = streakData.isActiveToday
 
-        val title = if (streak > 0) {
-            "🔥 Đừng để chuỗi Streak $streak ngày vụt mất!"
-        } else {
-            "⏰ Đã đến giờ luyện IELTS hôm nay!"
-        }
+        val title: String
+        val content: String
 
-        val content = if (isTest) {
-            "🔔 Thông báo thử nghiệm: WorkManager và hệ thống nhắc nhở của BandUp IELTS đang hoạt động hoàn hảo!"
+        if (isTest) {
+            title = if (streak > 0) "🔥 Đừng để chuỗi Streak $streak ngày vụt mất!" else "⏰ Đã đến giờ luyện IELTS hôm nay!"
+            content = "🔔 Thông báo thử nghiệm: Hệ thống nhắc nhở của BandUp IELTS đang hoạt động hoàn hảo!"
+        } else if (isActiveToday) {
+            title = "🔥 Chuỗi $streak ngày đang bùng cháy!"
+            content = "Hôm nay bạn đã luyện tập rất tốt! Dành thêm 5 phút ôn lại bài để duy trì phản xạ và tiến gần mục tiêu Band 7.0+ nhé."
         } else {
-            "Hôm nay bạn chưa hoàn thành bài luyện tập nào. Chỉ mất 5 phút ôn từ vựng hoặc luyện viết để giữ ngọn lửa của bạn!"
+            title = if (streak > 0) "🔥 Đừng để chuỗi Streak $streak ngày vụt mất!" else "⏰ Đã đến giờ luyện IELTS hôm nay!"
+            content = "Hôm nay bạn chưa hoàn thành bài luyện tập nào. Chỉ mất 5 phút ôn từ vựng hoặc luyện viết để giữ ngọn lửa của bạn!"
         }
 
         // Intent khi nhấn vào thông báo: Mở thẳng PracticeHubActivity
@@ -96,6 +112,7 @@ object NotificationHelper {
             .setStyle(NotificationCompat.BigTextStyle().bigText(content))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
+            .setOnlyAlertOnce(true)
             .setColor(Color.parseColor("#2563EB"))
             .setContentIntent(contentPendingIntent)
             .setAutoCancel(true)
