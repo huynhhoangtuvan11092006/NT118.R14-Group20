@@ -28,14 +28,8 @@ class StudyReminderWorker(
             return Result.success()
         }
 
-        // Kiểm tra xem hôm nay người dùng đã học bài chưa
-        val streakData = StreakManager.getStreakData(context)
-        val practicedToday = streakData.isActiveToday
-
-        if (!practicedToday) {
-            // Chưa học bài hôm nay -> Bắn thông báo nhắc nhở giữ streak!
-            NotificationHelper.showStudyReminder(context)
-        }
+        // Bắn thông báo nhắc nhở học tập (NotificationHelper sẽ tự tối ưu thông điệp giữ Streak)
+        NotificationHelper.showStudyReminder(context)
 
         // Lập lịch lại cho ngày hôm sau
         StudyReminderScheduler.scheduleDailyReminder(context)

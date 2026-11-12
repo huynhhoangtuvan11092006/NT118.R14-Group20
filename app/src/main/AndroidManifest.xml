@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <!-- Khai báo cho phép ứng dụng truy vấn dịch vụ TextToSpeech của Android 11+ -->
     <queries>
@@ -120,6 +123,11 @@
         <activity
             android:name=".ui.reminder.StudyReminderActivity"
             android:exported="true" />
+
+        <!-- Receiver kích hoạt thông báo chính xác từng giây theo AlarmManager -->
+        <receiver
+            android:name=".ui.reminder.ReminderAlarmReceiver"
+            android:exported="false" />
 
         <!-- Receiver nhận action từ Notification (ví dụ: Nhắc lại sau 15 phút) -->
         <receiver

@@ -141,7 +141,9 @@ class StudyReminderActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
-        btnBack.setOnClickListener { finish() }
+        btnBack.setOnClickListener {
+            saveConfigAndSchedule()
+        }
 
         btnHelp.setOnClickListener {
             AlertDialog.Builder(this)
@@ -346,6 +348,10 @@ class StudyReminderActivity : AppCompatActivity() {
         }
 
         finish()
+    }
+
+    override fun onBackPressed() {
+        saveConfigAndSchedule()
     }
 }
 
