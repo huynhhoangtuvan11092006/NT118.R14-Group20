@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         initViews()
         loadUserData()
         setupListeners()
+        com.example.ielts.ui.reminder.StudyReminderScheduler.scheduleDailyReminder(this)
     }
 
     private fun initViews() {
@@ -69,7 +70,10 @@ class MainActivity : AppCompatActivity() {
                         val user = response.body()!!.user
                         val realName = user.fullName
                         val realBand = user.targetBand?.toDouble() ?: cachedBand.toDouble()
-                        val streak = user.streakDays ?: cachedStreak
+                        val streak = user.dailyStudyMinutes ?: user.streakDays ?: cachedStreak
+
+                        // Đồng bộ chuỗi ngày vào StreakManager trên thiết bị này
+                        com.example.ielts.data.local.StreakManager.syncFromCloud(this@MainActivity, streak)
 
                         var examDateFormatted = cachedExamDate
                         user.expectedExamDate?.let { isoDate ->
@@ -93,6 +97,7 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         applyUserToUI(realName, realBand, examDateFormatted, streak)
+                        updateStreakBadge()
                     }
                 } catch (_: Exception) {
                     // Nếu lỗi kết nối, giữ nguyên dữ liệu từ cache
@@ -152,9 +157,10 @@ class MainActivity : AppCompatActivity() {
             StreakDetailBottomSheet.newInstance().show(supportFragmentManager, StreakDetailBottomSheet.TAG)
         }
 
-        // Notification button
+        // Notification button -> Mở Cài đặt Nhắc nhở học tập (WorkManager)
         findViewById<View>(R.id.btnNotification)?.setOnClickListener {
-            Toast.makeText(this, "Không có thông báo mới", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, com.example.ielts.ui.reminder.StudyReminderActivity::class.java)
+            startActivity(intent)
         }
 
         // Top avatar button ➔ Mở menu Tài khoản / Đăng xuất

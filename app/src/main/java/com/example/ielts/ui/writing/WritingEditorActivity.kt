@@ -365,8 +365,8 @@ class WritingEditorActivity : AppCompatActivity() {
 
     private fun performAiEvaluation(essay: String, wordCount: Int) {
         val progressDialog = ProgressDialog(this).apply {
-            setTitle("AI Examiner")
-            setMessage("Đang gửi bài viết tới AI Gemini để phân tích 4 tiêu chí & sửa lỗi ngữ pháp...")
+            setTitle("AI Examiner ✨")
+            setMessage("Đang gửi bài viết tới AI Gemini để phân tích 4 tiêu chí & sửa lỗi ngữ pháp chi tiết... Vui lòng đợi trong giây lát.")
             setCancelable(false)
             show()
         }
@@ -380,54 +380,93 @@ class WritingEditorActivity : AppCompatActivity() {
 
             val targetBand = userPrefs.getFloat(Constants.KEY_TARGET_BAND, 7.5f).toDouble()
 
+            // Đảm bảo Task 1 luôn có mô tả sourceMaterial hợp lệ để Backend Validator không bị lỗi 400
+            val effectiveSourceMaterial = if (taskType == "ACADEMIC_TASK_1") {
+                if (!sourceMaterial.isNullOrBlank()) sourceMaterial else testPrompt
+            } else {
+                sourceMaterial
+            }
+
             val request = WritingEvaluationRequest(
                 taskType = taskType,
                 question = testPrompt,
                 essay = essay,
-                sourceMaterial = sourceMaterial,
+                sourceMaterial = effectiveSourceMaterial,
                 targetBand = targetBand
             )
 
-            var evaluationResult: WritingEvaluationResponse? = null
-
             try {
                 val response = ApiClient.apiService.evaluateWriting(authHeader, request)
+                progressDialog.dismiss()
+
                 if (response.isSuccessful && response.body() != null) {
-                    evaluationResult = response.body()
+                    val finalResult = response.body()!!
+                    val timeSpent = (durationMinutes * 60) - remainingSeconds
+
+                    // Lưu thống kê vào WritingStatsManager
+                    WritingStatsManager.recordTestCompletion(
+                        context = this@WritingEditorActivity,
+                        testId = testId,
+                        overallBand = finalResult.estimatedBand,
+                        taskAchievementBand = finalResult.criteria.taskAchievementOrResponse.score,
+                        coherenceBand = finalResult.criteria.coherenceCohesion.score,
+                        lexicalBand = finalResult.criteria.lexicalResource.score,
+                        grammarBand = finalResult.criteria.grammaticalRangeAccuracy.score,
+                        wordCount = wordCount,
+                        timeSpentSeconds = timeSpent,
+                        resultJson = Gson().toJson(finalResult)
+                    )
+
+                    // Ghi nhận chuỗi Streak khi hoàn thành bài viết
+                    com.example.ielts.data.local.StreakManager.recordActivity(this@WritingEditorActivity, "WRITING")
+
+                    // Xóa bản nháp khi nộp bài thành công
+                    val prefs = getSharedPreferences("writing_drafts_pref", MODE_PRIVATE)
+                    prefs.edit().remove("draft_$testId").apply()
+
+                    // Mở màn hình Kết quả với dữ liệu chấm thực từ Gemini AI
+                    openResultActivity(finalResult, essay, timeSpent, wordCount)
                 } else {
-                    val errorText = response.errorBody()?.string() ?: "Unknown error"
-                    android.util.Log.e("WritingEditor", "API error: ${response.code()} - $errorText")
+                    val errorRaw = response.errorBody()?.string() ?: ""
+                    var userMessage = "Máy chủ AI không thể chấm bài viết này."
+                    try {
+                        val json = org.json.JSONObject(errorRaw)
+                        if (json.has("message")) {
+                            userMessage = json.getString("message")
+                        } else if (json.has("error")) {
+                            userMessage = json.getString("error")
+                        } else if (json.has("details")) {
+                            val detailsArr = json.getJSONArray("details")
+                            if (detailsArr.length() > 0) {
+                                userMessage = detailsArr.getJSONObject(0).optString("message", userMessage)
+                            }
+                        }
+                    } catch (_: Exception) {}
+
+                    AlertDialog.Builder(this@WritingEditorActivity)
+                        .setTitle("Chấm điểm AI chưa hoàn tất ⚠️")
+                        .setMessage("Lỗi từ máy chủ: $userMessage (Mã lỗi: ${response.code()})\n\nBài viết của bạn vẫn được lưu giữ nguyên vẹn trong khung soạn thảo để bạn không bị mất bài.")
+                        .setPositiveButton("Thử nộp lại") { _, _ ->
+                            performAiEvaluation(essay, wordCount)
+                        }
+                        .setNegativeButton("Quay lại sửa bài", null)
+                        .setCancelable(false)
+                        .show()
                 }
             } catch (e: Exception) {
-                android.util.Log.e("WritingEditor", "Exception calling evaluateWriting", e)
-            } finally {
                 progressDialog.dismiss()
+                val errorDesc = e.localizedMessage ?: "Vui lòng kiểm tra kết nối mạng."
+
+                AlertDialog.Builder(this@WritingEditorActivity)
+                    .setTitle("Không thể kết nối máy chủ AI ⚠️")
+                    .setMessage("Đã xảy ra sự cố kết nối tới dịch vụ chấm điểm Gemini AI: $errorDesc\n\nBài viết của bạn vẫn được lưu giữ an toàn trong khung soạn thảo.")
+                    .setPositiveButton("Thử nộp lại") { _, _ ->
+                        performAiEvaluation(essay, wordCount)
+                    }
+                    .setNegativeButton("Quay lại sửa bài", null)
+                    .setCancelable(false)
+                    .show()
             }
-
-            // Fallback intelligent evaluation if network or AI key not yet configured on server
-            val finalResult = evaluationResult ?: generateFallbackEvaluation(essay, wordCount)
-            val timeSpent = (durationMinutes * 60) - remainingSeconds
-
-            // Save test completion stats locally using WritingStatsManager
-            WritingStatsManager.recordTestCompletion(
-                context = this@WritingEditorActivity,
-                testId = testId,
-                overallBand = finalResult.estimatedBand,
-                taskAchievementBand = finalResult.criteria.taskAchievementOrResponse.score,
-                coherenceBand = finalResult.criteria.coherenceCohesion.score,
-                lexicalBand = finalResult.criteria.lexicalResource.score,
-                grammarBand = finalResult.criteria.grammaticalRangeAccuracy.score,
-                wordCount = wordCount,
-                timeSpentSeconds = timeSpent,
-                resultJson = Gson().toJson(finalResult)
-            )
-
-            // Clear draft on successful submission
-            val prefs = getSharedPreferences("writing_drafts_pref", MODE_PRIVATE)
-            prefs.edit().remove("draft_$testId").apply()
-
-            // Open Result Activity
-            openResultActivity(finalResult, essay, timeSpent, wordCount)
         }
     }
 

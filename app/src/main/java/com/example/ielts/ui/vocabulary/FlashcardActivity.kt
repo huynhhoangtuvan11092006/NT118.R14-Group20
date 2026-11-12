@@ -32,7 +32,7 @@ import kotlin.math.abs
  * - Các nút đánh giá SRS (Chưa nhớ, Khó, Dễ) luôn luôn hiển thị trực tiếp để người học có thể chọn ngay khi nhìn thấy từ.
  * - Hỗ trợ lật thẻ xem nghĩa / collocations bất kỳ lúc nào.
  */
-class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
+class FlashcardActivity : AppCompatActivity() {
 
     private lateinit var cardContainer: View
     private lateinit var faceFront: View
@@ -74,8 +74,7 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var isFlipping = false
     private var isAdvancing = false
 
-    private var tts: TextToSpeech? = null
-    private var ttsReady = false
+    private lateinit var audioPlayer: VocabAudioPlayer
 
     private lateinit var gestureDetector: GestureDetector
 
@@ -114,7 +113,7 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
         tvCardTotal.text = " / $totalWords"
 
-        tts = TextToSpeech(this, this)
+        audioPlayer = VocabAudioPlayer(this)
         showCurrentCard()
     }
 
@@ -381,26 +380,14 @@ class FlashcardActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         finish()
     }
 
-    // ===== Text-to-speech =====
-    override fun onInit(status: Int) {
-        if (status == TextToSpeech.SUCCESS) {
-            val result = tts?.setLanguage(Locale.UK)
-            ttsReady = result != TextToSpeech.LANG_MISSING_DATA && result != TextToSpeech.LANG_NOT_SUPPORTED
-        }
-    }
-
+    // ===== Text-to-speech & Audio Player =====
     private fun speakCurrentWord() {
         if (queue.isEmpty()) return
-        if (!ttsReady) {
-            Toast.makeText(this, "Thiết bị chưa hỗ trợ phát âm tiếng Anh.", Toast.LENGTH_SHORT).show()
-            return
-        }
-        tts?.speak(queue.first().word, TextToSpeech.QUEUE_FLUSH, null, "vocab_word")
+        audioPlayer.speak(queue.first().word)
     }
 
     override fun onDestroy() {
-        tts?.stop()
-        tts?.shutdown()
+        audioPlayer.release()
         super.onDestroy()
     }
 
