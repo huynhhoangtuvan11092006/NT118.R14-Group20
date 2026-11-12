@@ -21,7 +21,7 @@ object ApiClient {
     private val usbFallbackInterceptor = Interceptor { chain ->
         val originalRequest = chain.request()
         try {
-            chain.withConnectTimeout(8, TimeUnit.SECONDS).proceed(originalRequest)
+            chain.withConnectTimeout(2, TimeUnit.SECONDS).proceed(originalRequest)
         } catch (e: IOException) {
             val fallbackBase = "http://127.0.0.1:8787".toHttpUrlOrNull()
             if (fallbackBase != null && originalRequest.url.host != "127.0.0.1") {

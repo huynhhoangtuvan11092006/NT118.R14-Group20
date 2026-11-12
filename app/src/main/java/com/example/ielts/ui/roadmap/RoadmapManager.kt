@@ -123,6 +123,12 @@ object RoadmapManager {
                 .putBoolean("real_progress_migrated_v4", true)
                 .apply()
         }
+        if (!prefs.getBoolean("real_progress_migrated_v5", false)) {
+            prefs.edit()
+                .remove(KEY_AI_CACHE_JSON)
+                .putBoolean("real_progress_migrated_v5", true)
+                .apply()
+        }
     }
 
     fun clearAiCache(context: Context) {
@@ -357,7 +363,7 @@ object RoadmapManager {
         val phases = listOf(
             RoadmapPhaseItem(
                 phaseNumber = 1,
-                title = "Chặng 1: ${aiCache?.phase1Title ?: "Nền tảng"} ($range1)",
+                title = "Chặng 1: ${cleanPhaseTitle(aiCache?.phase1Title, "Nền tảng")} ($range1)",
                 bandRange = range1,
                 description = aiCache?.phase1Desc?.takeIf { it.isNotBlank() } ?: defaultP1Desc,
                 completedLessons = p1Done,
@@ -367,7 +373,7 @@ object RoadmapManager {
             ),
             RoadmapPhaseItem(
                 phaseNumber = 2,
-                title = "Chặng 2: ${aiCache?.phase2Title ?: "Bứt phá kỹ năng"} ($range2)",
+                title = "Chặng 2: ${cleanPhaseTitle(aiCache?.phase2Title, "Bứt phá kỹ năng")} ($range2)",
                 bandRange = range2,
                 description = aiCache?.phase2Desc?.takeIf { it.isNotBlank() } ?: defaultP2Desc,
                 completedLessons = p2Done,
@@ -377,7 +383,7 @@ object RoadmapManager {
             ),
             RoadmapPhaseItem(
                 phaseNumber = 3,
-                title = "Chặng 3: ${aiCache?.phase3Title ?: "Đỉnh cao"} ($range3)",
+                title = "Chặng 3: ${cleanPhaseTitle(aiCache?.phase3Title, "Đỉnh cao")} ($range3)",
                 bandRange = range3,
                 description = aiCache?.phase3Desc?.takeIf { it.isNotBlank() } ?: defaultP3Desc,
                 completedLessons = p3Done,
@@ -627,10 +633,21 @@ object RoadmapManager {
         }
     }
 
+    private fun cleanPhaseTitle(raw: String?, fallback: String): String {
+        if (raw.isNullOrBlank()) return fallback
+        val cleaned = raw.trim()
+            .replace(Regex("^Chặng\\s*\\d+\\s*:\\s*", RegexOption.IGNORE_CASE), "")
+            .replace(Regex("\\s*\\([^)]*\\)\\s*$"), "")
+            .trim()
+        return cleaned.ifEmpty { fallback }
+    }
+
     private fun cleanPhaseDescription(raw: String): String {
         var cleaned = raw.trim()
             .replace(Regex("^Chặng\\s*\\d+[^:]*:\\s*", RegexOption.IGNORE_CASE), "")
             .replace(Regex("^Giai đoạn\\s*\\d+[^:]*:\\s*", RegexOption.IGNORE_CASE), "")
+            .replace(Regex("^5\\s*bài\\s*:\\s*(Hoàn thành\\s*5\\s*bài\\s*:\\s*)?", RegexOption.IGNORE_CASE), "")
+            .replace(Regex("^Hoàn thành\\s*5\\s*bài\\s*(học\\s*)?(gồm\\s*)?:\\s*", RegexOption.IGNORE_CASE), "")
             .trim()
         if (cleaned.length > 220) {
             val sub = cleaned.take(220)
