@@ -10,12 +10,12 @@ import android.view.Window
 import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import com.example.ielts.R
 
 class StreakCelebrationDialog(
     context: Context,
     private val newStreak: Int,
+    private val isFirstToday: Boolean = true,
     private val onDismissAction: (() -> Unit)? = null
 ) : Dialog(context) {
 
@@ -28,6 +28,7 @@ class StreakCelebrationDialog(
         setCancelable(true)
 
         val tvTitle = findViewById<TextView>(R.id.tvCelebrationTitle)
+        val tvBadge = findViewById<TextView>(R.id.tvCelebrationBadgeText)
         val tvMessage = findViewById<TextView>(R.id.tvCelebrationMessage)
         val ivFlame = findViewById<ImageView>(R.id.ivCelebrationFlame)
         val btnContinue = findViewById<TextView>(R.id.btnContinueStreakCelebration)
@@ -35,7 +36,13 @@ class StreakCelebrationDialog(
         val btnShare = findViewById<TextView>(R.id.btnShareStreak)
 
         tvTitle.text = "CHUỖI $newStreak NGÀY!"
-        tvMessage.text = "Bạn đã hoàn thành mục tiêu học tập hôm nay. Chuỗi ngày liên tục đã tăng lên $newStreak ngày!"
+        if (isFirstToday) {
+            tvBadge.text = "Ngọn lửa đang bùng cháy rực rỡ!"
+            tvMessage.text = "Bạn đã hoàn thành mục tiêu học tập hôm nay. Chuỗi ngày liên tục đã tăng lên $newStreak ngày!"
+        } else {
+            tvBadge.text = "Giữ vững phong độ đỉnh cao!"
+            tvMessage.text = "Bạn vừa hoàn thành thêm một buổi học xuất sắc! Ngọn lửa $newStreak ngày tiếp tục được thắp sáng rực rỡ."
+        }
 
         // Nice bounce pop animation on flame mascot
         ivFlame.scaleX = 0.5f

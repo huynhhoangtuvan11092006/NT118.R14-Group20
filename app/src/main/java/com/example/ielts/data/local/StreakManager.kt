@@ -248,3 +248,4 @@ object StreakManager {
         return result
     }
 }
+
