@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         initViews()
         loadUserData()
         setupListeners()
+        com.example.ielts.ui.reminder.StudyReminderScheduler.scheduleDailyReminder(this)
     }
 
     private fun initViews() {
@@ -152,9 +153,10 @@ class MainActivity : AppCompatActivity() {
             StreakDetailBottomSheet.newInstance().show(supportFragmentManager, StreakDetailBottomSheet.TAG)
         }
 
-        // Notification button
+        // Notification button -> Mở Cài đặt Nhắc nhở học tập (WorkManager)
         findViewById<View>(R.id.btnNotification)?.setOnClickListener {
-            Toast.makeText(this, "Không có thông báo mới", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, com.example.ielts.ui.reminder.StudyReminderActivity::class.java)
+            startActivity(intent)
         }
 
         // Top avatar button ➔ Mở menu Tài khoản / Đăng xuất

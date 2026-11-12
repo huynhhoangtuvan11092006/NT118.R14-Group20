@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="160"
+    android:viewportHeight="160">
+
+    <!-- Floating ambient spark clouds -->
+    <path
+        android:fillColor="#EAEDFF"
+        android:pathData="M28,40m-10,0a10,10 0,1,1 20,0a10,10 0,1,1 -20,0" />
+    <path
+        android:fillColor="#EAEDFF"
+        android:pathData="M40,34m-14,0a14,14 0,1,1 28,0a14,14 0,1,1 -28,0" />
+    <path
+        android:fillColor="#EAEDFF"
+        android:pathData="M132,116m-12,0a12,12 0,1,1 24,0a12,12 0,1,1 -24,0" />
+
+    <!-- Ambient sparkle stars -->
+    <path
+        android:fillAlpha="0.85"
+        android:fillColor="#B54E00"
+        android:pathData="M130,32L132,37L137,39L132,41L130,46L128,41L123,39L128,37L130,32Z" />
+    <path
+        android:fillAlpha="0.8"
+        android:fillColor="#2563EB"
+        android:pathData="M26,108L27.5,112L31.5,113.5L27.5,115L26,119L24.5,115L20.5,113.5L24.5,112L26,108Z" />
+
+    <!-- Clock Top Bells (Warm Orange / Gold) -->
+    <path
+        android:fillColor="#B54E00"
+        android:pathData="M48,46m-14,0a14,14 0,1,1 28,0a14,14 0,1,1 -28,0" />
+    <path
+        android:fillColor="#FFB690"
+        android:pathData="M48,46m-10,0a10,10 0,1,1 20,0a10,10 0,1,1 -20,0" />
+    <path
+        android:fillColor="#B54E00"
+        android:pathData="M112,46m-14,0a14,14 0,1,1 28,0a14,14 0,1,1 -28,0" />
+    <path
+        android:fillColor="#FFB690"
+        android:pathData="M112,46m-10,0a10,10 0,1,1 20,0a10,10 0,1,1 -20,0" />
+
+    <!-- Clock Feet -->
+    <path
+        android:fillColor="#004AC6"
+        android:pathData="M50,120L58,134L50,136L44,124Z" />
+    <path
+        android:fillColor="#004AC6"
+        android:pathData="M110,120L102,134L110,136L116,124Z" />
+
+    <!-- Clock Main Body Outer (Blue) -->
+    <path
+        android:fillColor="#2563EB"
+        android:pathData="M80,88m-46,0a46,46 0,1,1 92,0a46,46 0,1,1 -92,0" />
+
+    <!-- Clock Face Inner (Soft lavender/white) -->
+    <path
+        android:fillColor="#F8FAFC"
+        android:pathData="M80,88m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0" />
+
+    <!-- Anime Face Eyes -->
+    <path
+        android:fillColor="#131B2E"
+        android:pathData="M68,82m-4.5,0a4.5,6.5 0,1,1 9,0a4.5,6.5 0,1,1 -9,0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M66.5,79.5m-2,0a2,2 0,1,1 4,0a2,2 0,1,1 -4,0" />
+    <path
+        android:fillColor="#131B2E"
+        android:pathData="M92,82m-4.5,0a4.5,6.5 0,1,1 9,0a4.5,6.5 0,1,1 -9,0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M90.5,79.5m-2,0a2,2 0,1,1 4,0a2,2 0,1,1 -4,0" />
+
+    <!-- Blushing Cheeks -->
+    <path
+        android:fillAlpha="0.85"
+        android:fillColor="#FFB690"
+        android:pathData="M61,90m-5,0a5,5 0,1,1 10,0a5,5 0,1,1 -10,0" />
+    <path
+        android:fillAlpha="0.85"
+        android:fillColor="#FFB690"
+        android:pathData="M99,90m-5,0a5,5 0,1,1 10,0a5,5 0,1,1 -10,0" />
+
+    <!-- Happy Smile -->
+    <path
+        android:strokeColor="#131B2E"
+        android:strokeLineCap="round"
+        android:strokeWidth="2.5"
+        android:pathData="M74,92C74,95.5 76.5,98 80,98C83.5,98 86,95.5 86,92" />
+
+    <!-- Target Band Badge on bottom corner -->
+    <path
+        android:fillColor="#2563EB"
+        android:pathData="M74,106 h30 v12 h-30 z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M75,107 h28 v10 h-28 z" />
+</vector>
