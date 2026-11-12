@@ -348,3 +348,4 @@ class StudyReminderActivity : AppCompatActivity() {
         finish()
     }
 }
+

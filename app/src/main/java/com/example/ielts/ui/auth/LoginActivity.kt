@@ -235,8 +235,24 @@ class LoginActivity : AppCompatActivity() {
                         authData.user.targetBand?.let {
                             putFloat(com.example.ielts.utils.Constants.KEY_TARGET_BAND, it.toFloat())
                         }
+                        authData.user.expectedExamDate?.let { isoDate ->
+                            try {
+                                val inputFormat = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US)
+                                val outputFormat = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault())
+                                val d = inputFormat.parse(isoDate.substring(0, 10))
+                                if (d != null) {
+                                    putString("exam_date", outputFormat.format(d))
+                                }
+                            } catch (_: Exception) {}
+                        }
+                        val cloudStreak = authData.user.dailyStudyMinutes ?: authData.user.streakDays ?: 6
+                        putInt("streak_days", cloudStreak)
                         apply()
                     }
+
+                    // Đồng bộ Streak vào StreakManager trên thiết bị mới
+                    val restoredStreak = authData.user.dailyStudyMinutes ?: authData.user.streakDays ?: 6
+                    com.example.ielts.data.local.StreakManager.syncFromCloud(this@LoginActivity, restoredStreak)
 
                     Toast.makeText(
                         this@LoginActivity,
@@ -343,8 +359,24 @@ class LoginActivity : AppCompatActivity() {
                         authData.user.targetBand?.let {
                             putFloat(Constants.KEY_TARGET_BAND, it.toFloat())
                         }
+                        authData.user.expectedExamDate?.let { isoDate ->
+                            try {
+                                val inputFormat = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US)
+                                val outputFormat = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault())
+                                val d = inputFormat.parse(isoDate.substring(0, 10))
+                                if (d != null) {
+                                    putString("exam_date", outputFormat.format(d))
+                                }
+                            } catch (_: Exception) {}
+                        }
+                        val cloudStreak = authData.user.dailyStudyMinutes ?: authData.user.streakDays ?: 6
+                        putInt("streak_days", cloudStreak)
                         apply()
                     }
+
+                    // Đồng bộ Streak vào StreakManager trên thiết bị mới
+                    val restoredStreak = authData.user.dailyStudyMinutes ?: authData.user.streakDays ?: 6
+                    com.example.ielts.data.local.StreakManager.syncFromCloud(this@LoginActivity, restoredStreak)
 
                     Toast.makeText(
                         this@LoginActivity,

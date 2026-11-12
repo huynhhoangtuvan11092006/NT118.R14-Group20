@@ -70,7 +70,10 @@ class MainActivity : AppCompatActivity() {
                         val user = response.body()!!.user
                         val realName = user.fullName
                         val realBand = user.targetBand?.toDouble() ?: cachedBand.toDouble()
-                        val streak = user.streakDays ?: cachedStreak
+                        val streak = user.dailyStudyMinutes ?: user.streakDays ?: cachedStreak
+
+                        // Đồng bộ chuỗi ngày vào StreakManager trên thiết bị này
+                        com.example.ielts.data.local.StreakManager.syncFromCloud(this@MainActivity, streak)
 
                         var examDateFormatted = cachedExamDate
                         user.expectedExamDate?.let { isoDate ->
@@ -94,6 +97,7 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         applyUserToUI(realName, realBand, examDateFormatted, streak)
+                        updateStreakBadge()
                     }
                 } catch (_: Exception) {
                     // Nếu lỗi kết nối, giữ nguyên dữ liệu từ cache

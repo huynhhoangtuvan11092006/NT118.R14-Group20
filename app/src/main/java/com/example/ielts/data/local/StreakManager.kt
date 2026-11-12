@@ -2,7 +2,12 @@ package com.example.ielts.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.ielts.data.remote.ApiClient
+import com.example.ielts.data.remote.dto.UpdateProfileRequest
 import com.example.ielts.utils.Constants
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -178,6 +183,9 @@ object StreakManager {
                 .edit()
                 .putInt("streak_days", currentStreak)
                 .apply()
+
+            // Đồng bộ lên Cloud Backend để khi sang máy khác đăng nhập không bị mất
+            syncStreakToBackend(context, currentStreak)
         }
 
         return StreakRecordResult(
@@ -196,6 +204,52 @@ object StreakManager {
      */
     fun toggleFreeze(context: Context, enabled: Boolean) {
         getPrefs(context).edit().putBoolean(KEY_FREEZE_ENABLED, enabled).apply()
+    }
+
+    /**
+     * Đồng bộ dữ liệu Streak từ Cloud về khi đăng nhập trên thiết bị mới
+     */
+    fun syncFromCloud(context: Context, streakCount: Int, markTodayActive: Boolean = true) {
+        if (streakCount <= 0) return
+        val prefs = getPrefs(context)
+        val currentLocal = prefs.getInt(KEY_CURRENT_STREAK, 0)
+        val finalStreak = maxOf(currentLocal, streakCount)
+        val longest = maxOf(prefs.getInt(KEY_LONGEST_STREAK, finalStreak), finalStreak)
+
+        val todayStr = getTodayString()
+        val completedDates = prefs.getStringSet(KEY_COMPLETED_DATES, emptySet())?.toMutableSet() ?: mutableSetOf()
+        if (markTodayActive) {
+            completedDates.add(todayStr)
+        }
+
+        prefs.edit()
+            .putInt(KEY_CURRENT_STREAK, finalStreak)
+            .putInt(KEY_LONGEST_STREAK, longest)
+            .putString(KEY_LAST_ACTIVE_DATE, todayStr)
+            .putStringSet(KEY_COMPLETED_DATES, completedDates)
+            .apply()
+
+        context.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE)
+            .edit()
+            .putInt("streak_days", finalStreak)
+            .apply()
+    }
+
+    private fun syncStreakToBackend(context: Context, streak: Int) {
+        val prefs = context.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE)
+        val token = prefs.getString(Constants.KEY_AUTH_TOKEN, null) ?: return
+        val authHeader = if (token.startsWith("Bearer ")) token else "Bearer $token"
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                ApiClient.apiService.updateProfile(
+                    token = authHeader,
+                    request = UpdateProfileRequest(
+                        dailyStudyMinutes = streak
+                    )
+                )
+            } catch (_: Exception) {}
+        }
     }
 
     private fun getTodayString(): String {
