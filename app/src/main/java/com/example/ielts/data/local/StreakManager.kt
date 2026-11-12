@@ -66,15 +66,16 @@ object StreakManager {
         val prefs = getPrefs(context)
         val todayStr = getTodayString()
 
-        // Khởi tạo mặc định nếu là người dùng mới: 5 ngày streak ban đầu hoặc 1 ngày, tặng 1 khiên
-        val currentStreak = prefs.getInt(KEY_CURRENT_STREAK, 5)
-        val longestStreak = prefs.getInt(KEY_LONGEST_STREAK, maxOf(currentStreak, 14))
+        // Chỉ tính streak khi người dùng thực sự đã có hoạt động học tập
+        val completedDates = prefs.getStringSet(KEY_COMPLETED_DATES, emptySet())?.toMutableSet() ?: mutableSetOf()
+        val frozenDates = prefs.getStringSet(KEY_FROZEN_DATES, emptySet())?.toMutableSet() ?: mutableSetOf()
+
+        val rawStreak = prefs.getInt(KEY_CURRENT_STREAK, 0)
+        val currentStreak = if (completedDates.isEmpty()) 0 else rawStreak
+        val longestStreak = if (completedDates.isEmpty()) 0 else prefs.getInt(KEY_LONGEST_STREAK, currentStreak)
         val freezeCount = prefs.getInt(KEY_FREEZE_COUNT, 1)
         val freezeEnabled = prefs.getBoolean(KEY_FREEZE_ENABLED, true)
         val lastActiveDate = prefs.getString(KEY_LAST_ACTIVE_DATE, null)
-
-        val completedDates = prefs.getStringSet(KEY_COMPLETED_DATES, emptySet())?.toMutableSet() ?: mutableSetOf()
-        val frozenDates = prefs.getStringSet(KEY_FROZEN_DATES, emptySet())?.toMutableSet() ?: mutableSetOf()
 
         val isActiveToday = completedDates.contains(todayStr)
 
@@ -99,8 +100,8 @@ object StreakManager {
         val today = Calendar.getInstance()
         val todayStr = dateFormat.format(today.time)
 
-        var currentStreak = prefs.getInt(KEY_CURRENT_STREAK, 5)
-        var longestStreak = prefs.getInt(KEY_LONGEST_STREAK, 14)
+        var currentStreak = prefs.getInt(KEY_CURRENT_STREAK, 0)
+        var longestStreak = prefs.getInt(KEY_LONGEST_STREAK, 0)
         var freezeCount = prefs.getInt(KEY_FREEZE_COUNT, 1)
         val freezeEnabled = prefs.getBoolean(KEY_FREEZE_ENABLED, true)
         val lastActiveDateStr = prefs.getString(KEY_LAST_ACTIVE_DATE, null)
@@ -204,6 +205,21 @@ object StreakManager {
      */
     fun toggleFreeze(context: Context, enabled: Boolean) {
         getPrefs(context).edit().putBoolean(KEY_FREEZE_ENABLED, enabled).apply()
+    }
+
+    fun resetStreakIfNoRealStudy(context: Context, hasRealStudy: Boolean) {
+        if (!hasRealStudy) {
+            getPrefs(context).edit()
+                .putInt(KEY_CURRENT_STREAK, 0)
+                .putInt(KEY_LONGEST_STREAK, 0)
+                .remove(KEY_LAST_ACTIVE_DATE)
+                .remove(KEY_COMPLETED_DATES)
+                .apply()
+            context.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE)
+                .edit()
+                .putInt("streak_days", 0)
+                .apply()
+        }
     }
 
     /**

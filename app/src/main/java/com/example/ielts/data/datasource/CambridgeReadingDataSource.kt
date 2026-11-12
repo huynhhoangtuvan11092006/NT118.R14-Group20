@@ -90,12 +90,7 @@ object CambridgeReadingDataSource {
                     "The Forest Canopy Exploration",
                     "Artificial Intelligence in Modern Healthcare"
                 ),
-                userProgress = UserProgressDto(
-                    submissionId = "sub-1",
-                    highestScore = 32f,
-                    bandEstimate = 7.5f,
-                    lastAttemptAt = "2 ngày trước"
-                )
+                userProgress = null
             )
         )
         list.add(
@@ -161,12 +156,7 @@ object CambridgeReadingDataSource {
                     "Stadiums Through the Ages: From Colosseum to Sustainable Arenas",
                     "To Catch a King: Charles II's Escape After the Battle of Worcester"
                 ),
-                userProgress = UserProgressDto(
-                    submissionId = "sub-cam17-1",
-                    highestScore = 30f,
-                    bandEstimate = 7.0f,
-                    lastAttemptAt = "5 ngày trước"
-                )
+                userProgress = null
             )
         )
         list.add(
@@ -298,12 +288,7 @@ object CambridgeReadingDataSource {
                     "Driverless Cars and the Future of Urban Mobility",
                     "What is Exploration? The Psychology of Geographic Discovery"
                 ),
-                userProgress = UserProgressDto(
-                    submissionId = "sub-cam15-1",
-                    highestScore = 34f,
-                    bandEstimate = 8.0f,
-                    lastAttemptAt = "1 tuần trước"
-                )
+                userProgress = null
             )
         )
         list.add(

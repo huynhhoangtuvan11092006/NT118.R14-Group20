@@ -233,11 +233,20 @@ class ProfileActivity : AppCompatActivity() {
                     }
                 }
 
+                val mappedCurrentBand = when (selectedLevel) {
+                    "A2" -> 4.0f
+                    "B1" -> 5.0f
+                    "B2" -> 5.5f
+                    "C1" -> 6.5f
+                    else -> 5.5f
+                }
+
                 // Lưu hồ sơ vào SharedPreferences
                 prefs.edit().apply {
                     putString(Constants.KEY_USER_NAME, name)
                     putString("user_phone", phone)
                     putString("current_level", selectedLevel)
+                    putFloat("current_band", mappedCurrentBand)
                     putStringSet("focus_skills", selectedSkills)
                     putString("study_goal", selectedGoal)
                     putBoolean(Constants.KEY_IS_LOGGED_IN, true)
@@ -245,15 +254,19 @@ class ProfileActivity : AppCompatActivity() {
                 }
                 getSharedPreferences("ielts_login_preferences", MODE_PRIVATE).edit().putBoolean("IS_LOGGED_IN", true).apply()
 
+                // Xóa cache lộ trình cũ để Gemini AI tạo mới theo đúng hồ sơ vừa thiết lập
+                com.example.ielts.ui.roadmap.RoadmapManager.clearAiCache(this@ProfileActivity)
+
                 Toast.makeText(
                     this@ProfileActivity,
-                    "Chào mừng $name đến với lộ trình IELTS cá nhân hóa!",
+                    "Đang khởi tạo lộ trình AI cá nhân hóa cho $name...",
                     Toast.LENGTH_SHORT
                 ).show()
 
-                // Chuyển thẳng sang Dashboard (MainActivity)
+                // Chuyển sang MainActivity và tự động mở ngay màn hình Lộ trình cá nhân
                 val intent = Intent(this@ProfileActivity, MainActivity::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    putExtra("OPEN_ROADMAP_AFTER_PROFILE", true)
                 }
                 startActivity(intent)
                 finish()
