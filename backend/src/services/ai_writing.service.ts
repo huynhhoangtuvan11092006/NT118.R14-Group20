@@ -299,11 +299,9 @@ export async function evaluateWriting(
 
   // Thử lần lượt các candidate model đã kiểm tra tương thích
   const candidateModels = [
-    "gemini-2.5-flash-lite",
-    "gemini-2.0-flash",
-    "gemini-2.5-flash",
+    "gemini-3.5-flash-lite",
     primaryModel,
-    fallbackModel || "gemini-2.5-flash",
+    fallbackModel || "gemini-3.5-flash",
     "gemini-3-flash-preview",
   ];
   const attempts = Array.from(new Set(candidateModels.filter(Boolean)));
