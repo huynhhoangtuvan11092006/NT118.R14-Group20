@@ -122,6 +122,8 @@
         <!-- Màn hình Lộ trình Học tập Cá nhân hóa AI -->
         <activity
             android:name=".ui.roadmap.RoadmapActivity"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"
             android:exported="true" />
 
         <!-- Màn hình Cài đặt Nhắc nhở Học tập -->

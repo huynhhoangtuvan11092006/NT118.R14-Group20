@@ -103,11 +103,10 @@ export async function generateAiRoadmap(input: RoadmapInput) {
   }
 
   const candidateModels = [
-    "gemini-2.5-flash-lite",
-    "gemini-2.0-flash",
-    "gemini-2.5-flash",
+    "gemini-3.5-flash-lite",
+    "gemini-3.5-flash",
     "gemini-3-flash-preview",
-    env.AI_MODEL ?? env.GEMINI_MODEL ?? "gemini-2.5-flash",
+    env.AI_MODEL ?? env.GEMINI_MODEL ?? "gemini-3.5-flash-lite",
   ];
   const models = Array.from(new Set(candidateModels.filter(Boolean)));
 
