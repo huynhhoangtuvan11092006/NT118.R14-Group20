@@ -23,9 +23,9 @@ const CRITERIA = [
 
 // Timeout tối đa cho mỗi lần gọi Gemini.
 // Tổng timeout lấy từ GEMINI_TIMEOUT_MS.
-const PER_ATTEMPT_TIMEOUT_MS = 35_000;
+const PER_ATTEMPT_TIMEOUT_MS = 20_000;
 const MIN_REQUEST_TIME_MS = 350;
-const DEFAULT_FALLBACK_MODEL = "gemini-3.5-flash";
+const DEFAULT_FALLBACK_MODEL = "gemini-3.5-flash-lite";
 
 interface EvaluateWritingOptions {
   fetchImpl?: typeof fetch;
@@ -299,9 +299,9 @@ export async function evaluateWriting(
 
   // Thử lần lượt các candidate model đã kiểm tra tương thích
   const candidateModels = [
+    "gemini-3.5-flash-lite",
     primaryModel,
     fallbackModel || "gemini-3.5-flash",
-    "gemini-3.5-flash-lite",
     "gemini-3-flash-preview",
   ];
   const attempts = Array.from(new Set(candidateModels.filter(Boolean)));
