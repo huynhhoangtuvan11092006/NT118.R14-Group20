@@ -1124,18 +1124,17 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Navigation Bar (Tab 2 Lộ trình Active) -->
+    <!-- Bottom Navigation Bar (5 tabs đồng bộ chuẩn toàn ứng dụng) -->
     <LinearLayout
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="62dp"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:elevation="12dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="6dp"
-        android:paddingEnd="6dp">
+        android:weightSum="5">
 
         <!-- Tab 1: Trang chủ -->
         <LinearLayout
@@ -1152,26 +1151,23 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:src="@drawable/ic_home"
-                app:tint="#434655" />
+                app:tint="@color/outline_text" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="Trang chủ"
-                android:textColor="#434655"
+                android:textColor="@color/outline_text"
                 android:textSize="11sp" />
         </LinearLayout>
 
-        <!-- Tab 2: Lộ trình (Selected Pill matching Stitch) -->
+        <!-- Tab 2: Lộ trình (ACTIVE) -->
         <LinearLayout
             android:id="@+id/navRoadmap"
             android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_weight="1.15"
-            android:background="@drawable/bg_roadmap_nav_active_pill"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
@@ -1180,15 +1176,15 @@
             <ImageView
                 android:layout_width="22dp"
                 android:layout_height="22dp"
-                android:src="@drawable/ic_alt_route"
-                app:tint="#004AC6" />
+                android:src="@drawable/ic_explore"
+                app:tint="@color/primary_blue" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="2dp"
                 android:text="Lộ trình"
-                android:textColor="#004AC6"
+                android:textColor="@color/primary_blue"
                 android:textSize="11sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -1207,15 +1203,15 @@
             <ImageView
                 android:layout_width="22dp"
                 android:layout_height="22dp"
-                android:src="@drawable/ic_edit"
-                app:tint="#434655" />
+                android:src="@drawable/ic_menu_book"
+                app:tint="@color/outline_text" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="Luyện tập"
-                android:textColor="#434655"
+                android:textColor="@color/outline_text"
                 android:textSize="11sp" />
         </LinearLayout>
 
@@ -1233,15 +1229,15 @@
             <ImageView
                 android:layout_width="22dp"
                 android:layout_height="22dp"
-                android:src="@drawable/ic_menu_book"
-                app:tint="#434655" />
+                android:src="@drawable/ic_school"
+                app:tint="@color/outline_text" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="Từ vựng"
-                android:textColor="#434655"
+                android:textColor="@color/outline_text"
                 android:textSize="11sp" />
         </LinearLayout>
 
@@ -1260,14 +1256,14 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:src="@drawable/ic_person"
-                app:tint="#434655" />
+                app:tint="@color/outline_text" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="Cá nhân"
-                android:textColor="#434655"
+                android:textColor="@color/outline_text"
                 android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
