@@ -299,9 +299,11 @@ export async function evaluateWriting(
 
   // Thử lần lượt các candidate model đã kiểm tra tương thích
   const candidateModels = [
-    "gemini-3.5-flash-lite",
+    "gemini-2.5-flash-lite",
+    "gemini-2.0-flash",
+    "gemini-2.5-flash",
     primaryModel,
-    fallbackModel || "gemini-3.5-flash",
+    fallbackModel || "gemini-2.5-flash",
     "gemini-3-flash-preview",
   ];
   const attempts = Array.from(new Set(candidateModels.filter(Boolean)));
@@ -489,8 +491,9 @@ export async function evaluateWriting(
         );
       }
 
-      // Retry các lỗi tạm thời.
+      // Retry các lỗi tạm thời hoặc model không tồn tại (404).
       const transient =
+        upstream.status === 404 ||
         upstream.status === 408 ||
         upstream.status >= 500;
 

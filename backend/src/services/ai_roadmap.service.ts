@@ -103,10 +103,11 @@ export async function generateAiRoadmap(input: RoadmapInput) {
   }
 
   const candidateModels = [
-    "gemini-3.5-flash-lite",
-    env.AI_MODEL ?? env.GEMINI_MODEL ?? "gemini-3.5-flash",
-    "gemini-3-flash-preview",
+    "gemini-2.5-flash-lite",
+    "gemini-2.0-flash",
     "gemini-2.5-flash",
+    "gemini-3-flash-preview",
+    env.AI_MODEL ?? env.GEMINI_MODEL ?? "gemini-2.5-flash",
   ];
   const models = Array.from(new Set(candidateModels.filter(Boolean)));
 
@@ -129,6 +130,8 @@ Hãy trả về JSON đúng schema gồm: strategicAdvice, phase1Title, phase1De
   const effectiveApiKey = isCustomRouter
     ? (apiKey || env.AI_API_KEY || env.GEMINI_API_KEY)
     : (env.GEMINI_API_KEY || apiKey);
+
+  const errors: string[] = [];
 
   for (const model of models) {
     try {
@@ -170,13 +173,19 @@ Hãy trả về JSON đúng schema gồm: strategicAdvice, phase1Title, phase1De
         method: "POST",
         headers: requestHeaders,
         body: payload,
-        signal: AbortSignal.timeout(22_000),
+        signal: AbortSignal.timeout(12_000),
       });
 
-      if (!res.ok) continue;
+      if (!res.ok) {
+        errors.push(`${model}:HTTP_${res.status}`);
+        continue;
+      }
       const envelope = await res.json();
       const rawText = extractModelText(envelope);
-      if (!rawText) continue;
+      if (!rawText) {
+        errors.push(`${model}:EMPTY_TEXT`);
+        continue;
+      }
 
       const parsed = roadmapOutputSchema.safeParse(JSON.parse(cleanJsonString(rawText)));
       if (parsed.success) {
@@ -184,11 +193,13 @@ Hãy trả về JSON đúng schema gồm: strategicAdvice, phase1Title, phase1De
           ...parsed.data,
           model,
         };
+      } else {
+        errors.push(`${model}:SCHEMA_FAIL`);
       }
-    } catch {
-      // try next model
+    } catch (err) {
+      errors.push(`${model}:${err instanceof Error ? err.name : "ERR"}`);
     }
   }
 
-  throw new HttpError(502, "AI_UNAVAILABLE", "Could not generate AI roadmap");
+  throw new HttpError(502, "AI_UNAVAILABLE", `Could not generate AI roadmap (${errors.join(", ")})`);
 }
