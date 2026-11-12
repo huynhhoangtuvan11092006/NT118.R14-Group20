@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="2dp">
+
+    <!-- Day Label (T2, T3, T4...) -->
+    <TextView
+        android:id="@+id/tvDayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-bold"
+        android:text="T2"
+        android:textColor="#64748B"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <!-- Icon Halo/Circle Container -->
+    <FrameLayout
+        android:id="@+id/layoutDayCircle"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_pill_day_active">
+
+        <ImageView
+            android:id="@+id/ivDayIcon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_fire" />
+    </FrameLayout>
+
+    <!-- Day Status Text (Xong / Nay / Chưa) -->
+    <TextView
+        android:id="@+id/tvDayStatusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Xong"
+        android:textColor="#EA580C"
+        android:textSize="11sp" />
+
+</LinearLayout>

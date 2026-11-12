@@ -1,0 +1,90 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+  <!-- Sparkles -->
+  <path
+      android:fillColor="#FDE047"
+      android:pathData="M18,20L19.5,24.5L24,26L19.5,27.5L18,32L16.5,27.5L12,26L16.5,24.5Z" />
+  <path
+      android:fillColor="#FDE047"
+      android:pathData="M102,32L103.5,35.5L107,37L103.5,38.5L102,42L100.5,38.5L97,37L100.5,35.5Z" />
+  <path
+      android:fillColor="#FB923C"
+      android:pathData="M22,35m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0" />
+  <path
+      android:fillColor="#F97316"
+      android:pathData="M98,22m-2.5,0a2.5,2.5 0,1 1,5 0a2.5,2.5 0,1 1,-5 0" />
+
+  <!-- Outer Flame Body with Gradient -->
+  <path
+      android:pathData="M60,8C60,8 72,26 73,38C73.8,47.5 82,52 86,51C89.5,50.1 91,46 91,46C96.5,56 98,67 98,77C98,97.4 80.9,114 60,114C39.1,114 22,97.4 22,77C22,61.5 31.5,48 41,38C48,30.5 51,21 51,21C51,21 55,28 53,36C52.1,39.5 54.5,43 58,42C61.2,41 62,36 62,32C62,25 60,8 60,8Z">
+    <aapt:attr name="android:fillColor">
+      <gradient
+          android:startX="60"
+          android:startY="8"
+          android:endX="60"
+          android:endY="114"
+          android:type="linear">
+        <item android:offset="0.0" android:color="#FB923C" />
+        <item android:offset="0.45" android:color="#F97316" />
+        <item android:offset="1.0" android:color="#DC2626" />
+      </gradient>
+    </aapt:attr>
+  </path>
+
+  <!-- Inner Flame Core with Gradient -->
+  <path
+      android:pathData="M60,42C60,42 68,54 69,62C69.5,68 74,71 77,70C78.5,69.5 79,67 79,67C82,73 83,80 83,86C83,98.7 72.7,109 60,109C47.3,109 37,98.7 37,86C37,76 43,67 49,61C53.5,56.5 55,50 55,50C55,50 57.5,55 56,60C55.5,62 57,64 59,63.5C61,63 61.5,60 61.5,58C61.5,53 60,42 60,42Z">
+    <aapt:attr name="android:fillColor">
+      <gradient
+          android:startX="60"
+          android:startY="42"
+          android:endX="60"
+          android:endY="109"
+          android:type="linear">
+        <item android:offset="0.0" android:color="#FEF08A" />
+        <item android:offset="0.4" android:color="#FDE047" />
+        <item android:offset="0.9" android:color="#F59E0B" />
+      </gradient>
+    </aapt:attr>
+  </path>
+
+  <!-- Left Rosy Cheek -->
+  <path
+      android:fillColor="#F43F5E"
+      android:pathData="M46,85m-3.5,0a3.5,3.5 0,1 1,7 0a3.5,3.5 0,1 1,-7 0" />
+
+  <!-- Right Rosy Cheek -->
+  <path
+      android:fillColor="#F43F5E"
+      android:pathData="M74,85m-3.5,0a3.5,3.5 0,1 1,7 0a3.5,3.5 0,1 1,-7 0" />
+
+  <!-- Left Eye -->
+  <path
+      android:fillColor="#1E293B"
+      android:pathData="M52,80m-3.5,0a3.5,3.5 0,1 1,7 0a3.5,3.5 0,1 1,-7 0" />
+  <path
+      android:fillColor="#FFFFFF"
+      android:pathData="M51,78.5m-1.2,0a1.2,1.2 0,1 1,2.4 0a1.2,1.2 0,1 1,-2.4 0" />
+
+  <!-- Right Eye -->
+  <path
+      android:fillColor="#1E293B"
+      android:pathData="M68,80m-3.5,0a3.5,3.5 0,1 1,7 0a3.5,3.5 0,1 1,-7 0" />
+  <path
+      android:fillColor="#FFFFFF"
+      android:pathData="M67,78.5m-1.2,0a1.2,1.2 0,1 1,2.4 0a1.2,1.2 0,1 1,-2.4 0" />
+
+  <!-- Cute Smiling Mouth -->
+  <path
+      android:strokeColor="#1E293B"
+      android:strokeWidth="2.5"
+      android:strokeLineCap="round"
+      android:strokeLineJoin="round"
+      android:pathData="M56,87 Q60,91 64,87" />
+
+</vector>
