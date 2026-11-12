@@ -774,7 +774,7 @@
                         android:id="@+id/tvPhase1Count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0/10 bài"
+                        android:text="0/5 bài"
                         android:textColor="#004AC6"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -934,7 +934,7 @@
                         android:id="@+id/tvPhase2Count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0/10 bài"
+                        android:text="0/5 bài"
                         android:textColor="#004AC6"
                         android:textSize="12sp"
                         android:textStyle="bold" />

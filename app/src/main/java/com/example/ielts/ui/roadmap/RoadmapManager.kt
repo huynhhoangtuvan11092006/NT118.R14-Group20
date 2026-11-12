@@ -11,6 +11,7 @@ import com.example.ielts.data.local.StreakManager
 import com.example.ielts.data.local.VocabularyProgressManager
 import com.example.ielts.data.local.WritingStatsManager
 import com.example.ielts.data.remote.ApiClient
+import com.example.ielts.data.remote.dto.AiRoadmapRequest
 import com.example.ielts.data.remote.dto.WritingEvaluationRequest
 import com.example.ielts.utils.Constants
 import com.google.gson.Gson
@@ -89,12 +90,28 @@ object RoadmapManager {
     private const val PREF_ROADMAP = "bandup_ai_roadmap_prefs"
     private const val KEY_AI_CACHE_JSON = "key_ai_roadmap_cache_json"
 
+    // Danh sách 5 bài học thực tế cho từng Chặng (Tổng lộ trình chuẩn: 15 bài học trên app)
+    private val PHASE_1_READING_IDS = listOf("cam19-test1", "cam18-test1")
+    private val PHASE_1_LISTENING_IDS = listOf("cam19-listening-test1")
+    private val PHASE_1_WRITING_IDS = listOf("cam18-writing-test1-task1")
+    private const val PHASE_1_VOCAB_TOPIC = VocabularyDataSource.TOPIC_ENVIRONMENT
+
+    private val PHASE_2_READING_IDS = listOf("cam19-test2", "cam18-test2")
+    private val PHASE_2_LISTENING_IDS = listOf("cam19-listening-test2")
+    private val PHASE_2_WRITING_IDS = listOf("cam18-writing-test1-task2")
+    private const val PHASE_2_VOCAB_TOPIC = VocabularyDataSource.TOPIC_EDUCATION
+
+    private val PHASE_3_READING_IDS = listOf("cam19-test3")
+    private val PHASE_3_LISTENING_IDS = listOf("cam19-listening-test3")
+    private val PHASE_3_WRITING_IDS = listOf("cam18-writing-test2-task1", "cam18-writing-test2-task2")
+    private const val PHASE_3_VOCAB_TOPIC = VocabularyDataSource.TOPIC_TECHNOLOGY
+
     /**
-     * Xóa toàn bộ dữ liệu test mẫu cũ (nếu có) để đưa ứng dụng về trạng thái thực tế của học viên.
+     * Xóa toàn bộ dữ liệu test mẫu cũ (nếu có) để đưa ứng dụng về đúng trạng thái thực tế của học viên.
      */
     fun clearDemoProgressIfNeeded(context: Context) {
         val prefs = context.getSharedPreferences(PREF_ROADMAP, Context.MODE_PRIVATE)
-        if (!prefs.getBoolean("real_progress_migrated_v3", false)) {
+        if (!prefs.getBoolean("real_progress_migrated_v4", false)) {
             context.getSharedPreferences("reading_practice_stats_pref", Context.MODE_PRIVATE).edit().clear().apply()
             context.getSharedPreferences("listening_practice_stats_pref", Context.MODE_PRIVATE).edit().clear().apply()
             context.getSharedPreferences("writing_practice_stats_pref", Context.MODE_PRIVATE).edit().clear().apply()
@@ -103,7 +120,7 @@ object RoadmapManager {
             StreakManager.resetStreakIfNoRealStudy(context, false)
             prefs.edit()
                 .remove(KEY_AI_CACHE_JSON)
-                .putBoolean("real_progress_migrated_v3", true)
+                .putBoolean("real_progress_migrated_v4", true)
                 .apply()
         }
     }
@@ -113,6 +130,12 @@ object RoadmapManager {
             .edit()
             .remove(KEY_AI_CACHE_JSON)
             .apply()
+    }
+
+    private fun countTopicLearned(context: Context, topicId: String): Int {
+        val pool = VocabularyDataSource.resolveScope(VocabularyDataSource.SCOPE_TOPIC, topicId)
+        val stats = VocabularyProgressManager.summaryStats(context, pool)
+        return stats.learning + stats.mastered
     }
 
     fun buildRoadmapData(context: Context): PersonalizedRoadmapData {
@@ -177,21 +200,34 @@ object RoadmapManager {
             else -> String.format(Locale.US, "%.1fh", totalMinutesStudied / 60.0)
         }
 
-        // Tổng số bài học đã hoàn thành trên lộ trình 30 bài chuẩn của ứng dụng
-        val vocabLessonsDone = (vocabLearnedTotal / 15).coerceAtMost(6)
-        val completedLessonsTotal = (readingRecords.size + listeningRecords.size + writingRecords.size + vocabLessonsDone)
-            .coerceIn(0, 30)
-        val totalRoadmapLessons = 30
+        // 2. Tính số bài hoàn thành thực tế cho từng Chặng (Mỗi chặng đúng 5 bài cụ thể trên app)
+        val p1Done = PHASE_1_READING_IDS.count { readingRecords.containsKey(it) } +
+            PHASE_1_LISTENING_IDS.count { listeningRecords.containsKey(it) } +
+            PHASE_1_WRITING_IDS.count { writingRecords.containsKey(it) } +
+            if (countTopicLearned(context, PHASE_1_VOCAB_TOPIC) >= 15) 1 else 0
+
+        val p2Done = PHASE_2_READING_IDS.count { readingRecords.containsKey(it) } +
+            PHASE_2_LISTENING_IDS.count { listeningRecords.containsKey(it) } +
+            PHASE_2_WRITING_IDS.count { writingRecords.containsKey(it) } +
+            if (countTopicLearned(context, PHASE_2_VOCAB_TOPIC) >= 15) 1 else 0
+
+        val p3Done = PHASE_3_READING_IDS.count { readingRecords.containsKey(it) } +
+            PHASE_3_LISTENING_IDS.count { listeningRecords.containsKey(it) } +
+            PHASE_3_WRITING_IDS.count { writingRecords.containsKey(it) } +
+            if (countTopicLearned(context, PHASE_3_VOCAB_TOPIC) >= 15) 1 else 0
+
+        val completedLessonsTotal = (p1Done + p2Done + p3Done).coerceIn(0, 15)
+        val totalRoadmapLessons = 15
         val overallProgressPercent = ((completedLessonsTotal * 100.0) / totalRoadmapLessons)
             .roundToInt()
             .coerceIn(0, 100)
 
-        // 2. Kiểm tra cache Gemini AI theo cặp Band hiện tại -> Mục tiêu
+        // 3. Kiểm tra cache Gemini AI theo cặp Band hiện tại -> Mục tiêu
         val focusSkills = userPrefs.getStringSet("focus_skills", setOf("Writing", "Speaking")) ?: setOf("Writing", "Speaking")
         val pairKey = String.format(Locale.US, "%.1f_%.1f_%s", currentBand, targetBand, focusSkills.sorted().joinToString("-"))
         val aiCache = getAiCache(context)?.takeIf { it.targetPairKey == pairKey }
 
-        // 3. Chia 3 mốc Band cho 3 giai đoạn
+        // 4. Chia 3 mốc Band cho 3 giai đoạn
         val step = (targetBand - currentBand) / 3.0
         val b1End = roundHalfBand(currentBand + step)
         val b2End = roundHalfBand(currentBand + step * 2)
@@ -200,7 +236,7 @@ object RoadmapManager {
         val range2 = String.format(Locale.US, "%.1f - %.1f", b1End, b2End)
         val range3 = String.format(Locale.US, "%.1f - %.1f+", b2End, targetBand)
 
-        // 4. Chọn Nhiệm vụ "Hôm nay" khớp 100% với đề thi thực tế đang có trên app
+        // 5. Chọn Nhiệm vụ "Hôm nay" khớp 100% với đề thi thực tế đang có trên app
         val allReadingTests = CambridgeReadingDataSource.getAllTests()
         val allWritingTests = CambridgeWritingDataSource.getAllTests()
         val allVocabTopics = VocabularyDataSource.topics
@@ -212,8 +248,11 @@ object RoadmapManager {
         val targetReadingTest = if (readingDoneToday != null) {
             allReadingTests.firstOrNull { it.id == readingDoneToday.testId } ?: allReadingTests.first()
         } else {
-            // Đề đầu tiên học viên chưa làm (ưu tiên Cam 18 Test 1 hoặc Cam 19 Test 1)
-            allReadingTests.firstOrNull { !readingRecords.containsKey(it.id) } ?: allReadingTests.first()
+            val priorityIds = PHASE_1_READING_IDS + PHASE_2_READING_IDS + PHASE_3_READING_IDS
+            val nextId = priorityIds.firstOrNull { !readingRecords.containsKey(it) }
+            allReadingTests.firstOrNull { it.id == nextId }
+                ?: allReadingTests.firstOrNull { !readingRecords.containsKey(it.id) }
+                ?: allReadingTests.first()
         }
         val isReadingTaskDone = readingDoneToday != null
         val readingSubtitle = if (readingDoneToday != null) {
@@ -236,7 +275,11 @@ object RoadmapManager {
         val targetWritingTest = if (writingDoneToday != null) {
             allWritingTests.firstOrNull { it.id == writingDoneToday.testId } ?: allWritingTests.first()
         } else {
-            allWritingTests.firstOrNull { !writingRecords.containsKey(it.id) } ?: allWritingTests.first()
+            val priorityWritingIds = PHASE_1_WRITING_IDS + PHASE_2_WRITING_IDS + PHASE_3_WRITING_IDS
+            val nextWId = priorityWritingIds.firstOrNull { !writingRecords.containsKey(it) }
+            allWritingTests.firstOrNull { it.id == nextWId }
+                ?: allWritingTests.firstOrNull { !writingRecords.containsKey(it.id) }
+                ?: allWritingTests.first()
         }
         val isWritingTaskDone = writingDoneToday != null
         val writingSubtitle = if (writingDoneToday != null) {
@@ -247,14 +290,11 @@ object RoadmapManager {
 
         // Task 3: Vocabulary Topic thực tế trên app
         val targetVocabTopic = allVocabTopics.firstOrNull { topic ->
-            val pool = VocabularyDataSource.resolveScope(VocabularyDataSource.SCOPE_TOPIC, topic.id)
-            val stats = VocabularyProgressManager.summaryStats(context, pool)
-            (stats.learning + stats.mastered) < 15
+            countTopicLearned(context, topic.id) < 15
         } ?: allVocabTopics.first()
 
         val topicPool = VocabularyDataSource.resolveScope(VocabularyDataSource.SCOPE_TOPIC, targetVocabTopic.id)
-        val topicStats = VocabularyProgressManager.summaryStats(context, topicPool)
-        val topicLearned = topicStats.learning + topicStats.mastered
+        val topicLearned = countTopicLearned(context, targetVocabTopic.id)
         val isVocabTaskDone = topicLearned >= 15 && streakData.isActiveToday
         val vocabSubtitle = if (topicLearned > 0) {
             "Đã học $topicLearned/${topicPool.size} từ • Chủ đề ${targetVocabTopic.titleVi}"
@@ -292,39 +332,36 @@ object RoadmapManager {
             )
         )
 
-        // 5. Ba Chặng mục tiêu (Mỗi chặng 10 bài học thực tế trên app, tính tiến độ thật 100%)
-        val p1Done = completedLessonsTotal.coerceIn(0, 10)
-        val p1Percent = (p1Done * 100) / 10
-        val p1Status = if (p1Done >= 10) RoadmapPhaseStatus.COMPLETED else RoadmapPhaseStatus.IN_PROGRESS
+        // 6. Ba Chặng mục tiêu (Mỗi chặng đúng 5 bài học cụ thể trên app)
+        val p1Percent = (p1Done * 100) / 5
+        val p1Status = if (p1Done >= 5) RoadmapPhaseStatus.COMPLETED else RoadmapPhaseStatus.IN_PROGRESS
 
-        val p2Done = (completedLessonsTotal - 10).coerceIn(0, 10)
-        val p2Percent = (p2Done * 100) / 10
+        val p2Percent = (p2Done * 100) / 5
         val p2Status = when {
-            completedLessonsTotal < 10 -> RoadmapPhaseStatus.LOCKED
-            p2Done >= 10 -> RoadmapPhaseStatus.COMPLETED
+            p1Done < 5 -> RoadmapPhaseStatus.LOCKED
+            p2Done >= 5 -> RoadmapPhaseStatus.COMPLETED
             else -> RoadmapPhaseStatus.IN_PROGRESS
         }
 
-        val p3Done = (completedLessonsTotal - 20).coerceIn(0, 10)
-        val p3Percent = (p3Done * 100) / 10
+        val p3Percent = (p3Done * 100) / 5
         val p3Status = when {
-            completedLessonsTotal < 20 -> RoadmapPhaseStatus.LOCKED
-            p3Done >= 10 -> RoadmapPhaseStatus.COMPLETED
+            p1Done < 5 || p2Done < 5 -> RoadmapPhaseStatus.LOCKED
+            p3Done >= 5 -> RoadmapPhaseStatus.COMPLETED
             else -> RoadmapPhaseStatus.IN_PROGRESS
         }
 
-        val defaultP1Desc = "Reading & Listening Cam 18-19 (Test 1), Writing Task 1 (Urban Population) & Từ vựng Environment, Education."
-        val defaultP2Desc = "Reading & Listening Cam 19 (Test 2-3), Writing Task 2 (Aim of Science, University) & Từ vựng Technology, Society."
-        val defaultP3Desc = "Giải đề khó Cam 18-19 (Test 4), Luyện Speaking 1-on-1 với AI & Bộ từ vựng Writing/Speaking Idioms."
+        val defaultP1Desc = "5 bài: Reading Cam 19 Test 1, Listening Cam 19 Test 1, Reading Cam 18 Test 1, Writing Task 1 (Urban Population) & Từ vựng Environment."
+        val defaultP2Desc = "5 bài: Reading Cam 19 Test 2, Listening Cam 19 Test 2, Reading Cam 18 Test 2, Writing Task 2 (Aim of Science) & Từ vựng Education."
+        val defaultP3Desc = "5 bài: Reading Cam 19 Test 3, Listening Cam 19 Test 3, Writing Task 1 (US Income), Writing Task 2 (University) & Từ vựng Technology."
 
         val phases = listOf(
             RoadmapPhaseItem(
                 phaseNumber = 1,
                 title = "Chặng 1: ${aiCache?.phase1Title ?: "Nền tảng"} ($range1)",
                 bandRange = range1,
-                description = aiCache?.phase1Desc?.let { cleanPhaseDescription(it) } ?: defaultP1Desc,
+                description = aiCache?.phase1Desc?.takeIf { it.isNotBlank() } ?: defaultP1Desc,
                 completedLessons = p1Done,
-                totalLessons = 10,
+                totalLessons = 5,
                 progressPercent = p1Percent,
                 status = p1Status
             ),
@@ -332,9 +369,9 @@ object RoadmapManager {
                 phaseNumber = 2,
                 title = "Chặng 2: ${aiCache?.phase2Title ?: "Bứt phá kỹ năng"} ($range2)",
                 bandRange = range2,
-                description = aiCache?.phase2Desc?.let { cleanPhaseDescription(it) } ?: defaultP2Desc,
+                description = aiCache?.phase2Desc?.takeIf { it.isNotBlank() } ?: defaultP2Desc,
                 completedLessons = p2Done,
-                totalLessons = 10,
+                totalLessons = 5,
                 progressPercent = p2Percent,
                 status = p2Status
             ),
@@ -342,9 +379,9 @@ object RoadmapManager {
                 phaseNumber = 3,
                 title = "Chặng 3: ${aiCache?.phase3Title ?: "Đỉnh cao"} ($range3)",
                 bandRange = range3,
-                description = aiCache?.phase3Desc?.let { cleanPhaseDescription(it) } ?: defaultP3Desc,
+                description = aiCache?.phase3Desc?.takeIf { it.isNotBlank() } ?: defaultP3Desc,
                 completedLessons = p3Done,
-                totalLessons = 10,
+                totalLessons = 5,
                 progressPercent = p3Percent,
                 status = p3Status
             )
@@ -354,7 +391,7 @@ object RoadmapManager {
         val defaultAdvice = if (!hasAnyRealStudy) {
             String.format(
                 Locale.US,
-                "Bạn đang ở vạch xuất phát (0 bài đã làm). Để tăng +%.1f Band (từ %.1f lên %.1f) cho mục tiêu %s, Gemini AI đề xuất bắt đầu Chặng 1 ngay hôm nay với đề %s và %s.",
+                "Bạn đang ở vạch xuất phát (0/15 bài đã làm). Để tăng +%.1f Band (từ %.1f lên %.1f) cho mục tiêu %s, hãy bắt đầu Chặng 1 (5 bài) ngay hôm nay với %s và %s.",
                 bandGain,
                 currentBand,
                 targetBand,
@@ -365,7 +402,7 @@ object RoadmapManager {
         } else {
             String.format(
                 Locale.US,
-                "Bạn đã hoàn thành %d/30 bài học (%s đã học). Để tăng +%.1f Band (từ %.1f lên %.1f), Gemini AI đề xuất tiếp tục hoàn thành %s và ôn từ vựng chủ đề %s.",
+                "Bạn đã hoàn thành %d/15 bài học (%s đã học). Để tăng +%.1f Band (từ %.1f lên %.1f), hãy tiếp tục hoàn thành %s và ôn từ vựng chủ đề %s.",
                 completedLessonsTotal,
                 studyTimeLabel,
                 bandGain,
@@ -376,9 +413,7 @@ object RoadmapManager {
             )
         }
 
-        val displayAdvice = aiCache?.strategicAdvice?.let {
-            sanitizeAiStrategicAdvice(it, currentBand, targetBand, countdownLabel)
-        } ?: defaultAdvice
+        val displayAdvice = aiCache?.strategicAdvice?.takeIf { it.isNotBlank() } ?: defaultAdvice
 
         return PersonalizedRoadmapData(
             currentBand = currentBand,
@@ -398,46 +433,84 @@ object RoadmapManager {
     }
 
     /**
-     * Gọi thực tế Google Gemini AI để phân tích hồ sơ học viên và đề xuất lộ trình cá nhân hóa
-     * dựa trên chính xác các đề thi đang có trong ứng dụng.
+     * Gọi thực tế Google Gemini AI trên Backend để phân tích hồ sơ học viên
+     * và sinh lời khuyên Cố vấn chiến lược + 3 Chặng mục tiêu (5 bài/chặng).
      */
     suspend fun generatePersonalizedRoadmapWithAi(context: Context): Result<PersonalizedRoadmapData> {
         return try {
             val currentData = buildRoadmapData(context)
             val userPrefs = context.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE)
-            val focusSkills = userPrefs.getStringSet("focus_skills", setOf("Writing", "Speaking")) ?: setOf("Writing", "Speaking")
+            val focusSkills = (userPrefs.getStringSet("focus_skills", setOf("Writing", "Speaking"))
+                ?: setOf("Writing", "Speaking")).toList()
             val studyGoal = userPrefs.getString("study_goal", "Du học & Học bổng") ?: "Du học & Học bổng"
             val dailyMinutes = userPrefs.getInt("study_minutes", 30)
 
-            val readingCount = ReadingStatsManager.getRecords(context).size
-            val listeningCount = ListeningStatsManager.getRecords(context).size
-            val writingCount = WritingStatsManager.getRecords(context).size
-            val vocabStats = VocabularyProgressManager.summaryStats(context, VocabularyDataSource.allWords)
+            val rawToken = userPrefs.getString(Constants.KEY_AUTH_TOKEN, null)
+            val bearerToken = if (!rawToken.isNullOrBlank()) "Bearer $rawToken" else ""
 
+            val completedTotal = currentData.phases.sumOf { it.completedLessons }
+            val pairKey = String.format(
+                Locale.US,
+                "%.1f_%.1f_%s",
+                currentData.currentBand,
+                currentData.targetBand,
+                focusSkills.sorted().joinToString("-")
+            )
+
+            // 1. Ưu tiên gọi Endpoint chuyên biệt /api/v1/ai/evaluate/roadmap (Gemini 3.5 Flash Lite / Flash)
+            try {
+                val roadmapResp = ApiClient.apiService.generateRoadmap(
+                    token = bearerToken,
+                    request = AiRoadmapRequest(
+                        currentBand = currentData.currentBand,
+                        targetBand = currentData.targetBand,
+                        studyGoal = studyGoal,
+                        dailyMinutes = dailyMinutes,
+                        countdownLabel = currentData.countdownLabel,
+                        focusSkills = focusSkills,
+                        completedLessons = completedTotal,
+                        totalLessons = 15
+                    )
+                )
+                if (roadmapResp.isSuccessful && roadmapResp.body() != null) {
+                    val body = roadmapResp.body()!!
+                    val cache = AiRoadmapCache(
+                        targetPairKey = pairKey,
+                        strategicAdvice = body.strategicAdvice.trim(),
+                        phase1Title = body.phase1Title.trim().ifEmpty { "Nền tảng" },
+                        phase1Desc = ensureFiveLessonsPrefix(body.phase1Desc, 1),
+                        phase2Title = body.phase2Title.trim().ifEmpty { "Bứt phá kỹ năng" },
+                        phase2Desc = ensureFiveLessonsPrefix(body.phase2Desc, 2),
+                        phase3Title = body.phase3Title.trim().ifEmpty { "Đỉnh cao" },
+                        phase3Desc = ensureFiveLessonsPrefix(body.phase3Desc, 3),
+                        aiModel = "AI Cá nhân hóa ✨",
+                        updatedAtMillis = System.currentTimeMillis()
+                    )
+                    saveAiCache(context, cache)
+                    return Result.success(buildRoadmapData(context))
+                }
+            } catch (_: Exception) {
+                // Nếu server đang redeploy, chuyển sang nhánh fallback bên dưới
+            }
+
+            // 2. Fallback qua /api/v1/ai/evaluate/writing nếu endpoint mới đang cập nhật
             val promptTopic = """
                 Vai trò: Chuyên gia lập lộ trình IELTS (IELTS Academic Study Planner).
-                Hãy phân tích hồ sơ thực tế của học viên và đề xuất lộ trình khớp với kho đề trên ứng dụng BandUp IELTS bằng TIẾNG VIỆT:
+                Hãy phân tích hồ sơ học viên bên dưới và đề xuất chiến lược học tập cá nhân hóa bằng TIẾNG VIỆT:
                 - Band hiện tại: ${currentData.currentBand} -> Band mục tiêu: ${currentData.targetBand} (Cần tăng +${String.format(Locale.US, "%.1f", currentData.bandGain)} Band)
-                - Mục tiêu: $studyGoal | Thời gian học cam kết: $dailyMinutes phút/ngày | Thời hạn: ${currentData.countdownLabel}
-                - Kỹ năng ưu tiên: ${focusSkills.joinToString(", ")}
-                - Tiến độ thực tế hiện tại: Đã làm $readingCount đề Reading, $listeningCount đề Listening, $writingCount bài Writing, đã học ${vocabStats.learning + vocabStats.mastered} từ vựng.
-                - Kho đề hiện có trên ứng dụng:
-                  + Reading: Cambridge IELTS 11-19 (Test 1-4)
-                  + Listening: Cambridge IELTS 16-19 (Listening Test 1-4)
-                  + Writing: Cam 18 Test 1 Task 1 (Urban Population Line Graph), Cam 18 Test 1 Task 2 (Aim of Science), Cam 18 Test 2 Task 1 (US Household Income Bar Chart), Cam 18 Test 2 Task 2 (University Curriculum)
-                  + Vocabulary: Environment & Climate, Education & Learning, Technology & AI, Society & Culture, Writing Task 2 Deck, Speaking Idioms Deck.
-                Trong overallFeedback, viết 2-3 câu lời khuyên chiến lược trực tiếp cho học viên (không nhắc đến số từ hay bài luận).
-                Trong improvementPlan (3 phần tử), viết mô tả ngắn gọn (dưới 90 ký tự mỗi phần tử) các đề thi cụ thể học viên cần làm trong Chặng 1, Chặng 2, Chặng 3.
+                - Mục tiêu: $studyGoal | Cam kết: $dailyMinutes phút/ngày | Kỹ năng ưu tiên: ${focusSkills.joinToString(", ")}
+                - Tiến độ hiện tại: Đã hoàn thành $completedTotal/15 bài học trên ứng dụng.
+                Trong overallFeedback và improvementPlan (3 phần tử), hãy nêu rõ:
+                1. Nhận xét chiến lược ngắn gọn (2-3 câu) bằng tiếng Việt về trọng tâm kỹ năng cần bứt phá từ ${currentData.currentBand} lên ${currentData.targetBand}.
+                2. Gợi ý cụ thể nội dung trọng tâm cho 3 giai đoạn (mỗi chặng đúng 5 bài trên app).
             """.trimIndent()
 
             val learnerProfileEssay = """
-                I am an IELTS learner starting at Band ${currentData.currentBand} with a target of Band ${currentData.targetBand} (${currentData.countdownLabel}) for the purpose of $studyGoal.
-                Currently, my real study history on the BandUp application is $readingCount Reading tests completed, $listeningCount Listening tests completed, $writingCount Writing tasks submitted, and ${vocabStats.learning + vocabStats.mastered} vocabulary flashcards studied, committing $dailyMinutes minutes per day and focusing on ${focusSkills.joinToString(" and ")}.
-                Using the exact Cambridge IELTS 18 and 19 Reading, Listening, and Writing tests (Urban Population Line Graph, Aim of Science, US Household Income Bar Chart, University Curriculum) and Vocabulary topics (Environment, Education, Technology, Society) available in the app, please provide a concise Vietnamese strategic coaching summary and three specific phase descriptions tailored to my real progress.
+                I am currently at IELTS Band ${currentData.currentBand} and aiming for Target Band ${currentData.targetBand} (${currentData.countdownLabel}).
+                My current learning record includes $completedTotal out of 15 lessons completed on the BandUp app, committing $dailyMinutes minutes per day and focusing on ${focusSkills.joinToString(" and ")}.
+                To bridge the +${String.format(Locale.US, "%.1f", currentData.bandGain)} band gap effectively, I am following a three-phase roadmap of 5 lessons per phase using Cambridge IELTS 18-19 Reading, Listening, Writing, and SRS Vocabulary.
+                Please evaluate my learning profile and provide a tailored Vietnamese strategic study plan and specific skill milestones for my journey from Band ${currentData.currentBand} to Band ${currentData.targetBand}.
             """.trimIndent()
-
-            val rawToken = userPrefs.getString(Constants.KEY_AUTH_TOKEN, null)
-            val bearerToken = if (!rawToken.isNullOrBlank()) "Bearer $rawToken" else ""
 
             val response = ApiClient.apiService.evaluateWriting(
                 token = bearerToken,
@@ -462,14 +535,10 @@ object RoadmapManager {
                     countdownLabel = currentData.countdownLabel
                 )
 
-                val p1Desc = improvements.getOrNull(0)
-                    ?: "Reading & Listening Cam 18-19 (Test 1), Writing Task 1 (Urban Population) & Từ vựng Environment."
-                val p2Desc = improvements.getOrNull(1)
-                    ?: "Reading & Listening Cam 19 (Test 2-3), Writing Task 2 (Aim of Science) & Từ vựng Education, Technology."
-                val p3Desc = improvements.getOrNull(2)
-                    ?: "Giải đề khó Cam 18-19 (Test 4), Luyện Speaking 1-on-1 với AI & Từ vựng C1-C2."
+                val p1Desc = ensureFiveLessonsPrefix(improvements.getOrNull(0) ?: "", 1)
+                val p2Desc = ensureFiveLessonsPrefix(improvements.getOrNull(1) ?: "", 2)
+                val p3Desc = ensureFiveLessonsPrefix(improvements.getOrNull(2) ?: "", 3)
 
-                val pairKey = String.format(Locale.US, "%.1f_%.1f_%s", currentData.currentBand, currentData.targetBand, focusSkills.sorted().joinToString("-"))
                 val cache = AiRoadmapCache(
                     targetPairKey = pairKey,
                     strategicAdvice = cleanedFeedback,
@@ -489,6 +558,24 @@ object RoadmapManager {
             }
         } catch (e: Exception) {
             Result.failure(e)
+        }
+    }
+
+    /**
+     * Đảm bảo mô tả của từng Chặng luôn liệt kê rõ đúng 5 bài học thực tế trong chặng đó
+     * kèm theo định hướng chiến lược từ AI.
+     */
+    private fun ensureFiveLessonsPrefix(aiDesc: String, phase: Int): String {
+        val coreLessons = when (phase) {
+            1 -> "5 bài: Reading Cam 19 Test 1, Listening Cam 19 Test 1, Reading Cam 18 Test 1, Writing Task 1 (Urban Population) & Từ vựng Environment."
+            2 -> "5 bài: Reading Cam 19 Test 2, Listening Cam 19 Test 2, Reading Cam 18 Test 2, Writing Task 2 (Aim of Science) & Từ vựng Education."
+            else -> "5 bài: Reading Cam 19 Test 3, Listening Cam 19 Test 3, Writing Task 1 (US Income), Writing Task 2 (University) & Từ vựng Technology."
+        }
+        val cleaned = cleanPhaseDescription(aiDesc)
+        return if (cleaned.length >= 15 && cleaned.contains("Cam", ignoreCase = true)) {
+            if (cleaned.startsWith("5 bài", ignoreCase = true)) cleaned else "5 bài: $cleaned"
+        } else {
+            coreLessons
         }
     }
 
@@ -532,7 +619,7 @@ object RoadmapManager {
         } else {
             String.format(
                 Locale.US,
-                "Để bứt phá từ Band %.1f lên %.1f (%s), Gemini AI đề xuất bạn khởi động ngay Chặng 1 với đề Cambridge IELTS 19 Test 1, luyện viết Task 1 Line Graph (Urban Population) và học 15 từ vựng Environment mỗi ngày.",
+                "Để bứt phá từ Band %.1f lên %.1f (%s), Gemini AI đề xuất bạn khởi động ngay Chặng 1 (5 bài) với đề Cambridge IELTS 19 Test 1, luyện viết Task 1 Line Graph (Urban Population) và học 15 từ vựng Environment.",
                 currentBand,
                 targetBand,
                 countdownLabel
@@ -545,10 +632,10 @@ object RoadmapManager {
             .replace(Regex("^Chặng\\s*\\d+[^:]*:\\s*", RegexOption.IGNORE_CASE), "")
             .replace(Regex("^Giai đoạn\\s*\\d+[^:]*:\\s*", RegexOption.IGNORE_CASE), "")
             .trim()
-        if (cleaned.length > 105) {
-            val sub = cleaned.take(105)
+        if (cleaned.length > 135) {
+            val sub = cleaned.take(135)
             val lastSpace = sub.lastIndexOf(' ')
-            cleaned = if (lastSpace > 50) sub.substring(0, lastSpace).trimEnd(',', '.', ';') + "." else "$sub."
+            cleaned = if (lastSpace > 60) sub.substring(0, lastSpace).trimEnd(',', '.', ';') + "." else "$sub."
         }
         return cleaned
     }

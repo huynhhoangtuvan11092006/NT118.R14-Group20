@@ -70,3 +70,42 @@ data class GrammarCorrectionItem(
     @SerializedName("explanation")
     val explanation: String = ""
 )
+
+data class AiRoadmapRequest(
+    @SerializedName("currentBand")
+    val currentBand: Double,
+    @SerializedName("targetBand")
+    val targetBand: Double,
+    @SerializedName("studyGoal")
+    val studyGoal: String,
+    @SerializedName("dailyMinutes")
+    val dailyMinutes: Int,
+    @SerializedName("countdownLabel")
+    val countdownLabel: String,
+    @SerializedName("focusSkills")
+    val focusSkills: List<String>,
+    @SerializedName("completedLessons")
+    val completedLessons: Int,
+    @SerializedName("totalLessons")
+    val totalLessons: Int
+)
+
+data class AiRoadmapResponse(
+    @SerializedName("strategicAdvice")
+    val strategicAdvice: String = "",
+    @SerializedName("phase1Title")
+    val phase1Title: String = "Nền tảng",
+    @SerializedName("phase1Desc")
+    val phase1Desc: String = "",
+    @SerializedName("phase2Title")
+    val phase2Title: String = "Bứt phá kỹ năng",
+    @SerializedName("phase2Desc")
+    val phase2Desc: String = "",
+    @SerializedName("phase3Title")
+    val phase3Title: String = "Đỉnh cao",
+    @SerializedName("phase3Desc")
+    val phase3Desc: String = "",
+    @SerializedName("model")
+    val model: String = "gemini-2.5-flash"
+)
+
