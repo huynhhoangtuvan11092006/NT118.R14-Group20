@@ -332,7 +332,8 @@ class FlashcardActivity : AppCompatActivity() {
                 finalResults[word.id] = (grade == SrsGrade.EASY && word.id !in lapsedIds)
             }
         } else {
-            // Nhấn Bỏ qua / Thẻ tiếp
+            // Nhấn Thẻ tiếp -> vẫn ghi nhận đã học từ này để lưu tiến độ & streak
+            VocabularyProgressManager.grade(this, word.id, SrsGrade.HARD)
             completedWords++
             finalResults[word.id] = false
             queue.removeFirst()

@@ -245,14 +245,18 @@ class LoginActivity : AppCompatActivity() {
                                 }
                             } catch (_: Exception) {}
                         }
-                        val cloudStreak = authData.user.dailyStudyMinutes ?: authData.user.streakDays ?: 6
-                        putInt("streak_days", cloudStreak)
+                        val cloudStreak = authData.user.streakDays ?: 0
+                        if (cloudStreak > 0) {
+                            putInt("streak_days", cloudStreak)
+                        }
                         apply()
                     }
 
-                    // Đồng bộ Streak vào StreakManager trên thiết bị mới
-                    val restoredStreak = authData.user.dailyStudyMinutes ?: authData.user.streakDays ?: 6
-                    com.example.ielts.data.local.StreakManager.syncFromCloud(this@LoginActivity, restoredStreak)
+                    // Đồng bộ Streak từ Cloud (nếu có) và tự khôi phục từ lịch sử bài học trên máy
+                    val restoredStreak = authData.user.streakDays ?: 0
+                    if (restoredStreak > 0) {
+                        com.example.ielts.data.local.StreakManager.syncFromCloud(this@LoginActivity, restoredStreak)
+                    }
 
                     Toast.makeText(
                         this@LoginActivity,
@@ -369,14 +373,18 @@ class LoginActivity : AppCompatActivity() {
                                 }
                             } catch (_: Exception) {}
                         }
-                        val cloudStreak = authData.user.dailyStudyMinutes ?: authData.user.streakDays ?: 6
-                        putInt("streak_days", cloudStreak)
+                        val cloudStreak = authData.user.streakDays ?: 0
+                        if (cloudStreak > 0) {
+                            putInt("streak_days", cloudStreak)
+                        }
                         apply()
                     }
 
-                    // Đồng bộ Streak vào StreakManager trên thiết bị mới
-                    val restoredStreak = authData.user.dailyStudyMinutes ?: authData.user.streakDays ?: 6
-                    com.example.ielts.data.local.StreakManager.syncFromCloud(this@LoginActivity, restoredStreak)
+                    // Đồng bộ Streak từ Cloud (nếu có) và tự khôi phục từ lịch sử bài học trên máy
+                    val restoredStreak = authData.user.streakDays ?: 0
+                    if (restoredStreak > 0) {
+                        com.example.ielts.data.local.StreakManager.syncFromCloud(this@LoginActivity, restoredStreak)
+                    }
 
                     Toast.makeText(
                         this@LoginActivity,

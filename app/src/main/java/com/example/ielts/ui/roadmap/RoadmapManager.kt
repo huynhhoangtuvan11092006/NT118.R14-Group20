@@ -112,17 +112,17 @@ object RoadmapManager {
     // Danh sách 5 bài học thực tế cho từng Chặng (Tổng lộ trình chuẩn: 15 bài học trên app)
     private val PHASE_1_READING_IDS = listOf("cam19-test1", "cam18-test1")
     private val PHASE_1_LISTENING_IDS = listOf("cam19-listening-test1")
-    private val PHASE_1_WRITING_IDS = listOf("cam18-writing-test1-task1")
+    private val PHASE_1_WRITING_IDS = listOf("cam18-test1-task1")
     private const val PHASE_1_VOCAB_TOPIC = VocabularyDataSource.TOPIC_ENVIRONMENT
 
     private val PHASE_2_READING_IDS = listOf("cam19-test2", "cam18-test2")
     private val PHASE_2_LISTENING_IDS = listOf("cam19-listening-test2")
-    private val PHASE_2_WRITING_IDS = listOf("cam18-writing-test1-task2")
+    private val PHASE_2_WRITING_IDS = listOf("cam18-test1-task2")
     private const val PHASE_2_VOCAB_TOPIC = VocabularyDataSource.TOPIC_EDUCATION
 
     private val PHASE_3_READING_IDS = listOf("cam19-test3")
     private val PHASE_3_LISTENING_IDS = listOf("cam19-listening-test3")
-    private val PHASE_3_WRITING_IDS = listOf("cam18-writing-test2-task1", "cam18-writing-test2-task2")
+    private val PHASE_3_WRITING_IDS = listOf("cam18-test2-task1", "cam18-test2-task2")
     private const val PHASE_3_VOCAB_TOPIC = VocabularyDataSource.TOPIC_TECHNOLOGY
 
     /**
@@ -130,21 +130,10 @@ object RoadmapManager {
      */
     fun clearDemoProgressIfNeeded(context: Context) {
         val prefs = context.getSharedPreferences(PREF_ROADMAP, Context.MODE_PRIVATE)
-        if (!prefs.getBoolean("real_progress_migrated_v4", false)) {
-            context.getSharedPreferences("reading_practice_stats_pref", Context.MODE_PRIVATE).edit().clear().apply()
-            context.getSharedPreferences("listening_practice_stats_pref", Context.MODE_PRIVATE).edit().clear().apply()
-            context.getSharedPreferences("writing_practice_stats_pref", Context.MODE_PRIVATE).edit().clear().apply()
-            context.getSharedPreferences("vocabulary_srs_pref", Context.MODE_PRIVATE).edit().clear().apply()
-            context.getSharedPreferences("vocabulary_srs_prefs", Context.MODE_PRIVATE).edit().clear().apply()
-            StreakManager.resetStreakIfNoRealStudy(context, false)
-            prefs.edit()
-                .remove(KEY_AI_CACHE_JSON)
-                .putBoolean("real_progress_migrated_v4", true)
-                .apply()
-        }
         if (!prefs.getBoolean("real_progress_migrated_v5", false)) {
             prefs.edit()
                 .remove(KEY_AI_CACHE_JSON)
+                .putBoolean("real_progress_migrated_v4", true)
                 .putBoolean("real_progress_migrated_v5", true)
                 .apply()
         }
@@ -199,17 +188,13 @@ object RoadmapManager {
         val vocabStats = VocabularyProgressManager.summaryStats(context, VocabularyDataSource.allWords)
         val vocabLearnedTotal = vocabStats.learning + vocabStats.mastered
 
+        val streakData = StreakManager.getStreakData(context)
+        val streakDays = streakData.currentStreak
         val hasAnyRealStudy = readingRecords.isNotEmpty() ||
             listeningRecords.isNotEmpty() ||
             writingRecords.isNotEmpty() ||
-            vocabLearnedTotal > 0
-
-        if (!hasAnyRealStudy) {
-            StreakManager.resetStreakIfNoRealStudy(context, false)
-        }
-
-        val streakData = StreakManager.getStreakData(context)
-        val streakDays = if (hasAnyRealStudy) streakData.currentStreak else 0
+            vocabLearnedTotal > 0 ||
+            streakDays > 0
 
         // Tổng thời gian học thực tế (phút)
         val readingMinutes = readingRecords.size * 60
@@ -313,16 +298,22 @@ object RoadmapManager {
             "${targetWritingTest.topic} • ${targetWritingTest.durationMinutes} phút (AI chấm)"
         }
 
-        // Task 3: Vocabulary Topic thực tế trên app
+        // Task 3: Vocabulary Topic thực tế trên app (ưu tiên chủ đề đang học dở để hiển thị đúng số từ vừa học)
         val targetVocabTopic = allVocabTopics.firstOrNull { topic ->
+            val learned = countTopicLearned(context, topic.id)
+            learned in 1..14
+        } ?: allVocabTopics.firstOrNull { topic ->
             countTopicLearned(context, topic.id) < 15
         } ?: allVocabTopics.first()
 
         val topicPool = VocabularyDataSource.resolveScope(VocabularyDataSource.SCOPE_TOPIC, targetVocabTopic.id)
         val topicLearned = countTopicLearned(context, targetVocabTopic.id)
-        val isVocabTaskDone = topicLearned >= 15 && streakData.isActiveToday
-        val vocabSubtitle = if (topicLearned > 0) {
-            "Đã học $topicLearned/${topicPool.size} từ • Chủ đề ${targetVocabTopic.titleVi}"
+        val todayIso = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(java.util.Date())
+        val todayWordsStudied = VocabularyProgressManager.getDailyCountsMap(context)[todayIso] ?: 0
+        val effectiveVocabLearned = max(topicLearned, todayWordsStudied)
+        val isVocabTaskDone = effectiveVocabLearned >= 15
+        val vocabSubtitle = if (effectiveVocabLearned > 0) {
+            "Đã học $effectiveVocabLearned/15 từ mục tiêu • Chủ đề ${targetVocabTopic.titleVi}"
         } else {
             "Chưa học (0/${topicPool.size} từ) • ${targetVocabTopic.titleVi}"
         }

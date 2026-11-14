@@ -248,13 +248,16 @@ class MainActivity : AppCompatActivity() {
             val topicPool = VocabularyDataSource.resolveScope(VocabularyDataSource.SCOPE_TOPIC, topicId)
             val topicStats = VocabularyProgressManager.summaryStats(this, topicPool)
             val learnedInTopic = topicStats.learning + topicStats.mastered
+            val todayIso = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(java.util.Date())
+            val todayWords = VocabularyProgressManager.getDailyCountsMap(this)[todayIso] ?: 0
+            val effectiveLearned = maxOf(learnedInTopic, todayWords)
             val topicName = vocabTask.title.substringAfter(": ").ifEmpty { "Academic" }
 
             tvPlanVocabTitle.text = "Từ vựng"
             tvPlanVocabSubtitle.text = if (vocabTask.isCompleted) {
-                "✓ $topicName ($learnedInTopic/15 từ)"
+                "✓ $topicName ($effectiveLearned/15 từ)"
             } else {
-                "$topicName • $learnedInTopic/15 từ"
+                "$topicName • $effectiveLearned/15 từ"
             }
             btnStartVocab.text = if (vocabTask.isCompleted) "✓ Đã xong" else "▶ Học ngay"
         }
@@ -383,7 +386,11 @@ class MainActivity : AppCompatActivity() {
                             } catch (_: Exception) {}
                         }
 
-                        prefs.edit().clear().apply()
+                        prefs.edit()
+                            .remove(Constants.KEY_AUTH_TOKEN)
+                            .remove(Constants.KEY_REFRESH_TOKEN)
+                            .putBoolean(Constants.KEY_IS_LOGGED_IN, false)
+                            .apply()
                         getSharedPreferences("ielts_login_preferences", MODE_PRIVATE)
                             .edit()
                             .putBoolean("IS_LOGGED_IN", false)

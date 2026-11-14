@@ -60,22 +60,64 @@ object StreakManager {
     }
 
     /**
-     * Lấy toàn bộ thông tin streak hiện tại
+     * Lấy toàn bộ thông tin streak hiện tại (tự động đồng bộ từ lịch sử bài học thực tế nếu có)
      */
     fun getStreakData(context: Context): StreakData {
         val prefs = getPrefs(context)
         val todayStr = getTodayString()
 
-        // Chỉ tính streak khi người dùng thực sự đã có hoạt động học tập
         val completedDates = prefs.getStringSet(KEY_COMPLETED_DATES, emptySet())?.toMutableSet() ?: mutableSetOf()
         val frozenDates = prefs.getStringSet(KEY_FROZEN_DATES, emptySet())?.toMutableSet() ?: mutableSetOf()
 
-        val rawStreak = prefs.getInt(KEY_CURRENT_STREAK, 0)
+        // Tự động khôi phục các ngày có dữ liệu học thực tế (Reading, Listening, Writing, Từ vựng)
+        var modified = false
+        ReadingStatsManager.getRecords(context).values.forEach { rec ->
+            if (rec.completedAtMillis > 0L) {
+                val d = dateFormat.format(Date(rec.completedAtMillis))
+                if (completedDates.add(d)) modified = true
+            }
+        }
+        ListeningStatsManager.getRecords(context).values.forEach { rec ->
+            if (rec.completedAtMillis > 0L) {
+                val d = dateFormat.format(Date(rec.completedAtMillis))
+                if (completedDates.add(d)) modified = true
+            }
+        }
+        WritingStatsManager.getRecords(context).values.forEach { rec ->
+            if (rec.completedAtMillis > 0L) {
+                val d = dateFormat.format(Date(rec.completedAtMillis))
+                if (completedDates.add(d)) modified = true
+            }
+        }
+        VocabularyProgressManager.getDailyCountsMap(context).forEach { (dateStr, count) ->
+            if (count > 0 && dateStr.isNotBlank()) {
+                if (completedDates.add(dateStr)) modified = true
+            }
+        }
+
+        var rawStreak = prefs.getInt(KEY_CURRENT_STREAK, 0)
+        if (completedDates.isNotEmpty() && (rawStreak <= 0 || modified)) {
+            val computed = computeConsecutiveStreak(todayStr, completedDates, frozenDates)
+            rawStreak = maxOf(rawStreak, computed, 1)
+            val newLongest = maxOf(prefs.getInt(KEY_LONGEST_STREAK, 0), rawStreak)
+            val latestDate = completedDates.maxOrNull() ?: todayStr
+            prefs.edit()
+                .putInt(KEY_CURRENT_STREAK, rawStreak)
+                .putInt(KEY_LONGEST_STREAK, newLongest)
+                .putString(KEY_LAST_ACTIVE_DATE, latestDate)
+                .putStringSet(KEY_COMPLETED_DATES, completedDates)
+                .commit()
+            context.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE)
+                .edit()
+                .putInt("streak_days", rawStreak)
+                .apply()
+        }
+
         val currentStreak = if (completedDates.isEmpty()) 0 else rawStreak
-        val longestStreak = if (completedDates.isEmpty()) 0 else prefs.getInt(KEY_LONGEST_STREAK, currentStreak)
+        val longestStreak = if (completedDates.isEmpty()) 0 else maxOf(prefs.getInt(KEY_LONGEST_STREAK, currentStreak), currentStreak)
         val freezeCount = prefs.getInt(KEY_FREEZE_COUNT, 1)
         val freezeEnabled = prefs.getBoolean(KEY_FREEZE_ENABLED, true)
-        val lastActiveDate = prefs.getString(KEY_LAST_ACTIVE_DATE, null)
+        val lastActiveDate = prefs.getString(KEY_LAST_ACTIVE_DATE, completedDates.maxOrNull())
 
         val isActiveToday = completedDates.contains(todayStr)
 
@@ -90,6 +132,33 @@ object StreakManager {
             lastActiveDate = lastActiveDate,
             weeklyDays = weeklyDays
         )
+    }
+
+    private fun computeConsecutiveStreak(
+        todayStr: String,
+        completedDates: Set<String>,
+        frozenDates: Set<String>
+    ): Int {
+        if (completedDates.isEmpty()) return 0
+        val cal = Calendar.getInstance()
+        var count = 0
+        // Kiểm tra từ hôm nay lùi về trước; nếu hôm nay chưa học nhưng hôm qua có học thì tính từ hôm qua
+        val todayCheck = dateFormat.format(cal.time)
+        if (!completedDates.contains(todayCheck) && !frozenDates.contains(todayCheck)) {
+            cal.add(Calendar.DAY_OF_YEAR, -1)
+        }
+        for (i in 0..365) {
+            val dStr = dateFormat.format(cal.time)
+            if (completedDates.contains(dStr)) {
+                count++
+                cal.add(Calendar.DAY_OF_YEAR, -1)
+            } else if (frozenDates.contains(dStr)) {
+                cal.add(Calendar.DAY_OF_YEAR, -1)
+            } else {
+                break
+            }
+        }
+        return if (count > 0) count else 1
     }
 
     /**
@@ -115,8 +184,21 @@ object StreakManager {
         var isFreezeUsed = false
 
         if (completedDates.contains(todayStr)) {
-            // Đã hoàn thành mục tiêu hôm nay rồi -> không tăng streak thêm
+            // Đã hoàn thành mục tiêu hôm nay rồi -> đảm bảo currentStreak tối thiểu là 1
             isFirstActivityToday = false
+            if (currentStreak <= 0) {
+                currentStreak = maxOf(1, computeConsecutiveStreak(todayStr, completedDates, frozenDates))
+                longestStreak = maxOf(longestStreak, currentStreak)
+                prefs.edit()
+                    .putInt(KEY_CURRENT_STREAK, currentStreak)
+                    .putInt(KEY_LONGEST_STREAK, longestStreak)
+                    .putString(KEY_LAST_ACTIVE_DATE, todayStr)
+                    .commit()
+                context.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE)
+                    .edit()
+                    .putInt("streak_days", currentStreak)
+                    .apply()
+            }
         } else {
             // Lần đầu hoàn thành trong ngày
             isFirstActivityToday = true
@@ -169,7 +251,7 @@ object StreakManager {
 
             longestStreak = maxOf(longestStreak, currentStreak)
 
-            // Lưu lại SharedPreferences
+            // Lưu lại SharedPreferences đồng bộ (commit) để không bao giờ bị mất khi thoát Activity
             prefs.edit()
                 .putInt(KEY_CURRENT_STREAK, currentStreak)
                 .putInt(KEY_LONGEST_STREAK, longestStreak)
@@ -177,16 +259,13 @@ object StreakManager {
                 .putString(KEY_LAST_ACTIVE_DATE, todayStr)
                 .putStringSet(KEY_COMPLETED_DATES, completedDates)
                 .putStringSet(KEY_FROZEN_DATES, frozenDates)
-                .apply()
+                .commit()
 
             // Đồng bộ sang preference chung Constants.PREF_NAME cho MainActivity
             context.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE)
                 .edit()
                 .putInt("streak_days", currentStreak)
-                .apply()
-
-            // Đồng bộ lên Cloud Backend để khi sang máy khác đăng nhập không bị mất
-            syncStreakToBackend(context, currentStreak)
+                .commit()
         }
 
         return StreakRecordResult(

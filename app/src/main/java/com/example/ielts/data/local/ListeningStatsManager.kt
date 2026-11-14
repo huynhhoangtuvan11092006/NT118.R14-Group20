@@ -81,7 +81,9 @@ object ListeningStatsManager {
             .putString(KEY_RECORDED_TESTS_MAP, Gson().toJson(currentRecords))
             .putFloat(KEY_PREV_BAND, prevRecent)
             .putFloat(KEY_RECENT_BAND, bandEstimate.toFloat())
-            .apply()
+            .commit()
+
+        StreakManager.recordActivity(context, "LISTENING")
     }
 
     fun getSummaryStats(context: Context): ListeningSummaryStats {

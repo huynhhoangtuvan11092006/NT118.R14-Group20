@@ -84,7 +84,7 @@ object VocabularyProgressManager {
         val map = getAll(context).toMutableMap()
         val old = map[wordId] ?: WordProgress()
 
-        if (!old.seen) registerNewWordToday(context)
+        registerWordStudiedToday(context, wordId, isNewWord = !old.seen)
 
         val updated = when (grade) {
             SrsGrade.AGAIN -> WordProgress(
@@ -103,7 +103,10 @@ object VocabularyProgressManager {
             }
         }
         map[wordId] = updated
-        prefs(context).edit().putString(KEY_PROGRESS_MAP, Gson().toJson(map)).apply()
+        prefs(context).edit().putString(KEY_PROGRESS_MAP, Gson().toJson(map)).commit()
+
+        // Ghi nhận hoạt động học từ vựng vào Streak ngay lập tức để không bị mất nếu thoát sớm
+        StreakManager.recordActivity(context, "VOCABULARY")
         return updated
     }
 
@@ -114,32 +117,45 @@ object VocabularyProgressManager {
         return if (p.getString(KEY_NEW_DATE, null) == todayKey()) p.getInt(KEY_NEW_COUNT, 0) else 0
     }
 
-    private fun registerNewWordToday(context: Context) {
+    private fun registerWordStudiedToday(context: Context, wordId: String, isNewWord: Boolean) {
         val today = todayKey()
         val p = prefs(context)
-        val count = newWordsToday(context) + 1
-        val dailyMap = getDailyCountsMap(context).toMutableMap()
-        dailyMap[today] = count
+        val studiedSetKey = "key_vocab_studied_ids_$today"
+        val studiedTodaySet = p.getStringSet(studiedSetKey, emptySet())?.toMutableSet() ?: mutableSetOf()
+        studiedTodaySet.add(wordId)
+
+        val newCount = if (isNewWord) newWordsToday(context) + 1 else newWordsToday(context)
+        val dailyCount = maxOf(studiedTodaySet.size, newCount)
+
+        val dailyMap = getDailyCountsMapRaw(p).toMutableMap()
+        dailyMap[today] = maxOf(dailyMap[today] ?: 0, dailyCount)
+
         p.edit()
             .putString(KEY_NEW_DATE, today)
-            .putInt(KEY_NEW_COUNT, count)
+            .putInt(KEY_NEW_COUNT, maxOf(newCount, dailyCount))
+            .putStringSet(studiedSetKey, studiedTodaySet)
             .putString(KEY_DAILY_COUNTS, Gson().toJson(dailyMap))
-            .apply()
+            .commit()
+    }
+
+    private fun getDailyCountsMapRaw(p: SharedPreferences): Map<String, Int> {
+        val rawJson = p.getString(KEY_DAILY_COUNTS, null)
+        return try {
+            if (rawJson != null) {
+                val type = object : TypeToken<Map<String, Int>>() {}.type
+                Gson().fromJson<Map<String, Int>>(rawJson, type) ?: emptyMap()
+            } else {
+                emptyMap()
+            }
+        } catch (_: Exception) {
+            emptyMap()
+        }
     }
 
     fun getDailyCountsMap(context: Context): Map<String, Int> {
         val p = prefs(context)
-        val rawJson = p.getString(KEY_DAILY_COUNTS, null)
-        val map = try {
-            if (rawJson != null) {
-                val type = object : TypeToken<Map<String, Int>>() {}.type
-                Gson().fromJson<Map<String, Int>>(rawJson, type)?.toMutableMap() ?: mutableMapOf()
-            } else {
-                mutableMapOf()
-            }
-        } catch (_: Exception) {
-            mutableMapOf()
-        }
+        val map = getDailyCountsMapRaw(p).toMutableMap()
+
         val lastDate = p.getString(KEY_NEW_DATE, null)
         val lastCount = p.getInt(KEY_NEW_COUNT, 0)
         if (!lastDate.isNullOrBlank() && lastCount > 0) {
@@ -147,6 +163,13 @@ object VocabularyProgressManager {
             if (lastCount > existing) {
                 map[lastDate] = lastCount
             }
+        }
+
+        val totalSeen = getAll(context).values.count { it.seen }
+        val sumRecorded = map.values.sum()
+        if (totalSeen > sumRecorded) {
+            val targetDate = if (!lastDate.isNullOrBlank()) lastDate else todayKey()
+            map[targetDate] = (map[targetDate] ?: 0) + (totalSeen - sumRecorded)
         }
         return map
     }

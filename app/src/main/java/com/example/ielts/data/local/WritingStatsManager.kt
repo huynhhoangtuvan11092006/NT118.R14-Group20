@@ -38,13 +38,55 @@ object WritingStatsManager {
     }
 
     fun getRecords(context: Context): Map<String, SavedWritingRecord> {
-        val json = getPrefs(context).getString(KEY_RECORDED_TESTS_MAP, null) ?: return emptyMap()
-        return try {
-            val type = object : TypeToken<Map<String, SavedWritingRecord>>() {}.type
-            Gson().fromJson(json, type) ?: emptyMap()
-        } catch (e: Exception) {
+        val prefs = getPrefs(context)
+        val json = prefs.getString(KEY_RECORDED_TESTS_MAP, null)
+        val existing: Map<String, SavedWritingRecord> = if (json != null) {
+            try {
+                val type = object : TypeToken<Map<String, SavedWritingRecord>>() {}.type
+                Gson().fromJson<Map<String, SavedWritingRecord>>(json, type) ?: emptyMap()
+            } catch (e: Exception) {
+                emptyMap()
+            }
+        } else {
             emptyMap()
         }
+        if (existing.isNotEmpty()) return existing
+
+        // Fallback recovery from writing_practice_prefs if main stats map was previously cleared
+        val legacyPrefs = context.getSharedPreferences("writing_practice_prefs", Context.MODE_PRIVATE)
+        val recovered = mutableMapOf<String, SavedWritingRecord>()
+        for ((key, value) in legacyPrefs.all) {
+            if (key.startsWith("saved_result_") && value is String && value.isNotBlank()) {
+                val testId = key.removePrefix("saved_result_")
+                try {
+                    val obj = org.json.JSONObject(value)
+                    val overall = obj.optDouble("estimatedBand", obj.optDouble("overallBand", 0.0))
+                    if (overall > 0.0) {
+                        recovered[testId] = SavedWritingRecord(
+                            testId = testId,
+                            overallBand = overall,
+                            taskAchievementBand = obj.optDouble("taskAchievementBand", overall),
+                            coherenceBand = obj.optDouble("coherenceBand", overall),
+                            lexicalBand = obj.optDouble("lexicalBand", overall),
+                            grammarBand = obj.optDouble("grammarBand", overall),
+                            wordCount = obj.optInt("wordCount", 150),
+                            timeSpentSeconds = obj.optInt("timeSpentSeconds", 900),
+                            resultJson = value,
+                            completedAtMillis = obj.optLong("completedAtMillis", System.currentTimeMillis())
+                        )
+                    }
+                } catch (_: Exception) {
+                }
+            }
+        }
+        if (recovered.isNotEmpty()) {
+            val latestBand = recovered.values.maxByOrNull { it.completedAtMillis }?.overallBand?.toFloat() ?: 0f
+            prefs.edit()
+                .putString(KEY_RECORDED_TESTS_MAP, Gson().toJson(recovered))
+                .putFloat(KEY_RECENT_BAND, latestBand)
+                .commit()
+        }
+        return recovered
     }
 
     fun recordTestCompletion(
@@ -82,7 +124,9 @@ object WritingStatsManager {
             .putString(KEY_RECORDED_TESTS_MAP, Gson().toJson(records))
             .putFloat(KEY_PREV_BAND, prevBand)
             .putFloat(KEY_RECENT_BAND, overallBand.toFloat())
-            .apply()
+            .commit()
+
+        StreakManager.recordActivity(context, "WRITING")
     }
 
     fun getSummaryStats(context: Context): WritingSummaryStats {
