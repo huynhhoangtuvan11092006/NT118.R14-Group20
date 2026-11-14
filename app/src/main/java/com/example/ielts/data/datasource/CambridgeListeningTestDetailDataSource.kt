@@ -1536,8 +1536,27 @@ object CambridgeListeningTestDetailDataSource {
                 sectionNumber = 4,
                 title = "Part 4: Victor Hugo",
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758844/%E5%89%9118_section4_part1.mp3",
-                durationSeconds = 430,
-                transcript = "[00:00] Part 4. You will hear a lecture on French author Victor Hugo."
+                durationSeconds = 440,
+                transcript = "[01:06] LECTURER: The person I've chosen to discuss is Victor Hugo, a famous French writer of the nineteenth century.\n" +
+                    "[01:18] LECTURER: Many people know him because of his novel Les Misérables, published in 1862. The story became a famous stage musical in the 1980s, and a film adaptation was released in 2012.\n" +
+                    "[01:41] LECTURER: Although people may know the general plot, they often know less about the author himself. [Q31] Today, I'll focus on his home on the island of Guernsey, one of the British Channel Islands.\n" +
+                    "[02:03] LECTURER: Hugo was highly respected in Paris and was a leading figure in the Romantic literary movement. Besides writing, he spoke publicly about social problems, including poverty and the need for educational reform. [Q32]\n" +
+                    "[02:31] LECTURER: His criticism of the authorities was unwelcome. Eventually, Napoleon III ordered him to leave Paris and prohibited him from returning. Hugo was therefore forced into exile.\n" +
+                    "[02:56] LECTURER: He lived in several places elsewhere in Europe. [Q33] Guernsey was his third place of exile, and he arrived there in 1855. During his stay, he continued writing, including work on Les Misérables.\n" +
+                    "[03:14] LECTURER: He bought the property using money earned from publishing a collection of poetry in France. [Q34] It was the only property he ever owned, and he took great pride in it.\n" +
+                    "[03:38] LECTURER: The house was a large, five-storey building in St Peter Port, the island's capital. Hugo lived there for fifteen years and returned to France in 1870 after Napoleon's empire fell.\n" +
+                    "[03:54] LECTURER: He decorated each floor differently, and the interior is now regarded by many as a work of art. The house has become a museum that receives about 200,000 visitors each year.\n" +
+                    "[04:12] LECTURER: Family portraits remain on the ground floor, alongside drawings Hugo made during his travels. [Q35] Other rooms contain large tapestries that he designed or valued.\n" +
+                    "[04:33] LECTURER: Hugo created decorative wooden wall panels himself. He bought inexpensive wooden furniture at a market and transformed it into detailed carvings. [Q36]\n" +
+                    "[04:55] LECTURER: These dark wooden decorations give the lower floor a serious, shadowy atmosphere.\n" +
+                    "[05:03] LECTURER: On the next floor, there are two impressive lounges used for entertaining guests. One is decorated mainly in red, while the other uses blue.\n" +
+                    "[05:12] LECTURER: Chinese design influenced the wallpaper and lamps. Hugo made the lamps himself by copying existing examples. [Q37]\n" +
+                    "[05:27] LECTURER: His library contains many of his favourite books and forms part of the passage leading to the third floor. It was a comfortable place where he could relax during the afternoon.\n" +
+                    "[05:40] LECTURER: At the top of the house is a room known as the Lookout because it overlooks the harbour. [Q38] Unlike the darker rooms below, it is bright and resembles a glass office.\n" +
+                    "[05:58] LECTURER: Hugo often worked at his desk there and continued writing until lunchtime.\n" +
+                    "[06:06] LECTURER: Although Hugo was a talented writer, he also cared deeply about social issues. He entertained well-known writers at his home, but he also invited many disadvantaged local children to dinner once a week. [Q39]\n" +
+                    "[06:30] LECTURER: In 1927, Hugo's relatives owned the house and decided to donate it to the city of Paris. [Q40]\n" +
+                    "[06:47] LECTURER: The building was later restored with the help of historical photographs. Today, it remains a museum open to the public."
             )
         )
 
@@ -1983,100 +2002,100 @@ object CambridgeListeningTestDetailDataSource {
                 id = "cam18_t4_q31",
                 position = 31,
                 type = "FILL_IN_BLANK",
-                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nEarly career\nâ€¢ Hugo's fame was based on the 31 ________ of Les MisÃ©rables\nâ€¢ campaigned against [ 32 ] and social injustice",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHis life\n• 1802: Hugo was born\n• 1862: Hugo's novel Les Misérables was published\n  - even people who have not read it know its 31 ________\n• Hugo used his fame to oppose [ 32 ] and also tried to reform the educational system",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 60,
+                timestampStart = 101,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q32",
                 position = 32,
                 type = "FILL_IN_BLANK",
-                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nEarly career\nâ€¢ Hugo's fame was based on the [ 31 ] of Les MisÃ©rables\nâ€¢ campaigned against 32 ________ and social injustice\nâ€¢ forced into exile in [ 33 ]",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHis life\n• 1862: Hugo's novel Les Misérables was published\n  - even people who have not read it know its [ 31 ]\n• Hugo used his fame to oppose 32 ________ and also tried to reform the educational system\n• 1851: Hugo had to flee from Paris and went to live in other parts of [ 33 ]",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 90,
+                timestampStart = 123,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q33",
                 position = 33,
                 type = "FILL_IN_BLANK",
-                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nExile on Guernsey\nâ€¢ lived in various countries across 33 ________\nâ€¢ wrote acclaimed volumes of [ 34 ]",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHis life\n• Hugo used his fame to oppose [ 32 ] and also tried to reform the educational system\n• 1851: Hugo had to flee from Paris and went to live in other parts of 33 ________\n• 1855: Hugo bought Hauteville House on Guernsey with money from a successful volume of [ 34 ]",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 120,
+                timestampStart = 176,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q34",
                 position = 34,
                 type = "FILL_IN_BLANK",
-                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nExile on Guernsey\nâ€¢ lived in various countries across [ 33 ]\nâ€¢ wrote acclaimed volumes of 34 ________\nâ€¢ created numerous [ 35 ] of the island",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHis life\n• 1851: Hugo had to flee from Paris and went to live in other parts of [ 33 ]\n• 1855: Hugo bought Hauteville House on Guernsey with money from a successful volume of 34 ________\n\nHauteville House\n• Decorated each floor in a different style\n• Ground floor: contains family portraits and Hugo's own [ 35 ]",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 150,
+                timestampStart = 194,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q35",
                 position = 35,
                 type = "FILL_IN_BLANK",
-                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHauteville House\nâ€¢ decorated with his own 35 ________\nâ€¢ designed unique wooden [ 36 ]",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHauteville House\n• Decorated each floor in a different style\n• Ground floor: contains family portraits and Hugo's own 35 ________\n• Lower floor: wall panels made of cheap wooden [ 36 ] which Hugo carved himself",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 180,
+                timestampStart = 252,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q36",
                 position = 36,
                 type = "FILL_IN_BLANK",
-                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHauteville House\nâ€¢ decorated with his own [ 35 ]\nâ€¢ designed unique wooden 36 ________\nâ€¢ installed elaborate [ 37 ] throughout the house",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHauteville House\n• Ground floor: contains family portraits and Hugo's own [ 35 ]\n• Lower floor: wall panels made of cheap wooden 36 ________ which Hugo carved himself\n• Next floor:\n  - two lounges\n  - Chinese wallpaper\n  - [ 37 ] made by Hugo",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 210,
+                timestampStart = 273,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q37",
                 position = 37,
                 type = "FILL_IN_BLANK",
-                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHauteville House\nâ€¢ designed unique wooden [ 36 ]\nâ€¢ installed elaborate 37 ________ throughout the house\nâ€¢ writing room had a view of the [ 38 ]",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHauteville House\n• Lower floor: wall panels made of cheap wooden [ 36 ] which Hugo carved himself\n• Next floor:\n  - two lounges\n  - Chinese wallpaper\n  - 37 ________ made by Hugo\n• Top floor:\n  - Hugo's writing room is called the 'Lookout'\n  - has a view of the [ 38 ]",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 240,
+                timestampStart = 312,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q38",
                 position = 38,
                 type = "FILL_IN_BLANK",
-                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHauteville House\nâ€¢ writing room had a view of the 38 ________\nâ€¢ provided free meals for local [ 39 ]",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHauteville House\n• Next floor:\n  - two lounges\n  - Chinese wallpaper\n  - [ 37 ] made by Hugo\n• Top floor:\n  - Hugo's writing room is called the 'Lookout'\n  - has a view of the 38 ________\n\nLater years\n• Held regular dinners at home for poor local [ 39 ]",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 270,
+                timestampStart = 340,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q39",
                 position = 39,
                 type = "FILL_IN_BLANK",
-                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nLater years\nâ€¢ provided free meals for local 39 ________\nâ€¢ house bequeathed to the city by his [ 40 ]",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHauteville House\n• Top floor:\n  - Hugo's writing room is called the 'Lookout'\n  - has a view of the [ 38 ]\n\nLater years\n• Held regular dinners at home for poor local 39 ________\n• 1927: Hauteville House was given to Paris by Hugo's [ 40 ]",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 300,
+                timestampStart = 366,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q40",
                 position = 40,
                 type = "FILL_IN_BLANK",
-                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nLater years\nâ€¢ house bequeathed to the city by his 40 ________ in 1927",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nLater years\n• Held regular dinners at home for poor local [ 39 ]\n• 1927: Hauteville House was given to Paris by Hugo's 40 ________",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 330,
+                timestampStart = 390,
                 timestampEnd = 0
             )
         )

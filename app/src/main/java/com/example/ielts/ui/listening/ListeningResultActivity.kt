@@ -723,8 +723,16 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
                 "Preparing examples for every stage of the folding process must have taken time, but it was an effective idea.",
                 "Maybe some teachers simply don't feel confident doing practical work with their hands.",
                 "It might also be useful when we teach fractions, which is coming up soon.",
-                "Dẫn chứng câu 31", "Dẫn chứng câu 32", "Dẫn chứng câu 33", "Dẫn chứng câu 34", "Dẫn chứng câu 35",
-                "Dẫn chứng câu 36", "Dẫn chứng câu 37", "Dẫn chứng câu 38", "Dẫn chứng câu 39", "Dẫn chứng câu 40"
+                "Although people may know the general plot, they often know less about the author himself.",
+                "Besides writing, he spoke publicly about social problems, including poverty and the need for educational reform.",
+                "He lived in several places elsewhere in Europe. Guernsey was his third place of exile",
+                "He bought the property using money earned from publishing a collection of poetry in France.",
+                "Family portraits remain on the ground floor, alongside drawings Hugo made during his travels.",
+                "Hugo created decorative wooden wall panels himself. He bought inexpensive wooden furniture at a market and transformed it into detailed carvings.",
+                "Chinese design influenced the wallpaper and lamps. Hugo made the lamps himself by copying existing examples.",
+                "At the top of the house is a room known as the Lookout because it overlooks the harbour.",
+                "He entertained well-known writers at his home, but he also invited many disadvantaged local children to dinner once a week.",
+                "In 1927, Hugo's relatives owned the house and decided to donate it to the city of Paris."
             )
         } else if (isTest3) {
             listOf(
@@ -834,7 +842,7 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
                 106, 122, 134, 158, 169, 238, 258, 303, 337, 348,
                 67, 101, 144, 176, 246, 290, 305, 350, 366, 379,
                 88, 123, 157, 171, 186, 198, 214, 286, 323, 350,
-                60, 90, 120, 150, 180, 210, 240, 270, 300, 330
+                101, 123, 176, 194, 252, 273, 312, 340, 366, 390
             )
         } else if (isTest3) {
             listOf(
