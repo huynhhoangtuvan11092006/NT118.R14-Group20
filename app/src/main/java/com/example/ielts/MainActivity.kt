@@ -37,6 +37,14 @@ class MainActivity : AppCompatActivity() {
         loadUserData()
         setupListeners()
         com.example.ielts.ui.reminder.StudyReminderScheduler.scheduleDailyReminder(this)
+
+        if (intent.getBooleanExtra("OPEN_ROADMAP_AFTER_PROFILE", false)) {
+            intent.removeExtra("OPEN_ROADMAP_AFTER_PROFILE")
+            val roadmapIntent = Intent(this, com.example.ielts.ui.roadmap.RoadmapActivity::class.java).apply {
+                putExtra("EXTRA_FORCE_AI_REFRESH", true)
+            }
+            startActivity(roadmapIntent)
+        }
     }
 
     private fun initViews() {
@@ -70,10 +78,7 @@ class MainActivity : AppCompatActivity() {
                         val user = response.body()!!.user
                         val realName = user.fullName
                         val realBand = user.targetBand?.toDouble() ?: cachedBand.toDouble()
-                        val streak = user.dailyStudyMinutes ?: user.streakDays ?: cachedStreak
-
-                        // Đồng bộ chuỗi ngày vào StreakManager trên thiết bị này
-                        com.example.ielts.data.local.StreakManager.syncFromCloud(this@MainActivity, streak)
+                        val streak = user.streakDays ?: 0
 
                         var examDateFormatted = cachedExamDate
                         user.expectedExamDate?.let { isoDate ->
@@ -92,7 +97,9 @@ class MainActivity : AppCompatActivity() {
                             putString(Constants.KEY_USER_NAME, realName)
                             putFloat(Constants.KEY_TARGET_BAND, realBand.toFloat())
                             putString("exam_date", examDateFormatted)
-                            putInt("streak_days", streak)
+                            if (user.expectedExamDate != null) {
+                                putString("exam_date_iso", user.expectedExamDate.take(10))
+                            }
                             apply()
                         }
 
@@ -111,17 +118,18 @@ class MainActivity : AppCompatActivity() {
         tvGreetingName.text = "Chào $shortName! 👋"
         tvUserInitial.text = shortName.firstOrNull()?.uppercase() ?: "U"
 
-        // Mục tiêu band
+        // Mục tiêu band & dữ liệu thực tế từ RoadmapManager
+        val roadmapData = com.example.ielts.ui.roadmap.RoadmapManager.buildRoadmapData(this)
         tvTargetBandTitle.text = "MỤC TIÊU %.1f".format(targetBand)
-        val currentBand = 5.5
+        val currentBand = roadmapData.currentBand
         val diff = (targetBand - currentBand).coerceAtLeast(0.0)
         tvRemainingBand.text = if (diff > 0) "Còn %.1f Band nữa!".format(diff) else "Đã đạt mục tiêu!"
 
         // Ngày thi
         tvExamDateForecast.text = "Dự kiến: $examDate"
 
-        // Radial gauge & linear progress
-        val progressPercent = ((currentBand / targetBand) * 100).toInt().coerceIn(10, 100)
+        // Radial gauge & linear progress dựa trên tiến độ làm bài thực tế
+        val progressPercent = roadmapData.overallProgressPercent
         progressRadialBand.progress = progressPercent
         progressRoadmapLinear.progress = progressPercent
         findViewById<TextView>(R.id.tvProgressPercent)?.text = "$progressPercent% hoàn thành"
@@ -208,12 +216,12 @@ class MainActivity : AppCompatActivity() {
 
         // Card Từ vựng
         findViewById<View>(R.id.btnStartVocab)?.setOnClickListener {
-            Toast.makeText(this, "Bắt đầu học 15 từ vựng mới...", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, com.example.ielts.ui.vocabulary.VocabularyHubActivity::class.java))
         }
 
-        // Xem tất cả kế hoạch
+        // Xem tất cả kế hoạch -> Mở Lộ trình cá nhân
         findViewById<View>(R.id.btnViewAllPlan)?.setOnClickListener {
-            startActivity(Intent(this, PracticeHubActivity::class.java))
+            startActivity(Intent(this, com.example.ielts.ui.roadmap.RoadmapActivity::class.java))
         }
 
         // Speaking Part 2 simulator banner
@@ -227,7 +235,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.navRoadmap)?.setOnClickListener {
-            Toast.makeText(this, "Tab Lộ trình học chi tiết", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, com.example.ielts.ui.roadmap.RoadmapActivity::class.java))
         }
 
         findViewById<View>(R.id.navPractice)?.setOnClickListener {

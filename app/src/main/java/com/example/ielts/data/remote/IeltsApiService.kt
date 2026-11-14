@@ -66,12 +66,18 @@ interface IeltsApiService {
         @Body request: UpdateProfileRequest
     ): Response<com.example.ielts.data.remote.dto.UserResponse>
 
-    // --- CHẤM ĐIỂM WRITING BẰNG AI GEMINI ---
+    // --- CHẤM ĐIỂM WRITING & LỘ TRÌNH HỌC BẰNG AI GEMINI ---
     @POST("api/v1/ai/evaluate/writing")
     suspend fun evaluateWriting(
         @Header("Authorization") token: String,
         @Body request: com.example.ielts.data.remote.dto.WritingEvaluationRequest
     ): Response<WritingEvaluationResponse>
+
+    @POST("api/v1/ai/evaluate/roadmap")
+    suspend fun generateRoadmap(
+        @Header("Authorization") token: String,
+        @Body request: com.example.ielts.data.remote.dto.AiRoadmapRequest
+    ): Response<com.example.ielts.data.remote.dto.AiRoadmapResponse>
 
     // --- LUYỆN THI READING ---
     @GET("api/v1/tests?type=READING")
