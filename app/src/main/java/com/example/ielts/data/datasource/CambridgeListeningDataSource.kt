@@ -134,10 +134,10 @@ object CambridgeListeningDataSource {
                 totalAudioDuration = 1825,
                 totalQuestions = 40,
                 sectionTitles = listOf(
-                    "Section 1: Bicycle Rental and Scenic Cycling Route Inquiry",
-                    "Section 2: Summer Youth Sailing Club Activities & Safety",
-                    "Section 3: Economics Seminar on Microfinance in Developing Nations",
-                    "Section 4: Zoology Lecture on Arctic Fox Adaptation & Survival"
+                    "Part 1: Wayside Camera Club",
+                    "Part 2: Picking Mushrooms",
+                    "Part 3: Automation and the Future of Work",
+                    "Part 4: Space Traffic Management"
                 ),
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758712/%E5%89%9118_section3_part1.mp3",
                 userProgress = null

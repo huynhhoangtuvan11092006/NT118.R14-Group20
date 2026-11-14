@@ -558,9 +558,21 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         val timeSpent = (totalExamDurationSeconds - remainingSeconds).toInt().coerceAtLeast(60)
         val testId = testDetail?.id ?: "cam18-listening-test1"
 
+        val isTest3 = testId.contains("test3") || testDetail?.title?.contains("Test 3") == true
         val isTest2 = testId.contains("test2") || testDetail?.title?.contains("Test 2") == true
 
-        val defaultAnswers = if (isTest2) {
+        val defaultAnswers = if (isTest3) {
+            listOf(
+                "Marrowfield", "relative", "socialise", "full", "Domestic life",
+                "clouds", "timing", "Animal Magic", "movement", "dark",
+                "B", "C", "B", "D", "C",
+                "B", "B", "C", "A", "A",
+                "A", "E", "B", "D", "C",
+                "A", "B", "C", "A", "B",
+                "technical", "cheap", "thousands", "identification", "tracking",
+                "military", "location", "prediction", "database", "trust"
+            )
+        } else if (isTest2) {
             listOf(
                 "training", "discount", "taxi", "service", "English",
                 "Wivenhoe", "equipment", "9.75", "deliveries", "Sunday",
@@ -568,16 +580,8 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                 "C", "D", "B", "H", "A",
                 "C", "A", "B", "B", "A",
                 "B", "D", "A", "C", "F",
-                "nothing is quite as convenient as being able to pop your phone or credit card into your pocket.",
-                "male fashion first, that was the time when suits became popular.",
-                "pockets were sewn into this cloth by whichever tailor the customer used.",
-                "plainer if the wearer was someone with a profession who needed to carry medical instruments",
-                "For one thing, they weren't nearly as visible or as easy to reach as men's.",
-                "have a pair of pockets made that were tied together with string.",
-                "Women tied the pockets around their waist so that they hung beneath their clothes.",
-                "opening in the folds of their skirts, through which they could reach whatever they needed, like their perfume.",
-                "They stood out too much and detracted from the woman's image.",
-                "inevitably led onto the handbag of more modern times, particularly when fashion removed pockets altogether."
+                "convenient", "suits", "tailor", "profession", "visible",
+                "string", "waist", "perfume", "image", "handbag"
             )
         } else {
             listOf(
@@ -592,7 +596,26 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
             )
         }
 
-        val defaultQuotes = if (isTest2) {
+        val defaultQuotes = if (isTest3) {
+            listOf(
+                "It's number 52, Marrowfield Street.",
+                "Actually, a relative told me about it.",
+                "I'd also like to meet other people who share my interest in photography.",
+                "I think I'd prefer the full membership.",
+                "The theme was Domestic Life. I submitted a photograph of a family sitting around a table and having dinner together.",
+                "The judges felt that the photograph would have been better if there had been some clouds in the sky.",
+                "They also thought I'd taken the photograph too early. I should have waited longer to capture the most impressive moment.",
+                "It was called Animal Magic.",
+                "There were quite a lot of photographs of animals, which can be difficult because animals don't always stay still.",
+                "I managed to take a nice photograph of a fox, but the problem was that the picture was taken at night and it came out too dark.",
+                "Dẫn chứng câu 11", "Dẫn chứng câu 12", "Dẫn chứng câu 13", "Dẫn chứng câu 14", "Dẫn chứng câu 15",
+                "Dẫn chứng câu 16", "Dẫn chứng câu 17", "Dẫn chứng câu 18", "Dẫn chứng câu 19", "Dẫn chứng câu 20",
+                "Dẫn chứng câu 21", "Dẫn chứng câu 22", "Dẫn chứng câu 23", "Dẫn chứng câu 24", "Dẫn chứng câu 25",
+                "Dẫn chứng câu 26", "Dẫn chứng câu 27", "Dẫn chứng câu 28", "Dẫn chứng câu 29", "Dẫn chứng câu 30",
+                "Dẫn chứng câu 31", "Dẫn chứng câu 32", "Dẫn chứng câu 33", "Dẫn chứng câu 34", "Dẫn chứng câu 35",
+                "Dẫn chứng câu 36", "Dẫn chứng câu 37", "Dẫn chứng câu 38", "Dẫn chứng câu 39", "Dẫn chứng câu 40"
+            )
+        } else if (isTest2) {
             listOf(
                 "all employees get training, even temporary staff.",
                 "you can get a discount at any of their restaurants.",
@@ -624,16 +647,8 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                 "the famine there led to more people dying than any other country.",
                 "included an unusually high percentage of people under the age of 25.",
                 "snowbound until March in Virginia... ice floating down the Mississippi, which was unprecedented.",
-                "nothing is quite as convenient as being able to pop your phone or credit card into your pocket.",
-                "male fashion first, that was the time when suits became popular.",
-                "pockets were sewn into this cloth by whichever tailor the customer used.",
-                "plainer if the wearer was someone with a profession who needed to carry medical instruments",
-                "For one thing, they weren't nearly as visible or as easy to reach as men's.",
-                "have a pair of pockets made that were tied together with string.",
-                "Women tied the pockets around their waist so that they hung beneath their clothes.",
-                "opening in the folds of their skirts, through which they could reach whatever they needed, like their perfume.",
-                "They stood out too much and detracted from the woman's image.",
-                "inevitably led onto the handbag of more modern times, particularly when fashion removed pockets altogether."
+                "convenient", "suits", "tailor", "profession", "visible",
+                "string", "waist", "perfume", "image", "handbag"
             )
         } else {
             listOf(
@@ -660,7 +675,14 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
             )
         }
 
-        val timestamps = if (isTest2) {
+        val timestamps = if (isTest3) {
+            listOf(
+                124, 146, 178, 195, 266, 323, 340, 355, 359, 375,
+                60, 90, 120, 150, 180, 210, 240, 270, 300, 330,
+                60, 90, 120, 150, 180, 210, 240, 270, 300, 330,
+                60, 90, 120, 150, 180, 210, 240, 270, 300, 330
+            )
+        } else if (isTest2) {
             listOf(
                 99, 115, 136, 172, 204, 254, 288, 316, 361, 441,
                 79, 112, 159, 179, 299, 308, 333, 340, 362, 370,
@@ -690,7 +712,46 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
             }
             val userRaw = answersMap[i]?.trim() ?: ""
             val correctAns = defaultAnswers.getOrElse(i - 1) { "A" }
-            val isCorrect = if (isTest2) {
+            val isCorrect = if (isTest3) {
+                when (i) {
+                    1 -> userRaw.contains("Marrowfield", ignoreCase = true)
+                    2 -> userRaw.contains("relative", ignoreCase = true)
+                    3 -> userRaw.contains("socialis", ignoreCase = true) || userRaw.contains("socializ", ignoreCase = true)
+                    4 -> userRaw.equals("full", ignoreCase = true) || userRaw.contains("full", ignoreCase = true)
+                    5 -> userRaw.contains("Domestic", ignoreCase = true)
+                    6 -> userRaw.contains("cloud", ignoreCase = true)
+                    7 -> userRaw.contains("timing", ignoreCase = true)
+                    8 -> userRaw.contains("Animal Magic", ignoreCase = true)
+                    9 -> userRaw.contains("movement", ignoreCase = true)
+                    10 -> userRaw.contains("dark", ignoreCase = true)
+                    11, 12 -> {
+                        val pairAnswers = setOf("B", "C")
+                        val uAns = userRaw.uppercase().trim().take(1)
+                        uAns in pairAnswers
+                    }
+                    13, 14 -> {
+                        val pairAnswers = setOf("B", "D")
+                        val uAns = userRaw.uppercase().trim().take(1)
+                        uAns in pairAnswers
+                    }
+                    21, 22 -> {
+                        val pairAnswers = setOf("A", "E")
+                        val uAns = userRaw.uppercase().trim().take(1)
+                        uAns in pairAnswers
+                    }
+                    23, 24 -> {
+                        val pairAnswers = setOf("B", "D")
+                        val uAns = userRaw.uppercase().trim().take(1)
+                        uAns in pairAnswers
+                    }
+                    else -> {
+                        if (userRaw.isBlank()) false
+                        else userRaw.equals(correctAns, ignoreCase = true) ||
+                             userRaw.contains(correctAns, ignoreCase = true) ||
+                             correctAns.contains(userRaw, ignoreCase = true)
+                    }
+                }
+            } else if (isTest2) {
                 when (i) {
                     8 -> userRaw.contains("9.75", ignoreCase = true) || userRaw.contains("9,75")
                     9 -> userRaw.contains("deliveries", ignoreCase = true) || userRaw.contains("delivery", ignoreCase = true)

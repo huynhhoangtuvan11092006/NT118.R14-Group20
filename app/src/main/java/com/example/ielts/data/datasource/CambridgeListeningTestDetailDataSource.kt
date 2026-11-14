@@ -10,7 +10,9 @@ object CambridgeListeningTestDetailDataSource {
         val allTests = CambridgeListeningDataSource.getAllTests()
         val testItem = allTests.find { it.id == testId }
             ?: allTests.find { testTitle != null && it.title.equals(testTitle, ignoreCase = true) }
-            ?: if (testId.contains("test2") || testTitle?.contains("Test 2") == true) {
+            ?: if (testId.contains("test3") || testTitle?.contains("Test 3") == true) {
+                allTests.find { it.id == "cam18-listening-test3" } ?: allTests.first()
+            } else if (testId.contains("test2") || testTitle?.contains("Test 2") == true) {
                 allTests.find { it.id == "cam18-listening-test2" } ?: allTests.first()
             } else if (testId.contains("18") || testTitle?.contains("18") == true) {
                 allTests.find { it.id == "cam18-listening-test1" } ?: allTests.first()
@@ -18,7 +20,9 @@ object CambridgeListeningTestDetailDataSource {
                 allTests.first()
             }
 
-        return if (testItem.id == "cam18-listening-test2" || testTitle?.contains("Test 2") == true || testId.contains("test2")) {
+        return if (testItem.id == "cam18-listening-test3" || testTitle?.contains("Test 3") == true || testId.contains("test3")) {
+            getCam18Test3Detail(testItem)
+        } else if (testItem.id == "cam18-listening-test2" || testTitle?.contains("Test 2") == true || testId.contains("test2")) {
             getCam18Test2Detail(testItem)
         } else {
             getCam18Test1Detail(testItem)
@@ -915,6 +919,456 @@ object CambridgeListeningTestDetailDataSource {
                 options = null,
                 sectionNumber = 4,
                 timestampStart = 325,
+                timestampEnd = 0
+            )
+        )
+
+        return ListeningTestDetailDto(
+            id = testItem.id,
+            title = testItem.title,
+            summary = testItem.summary,
+            audioUrl = testItem.audioUrl,
+            durationMinutes = testItem.durationMinutes,
+            sections = sections,
+            questions = questions
+        )
+    }
+
+
+    private fun getCam18Test3Detail(testItem: com.example.ielts.data.remote.dto.ListeningTestListItemDto): ListeningTestDetailDto {
+        val sections = listOf(
+            ListeningSectionDto(
+                sectionNumber = 1,
+                title = "Part 1: Wayside Camera Club",
+                audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758712/%E5%89%9118_section3_part1.mp3",
+                durationSeconds = 405,
+                transcript = "[00:36] ANNOUNCER: Introduction. A man is making a phone call to a photography club because he is interested in becoming a member.\n[01:15] WOMAN: Hello, Wayside Camera Club. Brida speaking. How can I help you?\n[01:18] DAN: Hello. My name is Dan Green. I'm calling because I'd like to become a member of your club.\n[01:23] WOMAN: Certainly. I can help you complete the registration over the phone. I'll just need to ask you a few questions first.\n[01:32] WOMAN: Could I have your surname, please?\n[01:36] DAN: It's Green.\n[01:39] WOMAN: Thank you. And what is your email address?\n[01:42] DAN: He provides his email address.\n[01:49] WOMAN: Could you also tell me your home address?\n[01:53] DAN: I live in Peacetown, which is approximately ten miles from the club. I live in a house.\n[02:00] WOMAN: Right. What's the number of your house and the name of the street?\n[02:04] DAN: It's number 52, Marrowfield Street. [Q1]\n[02:07] WOMAN: Could you spell the street name for me? I want to make sure I've written it correctly.\n[02:19] DAN: He confirms the spelling.\n[02:20] WOMAN: Now, how did you first hear about our camera club? Was it through the Internet?\n[02:26] DAN: Actually, a relative told me about it. [Q2]\n[02:37] WOMAN: Is that relative already a member of our club?\n[02:39] DAN: No. He belongs to a different photography club, but he has heard positive things about yours.\n[02:44] WOMAN: I see. And what made you interested in joining us?\n[02:48] DAN: I'm particularly interested in taking part in the photography competitions organised by the club.\n[02:56] WOMAN: Is there anything else that attracts you to the club?\n[02:58] DAN: I'd also like to meet other people who share my interest in photography. [Q3]\n[03:02] WOMAN: That's good. We offer two types of membership. Full membership costs £30 per year, while associate membership is £20 annually.\n[03:15] DAN: I think I'd prefer the full membership. [Q4]\n[03:19] WOMAN: That's fine. Associate members can attend activities, but they don't have the right to vote at club meetings. Now, I'd like to ask you a little about your previous photography experience.\n[04:11] WOMAN: Have you ever entered any photography competitions before?\n[04:15] DAN: Yes, I've entered three competitions, although I haven't actually won any of them.\n[04:26] WOMAN: Could you tell me about the first competition?\n[04:30] DAN: The theme was Domestic Life. I submitted a photograph of a family sitting around a table and having dinner together. [Q5]\n[04:38] WOMAN: What sort of comments did the judges make about your photograph?\n[04:42] DAN: They said that the picture was rather cluttered. There were too many things in the photograph, so the main subject wasn't clear enough.\n[04:51] WOMAN: And what about the second competition?\n[04:55] DAN: It was held near the university, in a coastal area. The subject was sunsets, so I decided to take a picture of the sun going down.\n[05:23] DAN: The judges felt that the photograph would have been better if there had been some clouds in the sky. The picture mainly showed a blue sky and the setting sun. [Q6]\n[05:40] DAN: They also thought I'd taken the photograph too early. I should have waited longer to capture the most impressive moment. [Q7]\n[05:55] WOMAN: What was the theme of your third competition?\n[05:59] DAN: It was called Animal Magic. There were quite a lot of photographs of animals, which can be difficult because animals don't always stay still. [Q8] [Q9]\n[06:15] DAN: I managed to take a nice photograph of a fox, but the problem was that the picture was taken at night and it came out too dark. [Q10]\n[06:28] WOMAN: Well, you certainly seem enthusiastic about photography. We're very pleased to have you joining the club. I'm sure you'll have plenty of opportunities to develop your skills here.\n[06:38] ANNOUNCER: End of Part 1."
+            ),
+            ListeningSectionDto(
+                sectionNumber = 2,
+                title = "Part 2: Picking Mushrooms",
+                audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758712/%E5%89%9118_section3_part1.mp3",
+                durationSeconds = 410,
+                transcript = "[00:00] Part 2. You will hear a talk on picking wild mushrooms."
+            ),
+            ListeningSectionDto(
+                sectionNumber = 3,
+                title = "Part 3: Automation and the Future of Work",
+                audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758712/%E5%89%9118_section3_part1.mp3",
+                durationSeconds = 420,
+                transcript = "[00:00] Part 3. You will hear two students discussing automation and the future of work."
+            ),
+            ListeningSectionDto(
+                sectionNumber = 4,
+                title = "Part 4: Space Traffic Management",
+                audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758712/%E5%89%9118_section3_part1.mp3",
+                durationSeconds = 430,
+                transcript = "[00:00] Part 4. You will hear a lecture on space traffic management and space debris."
+            )
+        )
+
+        val questions = listOf(
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q1",
+                position = 1,
+                type = "FILL_IN_BLANK",
+                prompt = "Wayside Camera Club membership form\nComplete the form below. Write ONE WORD AND/OR A NUMBER for each answer.\n\nName: Dan Green\nEmail address: dan1068@market.com\nHome address: 52 1 ________ Street, Peacetown\nHeard about us: from a [ 2 ]",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 124,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q2",
+                position = 2,
+                type = "FILL_IN_BLANK",
+                prompt = "Wayside Camera Club membership form\nComplete the form below. Write ONE WORD AND/OR A NUMBER for each answer.\n\nName: Dan Green\nHome address: 52 [ 1 ] Street, Peacetown\nHeard about us: from a 2 ________\nReasons for joining:\nâ€¢ to enter competitions\nâ€¢ to [ 3 ] with other photographers",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 146,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q3",
+                position = 3,
+                type = "FILL_IN_BLANK",
+                prompt = "Wayside Camera Club membership form\nComplete the form below. Write ONE WORD AND/OR A NUMBER for each answer.\n\nHeard about us: from a [ 2 ]\nReasons for joining:\nâ€¢ to enter competitions\nâ€¢ to 3 ________ with other photographers\nType of membership: [ 4 ] membership (Â£30)",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 178,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q4",
+                position = 4,
+                type = "FILL_IN_BLANK",
+                prompt = "Wayside Camera Club membership form\nComplete the form below. Write ONE WORD AND/OR A NUMBER for each answer.\n\nReasons for joining:\nâ€¢ to enter competitions\nâ€¢ to [ 3 ] with other photographers\nType of membership: 4 ________ membership (Â£30)",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 195,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q5",
+                position = 5,
+                type = "FILL_IN_BLANK",
+                prompt = "Dan's photography\nComplete the table below. Write NO MORE THAN TWO WORDS for each answer.\n\nTitle of competition: 5 ________\nInstructions: A scene in the home\nFeedback to Dan: The picture's composition was not good",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 266,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q6",
+                position = 6,
+                type = "FILL_IN_BLANK",
+                prompt = "Dan's photography\nComplete the table below. Write NO MORE THAN TWO WORDS for each answer.\n\nTitle of competition: 'Beautiful Sunsets'\nInstructions: Scene must show some 6 ________\nFeedback to Dan: The [ 7 ] was wrong",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 323,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q7",
+                position = 7,
+                type = "FILL_IN_BLANK",
+                prompt = "Dan's photography\nComplete the table below. Write NO MORE THAN TWO WORDS for each answer.\n\nTitle of competition: 'Beautiful Sunsets'\nInstructions: Scene must show some [ 6 ]\nFeedback to Dan: The 7 ________ was wrong",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 340,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q8",
+                position = 8,
+                type = "FILL_IN_BLANK",
+                prompt = "Dan's photography\nComplete the table below. Write NO MORE THAN TWO WORDS for each answer.\n\nTitle of competition: 8 ________\nInstructions: Scene must show [ 9 ]\nFeedback to Dan: The photograph was too [ 10 ]",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 355,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q9",
+                position = 9,
+                type = "FILL_IN_BLANK",
+                prompt = "Dan's photography\nComplete the table below. Write NO MORE THAN TWO WORDS for each answer.\n\nTitle of competition: [ 8 ]\nInstructions: Scene must show 9 ________\nFeedback to Dan: The photograph was too [ 10 ]",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 359,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q10",
+                position = 10,
+                type = "FILL_IN_BLANK",
+                prompt = "Dan's photography\nComplete the table below. Write NO MORE THAN TWO WORDS for each answer.\n\nTitle of competition: [ 8 ]\nInstructions: Scene must show [ 9 ]\nFeedback to Dan: The photograph was too 10 ________",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 375,
+                timestampEnd = 0
+            ),
+            // Provisional Q11-40
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q11",
+                position = 11,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Picking mushrooms\nQuestions 11 and 12: Choose TWO letters, Aâ€“E.\nWhich TWO reasons does the speaker give for choosing to go mushroom picking?\n(Chá» n lá»±a chá» n thá»© nháº¥t trong 2 Ä‘Ã¡p Ã¡n)",
+                options = listOf("A. it is good exercise", "B. it provides free organic food", "C. it is relaxing", "D. it can be done with children", "E. it teaches about nature"),
+                sectionNumber = 2,
+                timestampStart = 60,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q12",
+                position = 12,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Picking mushrooms\nQuestions 11 and 12: Choose TWO letters, Aâ€“E.\nWhich TWO reasons does the speaker give for choosing to go mushroom picking?\n(Chá» n lá»±a chá» n thá»© hai trong 2 Ä‘Ã¡p Ã¡n)",
+                options = listOf("A. it is good exercise", "B. it provides free organic food", "C. it is relaxing", "D. it can be done with children", "E. it teaches about nature"),
+                sectionNumber = 2,
+                timestampStart = 90,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q13",
+                position = 13,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Picking mushrooms\nQuestions 13 and 14: Choose TWO letters, Aâ€“E.\nWhich TWO pieces of advice does the speaker give to beginners?\n(Chá» n lá»±a chá» n thá»© nháº¥t trong 2 Ä‘Ã¡p Ã¡n)",
+                options = listOf("A. pick only small quantities", "B. go with an experienced picker", "C. use a guidebook with colour photos", "D. only pick common types", "E. avoid picking after heavy rain"),
+                sectionNumber = 2,
+                timestampStart = 120,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q14",
+                position = 14,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Picking mushrooms\nQuestions 13 and 14: Choose TWO letters, Aâ€“E.\nWhich TWO pieces of advice does the speaker give to beginners?\n(Chá» n lá»±a chá» n thá»© hai trong 2 Ä‘Ã¡p Ã¡n)",
+                options = listOf("A. pick only small quantities", "B. go with an experienced picker", "C. use a guidebook with colour photos", "D. only pick common types", "E. avoid picking after heavy rain"),
+                sectionNumber = 2,
+                timestampStart = 150,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q15",
+                position = 15,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Picking mushrooms\nQuestions 15â€“20: Choose the correct letter, A, B or C.\n15. The speaker says the most important safety rule is to",
+                options = listOf("A. wear gloves when picking.", "B. cook all mushrooms thoroughly.", "C. never eat any mushroom you cannot identify."),
+                sectionNumber = 2,
+                timestampStart = 180,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q16",
+                position = 16,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Picking mushrooms\n16. What does the speaker say about mushroom identification apps?",
+                options = listOf("A. They are usually completely accurate.", "B. They should be used with caution.", "C. They are too complicated for beginners."),
+                sectionNumber = 2,
+                timestampStart = 210,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q17",
+                position = 17,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Picking mushrooms\n17. When picking mushrooms in public forests, pickers must",
+                options = listOf("A. pay a small permit fee.", "B. stick to designated paths.", "C. avoid commercial collection."),
+                sectionNumber = 2,
+                timestampStart = 240,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q18",
+                position = 18,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Picking mushrooms\n18. The best container for carrying collected mushrooms is a",
+                options = listOf("A. plastic bag.", "B. cloth sack.", "C. wicker basket."),
+                sectionNumber = 2,
+                timestampStart = 270,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q19",
+                position = 19,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Picking mushrooms\n19. What should you do before cooking fresh wild mushrooms?",
+                options = listOf("A. Brush away dirt rather than washing them.", "B. Soak them in salted water for an hour.", "C. Peel off the outer skin."),
+                sectionNumber = 2,
+                timestampStart = 300,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q20",
+                position = 20,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Picking mushrooms\n20. What is the speaker's favourite way to preserve extra mushrooms?",
+                options = listOf("A. drying them", "B. pickling in vinegar", "C. freezing in airtight bags"),
+                sectionNumber = 2,
+                timestampStart = 330,
+                timestampEnd = 0
+            ),
+            // Section 3: Q21-30
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q21",
+                position = 21,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Automation and the future of work\nQuestions 21 and 22: Choose TWO letters, Aâ€“E.\nWhich TWO opinions do the students express about the Luddites?\n(Chá» n lá»±a chá» n thá»© nháº¥t trong 2 Ä‘Ã¡p Ã¡n)",
+                options = listOf("A. Their actions were ineffective.", "B. They were motivated by greed.", "C. They targeted the wrong machines.", "D. They received little public support.", "E. Their attitude is understandable."),
+                sectionNumber = 3,
+                timestampStart = 60,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q22",
+                position = 22,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Automation and the future of work\nQuestions 21 and 22: Choose TWO letters, Aâ€“E.\nWhich TWO opinions do the students express about the Luddites?\n(Chá» n lá»±a chá» n thá»© hai trong 2 Ä‘Ã¡p Ã¡n)",
+                options = listOf("A. Their actions were ineffective.", "B. They were motivated by greed.", "C. They targeted the wrong machines.", "D. They received little public support.", "E. Their attitude is understandable."),
+                sectionNumber = 3,
+                timestampStart = 90,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q23",
+                position = 23,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Automation and the future of work\nQuestions 23 and 24: Choose TWO letters, Aâ€“E.\nWhich TWO predictions about the future of work are the students doubtful about?\n(Chá» n lá»±a chá» n thá»© nháº¥t trong 2 Ä‘Ã¡p Ã¡n)",
+                options = listOf("A. More jobs will require IT skills.", "B. Unemployment will fall.", "C. Many repetitive jobs will disappear.", "D. Working hours will be shorter.", "E. Remote work will become universal."),
+                sectionNumber = 3,
+                timestampStart = 120,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q24",
+                position = 24,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Automation and the future of work\nQuestions 23 and 24: Choose TWO letters, Aâ€“E.\nWhich TWO predictions about the future of work are the students doubtful about?\n(Chá» n lá»±a chá» n thá»© hai trong 2 Ä‘Ã¡p Ã¡n)",
+                options = listOf("A. More jobs will require IT skills.", "B. Unemployment will fall.", "C. Many repetitive jobs will disappear.", "D. Working hours will be shorter.", "E. Remote work will become universal."),
+                sectionNumber = 3,
+                timestampStart = 150,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q25",
+                position = 25,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Automation and the future of work\n25. What do the students agree about current government retraining schemes?",
+                options = listOf("A. They are poorly funded.", "B. They focus too much on manufacturing.", "C. They do not prepare people for real jobs."),
+                sectionNumber = 3,
+                timestampStart = 180,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q26",
+                position = 26,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Automation and the future of work\n26. Both students believe that future education should place more emphasis on",
+                options = listOf("A. soft skills like critical thinking.", "B. advanced mathematics.", "C. vocational apprenticeships."),
+                sectionNumber = 3,
+                timestampStart = 210,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q27",
+                position = 27,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Automation and the future of work\n27. How does the female student feel about artificial intelligence in healthcare?",
+                options = listOf("A. suspicious of its diagnostic accuracy", "B. optimistic about earlier disease detection", "C. concerned about patient privacy"),
+                sectionNumber = 3,
+                timestampStart = 240,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q28",
+                position = 28,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Automation and the future of work\n28. What point is made about the gig economy?",
+                options = listOf("A. It offers unmatched flexibility.", "B. It is mainly used by young people.", "C. It lacks essential worker protections."),
+                sectionNumber = 3,
+                timestampStart = 270,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q29",
+                position = 29,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Automation and the future of work\n29. Regarding the concept of Universal Basic Income, the male student",
+                options = listOf("A. questions whether countries can afford it.", "B. thinks it would discourage people from working.", "C. argues it would reduce economic inequality."),
+                sectionNumber = 3,
+                timestampStart = 300,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q30",
+                position = 30,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Automation and the future of work\n30. For their presentation, the students decide to focus on",
+                options = listOf("A. a comparison of three different industries.", "B. the impact of automation on service sector jobs.", "C. an interview with a tech company CEO."),
+                sectionNumber = 3,
+                timestampStart = 330,
+                timestampEnd = 0
+            ),
+            // Section 4: Q31-40
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q31",
+                position = 31,
+                type = "FILL_IN_BLANK",
+                prompt = "Space Traffic Management\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nBackground\nâ€¢ launch costs have reduced due to 31 ________ advancements\nâ€¢ small satellites have become relatively [ 32 ]",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 60,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q32",
+                position = 32,
+                type = "FILL_IN_BLANK",
+                prompt = "Space Traffic Management\nBackground\nâ€¢ launch costs have reduced due to [ 31 ] advancements\nâ€¢ small satellites have become relatively 32 ________ to build\nâ€¢ currently [ 33 ] of objects orbit the Earth",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 90,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q33",
+                position = 33,
+                type = "FILL_IN_BLANK",
+                prompt = "Space Traffic Management\nScale of the problem\nâ€¢ currently 33 ________ of pieces of debris are in low Earth orbit\nâ€¢ accurate [ 34 ] of debris is very challenging",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 120,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q34",
+                position = 34,
+                type = "FILL_IN_BLANK",
+                prompt = "Space Traffic Management\nChallenges\nâ€¢ accurate 34 ________ of smaller fragments is difficult\nâ€¢ constant [ 35 ] requires advanced radar and optical systems",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 150,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q35",
+                position = 35,
+                type = "FILL_IN_BLANK",
+                prompt = "Space Traffic Management\nChallenges\nâ€¢ constant 35 ________ of space debris requires global cooperation\nâ€¢ sensitive [ 36 ] satellites share the same orbits",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 180,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q36",
+                position = 36,
+                type = "FILL_IN_BLANK",
+                prompt = "Space Traffic Management\nSecurity concerns\nâ€¢ sensitive 36 ________ satellites share the same orbits\nâ€¢ precise [ 37 ] data is not always publicly shared",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 210,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q37",
+                position = 37,
+                type = "FILL_IN_BLANK",
+                prompt = "Space Traffic Management\nFuture solutions\nâ€¢ precise 37 ________ data needs to be shared in real time\nâ€¢ improved collision [ 38 ] models are essential",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 240,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q38",
+                position = 38,
+                type = "FILL_IN_BLANK",
+                prompt = "Space Traffic Management\nFuture solutions\nâ€¢ improved collision 38 ________ models are essential\nâ€¢ creating a unified international [ 39 ]",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 270,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q39",
+                position = 39,
+                type = "FILL_IN_BLANK",
+                prompt = "Space Traffic Management\nFuture solutions\nâ€¢ creating an open, international 39 ________\nâ€¢ fostering [ 40 ] between international agencies and private companies",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 300,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t3_q40",
+                position = 40,
+                type = "FILL_IN_BLANK",
+                prompt = "Space Traffic Management\nConclusion\nâ€¢ fostering 40 ________ among spacefaring nations is critical to ensure space remains accessible",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 330,
                 timestampEnd = 0
             )
         )
