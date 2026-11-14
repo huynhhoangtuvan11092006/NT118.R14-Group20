@@ -2,6 +2,7 @@ package com.example.ielts.data.datasource
 
 import com.example.ielts.data.remote.dto.ListeningQuestionDetailDto
 import com.example.ielts.data.remote.dto.ListeningSectionDto
+import com.example.ielts.R
 import com.example.ielts.data.remote.dto.ListeningTestDetailDto
 
 object CambridgeListeningTestDetailDataSource {
@@ -517,7 +518,7 @@ object CambridgeListeningTestDetailDataSource {
             )
         )
 
-        val questions = listOf(
+                val questions = listOf(
             // ==================== PART 1: Working at Milo's Restaurants ====================
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q1",
@@ -527,7 +528,9 @@ object CambridgeListeningTestDetailDataSource {
                 options = null,
                 sectionNumber = 1,
                 timestampStart = 99,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part1_notes,
+                imageTitle = "Ghi chú: Working at Milo's Restaurants"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q2",
@@ -537,7 +540,9 @@ object CambridgeListeningTestDetailDataSource {
                 options = null,
                 sectionNumber = 1,
                 timestampStart = 115,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part1_notes,
+                imageTitle = "Ghi chú: Working at Milo's Restaurants"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q3",
@@ -547,7 +552,9 @@ object CambridgeListeningTestDetailDataSource {
                 options = null,
                 sectionNumber = 1,
                 timestampStart = 136,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part1_notes,
+                imageTitle = "Ghi chú: Working at Milo's Restaurants"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q4",
@@ -557,7 +564,9 @@ object CambridgeListeningTestDetailDataSource {
                 options = null,
                 sectionNumber = 1,
                 timestampStart = 172,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part1_notes,
+                imageTitle = "Ghi chú: Working at Milo's Restaurants"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q5",
@@ -567,57 +576,69 @@ object CambridgeListeningTestDetailDataSource {
                 options = null,
                 sectionNumber = 1,
                 timestampStart = 204,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part1_notes,
+                imageTitle = "Ghi chú: Working at Milo's Restaurants"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q6",
                 position = 6,
                 type = "FILL_IN_BLANK",
-                prompt = "Jobs available\nComplete the table below.\nWrite ONE WORD AND/OR A NUMBER for each answer.\n\nLocation: 6 ________ Street\nJob title: Breakfast supervisor\nResponsibilities include:\n• Checking portions, etc. are correct\n• Making sure [ 7 ] is clean\nPay and conditions:\n• Starting salary [ 8 ] £ per hour\n• Start work at 5.30 a.m.",
+                prompt = "Jobs available\nComplete the table below.\nWrite ONE WORD AND/OR A NUMBER for each answer.\n\nLocation: 6 ________ Street\nJob title: Breakfast supervisor\nResponsibilities include:\n• Checking portions, etc. are correct\n• Making sure [ 7 ] is clean\nPay and conditions:\n• Starting salary: £ [ 8 ] per hour\n• Start work at 5.30 a.m.",
                 options = null,
                 sectionNumber = 1,
                 timestampStart = 254,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part1_table,
+                imageTitle = "Bảng tuyển dụng (Questions 6–10)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q7",
                 position = 7,
                 type = "FILL_IN_BLANK",
-                prompt = "Jobs available\nComplete the table below.\nWrite ONE WORD AND/OR A NUMBER for each answer.\n\nLocation: [ 6 ] Street\nJob title: Breakfast supervisor\nResponsibilities include:\n• Checking portions, etc. are correct\n• Making sure 7 ________ is clean\nPay and conditions:\n• Starting salary [ 8 ] £ per hour\n• Start work at 5.30 a.m.",
+                prompt = "Jobs available\nComplete the table below.\nWrite ONE WORD AND/OR A NUMBER for each answer.\n\nLocation: [ 6 ] Street\nJob title: Breakfast supervisor\nResponsibilities include:\n• Checking portions, etc. are correct\n• Making sure 7 ________ is clean\nPay and conditions:\n• Starting salary: £ [ 8 ] per hour\n• Start work at 5.30 a.m.",
                 options = null,
                 sectionNumber = 1,
                 timestampStart = 288,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part1_table,
+                imageTitle = "Bảng tuyển dụng (Questions 6–10)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q8",
                 position = 8,
                 type = "FILL_IN_BLANK",
-                prompt = "Jobs available\nComplete the table below.\nWrite ONE WORD AND/OR A NUMBER for each answer.\n\nLocation: [ 6 ] Street\nJob title: Breakfast supervisor\nResponsibilities include:\n• Checking portions, etc. are correct\n• Making sure [ 7 ] is clean\nPay and conditions:\n• Starting salary 8 ________ £ per hour\n• Start work at 5.30 a.m.",
+                prompt = "Jobs available\nComplete the table below.\nWrite ONE WORD AND/OR A NUMBER for each answer.\n\nLocation: [ 6 ] Street\nJob title: Breakfast supervisor\nResponsibilities include:\n• Checking portions, etc. are correct\n• Making sure [ 7 ] is clean\nPay and conditions:\n• Starting salary: £ 8 ________ per hour\n• Start work at 5.30 a.m.",
                 options = null,
                 sectionNumber = 1,
                 timestampStart = 316,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part1_table,
+                imageTitle = "Bảng tuyển dụng (Questions 6–10)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q9",
                 position = 9,
                 type = "FILL_IN_BLANK",
-                prompt = "Jobs available\nComplete the table below.\nWrite ONE WORD AND/OR A NUMBER for each answer.\n\nLocation: City Road\nJob title: Junior chef\nResponsibilities include:\n• Supporting senior chefs\n• Maintaining stock and organizing 9 ________\nPay and conditions:\n• Annual salary £23,000\n• No work on a [ 10 ] once a month",
+                prompt = "Jobs available\nComplete the table below.\nWrite ONE WORD AND/OR A NUMBER for each answer.\n\nLocation: City Road\nJob title: Junior chef\nResponsibilities include:\n• Supporting senior chefs\n• Maintaining stock and organising 9 ________\nPay and conditions:\n• Annual salary £23,000\n• No work on a [ 10 ] once a month",
                 options = null,
                 sectionNumber = 1,
                 timestampStart = 361,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part1_table,
+                imageTitle = "Bảng tuyển dụng (Questions 6–10)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q10",
                 position = 10,
                 type = "FILL_IN_BLANK",
-                prompt = "Jobs available\nComplete the table below.\nWrite ONE WORD AND/OR A NUMBER for each answer.\n\nLocation: City Road\nJob title: Junior chef\nResponsibilities include:\n• Supporting senior chefs\n• Maintaining stock and organizing [ 9 ]\nPay and conditions:\n• Annual salary £23,000\n• No work on a 10 ________ once a month",
+                prompt = "Jobs available\nComplete the table below.\nWrite ONE WORD AND/OR A NUMBER for each answer.\n\nLocation: City Road\nJob title: Junior chef\nResponsibilities include:\n• Supporting senior chefs\n• Maintaining stock and organising [ 9 ]\nPay and conditions:\n• Annual salary £23,000\n• No work on a 10 ________ once a month",
                 options = null,
                 sectionNumber = 1,
                 timestampStart = 441,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part1_table,
+                imageTitle = "Bảng tuyển dụng (Questions 6–10)"
             ),
 
             // ==================== PART 2: Planned Housing Development ====================
@@ -626,7 +647,13 @@ object CambridgeListeningTestDetailDataSource {
                 position = 11,
                 type = "MULTIPLE_CHOICE",
                 prompt = "Planned Housing Development\nQuestions 11 and 12: Choose TWO letters, A–E.\nWhat are the TWO main reasons why this site has been chosen for the housing development?\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
-                options = listOf("A. It has an international airport nearby.", "B. There is easy access to local facilities.", "C. It is currently unused farmland.", "D. It is located on flat ground.", "E. It will be convenient for workers."),
+                options = listOf(
+                    "A. It has suitable geographical features.",
+                    "B. There is easy access to local facilities.",
+                    "C. It has good connections with the airport.",
+                    "D. The land is of little agricultural value.",
+                    "E. It will be convenient for workers."
+                ),
                 sectionNumber = 2,
                 timestampStart = 79,
                 timestampEnd = 0
@@ -636,7 +663,13 @@ object CambridgeListeningTestDetailDataSource {
                 position = 12,
                 type = "MULTIPLE_CHOICE",
                 prompt = "Planned Housing Development\nQuestions 11 and 12: Choose TWO letters, A–E.\nWhat are the TWO main reasons why this site has been chosen for the housing development?\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
-                options = listOf("A. It has an international airport nearby.", "B. There is easy access to local facilities.", "C. It is currently unused farmland.", "D. It is located on flat ground.", "E. It will be convenient for workers."),
+                options = listOf(
+                    "A. It has suitable geographical features.",
+                    "B. There is easy access to local facilities.",
+                    "C. It has good connections with the airport.",
+                    "D. The land is of little agricultural value.",
+                    "E. It will be convenient for workers."
+                ),
                 sectionNumber = 2,
                 timestampStart = 112,
                 timestampEnd = 0
@@ -646,7 +679,13 @@ object CambridgeListeningTestDetailDataSource {
                 position = 13,
                 type = "MULTIPLE_CHOICE",
                 prompt = "Planned Housing Development\nQuestions 13 and 14: Choose TWO letters, A–E.\nWhich TWO aspects of the planned housing development have people given positive feedback about?\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
-                options = listOf("A. the facilities for cyclists", "B. the impact on the environment", "C. the encouragement of good relations between residents", "D. the variety of public transport options", "E. the speed of road connections"),
+                options = listOf(
+                    "A. the facilities for cyclists",
+                    "B. the impact on the environment",
+                    "C. the encouragement of good relations between residents",
+                    "D. the low cost of all the accommodation",
+                    "E. the rural location"
+                ),
                 sectionNumber = 2,
                 timestampStart = 159,
                 timestampEnd = 0
@@ -656,7 +695,13 @@ object CambridgeListeningTestDetailDataSource {
                 position = 14,
                 type = "MULTIPLE_CHOICE",
                 prompt = "Planned Housing Development\nQuestions 13 and 14: Choose TWO letters, A–E.\nWhich TWO aspects of the planned housing development have people given positive feedback about?\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
-                options = listOf("A. the facilities for cyclists", "B. the impact on the environment", "C. the encouragement of good relations between residents", "D. the variety of public transport options", "E. the speed of road connections"),
+                options = listOf(
+                    "A. the facilities for cyclists",
+                    "B. the impact on the environment",
+                    "C. the encouragement of good relations between residents",
+                    "D. the low cost of all the accommodation",
+                    "E. the rural location"
+                ),
                 sectionNumber = 2,
                 timestampStart = 179,
                 timestampEnd = 0
@@ -665,61 +710,73 @@ object CambridgeListeningTestDetailDataSource {
                 id = "cam18_t2_q15",
                 position = 15,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Planned Housing Development\nQuestions 15–20: Label the map below.\nChoose the correct letter, A–H, for each location.\n\n15. School",
-                options = listOf("A", "B", "C", "D", "E", "F", "G", "H"),
+                prompt = "Planned Housing Development\nQuestions 15–20: Label the map below.\nWrite the correct letter, A–I, next to Questions 15–20.\n\n15. School",
+                options = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I"),
                 sectionNumber = 2,
                 timestampStart = 299,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part2_map,
+                imageTitle = "Bản đồ Planned Housing Development (A–I)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q16",
                 position = 16,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Planned Housing Development\nQuestions 15–20: Label the map below.\nChoose the correct letter, A–H, for each location.\n\n16. Sports centre",
-                options = listOf("A", "B", "C", "D", "E", "F", "G", "H"),
+                prompt = "Planned Housing Development\nQuestions 15–20: Label the map below.\nWrite the correct letter, A–I, next to Questions 15–20.\n\n16. Sports centre",
+                options = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I"),
                 sectionNumber = 2,
                 timestampStart = 308,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part2_map,
+                imageTitle = "Bản đồ Planned Housing Development (A–I)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q17",
                 position = 17,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Planned Housing Development\nQuestions 15–20: Label the map below.\nChoose the correct letter, A–H, for each location.\n\n17. Clinic",
-                options = listOf("A", "B", "C", "D", "E", "F", "G", "H"),
+                prompt = "Planned Housing Development\nQuestions 15–20: Label the map below.\nWrite the correct letter, A–I, next to Questions 15–20.\n\n17. Clinic",
+                options = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I"),
                 sectionNumber = 2,
                 timestampStart = 333,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part2_map,
+                imageTitle = "Bản đồ Planned Housing Development (A–I)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q18",
                 position = 18,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Planned Housing Development\nQuestions 15–20: Label the map below.\nChoose the correct letter, A–H, for each location.\n\n18. Community centre",
-                options = listOf("A", "B", "C", "D", "E", "F", "G", "H"),
+                prompt = "Planned Housing Development\nQuestions 15–20: Label the map below.\nWrite the correct letter, A–I, next to Questions 15–20.\n\n18. Community centre",
+                options = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I"),
                 sectionNumber = 2,
                 timestampStart = 340,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part2_map,
+                imageTitle = "Bản đồ Planned Housing Development (A–I)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q19",
                 position = 19,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Planned Housing Development\nQuestions 15–20: Label the map below.\nChoose the correct letter, A–H, for each location.\n\n19. Supermarket",
-                options = listOf("A", "B", "C", "D", "E", "F", "G", "H"),
+                prompt = "Planned Housing Development\nQuestions 15–20: Label the map below.\nWrite the correct letter, A–I, next to Questions 15–20.\n\n19. Supermarket",
+                options = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I"),
                 sectionNumber = 2,
                 timestampStart = 362,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part2_map,
+                imageTitle = "Bản đồ Planned Housing Development (A–I)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q20",
                 position = 20,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Planned Housing Development\nQuestions 15–20: Label the map below.\nChoose the correct letter, A–H, for each location.\n\n20. Playground",
-                options = listOf("A", "B", "C", "D", "E", "F", "G", "H"),
+                prompt = "Planned Housing Development\nQuestions 15–20: Label the map below.\nWrite the correct letter, A–I, next to Questions 15–20.\n\n20. Playground",
+                options = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I"),
                 sectionNumber = 2,
                 timestampStart = 370,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part2_map,
+                imageTitle = "Bản đồ Planned Housing Development (A–I)"
             ),
 
             // ==================== PART 3: The Laki Eruption of 1783 ====================
@@ -728,7 +785,11 @@ object CambridgeListeningTestDetailDataSource {
                 position = 21,
                 type = "MULTIPLE_CHOICE",
                 prompt = "The Laki Eruption of 1783\nQuestions 21–24: Choose the correct letter, A, B or C.\n\n21. Why do the students think the Laki eruption of 1783 is so important?",
-                options = listOf("A. It was the largest volcanic eruption in modern history.", "B. It provided the first scientific explanation of volcanism.", "C. It had a profound effect on society."),
+                options = listOf(
+                    "A. It was the most severe eruption in modern times.",
+                    "B. It led to the formal study of volcanoes.",
+                    "C. It had a profound effect on society."
+                ),
                 sectionNumber = 3,
                 timestampStart = 106,
                 timestampEnd = 0
@@ -738,7 +799,11 @@ object CambridgeListeningTestDetailDataSource {
                 position = 22,
                 type = "MULTIPLE_CHOICE",
                 prompt = "The Laki Eruption of 1783\nQuestions 21–24: Choose the correct letter, A, B or C.\n\n22. What surprised Adam about observations made at the time?",
-                options = listOf("A. the number of places producing them", "B. the accuracy of the measurements", "C. the consistency of the terminology"),
+                options = listOf(
+                    "A. the number of places producing them",
+                    "B. the contradictions in them",
+                    "C. the lack of scientific data to support them"
+                ),
                 sectionNumber = 3,
                 timestampStart = 134,
                 timestampEnd = 0
@@ -748,7 +813,11 @@ object CambridgeListeningTestDetailDataSource {
                 position = 23,
                 type = "MULTIPLE_CHOICE",
                 prompt = "The Laki Eruption of 1783\nQuestions 21–24: Choose the correct letter, A, B or C.\n\n23. According to Michelle, what did the contemporary sources say about the Laki haze?",
-                options = listOf("A. It had a peculiar sweet smell.", "B. It was associated with health issues.", "C. It blocked out daylight entirely."),
+                options = listOf(
+                    "A. People thought it was similar to ordinary fog.",
+                    "B. It was associated with health issues.",
+                    "C. It completely blocked out the sun for weeks."
+                ),
                 sectionNumber = 3,
                 timestampStart = 163,
                 timestampEnd = 0
@@ -757,8 +826,12 @@ object CambridgeListeningTestDetailDataSource {
                 id = "cam18_t2_q24",
                 position = 24,
                 type = "MULTIPLE_CHOICE",
-                prompt = "The Laki Eruption of 1783\nQuestions 21–24: Choose the correct letter, A, B or C.\n\n24. Adam corrects Michelle when she claims that Benjamin Franklin...",
-                options = listOf("A. first recorded the haze in Paris.", "B. was the first to identify the reason for the haze.", "C. advised naturalists to publish their findings."),
+                prompt = "The Laki Eruption of 1783\nQuestions 21–24: Choose the correct letter, A, B or C.\n\n24. Adam corrects Michelle when she claims that Benjamin Franklin",
+                options = listOf(
+                    "A. came to the wrong conclusion about the cause of the haze.",
+                    "B. was the first to identify the reason for the haze.",
+                    "C. supported the opinions of other observers about the haze."
+                ),
                 sectionNumber = 3,
                 timestampStart = 200,
                 timestampEnd = 0
@@ -768,7 +841,13 @@ object CambridgeListeningTestDetailDataSource {
                 position = 25,
                 type = "MULTIPLE_CHOICE",
                 prompt = "The Laki Eruption of 1783\nQuestions 25 and 26: Choose TWO letters, A–E.\nWhich TWO issues following the Laki eruption surprised the students?\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
-                options = listOf("A. how widespread the effects were", "B. how long-lasting the effects were", "C. the speed at which aid arrived", "D. the accuracy of eyewitness sketches", "E. how quickly vegetation recovered"),
+                options = listOf(
+                    "A. how widespread the effects were",
+                    "B. how long-lasting the effects were",
+                    "C. the number of deaths it caused",
+                    "D. the speed at which the volcanic ash cloud spread",
+                    "E. how people ignored the warning signs"
+                ),
                 sectionNumber = 3,
                 timestampStart = 226,
                 timestampEnd = 0
@@ -778,7 +857,13 @@ object CambridgeListeningTestDetailDataSource {
                 position = 26,
                 type = "MULTIPLE_CHOICE",
                 prompt = "The Laki Eruption of 1783\nQuestions 25 and 26: Choose TWO letters, A–E.\nWhich TWO issues following the Laki eruption surprised the students?\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
-                options = listOf("A. how widespread the effects were", "B. how long-lasting the effects were", "C. the speed at which aid arrived", "D. the accuracy of eyewitness sketches", "E. how quickly vegetation recovered"),
+                options = listOf(
+                    "A. how widespread the effects were",
+                    "B. how long-lasting the effects were",
+                    "C. the number of deaths it caused",
+                    "D. the speed at which the volcanic ash cloud spread",
+                    "E. how people ignored the warning signs"
+                ),
                 sectionNumber = 3,
                 timestampStart = 242,
                 timestampEnd = 0
@@ -787,41 +872,77 @@ object CambridgeListeningTestDetailDataSource {
                 id = "cam18_t2_q27",
                 position = 27,
                 type = "MULTIPLE_CHOICE",
-                prompt = "The Laki Eruption of 1783\nQuestions 27–30\nWhat comment is made about the effect of the volcanic eruption in each of the following countries?\nChoose FOUR answers from the box and write the correct letter, A–F, next to Questions 27–30.\n\nComments:\nA. This country suffered the most severe loss of life.\nB. The impact on agriculture was relatively minor.\nC. There was a significant increase in deaths of young people.\nD. Animals suffered from a sickness.\nE. Trade between regions ceased completely.\nF. It caused a particularly harsh winter.\n\nCountry: 27. Iceland",
-                options = listOf("A", "B", "C", "D", "E", "F"),
+                prompt = "The Laki Eruption of 1783\nQuestions 27–30\nWhat comment do the students make about the impact of the Laki eruption on the following countries?\nChoose FOUR answers from the box and write the correct letter, A–F, next to Questions 27–30.\n\nComments:\nA. This country suffered the most severe loss of life.\nB. The impact on agriculture was predictable.\nC. There was a significant increase in deaths of young people.\nD. Animals suffered from a sickness.\nE. This country saw the highest rise in food prices in the world.\nF. It caused a particularly harsh winter.\n\n27. Iceland",
+                options = listOf(
+                    "A. This country suffered the most severe loss of life.",
+                    "B. The impact on agriculture was predictable.",
+                    "C. There was a significant increase in deaths of young people.",
+                    "D. Animals suffered from a sickness.",
+                    "E. This country saw the highest rise in food prices in the world.",
+                    "F. It caused a particularly harsh winter."
+                ),
                 sectionNumber = 3,
                 timestampStart = 313,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part3_comments,
+                imageTitle = "Bảng ý kiến: Comments A–F (Questions 27–30)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q28",
                 position = 28,
                 type = "MULTIPLE_CHOICE",
-                prompt = "The Laki Eruption of 1783\nQuestions 27–30\nWhat comment is made about the effect of the volcanic eruption in each of the following countries?\nChoose FOUR answers from the box and write the correct letter, A–F, next to Questions 27–30.\n\nComments:\nA. This country suffered the most severe loss of life.\nB. The impact on agriculture was relatively minor.\nC. There was a significant increase in deaths of young people.\nD. Animals suffered from a sickness.\nE. Trade between regions ceased completely.\nF. It caused a particularly harsh winter.\n\nCountry: 28. Egypt",
-                options = listOf("A", "B", "C", "D", "E", "F"),
+                prompt = "The Laki Eruption of 1783\nQuestions 27–30\nWhat comment do the students make about the impact of the Laki eruption on the following countries?\nChoose FOUR answers from the box and write the correct letter, A–F, next to Questions 27–30.\n\nComments:\nA. This country suffered the most severe loss of life.\nB. The impact on agriculture was predictable.\nC. There was a significant increase in deaths of young people.\nD. Animals suffered from a sickness.\nE. This country saw the highest rise in food prices in the world.\nF. It caused a particularly harsh winter.\n\n28. Egypt",
+                options = listOf(
+                    "A. This country suffered the most severe loss of life.",
+                    "B. The impact on agriculture was predictable.",
+                    "C. There was a significant increase in deaths of young people.",
+                    "D. Animals suffered from a sickness.",
+                    "E. This country saw the highest rise in food prices in the world.",
+                    "F. It caused a particularly harsh winter."
+                ),
                 sectionNumber = 3,
                 timestampStart = 330,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part3_comments,
+                imageTitle = "Bảng ý kiến: Comments A–F (Questions 27–30)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q29",
                 position = 29,
                 type = "MULTIPLE_CHOICE",
-                prompt = "The Laki Eruption of 1783\nQuestions 27–30\nWhat comment is made about the effect of the volcanic eruption in each of the following countries?\nChoose FOUR answers from the box and write the correct letter, A–F, next to Questions 27–30.\n\nComments:\nA. This country suffered the most severe loss of life.\nB. The impact on agriculture was relatively minor.\nC. There was a significant increase in deaths of young people.\nD. Animals suffered from a sickness.\nE. Trade between regions ceased completely.\nF. It caused a particularly harsh winter.\n\nCountry: 29. UK",
-                options = listOf("A", "B", "C", "D", "E", "F"),
+                prompt = "The Laki Eruption of 1783\nQuestions 27–30\nWhat comment do the students make about the impact of the Laki eruption on the following countries?\nChoose FOUR answers from the box and write the correct letter, A–F, next to Questions 27–30.\n\nComments:\nA. This country suffered the most severe loss of life.\nB. The impact on agriculture was predictable.\nC. There was a significant increase in deaths of young people.\nD. Animals suffered from a sickness.\nE. This country saw the highest rise in food prices in the world.\nF. It caused a particularly harsh winter.\n\n29. UK",
+                options = listOf(
+                    "A. This country suffered the most severe loss of life.",
+                    "B. The impact on agriculture was predictable.",
+                    "C. There was a significant increase in deaths of young people.",
+                    "D. Animals suffered from a sickness.",
+                    "E. This country saw the highest rise in food prices in the world.",
+                    "F. It caused a particularly harsh winter."
+                ),
                 sectionNumber = 3,
                 timestampStart = 353,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part3_comments,
+                imageTitle = "Bảng ý kiến: Comments A–F (Questions 27–30)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q30",
                 position = 30,
                 type = "MULTIPLE_CHOICE",
-                prompt = "The Laki Eruption of 1783\nQuestions 27–30\nWhat comment is made about the effect of the volcanic eruption in each of the following countries?\nChoose FOUR answers from the box and write the correct letter, A–F, next to Questions 27–30.\n\nComments:\nA. This country suffered the most severe loss of life.\nB. The impact on agriculture was relatively minor.\nC. There was a significant increase in deaths of young people.\nD. Animals suffered from a sickness.\nE. Trade between regions ceased completely.\nF. It caused a particularly harsh winter.\n\nCountry: 30. USA",
-                options = listOf("A", "B", "C", "D", "E", "F"),
+                prompt = "The Laki Eruption of 1783\nQuestions 27–30\nWhat comment do the students make about the impact of the Laki eruption on the following countries?\nChoose FOUR answers from the box and write the correct letter, A–F, next to Questions 27–30.\n\nComments:\nA. This country suffered the most severe loss of life.\nB. The impact on agriculture was predictable.\nC. There was a significant increase in deaths of young people.\nD. Animals suffered from a sickness.\nE. This country saw the highest rise in food prices in the world.\nF. It caused a particularly harsh winter.\n\n30. USA",
+                options = listOf(
+                    "A. This country suffered the most severe loss of life.",
+                    "B. The impact on agriculture was predictable.",
+                    "C. There was a significant increase in deaths of young people.",
+                    "D. Animals suffered from a sickness.",
+                    "E. This country saw the highest rise in food prices in the world.",
+                    "F. It caused a particularly harsh winter."
+                ),
                 sectionNumber = 3,
                 timestampStart = 368,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part3_comments,
+                imageTitle = "Bảng ý kiến: Comments A–F (Questions 27–30)"
             ),
 
             // ==================== PART 4: Pockets ====================
@@ -829,101 +950,121 @@ object CambridgeListeningTestDetailDataSource {
                 id = "cam18_t2_q31",
                 position = 31,
                 type = "FILL_IN_BLANK",
-                prompt = "The history of pockets\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\n• Reason for choice: pockets are 31 ________ for carrying small modern items",
+                prompt = "Pockets\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\nReason for choice of subject\n• They are 31 ________ but can be overlooked by consumers and designers.",
                 options = null,
                 sectionNumber = 4,
                 timestampStart = 87,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part4_pockets,
+                imageTitle = "Bảng ghi chú: Pockets (Questions 31–40)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q32",
                 position = 32,
                 type = "FILL_IN_BLANK",
-                prompt = "The history of pockets\nMen's pockets in the 18th century\n• 32 ________ became fashionable, including breeches, waistcoats and jackets\n• pockets were sewn into the lining by a [ 33 ]",
+                prompt = "Pockets\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\nPockets in men's clothes\n• Men started to wear 32 ________ in the 18th century.\n• A [ 33 ] sewed pockets into the lining of the garments.",
                 options = null,
                 sectionNumber = 4,
                 timestampStart = 125,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part4_pockets,
+                imageTitle = "Bảng ghi chú: Pockets (Questions 31–40)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q33",
                 position = 33,
                 type = "FILL_IN_BLANK",
-                prompt = "The history of pockets\nMen's pockets in the 18th century\n• [ 32 ] became fashionable, including breeches, waistcoats and jackets\n• pockets were sewn into the lining by a 33 ________\n• pockets were larger and plainer for men with a [ 34 ]",
+                prompt = "Pockets\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\nPockets in men's clothes\n• Men started to wear [ 32 ] in the 18th century.\n• A 33 ________ sewed pockets into the lining of the garments.\n• The wearer could use the pockets for small items.",
                 options = null,
                 sectionNumber = 4,
                 timestampStart = 150,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part4_pockets,
+                imageTitle = "Bảng ghi chú: Pockets (Questions 31–40)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q34",
                 position = 34,
                 type = "FILL_IN_BLANK",
-                prompt = "The history of pockets\nMen's pockets in the 18th century\n• pockets were sewn into the lining by a [ 33 ]\n• pockets were larger and plainer for men with a 34 ________ (e.g. doctors)",
+                prompt = "Pockets\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\nPockets in men's clothes\n• A [ 33 ] sewed pockets into the lining of the garments.\n• The wearer could use the pockets for small items.\n• Bigger pockets might be made for men who belonged to a certain type of 34 ________",
                 options = null,
                 sectionNumber = 4,
                 timestampStart = 170,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part4_pockets,
+                imageTitle = "Bảng ghi chú: Pockets (Questions 31–40)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q35",
                 position = 35,
                 type = "FILL_IN_BLANK",
-                prompt = "The history of pockets\nWomen's pockets in the 18th and 19th centuries\n• were not as 35 ________ or easy to reach as men's pockets\n• pairs of pockets were tied together with [ 36 ]",
+                prompt = "Pockets\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\nPockets in women's clothes\n• Women's pockets were less 35 ________ than men's.\n• Women were very concerned about pickpockets.",
                 options = null,
                 sectionNumber = 4,
                 timestampStart = 193,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part4_pockets,
+                imageTitle = "Bảng ghi chú: Pockets (Questions 31–40)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q36",
                 position = 36,
                 type = "FILL_IN_BLANK",
-                prompt = "The history of pockets\nWomen's pockets in the 18th and 19th centuries\n• were not as [ 35 ] or easy to reach as men's pockets\n• pairs of pockets were tied together with 36 ________\n• worn tied around the [ 37 ] beneath skirts and petticoats",
+                prompt = "Pockets\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\nPockets in women's clothes\n• Women were very concerned about pickpockets.\n• Pockets were produced in pairs using 36 ________ to link them together.\n• Pockets hung from the women's [ 37 ] under skirts and petticoats.",
                 options = null,
                 sectionNumber = 4,
                 timestampStart = 223,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part4_pockets,
+                imageTitle = "Bảng ghi chú: Pockets (Questions 31–40)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q37",
                 position = 37,
                 type = "FILL_IN_BLANK",
-                prompt = "The history of pockets\nWomen's pockets in the 18th and 19th centuries\n• pairs of pockets were tied together with [ 36 ]\n• worn tied around the 37 ________ beneath skirts and petticoats\n• accessed through an opening in folds to reach items like [ 38 ]",
+                prompt = "Pockets\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\nPockets in women's clothes\n• Pockets were produced in pairs using [ 36 ] to link them together.\n• Pockets hung from the women's 37 ________ under skirts and petticoats.\n• Items such as [ 38 ] could be reached through a gap in the material.",
                 options = null,
                 sectionNumber = 4,
                 timestampStart = 245,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part4_pockets,
+                imageTitle = "Bảng ghi chú: Pockets (Questions 31–40)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q38",
                 position = 38,
                 type = "FILL_IN_BLANK",
-                prompt = "The history of pockets\nWomen's pockets in the 18th and 19th centuries\n• worn tied around the [ 37 ] beneath skirts and petticoats\n• accessed through an opening in folds to reach items like 38 ________",
+                prompt = "Pockets\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\nPockets in women's clothes\n• Pockets hung from the women's [ 37 ] under skirts and petticoats.\n• Items such as 38 ________ could be reached through a gap in the material.\n• Pockets, of various sizes, stayed inside clothing for many decades.",
                 options = null,
                 sectionNumber = 4,
                 timestampStart = 261,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part4_pockets,
+                imageTitle = "Bảng ghi chú: Pockets (Questions 31–40)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q39",
                 position = 39,
                 type = "FILL_IN_BLANK",
-                prompt = "The history of pockets\nLate 19th century changes\n• dresses became tighter and less bulky, making pockets too noticeable\n• pockets detracted from a woman's 39 ________\n• led to the emergence of pouches and the modern [ 40 ]",
+                prompt = "Pockets\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\nPockets in women's clothes\n• Pockets, of various sizes, stayed inside clothing for many decades.\n• When dresses changed shape, hidden pockets had a negative effect on the 39 ________ of women.\n• Bags called 'pouches' became popular, before women carried a [ 40 ]",
                 options = null,
                 sectionNumber = 4,
                 timestampStart = 309,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part4_pockets,
+                imageTitle = "Bảng ghi chú: Pockets (Questions 31–40)"
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q40",
                 position = 40,
                 type = "FILL_IN_BLANK",
-                prompt = "The history of pockets\nLate 19th century changes\n• pockets detracted from a woman's [ 39 ]\n• led to the emergence of pouches and the modern 40 ________",
+                prompt = "Pockets\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\nPockets in women's clothes\n• When dresses changed shape, hidden pockets had a negative effect on the [ 39 ] of women.\n• Bags called 'pouches' became popular, before women carried a 40 ________",
                 options = null,
                 sectionNumber = 4,
                 timestampStart = 325,
-                timestampEnd = 0
+                timestampEnd = 0,
+                imageResId = R.drawable.img_cam18_test2_part4_pockets,
+                imageTitle = "Bảng ghi chú: Pockets (Questions 31–40)"
             )
         )
 

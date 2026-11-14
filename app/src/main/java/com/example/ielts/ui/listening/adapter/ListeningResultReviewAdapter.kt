@@ -42,6 +42,7 @@ class ListeningResultReviewAdapter(
         private val layoutEvidenceCard: View = itemView.findViewById(R.id.layoutEvidenceCard)
         private val btnListenAtEvidence: View = itemView.findViewById(R.id.btnListenAtEvidence)
         private val tvListenTimestampText: TextView = itemView.findViewById(R.id.tvListenTimestampText)
+        private val btnReviewViewAttachment: TextView? = itemView.findViewById(R.id.btnReviewViewAttachment)
 
         fun bind(item: ListeningResultReviewDto) {
             tvReviewQuestionNum.text = "Câu ${item.position} • Sec ${item.sectionNumber}"
@@ -78,6 +79,20 @@ class ListeningResultReviewAdapter(
             }
 
             tvReviewCorrectAnswer.text = item.correctAnswer
+
+            if (item.imageResId != null && item.imageResId != 0) {
+                btnReviewViewAttachment?.visibility = View.VISIBLE
+                btnReviewViewAttachment?.text = item.imageTitle ?: "Xem tài liệu / bản đồ đính kèm"
+                btnReviewViewAttachment?.setOnClickListener {
+                    com.example.ielts.ui.listening.ListeningImageDialogHelper.show(
+                        itemView.context,
+                        item.imageResId,
+                        item.imageTitle
+                    )
+                }
+            } else {
+                btnReviewViewAttachment?.visibility = View.GONE
+            }
 
             if (!item.evidenceQuote.isNullOrBlank()) {
                 layoutEvidenceCard.visibility = View.VISIBLE

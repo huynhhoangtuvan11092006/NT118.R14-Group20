@@ -895,7 +895,9 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
                     sectionNumber = secNum,
                     evidenceQuote = quote,
                     timestampSeconds = timeSec,
-                    timestampStr = timeStr
+                    timestampStr = timeStr,
+                    imageResId = qDetail?.imageResId,
+                    imageTitle = qDetail?.imageTitle
                 )
             )
         }

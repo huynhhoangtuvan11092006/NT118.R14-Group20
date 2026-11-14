@@ -383,8 +383,30 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         val sectionQuestions = allQuestions.filter { it.sectionNumber == sectionNumber }
 
         val inflater = LayoutInflater.from(this)
+        var lastRenderedImageResId = 0
 
         for (question in sectionQuestions) {
+            val qImgRes = question.imageResId ?: 0
+            if (qImgRes != 0 && qImgRes != lastRenderedImageResId) {
+                lastRenderedImageResId = qImgRes
+                val contextCard = inflater.inflate(R.layout.item_listening_context_card, layoutDynamicQuestions, false)
+                val tvCardTitle = contextCard.findViewById<TextView>(R.id.tvContextCardTitle)
+                val ivContext = contextCard.findViewById<ImageView>(R.id.ivContextImage)
+                val btnZoom = contextCard.findViewById<TextView>(R.id.btnZoomHint)
+                val cardWrapper = contextCard.findViewById<View>(R.id.cardContextImageWrapper)
+
+                tvCardTitle.text = question.imageTitle ?: "Tài liệu đề thi"
+                ivContext.setImageResource(qImgRes)
+
+                val openZoom = View.OnClickListener {
+                    ListeningImageDialogHelper.show(this, qImgRes, question.imageTitle)
+                }
+                cardWrapper.setOnClickListener(openZoom)
+                btnZoom.setOnClickListener(openZoom)
+
+                layoutDynamicQuestions.addView(contextCard)
+            }
+
             if (question.type == "MULTIPLE_CHOICE" && !question.options.isNullOrEmpty()) {
                 val choiceView = inflater.inflate(R.layout.item_listening_question_choice, layoutDynamicQuestions, false)
 
@@ -392,6 +414,17 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                 val tvStem = choiceView.findViewById<TextView>(R.id.tvChoiceQuestionStem)
                 val btnBookmark = choiceView.findViewById<ImageView>(R.id.btnBookmarkChoice)
                 val layoutOptions = choiceView.findViewById<LinearLayout>(R.id.layoutOptionsContainer)
+                val btnAttachment = choiceView.findViewById<TextView?>(R.id.btnQuickViewAttachment)
+
+                if (qImgRes != 0) {
+                    btnAttachment?.visibility = View.VISIBLE
+                    btnAttachment?.text = "👁️ ${question.imageTitle ?: "Xem tài liệu đính kèm"}"
+                    btnAttachment?.setOnClickListener {
+                        ListeningImageDialogHelper.show(this, qImgRes, question.imageTitle)
+                    }
+                } else {
+                    btnAttachment?.visibility = View.GONE
+                }
 
                 tvBadge.text = "${question.position}"
                 tvStem.text = question.prompt
@@ -452,6 +485,17 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                 val tvPrompt = fillView.findViewById<TextView>(R.id.tvQuestionPrompt)
                 val etAnswer = fillView.findViewById<EditText>(R.id.etFillAnswer)
                 val ivStatus = fillView.findViewById<ImageView>(R.id.ivInputStatusIcon)
+                val btnAttachment = fillView.findViewById<TextView?>(R.id.btnQuickViewAttachment)
+
+                if (qImgRes != 0) {
+                    btnAttachment?.visibility = View.VISIBLE
+                    btnAttachment?.text = "👁️ ${question.imageTitle ?: "Xem tài liệu đính kèm"}"
+                    btnAttachment?.setOnClickListener {
+                        ListeningImageDialogHelper.show(this, qImgRes, question.imageTitle)
+                    }
+                } else {
+                    btnAttachment?.visibility = View.GONE
+                }
 
                 tvBadge.text = "[ ${question.position} ]"
                 tvPrompt.text = question.prompt
@@ -952,7 +996,9 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                     sectionNumber = secNum,
                     evidenceQuote = defaultQuotes.getOrElse(i - 1) { "Dẫn chứng trong đoạn nghe Section $secNum." },
                     timestampSeconds = timeSec,
-                    timestampStr = timeStr
+                    timestampStr = timeStr,
+                    imageResId = qDetail?.imageResId,
+                    imageTitle = qDetail?.imageTitle
                 )
             )
         }

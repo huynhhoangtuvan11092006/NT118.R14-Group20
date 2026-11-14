@@ -30,7 +30,9 @@ data class ListeningQuestionDetailDto(
     val points: Int = 1,
     val sectionNumber: Int = 1,
     val timestampStart: Int = 0,
-    val timestampEnd: Int = 0
+    val timestampEnd: Int = 0,
+    val imageResId: Int? = null,
+    val imageTitle: String? = null
 )
 
 data class ListeningTestDetailDto(
