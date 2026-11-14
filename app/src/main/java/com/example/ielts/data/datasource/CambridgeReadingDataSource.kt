@@ -120,7 +120,7 @@ object CambridgeReadingDataSource {
                 passageTitles = listOf(
                     "Materials to take us beyond concrete",
                     "The steam car",
-                    "The Linguistic Geography of Indigenous Amazonian Dialects"
+                    "The case for mixed-ability classes"
                 ),
                 userProgress = null
             )
@@ -641,6 +641,8 @@ object CambridgeReadingDataSource {
 
     private const val CAM18_TEST3_PASSAGE2_CONTENT = "The successes and failures of the Doble brothers and their steam cars\n\n[Paragraph A] When primitive automobiles first began to appear in the 1800s, their engines were based on steam power. Steam had already enjoyed a long and successful career in the railways, so it was only natural that the technology evolved into a miniaturized version which was separate from the trains. But these early cars inherited steam's weaknesses along with its strengths. The boilers had to be lit by hand, and they required about twenty minutes to build up pressure before they could be driven. Furthermore, their water reservoirs only lasted for about thirty miles before needing replenishment. Despite such shortcomings, these newly designed self-propelled carriages offered quick transportation, and by the early 1900s it was not uncommon to see such machines shuttling wealthy citizens around town.\n\n[Paragraph B] But the glory days of steam cars were few. A new technology called the Internal Combustion Engine soon appeared, which offered the ability to drive down the road just moments after starting up. At first, these noisy gasoline cars were unpopular because they were more complicated to operate and they had difficult hand-crank starters, which were known to break arms when the engines backfired. But in 1912 General Motors introduced the electric starter, and over the following few years steam power was gradually phased out.\n\n[Paragraph C] Even as the market was declining, four brothers made one last effort to rekindle the technology. Between 1906 and 1909, while still attending high school, Abner Doble and his three brothers built their first steam car in their parents' basement. It comprised parts taken from a wrecked early steam car but reconfigured to drive an engine of their own design. Though it did not run well, the Doble brothers went on to build a second and third prototype in the following years. Though the Doble boys' third prototype, nicknamed the Model B, still lacked the convenience of an internal combustion engine, it drew the attention of automobile trade magazines due to its numerous improvements over previous steam cars. The Model B proved to be superior to gasoline automobiles in many ways. Its high-pressure steam drove the engine pistons in virtual silence, in contrast to clattering gas engines which emitted the aroma of burned hydrocarbons. Perhaps most impressively, the Model B was amazingly swift. It could accelerate from zero to sixty miles per hour in just fifteen seconds, a feat described as 'remarkable acceleration' by Automobile magazine in 1914.\n\n[Paragraph D] The following year Abner Doble drove the Model B from Massachusetts to Detroit in order to seek investment in his automobile design, which he used to open the General Engineering Company. He and his brothers immediately began working on the Model C, which was intended to expand upon the innovations of the Model B. The brothers added features such as a key-based ignition in the cabin, eliminating the need for the operator to manually ignite the boiler. With these enhancements, the Dobles' new car company promised a steam vehicle which would provide all of the convenience of a gasoline car, but with much greater speed, much simpler driving controls, and a virtually silent powerplant. By the following April, the General Engineering Company had received 5,390 deposits for Doble Detroits, which were scheduled for delivery in early 1918.\n\n[Paragraph E] Later that year Abner Doble delivered unhappy news to those eagerly awaiting the delivery of their modern new cars. Those buyers who received the handful of completed cars complained that the vehicles were sluggish and erratic, sometimes going in reverse when they should go forward. The new engine design, though innovative, was still plagued with serious glitches.\n\n[Paragraph F] The brothers made one final attempt to produce a viable steam automobile. In early 1924, the Doble brothers shipped a Model E to New York City to be road-tested by the Automobile Club of America. After sitting overnight in freezing temperatures, the car was pushed out into the road and left to sit for over an hour in the frosty morning air. At the turn of the key, the boiler lit and reached its operating pressure inside of forty seconds. As they drove the test vehicle further, they found that its evenly distributed weight lent it surprisingly good handling, even though it was so heavy. As the new Doble steamer was further developed and tested, its maximum speed was pushed to over a hundred miles per hour, and it achieved about fifteen miles per gallon of kerosene with negligible emissions.\n\n[Paragraph G] Sadly, the Dobles' brilliant steam car never was a financial success. Priced at around $18,000 in 1924, it was popular only among the very wealthy. Plus, it is said that no two Model Es were quite the same, because Abner Doble tinkered endlessly with the design. By the time the company folded in 1931, fewer than fifty of the amazing Model E steam cars had been produced. For his whole career, until his death in 1961, Abner Doble remained adamant that steam-powered automobiles were at least equal to gasoline cars, if not superior. Given the evidence, he may have been right. Many of the Model E Dobles which have survived are still in good working condition, some having been driven over half a million miles with only normal maintenance. Astonishingly, an unmodified Doble Model E runs clean enough to pass the emissions laws in California today, and they are pretty strict. It is true that the technology poses some difficult problems, but you cannot help but wonder how efficient a steam car might be with the benefit of modern materials and computers. Under the current pressure to improve automotive performance and reduce emissions, it is not unthinkable that the steam car may rise again."
 
+    private const val CAM18_TEST3_PASSAGE3_CONTENT = "Picture this scene. It's an English literature lesson in a UK school, and the teacher has just read an extract from Shakespeare's Romeo and Juliet with a class of 15-year-olds. He's given some of the students copies of No Fear Shakespeare, a kid-friendly translation of the original. For three students, even these literacy demands are beyond them. Another girl simply can't focus and he gives her pens and paper to draw with. The teacher can ask the No Fear group to identify the key characters and maybe provide a tentative plot summary. He can ask most of the class about character development, and five of them might be able to support their statements with textual evidence. Now two curious students are wondering whether Shakespeare advocates living a life of moderation or one of passionate engagement.\n\nAs a teacher myself, I'd think my lesson would be going rather well if the discussion went as described above. But wouldn't this kind of class work better if there weren't such a huge gap between the top and the bottom? If we put all the kids who needed literacy support into one class, and all the students who want to discuss the virtue of moderation into another?\n\nThe practice of 'streaming', or 'tracking', involves separating students into classes depending on their diagnosed levels of attainment. At a macro level, it requires the establishment of academically selective schools for the brightest students, and comprehensive schools for the rest. Within schools, it means selecting students into a 'stream' of general ability, or 'sets' of subject- specific ability. The practice is intuitively appealing to almost every stakeholder.\n\nI have heard the mixed-ability model attacked by way of analogy: a group hike. The fittest in the group take the lead and set a brisk pace, only to have to stop and wait every 20 minutes. This is frustrating, and their enthusiasm wanes. Meanwhile, the slowest ones are not only embarrassed but physically struggling to keep up. What's worse, they never get a long enough break. They honestly just want to quit. Hiking, they feel, is not for them.\n\nMixed-ability classes bore students, frustrate parents and burn out teachers. The brightest ones will never summit Mount Qomolangma, and the stragglers won't enjoy the lovely stroll in the park they are perhaps more suited to. Individuals suffer at the demands of the collective, mediocrity prevails. So: is learning like hiking?\n\nThe current pedagogical paradigm is arguably that of constructivism, which emerged out of the work of psychologist Lev Vygotsky. In the 1930s, Vygotsky emphasised the importance of targeting a student's specific 'zone of proximal development' (ZPD). This is the gap between what they can achieve only with support — teachers, textbooks, worked examples, parents and so on — and what they can achieve independently. The purpose of teaching is to provide and then gradually remove this 'scaffolding' until they are autonomous. If we accept this model, it follows that streaming students with similar ZPDs would be an efficient and effective solution. And that forcing everyone on the same hike — regardless of aptitude — would be madness.\n\nDespite all this, there is limited empirical evidence to suggest that streaming results in better outcomes for students. Professor John Hattie, director of the Melbourne Education Research Institute, notes that 'tracking has minimal effects on learning outcomes'. What is more, streaming appears to significantly — and negatively — affect those students assigned to the lowest sets. These students tend to have much higher representation of low socioeconomic class. Less significant is the small benefit for those lucky clever students in the higher sets. The overall result is that the smart stay smart and the dumb get dumber, further entrenching the social divide.\n\nIn the latest update of Hattie's influential meta-analysis of factors influencing student achievement, one of the most significant factors is the teachers' estimate of achievement. Streaming students by diagnosed achievement automatically limits what the teacher feels the student is capable of. Meanwhile, in a mixed environment, teachers' estimates need to be more diverse and flexible.\n\nWhile streaming might seem to help teachers effectively target a student's ZPD, it can underestimate the importance of peer-to-peer learning. A crucial aspect of constructivist theory is the role of the MKO — 'more- knowledgeable other' — in knowledge construction. While teachers are traditionally the MKOs in classrooms, the value of knowledgeable student peers must not go unrecognised either.\n\nI find it amazing to watch students get over an idea to their peers in ways that I would never think of. They operate with different language tools and different social tools from teachers and, having just learnt it themselves, they possess similar cognitive structures to their struggling classmates. There is also something exciting about passing on skills and knowledge that you yourself have just mastered — a certain pride and zeal, a certain freshness to the interaction between 'teacher' and 'learner' that is often lost by the expert for whom the steps are obvious and the joy of discovery forgotten.\n\nHaving a variety of different abilities in a collaborative learning environment provides valuable resources for helping students meet their learning needs, not to mention improving their communication and social skills. And today, more than ever, we need the many to flourish — not suffer at the expense of a few bright stars. Once a year, I go on a hike with my class, a mixed bunch of students. It is challenging. The fittest students realise they need to encourage the reluctant. There are lookouts who report back, and extra items to carry for others. We make it — together."
+
     private const val CAM18_TEST2_PASSAGE1_CONTENT = "For centuries, historians and archaeologists have puzzled over the many mysteries of Stonehenge, a prehistoric monument that took an estimated 1,500 years to erect. Located on Salisbury Plain in southern England, it is comprised of roughly 100 massive upright stones placed in a circular layout.\n\nArchaeologists believe England's most iconic prehistoric ruin was built in several stages, with the earliest constructed 5,000 or more years ago. First, Neolithic* Britons used primitive tools, which may have been fashioned out of deer antlers, to dig a massive circular ditch and bank, or henge. Deep pits dating back to that era and located within the circle may have once held a ring of timber posts, according to some scholars.\n\nSeveral hundred years later, it is thought, Stonehenge's builders hoisted an estimated 80 bluestones, 43 of which remain today, into standing positions and placed them in either a horseshoe or circular formation. These stones have been traced all the way to the Preseli Hills in Wales, some 300 kilometres from Stonehenge. How, then, did prehistoric builders without sophisticated tools or engineering haul these boulders, which weigh up to four tons, over such a great distance?\n\nAccording to one long-standing theory among archaeologists, Stonehenge's builders fashioned sledges and rollers out of tree trunks to lug the bluestones from the Preseli Hills. They then transferred the boulders onto rafts and floated them first along the Welsh coast and then up the River Avon toward Salisbury Plain; alternatively, they may have towed each stone with a fleet of vessels. More recent archaeological hypotheses have them transporting the bluestones with supersized wicker baskets on a combination of ball bearings and long grooved planks, hauled by oxen.\n\nAs early as the 1970s, geologists have been adding their voices to the debate over how Stonehenge came into being. Challenging the classic image of industrious builders pushing, carting, rolling or hauling giant stones from faraway Wales, some scientists have suggested that it was glaciers, not humans, that carried the bluestones to Salisbury Plain. Most archaeologists have remained sceptical about this theory, however, wondering how the forces of nature could possibly have delivered the exact number of stones needed to complete the circle.\n\nThe third phase of construction took place around 2000 BCE. At this point, sandstone slabs — known as 'sarsens' — were arranged into an outer crescent or ring; some were assembled into the iconic three-pieced structures called trilithons that stand tall in the centre of Stonehenge. Some 50 of these stones are now visible on the site, which may once have contained many more. Radiocarbon dating has revealed that work continued at Stonehenge until roughly 1600 BCE, with the bluestones in particular being repositioned multiple times.\n\nBut who were the builders of Stonehenge? In the 17th century, archaeologist John Aubrey made the claim that Stonehenge was the work of druids, who had important religious, judicial and political roles in Celtic society. This theory was widely popularized by the antiquarian William Stukeley, who had unearthed primitive graves at the site. Even today, people who identify as modern druids continue to gather at Stonehenge for the summer solstice. However, in the mid-20th century, radiocarbon dating demonstrated that Stonehenge stood more than 1,000 years before the Celts inhabited the region.\n\nMany modern historians and archaeologists now agree that several distinct tribes of people contributed to Stonehenge, each undertaking a different phase of its construction. Bones, tools and other artefacts found on the site seem to support this hypothesis. The first stage was achieved by Neolithic agrarians who were likely to have been indigenous to the British Isles. Later, it is believed, groups with advanced tools and a more communal way of life left their mark on the site. Some believe that they were immigrants from the European continent, while others maintain that they were probably native Britons, descended from the original builders.\n\nIf the facts surrounding the architects and construction of Stonehenge remain shadowy at best, the purpose of the striking monument is even more of a mystery. While there is consensus among the majority of modern scholars that Stonehenge once served the function of burial ground, they have yet to determine what other purposes it had.\n\nIn the 1960s, the astronomer Gerald Hawkins suggested that the cluster of megalithic stones operated as a form of calendar, with different points corresponding to astrological phenomena such as solstices, equinoxes and eclipses occurring at different times of the year. While his theory has received a considerable amount of attention over the decades, critics maintain that Stonehenge's builders probably lacked the knowledge necessary to predict such events or that England's dense cloud cover would have obscured their view of the skies.\n\nMore recently, signs of illness and injury in the human remains unearthed at Stonehenge led a group of British archaeologists to speculate that it was considered a place of healing, perhaps because bluestones were thought to have curative powers."
 
     private const val CAM18_TEST2_PASSAGE2_CONTENT = "Powerful artificial intelligence (AI) needs to be reliably aligned with human values, but does this mean AI will eventually have to police those values?\n\nThis has been the decade of AI, with one astonishing feat after another. A chess- playing AI that can defeat not only all human chess players, but also all previous human-programmed chess machines, after learning the game in just four hours? That's yesterday's news, what's next? True, these prodigious accomplishments are all in so- called narrow AI, where machines perform highly specialised tasks. But many experts believe this restriction is very temporary. By mid-century, we may have artificial general intelligence (AGI) — machines that can achieve human-level performance on the full range of tasks that we ourselves can tackle.\n\nIf so, there's little reason to think it will stop there. Machines will be free of many of the physical constraints on human intelligence. Our brains run at slow biochemical processing speeds on the power of a light bulb, and their size is restricted by the dimensions of the human birth canal. It is remarkable what they accomplish, given these handicaps. But they may be as far from the physical limits of thought as our eyes are from the incredibly powerful Webb Space Telescope.\n\nOnce machines are better than us at designing even smarter machines, progress towards these limits could accelerate. What would this mean for us? Could we ensure a safe and worthwhile coexistence with such machines? On the plus side, AI is already useful and profitable for many things, and super AI might be expected to be super useful, and super profitable. But the more powerful AI becomes, the more important it will be to specify its goals with great care. Folklore is full of tales of people who ask for the wrong thing, with disastrous consequences — King Midas, for example, might have wished that everything he touched turned to gold, but didn't really intend this to apply to his breakfast.\n\nSo we need to create powerful AI machines that are 'human-friendly' — that have goals reliably aligned with our own values. One thing that makes this task difficult is that we are far from reliably human-friendly ourselves. We do many terrible things to each other and to many other creatures with whom we share the planet. If superintelligent machines don't do a lot better than us, we'll be in deep trouble. We'll have powerful new intelligence amplifying the dark sides of our own fallible natures.\n\nFor safety's sake, then, we want the machines to be ethically as well as cognitively superhuman. We want them to aim for the moral high ground, not for the troughs in which many of us spend some of our time. Luckily they'll be smart enough for the job. If there are routes to the moral high ground, they'll be better than us at finding them, and steering us in the right direction.\n\nHowever, there are two big problems with this utopian vision. One is how we get the machines started on the journey, the other is what it would mean to reach this destination. The 'getting started' problem is that we need to tell the machines what they're looking for with sufficient clarity that we can be confident they will find it — whatever 'it' actually turns out to be. This won't be easy, given that we are tribal creatures and conflicted about the ideals ourselves. We often ignore the suffering of strangers, and even contribute to it, at least indirectly. How then, do we point machines in the direction of something better?\n\nAs for the 'destination' problem, we might, by putting ourselves in the hands of these moral guides and gatekeepers, be sacrificing our own autonomy — an important part of what makes us human. Machines who are better than us at sticking to the moral high ground may be expected to discourage some of the lapses we presently take for granted. We might lose our freedom to discriminate in favour of our own communities, for example.\n\nLoss of freedom to behave badly isn't always a bad thing, of course: denying ourselves the freedom to put children to work in factories, or to smoke in restaurants are signs of progress. But are we ready for ethical silicon police limiting our options? They might be so good at doing it that we won't notice them; but few of us are likely to welcome such a future.\n\nThese issues might seem far-fetched, but they are to some extent already here. AI already has some input into how resources are used in our National Health Service (NHS) here in the UK, for example. If it was given a greater role, it might do so much more efficiently than humans can manage, and act in the interests of taxpayers and those who use the health system. However, we'd be depriving some humans (e.g. senior doctors) of the control they presently enjoy. Since we'd want to ensure that people are treated equally and that policies are fair, the goals of AI would need to be specified correctly.\n\nWe have a new powerful technology to deal with — itself, literally, a new way of thinking. For our own safety, we need to point these new thinkers in the right direction, and get them to act well for us. It is not yet clear whether this is possible, but if it is, it will require a cooperative spirit, and a willingness to set aside self-interest.\n\nBoth general intelligence and moral reasoning are often thought to be uniquely human capacities. But safety seems to require that we think of them as a package: if we are to give general intelligence to machines, we'll need to give them moral authority, too. And where exactly would that leave human beings? All the more reason to think about the destination now, and to be careful about what we wish for."
@@ -710,9 +712,9 @@ object CambridgeReadingDataSource {
                 ),
                 PassageDto(
                     passageNumber = 3,
-                    title = "The Linguistic Geography of Indigenous Amazonian Dialects",
-                    wordCount = 1350,
-                    content = "[Paragraph A] Machine learning algorithms trained on expansive radiological datasets now demonstrate non-inferiority to board-certified radiologists in identifying early-stage pulmonary nodules.\n\n[Paragraph B] Deep neural network architectures evaluate subtle optical coherence tomography variations to diagnose macular degeneration prior to irreversible photoreceptor apoptosis.\n\n[Paragraph C] However, algorithmic opacity, commonly designated the 'black box' phenomenon, continues to provoke ethical and jurisdictional hesitation among clinical practitioners."
+                    title = "The case for mixed-ability classes",
+                    wordCount = 920,
+                    content = CAM18_TEST3_PASSAGE3_CONTENT
                 )
             )
         }
@@ -1482,28 +1484,114 @@ object CambridgeReadingDataSource {
                 )
             }
 
-            // Fallback questions 27–40 for Passage 3
-            for (pos in 27..40) {
-                val pNum = 3
-                val qType = when (pos % 3) {
-                    1 -> "TRUE_FALSE"
-                    2 -> "MULTIPLE_CHOICE"
-                    else -> "FILL_IN_BLANK"
-                }
+            // Questions 27–30: Multiple Choice (Choose the correct letter, A, B, C or D)
+            val mcq27to30 = listOf(
+                Triple(
+                    27,
+                    "The writer describes the Romeo and Juliet lesson in order to demonstrate",
+                    listOf(
+                        "A. how few students are interested in literature.",
+                        "B. how a teacher handles a range of learning needs.",
+                        "C. how unsuitable Shakespeare is for most teenagers.",
+                        "D. how weaker students can disrupt their classmates' learning."
+                    )
+                ),
+                Triple(
+                    28,
+                    "What does the writer say about streaming in the third paragraph?",
+                    listOf(
+                        "A. It has a very broad appeal.",
+                        "B. It favours cleverer students.",
+                        "C. It is relatively simple to implement.",
+                        "D. It works better in some schools than others."
+                    )
+                ),
+                Triple(
+                    29,
+                    "What idea is suggested by the reference to Mount Qomolangma in the fifth paragraph?",
+                    listOf(
+                        "A. students following unsuitable paths",
+                        "B. students attempting interesting tasks",
+                        "C. students not achieving their full potential",
+                        "D. students not being aware of their limitations"
+                    )
+                ),
+                Triple(
+                    30,
+                    "What does the word 'scaffolding' in the sixth paragraph refer to?",
+                    listOf(
+                        "A. the factors which prevent a student from learning effectively",
+                        "B. the environment where most of a student's learning takes place",
+                        "C. the assistance given to a student in their initial stages of learning",
+                        "D. the setting of appropriate learning targets for a student's aptitude"
+                    )
+                )
+            )
+            for ((pos, promptText, opts) in mcq27to30) {
                 list.add(
                     QuestionDetailDto(
                         id = "cam18_t3_q$pos",
                         position = pos,
-                        type = qType,
-                        prompt = "Question $pos for Passage $pNum (Cambridge IELTS 18 - Test 3).",
-                        options = if (qType == "MULTIPLE_CHOICE") listOf(
-                            "A. Supporting evidence from recent studies",
-                            "B. Historical background and traditional views",
-                            "C. Environmental and geographical factors",
-                            "D. Future implications for scientific research"
-                        ) else if (qType == "TRUE_FALSE") listOf("TRUE", "FALSE", "NOT GIVEN") else null,
-                        passageNumber = pNum,
-                        lineRef = "Passage $pNum • Question $pos"
+                        type = "MULTIPLE_CHOICE",
+                        prompt = promptText,
+                        options = opts,
+                        passageNumber = 3,
+                        lineRef = "Questions 27–30 • Choose the correct letter, A, B, C or D"
+                    )
+                )
+            }
+
+            // Questions 31–35: Summary Completion (using the list of phrases, A–I)
+            val summaryPhrasesOptions = listOf(
+                "A. wrong classes",
+                "B. lower expectations",
+                "C. average learners",
+                "D. bottom sets",
+                "E. brightest pupils",
+                "F. disadvantaged backgrounds",
+                "G. weaker students",
+                "H. higher achievements",
+                "I. positive impressions"
+            )
+            val summaryPrompts31to35 = listOf(
+                31 to "[Is streaming effective? — Complete the summary using the list of phrases, A–I]\nAccording to Professor John Hattie of the Melbourne Education Research Institute, there is very little indication that streaming leads to 31 ________.",
+                32 to "[Is streaming effective? — Complete the summary using the list of phrases, A–I]\nHe points out that, in schools which use streaming, the most significant impact is on those students placed in the 32 ________...",
+                33 to "[Is streaming effective? — Complete the summary using the list of phrases, A–I]\n...especially where a large proportion of them have 33 ________.",
+                34 to "[Is streaming effective? — Complete the summary using the list of phrases, A–I]\nMeanwhile, for the 34 ________, there appears to be only minimal advantage.",
+                35 to "[Is streaming effective? — Complete the summary using the list of phrases, A–I]\nA further issue is that teachers tend to have 35 ________ of students in streamed groups."
+            )
+            for ((pos, promptText) in summaryPrompts31to35) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t3_q$pos",
+                        position = pos,
+                        type = "MULTIPLE_CHOICE",
+                        prompt = promptText,
+                        options = summaryPhrasesOptions,
+                        passageNumber = 3,
+                        lineRef = "Questions 31–35 • Summary Completion (A–I)"
+                    )
+                )
+            }
+
+            // Questions 36–40: YES / NO / NOT GIVEN
+            val ynngPrompts36to40 = listOf(
+                36 to "The Vygotsky model of education supports the concept of a mixed-ability class.",
+                37 to "Some teachers are uncertain about allowing students to take on MKO roles in the classroom.",
+                38 to "It can be rewarding to teach knowledge which you have only recently acquired.",
+                39 to "The priority should be to ensure that the highest-achieving students attain their goals.",
+                40 to "Taking part in collaborative outdoor activities with teachers and classmates can improve student outcomes in the classroom."
+            )
+            for ((pos, promptText) in ynngPrompts36to40) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t3_q$pos",
+                        position = pos,
+                        type = "TRUE_FALSE",
+                        prompt = promptText,
+                        options = listOf("YES", "NO", "NOT GIVEN"),
+                        passageNumber = 3,
+                        lineRef = "Questions 36–40 • YES / NO / NOT GIVEN"
                     )
                 )
             }
@@ -1677,6 +1765,90 @@ object CambridgeReadingDataSource {
                 acceptedAnswers = listOf("strict"),
                 explanation = "Đoạn G: 'Astonishingly, an unmodified Doble Model E runs clean enough to pass the emissions laws in California today, and they are pretty strict.' (Đáp ứng các luật khí thải nghiêm ngặt của California -> strict).",
                 evidenceQuote = "runs clean enough to pass the emissions laws in California today, and they are pretty strict"
+            )
+            27 -> QuestionAnswerMetadata(
+                correctAnswer = "B",
+                acceptedAnswers = listOf("B"),
+                explanation = "Đoạn 1 mô tả một tiết học Văn học Anh với học sinh 15 tuổi: giáo viên linh hoạt đáp ứng nhiều nhu cầu học tập khác nhau (cho bản dịch đơn giản No Fear Shakespeare, cho giấy vẽ cho bạn mất tập trung, hỏi nhân vật chính, hướng dẫn đối chiếu dẫn chứng, thảo luận chủ đề sâu) -> B. how a teacher handles a range of learning needs.",
+                evidenceQuote = "He's given some of the students copies of No Fear Shakespeare... Another girl simply can't focus and he gives her pens and paper to draw with... He can ask most of the class about character development... Now two curious students are wondering whether Shakespeare advocates living a life of moderation"
+            )
+            28 -> QuestionAnswerMetadata(
+                correctAnswer = "A",
+                acceptedAnswers = listOf("A"),
+                explanation = "Đoạn 3: 'The practice is intuitively appealing to almost every stakeholder.' (Việc phân ban/phân luồng theo năng lực có sức hấp dẫn trực giác đối với hầu hết các bên liên quan -> A. It has a very broad appeal).",
+                evidenceQuote = "The practice is intuitively appealing to almost every stakeholder."
+            )
+            29 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C"),
+                explanation = "Đoạn 5: 'The brightest ones will never summit Mount Qomolangma... Individuals suffer at the demands of the collective, mediocrity prevails.' (Ý tưởng nói về việc những học sinh giỏi nhất bị kìm hãm, không thể phát huy hết tiềm năng cao nhất của mình -> C. students not achieving their full potential).",
+                evidenceQuote = "The brightest ones will never summit Mount Qomolangma, and the stragglers won't enjoy the lovely stroll in the park... Individuals suffer at the demands of the collective"
+            )
+            30 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C"),
+                explanation = "Đoạn 6: 'This is the gap between what they can achieve only with support — teachers, textbooks, worked examples, parents and so on — and what they can achieve independently. The purpose of teaching is to provide and then gradually remove this 'scaffolding' until they are autonomous.' ('scaffolding' là sự hỗ trợ ban đầu cho học sinh rồi dần dần gỡ bỏ khi các em tự chủ -> C. the assistance given to a student in their initial stages of learning).",
+                evidenceQuote = "The purpose of teaching is to provide and then gradually remove this 'scaffolding' until they are autonomous."
+            )
+            31 -> QuestionAnswerMetadata(
+                correctAnswer = "H",
+                acceptedAnswers = listOf("H", "higher achievements"),
+                explanation = "Đoạn 7: Giáo sư John Hattie lưu ý rằng việc phân luồng học sinh có ảnh hưởng rất tối thiểu đến kết quả học tập ('tracking has minimal effects on learning outcomes' -> H. higher achievements).",
+                evidenceQuote = "Professor John Hattie, director of the Melbourne Education Research Institute, notes that 'tracking has minimal effects on learning outcomes'."
+            )
+            32 -> QuestionAnswerMetadata(
+                correctAnswer = "D",
+                acceptedAnswers = listOf("D", "bottom sets"),
+                explanation = "Đoạn 7: Phân luồng ảnh hưởng tiêu cực đáng kể nhất đối với những học sinh bị xếp vào các lớp/nhóm có trình độ thấp nhất ('assigned to the lowest sets' -> D. bottom sets).",
+                evidenceQuote = "streaming appears to significantly — and negatively — affect those students assigned to the lowest sets."
+            )
+            33 -> QuestionAnswerMetadata(
+                correctAnswer = "F",
+                acceptedAnswers = listOf("F", "disadvantaged backgrounds"),
+                explanation = "Đoạn 7: Những học sinh ở nhóm dưới này thường có tỷ lệ cao xuất thân từ tầng lớp kinh tế - xã hội khó khăn ('higher representation of low socioeconomic class' -> F. disadvantaged backgrounds).",
+                evidenceQuote = "These students tend to have much higher representation of low socioeconomic class."
+            )
+            34 -> QuestionAnswerMetadata(
+                correctAnswer = "E",
+                acceptedAnswers = listOf("E", "brightest pupils"),
+                explanation = "Đoạn 7: Trong khi đó, đối với những học sinh giỏi may mắn ở nhóm trên thì lợi ích cũng chỉ rất nhỏ bé ('small benefit for those lucky clever students in the higher sets' -> E. brightest pupils).",
+                evidenceQuote = "Less significant is the small benefit for those lucky clever students in the higher sets."
+            )
+            35 -> QuestionAnswerMetadata(
+                correctAnswer = "B",
+                acceptedAnswers = listOf("B", "lower expectations"),
+                explanation = "Đoạn 8: Việc phân luồng học sinh theo mức độ thành tích được chẩn đoán sẽ tự động giới hạn những gì giáo viên cảm thấy học sinh có khả năng làm được (tức giáo viên có kỳ vọng thấp hơn -> B. lower expectations).",
+                evidenceQuote = "Streaming students by diagnosed achievement automatically limits what the teacher feels the student is capable of."
+            )
+            36 -> QuestionAnswerMetadata(
+                correctAnswer = "NO",
+                acceptedAnswers = listOf("NO"),
+                explanation = "Đoạn 6: Tác giả lập luận rằng nếu chấp nhận mô hình vùng phát triển gần nhất (ZPD) của Vygotsky, thì logic suy ra là phân luồng học sinh có cùng ZPD mới là giải pháp hiệu quả, trái ngược với việc mô hình này ủng hộ lớp học đa trình độ -> NO.",
+                evidenceQuote = "If we accept this model, it follows that streaming students with similar ZPDs would be an efficient and effective solution. And that forcing everyone on the same hike — regardless of aptitude — would be madness."
+            )
+            37 -> QuestionAnswerMetadata(
+                correctAnswer = "NOT GIVEN",
+                acceptedAnswers = listOf("NOT GIVEN"),
+                explanation = "Đoạn 9-10 đề cập đến vai trò của bạn cùng lớp hiểu biết hơn với tư cách là MKO (more-knowledgeable other), nhưng hoàn toàn không đề cập việc một số giáo viên có cảm thấy không chắc chắn hay băn khoăn khi cho học sinh đóng vai trò MKO hay không -> NOT GIVEN.",
+                evidenceQuote = "While teachers are traditionally the MKOs in classrooms, the value of knowledgeable student peers must not go unrecognised either."
+            )
+            38 -> QuestionAnswerMetadata(
+                correctAnswer = "YES",
+                acceptedAnswers = listOf("YES"),
+                explanation = "Đoạn 11: 'There is also something exciting about passing on skills and knowledge that you yourself have just mastered — a certain pride and zeal...' (Việc truyền đạt lại kiến thức mà chính mình vừa mới làm chủ đem lại cảm xúc hào hứng, tự hào và nhiệt huyết -> YES).",
+                evidenceQuote = "There is also something exciting about passing on skills and knowledge that you yourself have just mastered — a certain pride and zeal"
+            )
+            39 -> QuestionAnswerMetadata(
+                correctAnswer = "NO",
+                acceptedAnswers = listOf("NO"),
+                explanation = "Đoạn 12: Tác giả nhấn mạnh rằng ngày nay hơn bao giờ hết, chúng ta cần số đông học sinh cùng phát triển, chứ không phải chịu thiệt thòi vì lợi ích của một số ít ngôi sao sáng ('need the many to flourish — not suffer at the expense of a few bright stars'), trái ngược với việc ưu tiên cho học sinh điểm cao nhất -> NO.",
+                evidenceQuote = "And today, more than ever, we need the many to flourish — not suffer at the expense of a few bright stars."
+            )
+            40 -> QuestionAnswerMetadata(
+                correctAnswer = "NOT GIVEN",
+                acceptedAnswers = listOf("NOT GIVEN"),
+                explanation = "Đoạn 12 tác giả kể về chuyến đi leo núi dã ngoại hàng năm cùng cả lớp như một ẩn dụ và bài học về tinh thần đồng đội giúp đỡ lẫn nhau ('Once a year, I go on a hike with my class... We make it – together.'), nhưng không hề khẳng định rằng hoạt động ngoài trời này cải thiện kết quả học tập của học sinh trong lớp học -> NOT GIVEN.",
+                evidenceQuote = "Once a year, I go on a hike with my class, a mixed bunch of students. It is challenging. The fittest students realise they need to encourage the reluctant... We make it – together."
             )
             else -> null
         }
