@@ -691,8 +691,16 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
                 "It was called Animal Magic.",
                 "There were quite a lot of photographs of animals, which can be difficult because animals don't always stay still.",
                 "I managed to take a nice photograph of a fox, but the problem was that the picture was taken at night and it came out too dark.",
-                "Dẫn chứng câu 11", "Dẫn chứng câu 12", "Dẫn chứng câu 13", "Dẫn chứng câu 14", "Dẫn chứng câu 15",
-                "Dẫn chứng câu 16", "Dẫn chứng câu 17", "Dẫn chứng câu 18", "Dẫn chứng câu 19", "Dẫn chứng câu 20",
+                "You should also avoid collecting mushrooms growing close to busy roads.",
+                "You should never eat mushrooms collected by friends or neighbours unless you can identify them yourself.",
+                "The fact that animals eat a particular mushroom doesn't mean that it is safe for humans, either.",
+                "Some mushrooms that are perfectly safe to eat have bright colours, including red ones.",
+                "It's best to go early in the morning. Other people or animals may have collected the mushrooms if you arrive later in the day.",
+                "A much better option is to join a group led by someone with experience.",
+                "Don't collect every mushroom you find. Only take what you actually need",
+                "building developments and the removal of water from natural areas can damage mushroom habitats.",
+                "put them in a brown paper bag and keep them in the refrigerator. You should use them within a few days",
+                "There are plenty of ways to cook wild mushrooms. You can add them to stir-fries, risotto or pasta dishes.",
                 "Dẫn chứng câu 21", "Dẫn chứng câu 22", "Dẫn chứng câu 23", "Dẫn chứng câu 24", "Dẫn chứng câu 25",
                 "Dẫn chứng câu 26", "Dẫn chứng câu 27", "Dẫn chứng câu 28", "Dẫn chứng câu 29", "Dẫn chứng câu 30",
                 "Dẫn chứng câu 31", "Dẫn chứng câu 32", "Dẫn chứng câu 33", "Dẫn chứng câu 34", "Dẫn chứng câu 35",
@@ -761,7 +769,7 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
         val timestamps = if (isTest3) {
             listOf(
                 124, 146, 178, 195, 266, 323, 340, 355, 359, 375,
-                60, 90, 120, 150, 180, 210, 240, 270, 300, 330,
+                82, 82, 174, 128, 262, 299, 308, 338, 369, 390,
                 60, 90, 120, 150, 180, 210, 240, 270, 300, 330,
                 60, 90, 120, 150, 180, 210, 240, 270, 300, 330
             )

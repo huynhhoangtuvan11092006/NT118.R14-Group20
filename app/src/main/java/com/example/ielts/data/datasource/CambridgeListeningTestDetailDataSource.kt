@@ -948,8 +948,8 @@ object CambridgeListeningTestDetailDataSource {
                 sectionNumber = 2,
                 title = "Part 2: Picking Mushrooms",
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758712/%E5%89%9118_section3_part1.mp3",
-                durationSeconds = 410,
-                transcript = "[00:00] Part 2. You will hear a talk on picking wild mushrooms."
+                durationSeconds = 440,
+                transcript = "[00:00] ANNOUNCER: Introduction. A radio presenter introduces an expert who will talk about collecting wild mushrooms and explain some important points about mushroom foraging.\n[00:40] PRESENTER: This evening, we're talking about picking wild mushrooms. Our guest is Dan Beagle, who has written a book about foraging. He's here to share some useful advice with us.\n[00:59] DAN: The first thing I want to emphasise is safety. Some wild mushrooms are poisonous, and it is essential to know how to recognise them before collecting anything.\n[01:14] DAN: However, mushroom foraging can be a very rewarding activity. There are many different types of wild mushrooms, including varieties that you simply cannot find in ordinary shops.\n[01:22] DAN: You should never eat mushrooms collected by friends or neighbours unless you can identify them yourself. Some poisonous species look very similar to edible ones. You should also avoid collecting mushrooms growing close to busy roads. [Q11-12]\n[01:51] DAN: Another advantage of picking mushrooms yourself is their freshness. Wild mushrooms can taste much better than those sold in shops, where they may have been sitting for several days.\n[02:03] PRESENTER: Some people believe that only pale-coloured mushrooms are safe to eat. Is that true?\n[02:08] DAN: No, that's a common misunderstanding. Some mushrooms that are perfectly safe to eat have bright colours, including red ones. Colour alone cannot tell you whether a mushroom is poisonous. [Q13-14]\n[02:26] DAN: Mushrooms can be prepared in different ways. You can cook them or add them raw to salads. You don't normally need to remove their skins. Also, don't assume that a mushroom is safe simply because it smells pleasant.\n[02:45] DAN: Some poisonous mushrooms have no unusual smell at all. In fact, certain dangerous varieties can even taste quite pleasant. You should never use smell or taste as a method of checking whether a mushroom is safe.\n[02:54] DAN: The fact that animals eat a particular mushroom doesn't mean that it is safe for humans, either. [Q13-14]\n[03:02] ANNOUNCER: Transition to Questions 15–20.\n[04:01] DAN: If you don't have a car, you can still start looking for mushrooms in local parks. Areas with grass and trees can be good places to begin.\n[04:22] DAN: It's best to go early in the morning. Other people or animals may have collected the mushrooms if you arrive later in the day. [Q15]\n[04:38] DAN: If you're a beginner, don't go into the forest alone. You shouldn't depend entirely on pictures in a book, either. Mobile applications can help you identify different species, but remember that the phone signal may be unreliable in wooded areas.\n[04:59] DAN: A much better option is to join a group led by someone with experience. That way, you can learn how to identify mushrooms safely. [Q16]\n[05:08] DAN: It's also important to protect the natural environment. Don't collect every mushroom you find. Only take what you actually need, and be careful not to damage young mushrooms or nearby plants. [Q17]\n[05:30] DAN: You must also avoid collecting species that are protected or at risk of disappearing.\n[05:38] DAN: Unfortunately, some wild mushroom populations are declining. This is partly because restaurants want to serve more locally collected food. In addition, building developments and the removal of water from natural areas can damage mushroom habitats. [Q18]\n[06:09] DAN: Once you've collected mushrooms, put them in a brown paper bag and keep them in the refrigerator. You should use them within a few days and wash them carefully before preparing them. [Q19]\n[06:30] DAN: There are plenty of ways to cook wild mushrooms. You can add them to stir-fries, risotto or pasta dishes. However, when trying a new type, it's sensible to start with a small quantity because some people may have an unexpected reaction. [Q20]\n[07:01] PRESENTER: Before we finish, could you give us a few examples of poisonous mushrooms that people should be particularly careful about?\n[07:11] ANNOUNCER: End of Part 2."
             ),
             ListeningSectionDto(
                 sectionNumber = 3,
@@ -1068,105 +1068,153 @@ object CambridgeListeningTestDetailDataSource {
                 timestampStart = 375,
                 timestampEnd = 0
             ),
-            // Provisional Q11-40
+            // Section 2: Q11-20
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q11",
                 position = 11,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Picking mushrooms\nQuestions 11 and 12: Choose TWO letters, Aâ€“E.\nWhich TWO reasons does the speaker give for choosing to go mushroom picking?\n(Chá» n lá»±a chá» n thá»© nháº¥t trong 2 Ä‘Ã¡p Ã¡n)",
-                options = listOf("A. it is good exercise", "B. it provides free organic food", "C. it is relaxing", "D. it can be done with children", "E. it teaches about nature"),
+                prompt = "Picking wild mushrooms\nQuestions 11 and 12: Choose TWO letters, A–E.\nWhich TWO warnings does Dan give about picking mushrooms?\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
+                options = listOf(
+                    "A. Don't pick more than one variety of mushroom at a time.",
+                    "B. Don't pick mushrooms near busy roads.",
+                    "C. Don't eat mushrooms given to you.",
+                    "D. Don't eat mushrooms while picking them.",
+                    "E. Don't pick old mushrooms."
+                ),
                 sectionNumber = 2,
-                timestampStart = 60,
+                timestampStart = 82,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q12",
                 position = 12,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Picking mushrooms\nQuestions 11 and 12: Choose TWO letters, Aâ€“E.\nWhich TWO reasons does the speaker give for choosing to go mushroom picking?\n(Chá» n lá»±a chá» n thá»© hai trong 2 Ä‘Ã¡p Ã¡n)",
-                options = listOf("A. it is good exercise", "B. it provides free organic food", "C. it is relaxing", "D. it can be done with children", "E. it teaches about nature"),
+                prompt = "Picking wild mushrooms\nQuestions 11 and 12: Choose TWO letters, A–E.\nWhich TWO warnings does Dan give about picking mushrooms?\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
+                options = listOf(
+                    "A. Don't pick more than one variety of mushroom at a time.",
+                    "B. Don't pick mushrooms near busy roads.",
+                    "C. Don't eat mushrooms given to you.",
+                    "D. Don't eat mushrooms while picking them.",
+                    "E. Don't pick old mushrooms."
+                ),
                 sectionNumber = 2,
-                timestampStart = 90,
+                timestampStart = 82,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q13",
                 position = 13,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Picking mushrooms\nQuestions 13 and 14: Choose TWO letters, Aâ€“E.\nWhich TWO pieces of advice does the speaker give to beginners?\n(Chá» n lá»±a chá» n thá»© nháº¥t trong 2 Ä‘Ã¡p Ã¡n)",
-                options = listOf("A. pick only small quantities", "B. go with an experienced picker", "C. use a guidebook with colour photos", "D. only pick common types", "E. avoid picking after heavy rain"),
+                prompt = "Picking wild mushrooms\nQuestions 13 and 14: Choose TWO letters, A–E.\nWhich TWO ideas about wild mushrooms does Dan say are correct?\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
+                options = listOf(
+                    "A. Mushrooms should always be peeled before eating.",
+                    "B. Mushrooms eaten by animals may be unsafe.",
+                    "C. Cooking destroys toxins in mushrooms.",
+                    "D. Brightly coloured mushrooms can be edible.",
+                    "E. All poisonous mushrooms have a bad smell."
+                ),
                 sectionNumber = 2,
-                timestampStart = 120,
+                timestampStart = 174,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q14",
                 position = 14,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Picking mushrooms\nQuestions 13 and 14: Choose TWO letters, Aâ€“E.\nWhich TWO pieces of advice does the speaker give to beginners?\n(Chá» n lá»±a chá» n thá»© hai trong 2 Ä‘Ã¡p Ã¡n)",
-                options = listOf("A. pick only small quantities", "B. go with an experienced picker", "C. use a guidebook with colour photos", "D. only pick common types", "E. avoid picking after heavy rain"),
+                prompt = "Picking wild mushrooms\nQuestions 13 and 14: Choose TWO letters, A–E.\nWhich TWO ideas about wild mushrooms does Dan say are correct?\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
+                options = listOf(
+                    "A. Mushrooms should always be peeled before eating.",
+                    "B. Mushrooms eaten by animals may be unsafe.",
+                    "C. Cooking destroys toxins in mushrooms.",
+                    "D. Brightly coloured mushrooms can be edible.",
+                    "E. All poisonous mushrooms have a bad smell."
+                ),
                 sectionNumber = 2,
-                timestampStart = 150,
+                timestampStart = 128,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q15",
                 position = 15,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Picking mushrooms\nQuestions 15â€“20: Choose the correct letter, A, B or C.\n15. The speaker says the most important safety rule is to",
-                options = listOf("A. wear gloves when picking.", "B. cook all mushrooms thoroughly.", "C. never eat any mushroom you cannot identify."),
+                prompt = "Picking wild mushrooms\nQuestions 15–20: Choose the correct letter, A, B or C.\n\n15. What advice does Dan give about picking mushrooms in parks?",
+                options = listOf(
+                    "A. Choose wooded areas.",
+                    "B. Don't disturb wildlife.",
+                    "C. Get there early."
+                ),
                 sectionNumber = 2,
-                timestampStart = 180,
+                timestampStart = 262,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q16",
                 position = 16,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Picking mushrooms\n16. What does the speaker say about mushroom identification apps?",
-                options = listOf("A. They are usually completely accurate.", "B. They should be used with caution.", "C. They are too complicated for beginners."),
+                prompt = "Picking wild mushrooms\nQuestions 15–20: Choose the correct letter, A, B or C.\n\n16. Dan says it is a good idea for beginners to",
+                options = listOf(
+                    "A. use a mushroom app.",
+                    "B. join a group.",
+                    "C. take a reference book."
+                ),
                 sectionNumber = 2,
-                timestampStart = 210,
+                timestampStart = 299,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q17",
                 position = 17,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Picking mushrooms\n17. When picking mushrooms in public forests, pickers must",
-                options = listOf("A. pay a small permit fee.", "B. stick to designated paths.", "C. avoid commercial collection."),
+                prompt = "Picking wild mushrooms\nQuestions 15–20: Choose the correct letter, A, B or C.\n\n17. What does Dan say is important for conservation?",
+                options = listOf(
+                    "A. selecting only fully grown mushrooms.",
+                    "B. picking a limited amount of mushrooms.",
+                    "C. avoiding areas where rare mushroom species grow."
+                ),
                 sectionNumber = 2,
-                timestampStart = 240,
+                timestampStart = 308,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q18",
                 position = 18,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Picking mushrooms\n18. The best container for carrying collected mushrooms is a",
-                options = listOf("A. plastic bag.", "B. cloth sack.", "C. wicker basket."),
+                prompt = "Picking wild mushrooms\nQuestions 15–20: Choose the correct letter, A, B or C.\n\n18. According to Dan, some varieties of wild mushrooms are in decline because there is",
+                options = listOf(
+                    "A. a huge demand for them from restaurants.",
+                    "B. a lack of rain in this part of the country.",
+                    "C. a rise in building developments locally."
+                ),
                 sectionNumber = 2,
-                timestampStart = 270,
+                timestampStart = 338,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q19",
                 position = 19,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Picking mushrooms\n19. What should you do before cooking fresh wild mushrooms?",
-                options = listOf("A. Brush away dirt rather than washing them.", "B. Soak them in salted water for an hour.", "C. Peel off the outer skin."),
+                prompt = "Picking wild mushrooms\nQuestions 15–20: Choose the correct letter, A, B or C.\n\n19. Dan says that when storing mushrooms, people should",
+                options = listOf(
+                    "A. keep them in the fridge for no more than two days.",
+                    "B. keep them in a brown bag in a dark room.",
+                    "C. leave them for a period after washing them."
+                ),
                 sectionNumber = 2,
-                timestampStart = 300,
+                timestampStart = 369,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q20",
                 position = 20,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Picking mushrooms\n20. What is the speaker's favourite way to preserve extra mushrooms?",
-                options = listOf("A. drying them", "B. pickling in vinegar", "C. freezing in airtight bags"),
+                prompt = "Picking wild mushrooms\nQuestions 15–20: Choose the correct letter, A, B or C.\n\n20. What does Dan say about trying new varieties of mushrooms?",
+                options = listOf(
+                    "A. Experiment with different recipes.",
+                    "B. Expect some to have a strong taste.",
+                    "C. Cook them for a long time."
+                ),
                 sectionNumber = 2,
-                timestampStart = 330,
+                timestampStart = 390,
                 timestampEnd = 0
             ),
             // Section 3: Q21-30
