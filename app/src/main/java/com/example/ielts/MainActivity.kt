@@ -208,7 +208,8 @@ class MainActivity : AppCompatActivity() {
         } else {
             "Đã đạt mục tiêu!"
         }
-        tvExamDateForecast.text = "Dự kiến: $examDate (${roadmapData.countdownLabel})"
+        val cleanCountdown = roadmapData.countdownLabel.substringBefore(" (").trim()
+        tvExamDateForecast.text = "Dự kiến: $examDate ($cleanCountdown)"
 
         val progressPercent = roadmapData.overallProgressPercent
         progressRadialBand.progress = progressPercent
