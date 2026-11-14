@@ -69,12 +69,31 @@ data class AiRoadmapCache(
     val updatedAtMillis: Long
 )
 
+data class WeeklyDayStudyItem(
+    val dayLabel: String,       // "T2".."CN"
+    val dateStr: String,        // "yyyy-MM-dd"
+    val minutes: Int,           // Số phút học thực tế trong ngày
+    val isToday: Boolean,
+    val metDailyGoal: Boolean
+)
+
+data class WeeklyStudySummary(
+    val days: List<WeeklyDayStudyItem>,
+    val totalMinutesWeek: Int,
+    val totalBadgeLabel: String,
+    val dailyGoalMinutes: Int,
+    val goalNoteLabel: String,
+    val summaryRightLabel: String
+)
+
 data class PersonalizedRoadmapData(
     val currentBand: Double,
     val targetBand: Double,
     val bandGain: Double,
     val countdownLabel: String,
     val overallProgressPercent: Int,
+    val completedLessonsCount: Int,
+    val totalLessonsCount: Int,
     val studyTimeLabel: String,
     val streakDays: Int,
     val aiStrategicAdvice: String,
@@ -427,6 +446,8 @@ object RoadmapManager {
             bandGain = bandGain,
             countdownLabel = countdownLabel,
             overallProgressPercent = overallProgressPercent,
+            completedLessonsCount = completedLessonsTotal,
+            totalLessonsCount = totalRoadmapLessons,
             studyTimeLabel = studyTimeLabel,
             streakDays = streakDays,
             aiStrategicAdvice = displayAdvice,
@@ -435,6 +456,80 @@ object RoadmapManager {
             phases = phases,
             hasAiCache = aiCache != null,
             hasAnyRealStudy = hasAnyRealStudy
+        )
+    }
+
+    /**
+     * Tính toán thống kê thời gian học thực tế của 7 ngày trong tuần hiện tại (T2 -> CN)
+     * dựa trên lịch sử làm bài Reading, Listening, Writing và Từ vựng SRS.
+     */
+    fun getWeeklyStudySummary(context: Context): WeeklyStudySummary {
+        clearDemoProgressIfNeeded(context)
+        val userPrefs = context.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE)
+        val dailyGoalMinutes = userPrefs.getInt("daily_minutes", 30).coerceAtLeast(15)
+
+        val fmt = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        val todayStr = fmt.format(System.currentTimeMillis())
+
+        val readingRecords = ReadingStatsManager.getRecords(context).values
+        val listeningRecords = ListeningStatsManager.getRecords(context).values
+        val writingRecords = WritingStatsManager.getRecords(context).values
+        val vocabDailyCounts = VocabularyProgressManager.getDailyCountsMap(context)
+
+        val cal = Calendar.getInstance()
+        cal.firstDayOfWeek = Calendar.MONDAY
+        val dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
+        val daysFromMonday = if (dayOfWeek == Calendar.SUNDAY) 6 else dayOfWeek - Calendar.MONDAY
+        cal.add(Calendar.DAY_OF_YEAR, -daysFromMonday)
+
+        val labels = listOf("T2", "T3", "T4", "T5", "T6", "T7", "CN")
+        val dayItems = mutableListOf<WeeklyDayStudyItem>()
+
+        for (i in 0..6) {
+            val dStr = fmt.format(cal.time)
+            val rMin = readingRecords.count { fmt.format(it.completedAtMillis) == dStr } * 60
+            val lMin = listeningRecords.count { fmt.format(it.completedAtMillis) == dStr } * 35
+            val wMin = writingRecords
+                .filter { fmt.format(it.completedAtMillis) == dStr }
+                .sumOf { max(15, it.timeSpentSeconds / 60) }
+            val vMin = (vocabDailyCounts[dStr] ?: 0) * 2
+
+            val totalDayMin = rMin + lMin + wMin + vMin
+            dayItems.add(
+                WeeklyDayStudyItem(
+                    dayLabel = labels[i],
+                    dateStr = dStr,
+                    minutes = totalDayMin,
+                    isToday = (dStr == todayStr),
+                    metDailyGoal = totalDayMin >= dailyGoalMinutes
+                )
+            )
+            cal.add(Calendar.DAY_OF_YEAR, 1)
+        }
+
+        val totalWeekMin = dayItems.sumOf { it.minutes }
+        val totalBadge = when {
+            totalWeekMin == 0 -> "Tổng: 0 phút"
+            totalWeekMin < 60 -> "Tổng: $totalWeekMin phút"
+            totalWeekMin % 60 == 0 -> "Tổng: ${totalWeekMin / 60} giờ"
+            else -> String.format(Locale.US, "Tổng: %.1f giờ", totalWeekMin / 60.0)
+        }
+
+        val activeDays = dayItems.count { it.minutes > 0 }
+        val metGoalDays = dayItems.count { it.metDailyGoal }
+        val summaryRight = when {
+            totalWeekMin == 0 -> "Chưa có giờ học tuần này"
+            metGoalDays > 0 -> "Đạt mục tiêu $metGoalDays/7 ngày"
+            else -> "Đã học $activeDays/7 ngày tuần này"
+        }
+
+        return WeeklyStudySummary(
+            days = dayItems,
+            totalMinutesWeek = totalWeekMin,
+            totalBadgeLabel = totalBadge,
+            dailyGoalMinutes = dailyGoalMinutes,
+            goalNoteLabel = "Mục tiêu ngày (≥ ${dailyGoalMinutes}p)",
+            summaryRightLabel = summaryRight
         )
     }
 

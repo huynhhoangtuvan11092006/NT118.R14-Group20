@@ -144,6 +144,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvGreetingTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Chào buổi sáng,"
@@ -156,18 +157,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:fontFamily="sans-serif-black"
-                        android:text="Chào Quân! 👋"
+                        android:text="Chào Học viên! 👋"
                         android:textColor="@color/text_primary"
                         android:textSize="19sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <!-- Streak badge 5 ngày -->
+                <!-- Streak badge -->
                 <LinearLayout
                     android:id="@+id/btnStreak"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
-                    android:background="@drawable/bg_badge_orange"
+                    android:background="@drawable/bg_pill_soft_gray"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingStart="10dp"
@@ -183,70 +184,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="5 ngày"
-                        android:textColor="@color/badge_orange_text"
+                        android:text="0 ngày"
+                        android:textColor="@color/text_secondary"
                         android:textSize="12.5sp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- 3. Micro-Banner AI Tutor chuẩn Stitch -->
+            <!-- 3. Card TIẾN ĐỘ BAND ĐIỂM (Radial Gauge + Milestone) -->
             <LinearLayout
-                android:id="@+id/bannerAiTutor"
+                android:id="@+id/cardBandProgress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:background="@drawable/bg_card_forecast"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <FrameLayout
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:background="@drawable/bg_pill_soft_blue">
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_smart_toy" />
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="AI Tutor: Cần hỗ trợ chấm Writing..."
-                    android:textColor="@color/primary_blue"
-                    android:textSize="12.5sp"
-                    android:textStyle="bold" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnAskAi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:background="@drawable/bg_btn_primary"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:stateListAnimator="@null"
-                    android:text="Hỏi ngay  ➔"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="11.5sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- 4. Card TIẾN ĐỘ BAND ĐIỂM (Radial Gauge + Milestone) -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/bg_card_white"
+                android:clickable="true"
                 android:elevation="2dp"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -312,7 +266,7 @@
                             android:layout_height="match_parent"
                             android:indeterminate="false"
                             android:max="100"
-                            android:progress="70"
+                            android:progress="0"
                             android:progressDrawable="@drawable/circular_band_gauge" />
 
                         <LinearLayout
@@ -436,7 +390,7 @@
                             android:id="@+id/tvProgressPercent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="70% hoàn thành"
+                            android:text="0% hoàn thành"
                             android:textColor="@color/primary_blue"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -449,12 +403,12 @@
                         android:layout_height="8dp"
                         android:layout_marginTop="6dp"
                         android:max="100"
-                        android:progress="70"
+                        android:progress="0"
                         android:progressDrawable="@drawable/bg_linear_progress" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- 5. Section: Kế hoạch hôm nay (Reading & Từ vựng) -->
+            <!-- 4. Section: Kế hoạch hôm nay (Đồng bộ 3 nhiệm vụ thực tế từ Lộ trình AI) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -463,13 +417,32 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="Kế hoạch hôm nay"
                     android:textColor="@color/text_primary"
                     android:textSize="17.5sp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTodayPlanProgressBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_pill_soft_blue"
+                    android:paddingStart="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="2dp"
+                    android:text="0/3 hoàn thành"
+                    android:textColor="@color/primary_blue"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/btnViewAllPlan"
@@ -487,7 +460,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
-                <!-- Card 1: Reading -->
+                <!-- Card 1: Reading / Listening -->
                 <LinearLayout
                     android:id="@+id/cardReading"
                     android:layout_width="0dp"
@@ -513,19 +486,25 @@
                     </FrameLayout>
 
                     <TextView
+                        android:id="@+id/tvPlanReadingTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="Reading"
                         android:textColor="@color/text_primary"
-                        android:textSize="16sp"
+                        android:textSize="15.5sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvPlanReadingSubtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="Đề 1 • 20 phút"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Cam 19 Test 1 • 60p"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
 
@@ -569,19 +548,25 @@
                     </FrameLayout>
 
                     <TextView
+                        android:id="@+id/tvPlanVocabTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="Từ vựng"
                         android:textColor="@color/text_primary"
-                        android:textSize="16sp"
+                        android:textSize="15.5sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvPlanVocabSubtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="Học 15 từ mới"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Environment • 15 từ"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
 
@@ -600,7 +585,78 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- 6. Section: Thời gian học tuần này (7-Day Bar Chart Graphic) -->
+            <!-- Card 3: Writing (Nhiệm vụ 3 trong Kế hoạch hôm nay) -->
+            <LinearLayout
+                android:id="@+id/cardWriting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_card_white"
+                android:elevation="2dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="14dp">
+
+                <FrameLayout
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:background="@drawable/bg_pill_soft_blue">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_edit"
+                        app:tint="@color/primary_blue" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvPlanWritingTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Writing: Cam 18 - Test 1 Task 1"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14.5sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvPlanWritingSubtitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Line Graph • Urban Population • 20 phút"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnStartWriting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:background="@drawable/bg_btn_primary"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:stateListAnimator="@null"
+                    android:text="▶ Viết bài"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- 5. Section: Thời gian học tuần này (7-Day Bar Chart thực tế) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -618,6 +674,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvWeeklyTotalTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_pill_soft_blue"
@@ -625,7 +682,7 @@
                     android:paddingTop="3dp"
                     android:paddingEnd="8dp"
                     android:paddingBottom="3dp"
-                    android:text="Tổng: 4.5 giờ"
+                    android:text="Tổng: 0 phút"
                     android:textColor="@color/primary_blue"
                     android:textSize="11.5sp"
                     android:textStyle="bold" />
@@ -657,12 +714,30 @@
                         android:gravity="bottom|center_horizontal"
                         android:orientation="vertical">
 
+                        <TextView
+                            android:id="@+id/tvBarVal1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:background="@drawable/bg_band_selected"
+                            android:paddingStart="5dp"
+                            android:paddingTop="1dp"
+                            android:paddingEnd="5dp"
+                            android:paddingBottom="1dp"
+                            android:text="0p"
+                            android:textColor="@color/white"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
                         <View
+                            android:id="@+id/viewBar1"
                             android:layout_width="22dp"
-                            android:layout_height="38dp"
+                            android:layout_height="10dp"
                             android:background="@drawable/bg_bar_inactive" />
 
                         <TextView
+                            android:id="@+id/tvBarDay1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
@@ -679,12 +754,30 @@
                         android:gravity="bottom|center_horizontal"
                         android:orientation="vertical">
 
+                        <TextView
+                            android:id="@+id/tvBarVal2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:background="@drawable/bg_band_selected"
+                            android:paddingStart="5dp"
+                            android:paddingTop="1dp"
+                            android:paddingEnd="5dp"
+                            android:paddingBottom="1dp"
+                            android:text="0p"
+                            android:textColor="@color/white"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
                         <View
+                            android:id="@+id/viewBar2"
                             android:layout_width="22dp"
-                            android:layout_height="56dp"
+                            android:layout_height="10dp"
                             android:background="@drawable/bg_bar_inactive" />
 
                         <TextView
+                            android:id="@+id/tvBarDay2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
@@ -701,12 +794,30 @@
                         android:gravity="bottom|center_horizontal"
                         android:orientation="vertical">
 
+                        <TextView
+                            android:id="@+id/tvBarVal3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:background="@drawable/bg_band_selected"
+                            android:paddingStart="5dp"
+                            android:paddingTop="1dp"
+                            android:paddingEnd="5dp"
+                            android:paddingBottom="1dp"
+                            android:text="0p"
+                            android:textColor="@color/white"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
                         <View
+                            android:id="@+id/viewBar3"
                             android:layout_width="22dp"
-                            android:layout_height="25dp"
+                            android:layout_height="10dp"
                             android:background="@drawable/bg_bar_inactive" />
 
                         <TextView
+                            android:id="@+id/tvBarDay3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
@@ -723,12 +834,30 @@
                         android:gravity="bottom|center_horizontal"
                         android:orientation="vertical">
 
+                        <TextView
+                            android:id="@+id/tvBarVal4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:background="@drawable/bg_band_selected"
+                            android:paddingStart="5dp"
+                            android:paddingTop="1dp"
+                            android:paddingEnd="5dp"
+                            android:paddingBottom="1dp"
+                            android:text="0p"
+                            android:textColor="@color/white"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
                         <View
+                            android:id="@+id/viewBar4"
                             android:layout_width="22dp"
-                            android:layout_height="62dp"
+                            android:layout_height="10dp"
                             android:background="@drawable/bg_bar_inactive" />
 
                         <TextView
+                            android:id="@+id/tvBarDay4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
@@ -745,12 +874,30 @@
                         android:gravity="bottom|center_horizontal"
                         android:orientation="vertical">
 
+                        <TextView
+                            android:id="@+id/tvBarVal5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:background="@drawable/bg_band_selected"
+                            android:paddingStart="5dp"
+                            android:paddingTop="1dp"
+                            android:paddingEnd="5dp"
+                            android:paddingBottom="1dp"
+                            android:text="0p"
+                            android:textColor="@color/white"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
                         <View
+                            android:id="@+id/viewBar5"
                             android:layout_width="22dp"
-                            android:layout_height="44dp"
+                            android:layout_height="10dp"
                             android:background="@drawable/bg_bar_inactive" />
 
                         <TextView
+                            android:id="@+id/tvBarDay5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
@@ -759,7 +906,7 @@
                             android:textSize="12sp" />
                     </LinearLayout>
 
-                    <!-- T7 (Cột cao nhất, sáng xanh & có Tooltip 75p) -->
+                    <!-- T7 -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -768,25 +915,29 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvBarVal6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:background="@drawable/bg_band_selected"
-                            android:paddingStart="6dp"
+                            android:paddingStart="5dp"
                             android:paddingTop="1dp"
-                            android:paddingEnd="6dp"
+                            android:paddingEnd="5dp"
                             android:paddingBottom="1dp"
-                            android:text="75p"
+                            android:text="0p"
                             android:textColor="@color/white"
-                            android:textSize="10sp"
-                            android:textStyle="bold" />
+                            android:textSize="9.5sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
 
                         <View
-                            android:layout_width="24dp"
-                            android:layout_height="78dp"
+                            android:id="@+id/viewBar6"
+                            android:layout_width="22dp"
+                            android:layout_height="10dp"
                             android:background="@drawable/bg_bar_active" />
 
                         <TextView
+                            android:id="@+id/tvBarDay6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
@@ -804,12 +955,30 @@
                         android:gravity="bottom|center_horizontal"
                         android:orientation="vertical">
 
+                        <TextView
+                            android:id="@+id/tvBarVal7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:background="@drawable/bg_band_selected"
+                            android:paddingStart="5dp"
+                            android:paddingTop="1dp"
+                            android:paddingEnd="5dp"
+                            android:paddingBottom="1dp"
+                            android:text="0p"
+                            android:textColor="@color/white"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
                         <View
+                            android:id="@+id/viewBar7"
                             android:layout_width="22dp"
-                            android:layout_height="20dp"
+                            android:layout_height="10dp"
                             android:background="@drawable/bg_bar_inactive" />
 
                         <TextView
+                            android:id="@+id/tvBarDay7"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
@@ -833,85 +1002,24 @@
                         android:background="@drawable/bg_avatar_nq" />
 
                     <TextView
+                        android:id="@+id/tvWeeklyGoalNote"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
                         android:layout_weight="1"
-                        android:text="Đạt mục tiêu ngày (≥ 45p)"
+                        android:text="Mục tiêu ngày (≥ 30p)"
                         android:textColor="@color/text_secondary"
                         android:textSize="11.5sp" />
 
                     <TextView
+                        android:id="@+id/tvWeeklyCompareNote"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tăng 18% so với tuần trước"
+                        android:text="Chưa có giờ học tuần này"
                         android:textColor="@color/primary_blue"
                         android:textSize="11.5sp"
                         android:textStyle="bold" />
                 </LinearLayout>
-            </LinearLayout>
-
-            <!-- 7. Suggested Practice Card Banner: Speaking Part 2 Simulator -->
-            <LinearLayout
-                android:id="@+id/cardSpeakingPractice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:background="@drawable/bg_banner_gradient"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:letterSpacing="0.05"
-                        android:text="LUYỆN KỸ NĂNG YẾU"
-                        android:textColor="#D1E0FF"
-                        android:textSize="10.5sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:fontFamily="sans-serif-black"
-                        android:text="Speaking Part 2 Simulator"
-                        android:textColor="@color/white"
-                        android:textSize="16.5sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Luyện nói với AI phản hồi thời gian thực"
-                        android:textColor="#E0EAFF"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <FrameLayout
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/bg_circle_button"
-                    android:backgroundTint="#33FFFFFF">
-
-                    <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_mic"
-                        app:tint="@color/white" />
-                </FrameLayout>
             </LinearLayout>
 
         </LinearLayout>

@@ -40,6 +40,7 @@ object VocabularyProgressManager {
     private const val KEY_TOTAL_XP = "key_vocab_total_xp"
     private const val KEY_NEW_DATE = "key_vocab_new_date"
     private const val KEY_NEW_COUNT = "key_vocab_new_count"
+    private const val KEY_DAILY_COUNTS = "key_vocab_daily_counts"
 
     const val MASTERED_LEVEL = 3
     const val MAX_LEVEL = 5
@@ -114,8 +115,40 @@ object VocabularyProgressManager {
     }
 
     private fun registerNewWordToday(context: Context) {
+        val today = todayKey()
+        val p = prefs(context)
         val count = newWordsToday(context) + 1
-        prefs(context).edit().putString(KEY_NEW_DATE, todayKey()).putInt(KEY_NEW_COUNT, count).apply()
+        val dailyMap = getDailyCountsMap(context).toMutableMap()
+        dailyMap[today] = count
+        p.edit()
+            .putString(KEY_NEW_DATE, today)
+            .putInt(KEY_NEW_COUNT, count)
+            .putString(KEY_DAILY_COUNTS, Gson().toJson(dailyMap))
+            .apply()
+    }
+
+    fun getDailyCountsMap(context: Context): Map<String, Int> {
+        val p = prefs(context)
+        val rawJson = p.getString(KEY_DAILY_COUNTS, null)
+        val map = try {
+            if (rawJson != null) {
+                val type = object : TypeToken<Map<String, Int>>() {}.type
+                Gson().fromJson<Map<String, Int>>(rawJson, type)?.toMutableMap() ?: mutableMapOf()
+            } else {
+                mutableMapOf()
+            }
+        } catch (_: Exception) {
+            mutableMapOf()
+        }
+        val lastDate = p.getString(KEY_NEW_DATE, null)
+        val lastCount = p.getInt(KEY_NEW_COUNT, 0)
+        if (!lastDate.isNullOrBlank() && lastCount > 0) {
+            val existing = map[lastDate] ?: 0
+            if (lastCount > existing) {
+                map[lastDate] = lastCount
+            }
+        }
+        return map
     }
 
     fun addXp(context: Context, xp: Int) {
