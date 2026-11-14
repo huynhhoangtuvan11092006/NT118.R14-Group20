@@ -32,47 +32,39 @@ async function main() {
     passages: [
       {
         passageNumber: 1,
-        title: "Urban Farming",
-        subtitle: "Growing crops in vertical and urban spaces",
-        content: `A
-Vertical farming is the practice of producing food in vertically stacked layers, vertically inclined surfaces and/or integrated into other structures (such as in a skyscraper, used warehouse, or shipping container). The modern ideas of vertical farming use indoor farming techniques and controlled-environment agriculture (CEA) technology, where all environmental factors can be controlled.
+        title: "Urban farming",
+        subtitle: "In Paris, urban farmers are trying a soil-free approach to agriculture that uses less space and fewer resources. Could it help cities face the threats to our food supplies?",
+        content: `In Paris, urban farmers are trying a soil-free approach to agriculture that uses less space and fewer resources. Could it help cities face the threats to our food supplies?
 
-B
-These facilities utilize artificial control of light, environmental control (humidity, temperature, gases...) and fertigation. Some vertical farms use techniques similar to greenhouses, where natural sunlight can be augmented with artificial lighting and metal reflectors. In contrast to conventional farming, vertical farming does not require soil. Instead, methods such as hydroponics, aquaponics, or aeroponics are used.
+On top of a striking new exhibition hall in southern Paris, the world’s largest urban rooftop farm has started to bear fruit. Strawberries that are small, intensely flavoured and resplendently red sprout abundantly from large plastic tubes. Peer inside and you see the tubes are completely hollow, the roots of dozens of strawberry plants dangling down inside them. From identical vertical tubes nearby burst row upon row of lettuces; near those are aromatic herbs, such as basil, sage and peppermint. Opposite, in narrow, horizontal trays packed not with soil but with coconut fibre, grow cherry tomatoes, shiny aubergines and brightly coloured chards.
 
-C
-Proponents point to several advantages of vertical farming. Chief among these is the dramatic reduction in the amount of land required. Because crops are stacked vertically, a vertical farm can produce as much as ten times the yield of an equivalent area of horizontal farmland. Furthermore, indoor farming eliminates the threat of adverse weather conditions, floods, droughts, and pests, enabling year-round harvest cycles.
+Pascal Hardy, an engineer and sustainable development consultant, began experimenting with vertical farming and aeroponic growing towers – as the soil-free plastic tubes are known – on his Paris apartment block roof five years ago. The urban rooftop space above the exhibition hall is somewhat bigger: 14,000 square metres and almost exactly the size of a couple of football pitches. Already, the team of young urban farmers who tend it have picked, in one day, 3,000 lettuces and 150 punnets of strawberries. When the remaining two thirds of the vast open area are in production, 20 staff will harvest up to 1,000 kg of perhaps 35 different varieties of fruit and vegetables, every day. ‘We’re not ever, obviously, going to feed the whole city this way,’ cautions Hardy. ‘In the urban environment you’re working with very significant practical constraints, clearly, on what you can do and where. But if enough unused space can be developed like this, there’s no reason why you shouldn’t eventually target maybe between 5% and 10% of consumption.’
 
-D
-Another significant benefit is water conservation. Traditional agricultural irrigation accounts for roughly 70 percent of global freshwater consumption. In closed-loop vertical systems, water is continuously recycled and transpired moisture is collected and reused, cutting water usage by up to 95 percent compared to open-field farming.
+Perhaps most significantly, however, this is a real-life showcase for the work of Hardy’s flourishing urban agriculture consultancy, Agripolis, which is currently fielding enquiries from around the world to design, build and equip a new breed of soil-free inner-city farm. ‘The method’s advantages are many,’ he says. ‘First, I don’t much like the fact that most of the fruit and vegetables we eat have been treated with something like 17 different pesticides, or that the intensive farming techniques that produced them are such huge generators of greenhouse gases. I don’t much like the fact, either, that they’ve travelled an average of 2,000 refrigerated kilometres to my plate, that their quality is so poor, because the varieties are selected for their capacity to withstand such substantial journeys, or that 80% of the price I pay goes to wholesalers and transport companies, not the producers.’
 
-E
-However, vertical farming faces substantial challenges. The primary obstacle is the colossal upfront capital cost required to construct high-tech facilities equipped with sensors, automated robotics, and LED arrays. Additionally, the electricity demanded to power 24-hour artificial lighting can lead to higher operational costs and a significant carbon footprint unless clean, renewable energy sources are employed.
+Produce grown using this soil-free method, on the other hand – which relies solely on a small quantity of water, enriched with organic nutrients, pumped around a closed circuit of pipes, towers and trays – is ‘produced up here, and sold locally, just down there. It barely travels at all,’ Hardy says. ‘You can select crop varieties for their flavour, not their resistance to the transport and storage chain, and you can pick them when they’re really at their best, and not before.’ No soil is exhausted, and the water that gently showers the plants’ roots every 12 minutes is recycled, so the method uses 90% less water than a classic intensive farm for the same yield.
 
-F
-Despite these hurdles, urban planners and food security experts believe vertical farming will play an indispensable role in feeding the projected global population of nearly 10 billion by 2050, especially as urbanization accelerates and arable land becomes increasingly scarce.`
+Urban farming is not, of course, a new phenomenon. Inner-city agriculture is booming from Shanghai to Detroit and Tokyo to Bangkok. Strawberries are being grown in disused shipping containers, mushrooms in underground carparks. Aeroponic farming, he says, is ‘virtuous’. The equipment weighs little, can be installed on almost any flat surface and is cheap to buy: roughly €100 to €150 per square metre. It is cheap to run, too, consuming a tiny fraction of the electricity used by some techniques.
+
+Produce grown this way typically sells at prices that, while generally higher than those of classic intensive agriculture, are lower than soil-based organic growers. There are limits to what farmers can grow this way, of course, and much of the produce is suited to the summer months. ‘Root vegetables we cannot do, at least not yet,’ he says. ‘Radishes are OK, but carrots, potatoes, that kind of thing – the roots are simply too long. Fruit trees are obviously not an option. And beans tend to take up a lot of space for not much return.’ Nevertheless, urban farming of the kind being practised in Paris is one part of a bigger and fast-changing picture that is bringing food production closer to our lives.`
       },
       {
         passageNumber: 2,
-        title: "The Forest Canopy",
-        subtitle: "Exploring the secret life in the treetops of tropical rainforests",
-        content: `A
-The forest canopy, the upper layer formed by mature tree crowns, contains an extraordinary proportion of the world's terrestrial biodiversity. Historically, this treetop realm was virtually inaccessible to scientists, earning it the moniker 'the eighth continent' due to how little was known about its complex ecological web.
+        title: "Forest management in Pennsylvania, USA",
+        subtitle: "How managing low-quality wood (also known as low-use wood) for bioenergy can encourage sustainable forest management",
+        content: `[Paragraph A] A tree’s ‘value’ depends on several factors including its species, size, form, condition, quality, function, and accessibility, and depends on the management goals for a given forest. The same tree can be valued very differently by each person who looks at it. A large, straight black cherry tree has high value as timber to be cut into logs or made into furniture, but for a landowner more interested in wildlife habitat, the real value of that stem (or trunk) may be the food it provides to animals. Likewise, if the tree suffers from black knot disease, its value for timber decreases, but to a woodworker interested in making bowls, it brings an opportunity for a unique and beautiful piece of art.
 
-B
-Solar radiation is captured predominantly in the canopy, where leaves intercept over 80 percent of incoming sunlight. This abundant energy fuels rapid photosynthesis, creating lush micro-habitats that host thousands of species of epiphytes (air plants), insects, birds, and arboreal mammals that never touch the ground throughout their lifespans.
+[Paragraph B] In the past, Pennsylvania landowners were solely interested in the value of their trees as high-quality timber. The norm was to remove the stems of highest quality and leave behind poorly formed trees that were not as well suited to the site where they grew. This practice, called ‘high-grading’, has left a legacy of ‘low-use wood’ in the forests. Some people even call these ‘junk trees’, and they are abundant in Pennsylvania. These trees have lower economic value for traditional timber markets, compete for growth with higher-value trees, shade out desirable regeneration and decrease the health of a stand leaving it more vulnerable to poor weather and disease. Management that specifically targets low-use wood can help landowners manage these forest health issues, and wood energy markets help promote this.
 
-C
-In recent decades, pioneering canopy biologists invented new technologies to explore this elevated ecosystem. Early rope-climbing methods borrowed from mountaineering were gradually replaced by canopy walkways, hot-air balloons, and construction cranes installed in tropical reserves in Panama and Australia, allowing researchers to study treetops in three dimensions.
+[Paragraph C] Wood energy markets can accept less expensive wood material of lower quality than would be suitable for traditional timber markets. Most wood used for energy in Pennsylvania is used to produce heat or electricity through combustion. Many schools and hospitals use wood boiler systems to heat and power their facilities, many homes are primarily heated with wood, and some coal plants incorporate wood into their coal streams to produce electricity. Wood can also be gasified for electrical generation and can even be made into liquid fuels like ethanol and gasoline for lorries and cars. All these products are made primarily from low-use wood. Several tree- and plant-cutting approaches, which could greatly improve the long-term quality of a forest, focus strongly or solely on the use of wood for those markets.
 
-D
-One crucial discovery is the role of canopy epiphytes, such as bromeliads and orchids, in nutrient cycling. These plants collect falling organic debris and rainwater in their leaf bases, forming 'suspended soils' high above the earth. These aerial compost heaps harbor specialized invertebrates and provide critical moisture reservoirs during prolonged dry spells.
+[Paragraph D] One such approach is called a Timber Stand Improvement (TSI) Cut. In a TSI Cut, really poor-quality tree and plant material is cut down to allow more space, light, and other resources to the highest-valued stems that remain. Removing invasive plants might be another primary goal of a TSI Cut. The stems that are left behind might then grow in size and develop more foliage and larger crowns or tops that produce more coverage for wildlife; they have a better chance to regenerate in a less crowded environment. TSI Cuts can be tailored to one farmer’s specific management goals for his or her land.
 
-E
-Canopy environments also act as vital atmospheric regulators. By absorbing immense amounts of carbon dioxide and releasing moisture through evapotranspiration, the rainforest canopy drives regional weather patterns and exerts a cooling effect on the global climate.
+[Paragraph E] Another approach that might yield a high amount of low-use wood is a Salvage Cut. With the many pests and pathogens visiting forests including hemlock wooly adelgid, Asian longhorned beetle, emerald ash borer, and gypsy moth, to name just a few, it is important to remember that those working in the forests can help ease these issues through cutting procedures. These types of cut reduce the number of sick trees and seek to manage the future spread of a pest problem. They leave vigorous trees that have stayed healthy enough to survive the outbreak.
 
-F
-Nevertheless, canopy habitats are exceptionally vulnerable to anthropogenic disturbances. Selective logging removes the tallest emergent trees, fracturing the canopy framework and drastically altering light and humidity levels beneath, causing cascading extinctions among specialized canopy organisms.`
+[Paragraph F] A Shelterwood Cut, which only takes place in a mature forest that has already been thinned several times, involves removing all the mature trees when other seedlings have become established. This then allows the forester to decide which tree species are regenerated. It leaves a young forest where all trees are at a similar point in their growth. It can also be used to develop a two-tier forest so that there are two harvests and the money that comes in is spread out over a decade or more.
+
+[Paragraph G] Thinnings and dense and dead wood removal for fire prevention also center on the production of low-use wood. However, it is important to remember that some retention of what many would classify as low-use wood is very important. The tops of trees that have been cut down should be left on the site so that their nutrients cycle back into the soil. In addition, trees with many cavities are extremely important habitats for insect predators like woodpeckers, bats and small mammals. They help control problem insects and increase the health and resilience of the forest. It is also important to remember that not all small trees are low-use. For example, many species like hawthorn provide food for wildlife. Finally, rare species of trees in a forest should also stay behind as they add to its structural diversity.`
       },
       {
         passageNumber: 3,
@@ -119,253 +111,225 @@ Ultimately, consensus among bioethicists and clinical leaders emphasizes that AI
     // --- PASSAGE 1: Câu 1 -> 13 ---
     {
       position: 1,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Vertical farming requires more land area than conventional open-field agriculture.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "FALSE" },
-      explanation: "Đoạn C khẳng định: Vertical farming giúp giảm mạnh diện tích đất, một trang trại thẳng đứng có thể cho sản lượng gấp 10 lần diện tích nông nghiệp truyền thống tương đương.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Urban farming in Paris — NO MORE THAN TWO WORDS AND/OR A NUMBER]\nVertical tubes are used to grow strawberries, ________ and herbs.",
+      options: null,
+      answerKey: { value: "lettuces", accepted: ["lettuces", "lettuce"] },
+      explanation: "Đoạn 1: 'From identical vertical tubes nearby burst row upon row of lettuces; near those are aromatic herbs...'",
     },
     {
       position: 2,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "All vertical farms rely exclusively on natural sunlight to grow crops.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "FALSE" },
-      explanation: "Đoạn B chỉ ra rằng các trang trại này kiểm soát nhân tạo ánh sáng (artificial light) và chỉ bổ sung ánh sáng tự nhiên chứ không phụ thuộc độc quyền vào mặt trời.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Urban farming in Paris — NO MORE THAN TWO WORDS AND/OR A NUMBER]\nThere will eventually be a daily harvest of as much as ________ in weight of fruit and vegetables.",
+      options: null,
+      answerKey: { value: "1,000 kg", accepted: ["1,000 kg", "1000 kg", "1,000kg", "1000kg", "1,000 kilograms", "1000 kilograms"] },
+      explanation: "Đoạn 2: 'When the remaining two thirds of the vast open area are in production, 20 staff will harvest up to 1,000 kg of perhaps 35 different varieties of fruit and vegetables, every day.'",
     },
     {
       position: 3,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Adverse weather events such as floods do not disrupt indoor vertical farming harvests.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "TRUE" },
-      explanation: "Đoạn C nêu rõ: Canh tác trong nhà loại bỏ hoàn toàn các mối đe dọa từ thời tiết bất lợi, lũ lụt, hạn hán và sâu bệnh, cho phép thu hoạch quanh năm.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Urban farming in Paris — NO MORE THAN TWO WORDS AND/OR A NUMBER]\nIt may be possible that the farm's produce will account for as much as 10% of the city's ________ overall.",
+      options: null,
+      answerKey: { value: "consumption", accepted: ["consumption", "food consumption"] },
+      explanation: "Đoạn 2: 'But if enough unused space can be developed like this, there’s no reason why you shouldn’t eventually target maybe between 5% and 10% of consumption.'",
     },
     {
       position: 4,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Closed-loop vertical farming systems can decrease agricultural water usage by up to 95 percent.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "TRUE" },
-      explanation: "Đoạn D nêu rõ: Hệ thống tuần hoàn khép kín tái sử dụng nước liên tục, giúp cắt giảm lượng nước tiêu thụ tới 95% so với đồng ruộng truyền thống.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Intensive farming vs Aeroponic urban farming — ONE WORD ONLY]\nIntensive farming (Growth):\n• wide range of ________ used\n• techniques pollute air",
+      options: null,
+      answerKey: { value: "pesticides", accepted: ["pesticides", "pesticide"] },
+      explanation: "Đoạn 3: 'First, I don’t much like the fact that most of the fruit and vegetables we eat have been treated with something like 17 different pesticides...'",
     },
     {
       position: 5,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Vertical farms are currently cheaper to build and operate than traditional greenhouses.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "FALSE" },
-      explanation: "Đoạn E nhấn mạnh trở ngại hàng đầu là chi phí đầu tư ban đầu khổng lồ (colossal upfront capital cost) và tiền điện cao do đèn LED 24/7.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Intensive farming vs Aeroponic urban farming — ONE WORD ONLY]\nIntensive farming (Selection):\n• quality not good\n• varieties of fruit and vegetables chosen that can survive long ________",
+      options: null,
+      answerKey: { value: "journeys", accepted: ["journeys", "journey"] },
+      explanation: "Đoạn 3: '...that their quality is so poor, because the varieties are selected for their capacity to withstand such substantial journeys...'",
     },
     {
       position: 6,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Vertical farming produces zero carbon emissions regardless of the electricity source used.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "FALSE" },
-      explanation: "Đoạn E ghi nhận lượng điện tiêu thụ lớn sẽ tạo ra dấu chân carbon đáng kể (significant carbon footprint) trừ khi sử dụng năng lượng tái tạo.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Intensive farming vs Aeroponic urban farming — ONE WORD ONLY]\nIntensive farming (Sale):\n• ________ receive very little of overall income",
+      options: null,
+      answerKey: { value: "producers", accepted: ["producers", "producer"] },
+      explanation: "Đoạn 3: '...or that 80% of the price I pay goes to wholesalers and transport companies, not the producers.'",
     },
     {
       position: 7,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "The United Nations has officially mandated vertical farming in all developing countries.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "NOT GIVEN" },
-      explanation: "Đoạn F chỉ đề cập các chuyên gia tin rằng vertical farming sẽ đóng vai trò quan trọng, không có thông tin Liên Hợp Quốc bắt buộc triển khai.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Intensive farming vs Aeroponic urban farming — ONE WORD ONLY]\nAeroponic urban farming (Selection):\n• produce chosen because of its ________",
+      options: null,
+      answerKey: { value: "flavour", accepted: ["flavour", "flavor"] },
+      explanation: "Đoạn 4: 'You can select crop varieties for their flavour, not their resistance to the transport and storage chain...'",
     },
     {
       position: 8,
-      type: QuestionType.FILL_IN_BLANK,
-      prompt: "Instead of soil, vertical farms often cultivate plants using methods such as aeroponics or ________.",
-      options: null,
-      answerKey: { value: "hydroponics", accepted: ["hydroponics", "aquaponics"] },
-      explanation: "Đoạn B: 'In contrast to conventional farming, vertical farming does not require soil. Instead, methods such as hydroponics, aquaponics, or aeroponics are used.'",
+      type: QuestionType.TRUE_FALSE,
+      prompt: "Urban farming can take place above or below ground.",
+      options: ["TRUE", "FALSE", "NOT GIVEN"],
+      answerKey: { value: "TRUE" },
+      explanation: "Đoạn 1 & Đoạn 5: Nông nghiệp đô thị diễn ra cả ở trên cao ('urban rooftop farm') và dưới lòng đất ('mushrooms in underground carparks') -> TRUE.",
     },
     {
       position: 9,
-      type: QuestionType.FILL_IN_BLANK,
-      prompt: "Traditional agricultural irrigation accounts for roughly ________ percent of global freshwater consumption.",
-      options: null,
-      answerKey: { value: "70", accepted: ["70", "70%", "70 percent"] },
-      explanation: "Đoạn D: 'Traditional agricultural irrigation accounts for roughly 70 percent of global freshwater consumption.'",
+      type: QuestionType.TRUE_FALSE,
+      prompt: "Some of the equipment used in aeroponic farming can be made by hand.",
+      options: ["TRUE", "FALSE", "NOT GIVEN"],
+      answerKey: { value: "NOT GIVEN" },
+      explanation: "Đoạn 5 có đề cập thiết bị nhẹ, dễ lắp đặt và rẻ (€100–€150/m²), nhưng hoàn toàn không có thông tin nào nói thiết bị có thể tự làm bằng tay (made by hand) -> NOT GIVEN.",
     },
     {
       position: 10,
-      type: QuestionType.FILL_IN_BLANK,
-      prompt: "In vertical farms, the high consumption of ________ can substantially increase operational expenditures.",
-      options: null,
-      answerKey: { value: "electricity", accepted: ["electricity", "power", "energy"] },
-      explanation: "Đoạn E: 'Additionally, the electricity demanded to power 24-hour artificial lighting can lead to higher operational costs...'",
+      type: QuestionType.TRUE_FALSE,
+      prompt: "Urban farming relies more on electricity than some other types of farming.",
+      options: ["TRUE", "FALSE", "NOT GIVEN"],
+      answerKey: { value: "FALSE" },
+      explanation: "Đoạn 5: 'It is cheap to run, too, consuming a tiny fraction of the electricity used by some techniques.' -> FALSE.",
     },
     {
       position: 11,
-      type: QuestionType.FILL_IN_BLANK,
-      prompt: "Food security experts project that the worldwide population will reach nearly ________ billion by the year 2050.",
-      options: null,
-      answerKey: { value: "10", accepted: ["10", "ten", "10 billion"] },
-      explanation: "Đoạn F: 'feeding the projected global population of nearly 10 billion by 2050.'",
+      type: QuestionType.TRUE_FALSE,
+      prompt: "Fruit and vegetables grown on an aeroponic urban farm are cheaper than traditionally grown organic produce.",
+      options: ["TRUE", "FALSE", "NOT GIVEN"],
+      answerKey: { value: "TRUE" },
+      explanation: "Đoạn 6: 'Produce grown this way typically sells at prices that, while generally higher than those of classic intensive agriculture, are lower than soil-based organic growers.' -> TRUE.",
     },
     {
       position: 12,
-      type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "According to Paragraph B, what is a key feature of Controlled-Environment Agriculture (CEA)?",
-      options: [
-        "A. Complete dependence on natural seasonal rainfall",
-        "B. Artificial control of light, humidity, and temperature",
-        "C. Mandatory use of organic animal compost",
-        "D. Open-air field cultivation without glass enclosures"
-      ],
-      answerKey: { value: "B" },
-      explanation: "Đoạn B chỉ rõ: CEA cho phép kiểm soát nhân tạo tất cả các yếu tố môi trường như ánh sáng, độ ẩm, nhiệt độ và dinh dưỡng.",
+      type: QuestionType.TRUE_FALSE,
+      prompt: "Most produce can be grown on an aeroponic urban farm at any time of the year.",
+      options: ["TRUE", "FALSE", "NOT GIVEN"],
+      answerKey: { value: "FALSE" },
+      explanation: "Đoạn 6: 'There are limits to what farmers can grow this way, of course, and much of the produce is suited to the summer months.' -> FALSE.",
     },
     {
       position: 13,
-      type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "What is the primary factor limiting the immediate widespread adoption of vertical farms according to Paragraph E?",
-      options: [
-        "A. Complete lack of consumer interest in indoor produce",
-        "B. Shortage of agricultural computer software",
-        "C. Substantial upfront construction and technology costs",
-        "D. Inability to produce edible leafy greens"
-      ],
-      answerKey: { value: "C" },
-      explanation: "Đoạn E nêu rõ: 'The primary obstacle is the colossal upfront capital cost required to construct high-tech facilities...'",
+      type: QuestionType.TRUE_FALSE,
+      prompt: "Beans take longer to grow on an urban farm than other vegetables.",
+      options: ["TRUE", "FALSE", "NOT GIVEN"],
+      answerKey: { value: "NOT GIVEN" },
+      explanation: "Đoạn 6: 'And beans tend to take up a lot of space for not much return.' (Không đề cập thời gian sinh trưởng lâu hơn rau khác) -> NOT GIVEN.",
     },
 
     // --- PASSAGE 2: Câu 14 -> 26 ---
     {
       position: 14,
-      type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "Why was the forest canopy historically described as 'the eighth continent'?",
-      options: [
-        "A. Because of its vast geographic area spanning oceans",
-        "B. Due to extreme difficulty of access and lack of scientific knowledge",
-        "C. Because it is inhabited exclusively by endangered birds",
-        "D. Due to its discovery by eighteenth-century explorers"
-      ],
-      answerKey: { value: "B" },
-      explanation: "Đoạn A: 'Historically, this treetop realm was virtually inaccessible to scientists, earning it the moniker 'the eighth continent' due to how little was known...'",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Which paragraph (A–G) contains the following information?]\nbad outcomes for a forest when people focus only on its financial reward",
+      options: null,
+      answerKey: { value: "B", accepted: ["B", "Paragraph B"] },
+      explanation: "Đoạn B: Khi chủ rừng chỉ chú trọng lấy gỗ chất lượng cao, rừng còn lại toàn cây kém chất lượng, cạnh tranh dinh dưỡng, che khuất cây con tái sinh và làm rừng dễ bị sâu bệnh, thời tiết xấu.",
     },
     {
       position: 15,
-      type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "According to Paragraph B, approximately how much sunlight is intercepted by the upper leaves of the canopy?",
-      options: [
-        "A. Less than 20 percent",
-        "B. Exactly 50 percent",
-        "C. Over 80 percent",
-        "D. Almost 100 percent in all weather"
-      ],
-      answerKey: { value: "C" },
-      explanation: "Đoạn B: 'Solar radiation is captured predominantly in the canopy, where leaves intercept over 80 percent of incoming sunlight.'",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Which paragraph (A–G) contains the following information?]\nreference to the aspects of any tree that contribute to its worth",
+      options: null,
+      answerKey: { value: "A", accepted: ["A", "Paragraph A"] },
+      explanation: "Đoạn A liệt kê các yếu tố tạo nên giá trị (worth/value) của một cái cây: 'A tree’s value depends on several factors including its species, size, form, condition, quality, function, and accessibility...'",
     },
     {
       position: 16,
-      type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "Which of the following devices was NOT mentioned as a tool used to explore the canopy in modern research?",
-      options: [
-        "A. Industrial construction cranes",
-        "B. Canopy walkways",
-        "C. Submersible research vehicles",
-        "D. Hot-air balloons"
-      ],
-      answerKey: { value: "C" },
-      explanation: "Đoạn C liệt kê canopy walkways, hot-air balloons, construction cranes. Tàu ngầm (submersible) không hề được dùng trong rừng.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Which paragraph (A–G) contains the following information?]\nmention of the potential use of wood to help run vehicles",
+      options: null,
+      answerKey: { value: "C", accepted: ["C", "Paragraph C"] },
+      explanation: "Đoạn C đề cập việc chế biến gỗ thành nhiên liệu lỏng chạy xe tải và ô tô: 'Wood can also be gasified for electrical generation and can even be made into liquid fuels like ethanol and gasoline for lorries and cars.'",
     },
     {
       position: 17,
-      type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "What are 'suspended soils' formed by epiphytic plants according to Paragraph D?",
-      options: [
-        "A. Artificial fertilizers introduced by field researchers",
-        "B. Collections of falling organic debris and trapped rainwater",
-        "C. Compacted clay transported from the ground by ants",
-        "D. Mineral dust blown from desert plains"
-      ],
-      answerKey: { value: "B" },
-      explanation: "Đoạn D: 'These plants collect falling organic debris and rainwater in their leaf bases, forming suspended soils high above the earth.'",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Which paragraph (A–G) contains the following information?]\nexamples of insects that attack trees",
+      options: null,
+      answerKey: { value: "E", accepted: ["E", "Paragraph E"] },
+      explanation: "Đoạn E nêu các ví dụ về sâu hại tấn công cây rừng: 'With the many pests and pathogens visiting forests including hemlock wooly adelgid, Asian longhorned beetle, emerald ash borer, and gypsy moth...'",
     },
     {
       position: 18,
-      type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "How does the rainforest canopy influence regional weather patterns according to Paragraph E?",
-      options: [
-        "A. By absorbing carbon dioxide and releasing moisture through evapotranspiration",
-        "B. By preventing clouds from forming over agricultural fields",
-        "C. By trapping greenhouse gases permanently under tree bark",
-        "D. By generating geothermal heat from deep subterranean roots"
-      ],
-      answerKey: { value: "A" },
-      explanation: "Đoạn E: 'By absorbing immense amounts of carbon dioxide and releasing moisture through evapotranspiration, the rainforest canopy drives regional weather patterns...'",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Which paragraph (A–G) contains the following information?]\nan alternative name for trees that produce low-use wood",
+      options: null,
+      answerKey: { value: "B", accepted: ["B", "Paragraph B"] },
+      explanation: "Đoạn B nêu tên gọi khác của những cây cho gỗ giá trị sử dụng thấp (low-use wood) là 'junk trees'.",
     },
     {
       position: 19,
       type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "What is the primary danger posed by selective logging in the forest canopy (Paragraph F)?",
+      prompt: "[Match each purpose with the correct timber cut, A, B or C]\nto remove trees that are diseased",
       options: [
-        "A. Increased risk of underground volcanic activity",
-        "B. Destruction of tallest emergent trees, disrupting light and moisture levels",
-        "C. Total contamination of groundwater with industrial pesticides",
-        "D. Accelerated spread of bacterial infections among primates"
+        "A. a TSI Cut",
+        "B. a Salvage Cut",
+        "C. a Shelterwood Cut"
       ],
       answerKey: { value: "B" },
-      explanation: "Đoạn F: 'Selective logging removes the tallest emergent trees, fracturing the canopy framework and drastically altering light and humidity levels beneath...'",
+      explanation: "Đoạn E (Salvage Cut — B): 'These types of cut reduce the number of sick trees and seek to manage the future spread of a pest problem.'",
     },
     {
       position: 20,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Many organisms living in the tropical forest canopy spend their entire lives without descending to the forest floor.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "TRUE" },
-      explanation: "Đoạn B: 'epiphytes (air plants), insects, birds, and arboreal mammals that never touch the ground throughout their lifespans.'",
+      type: QuestionType.MULTIPLE_CHOICE,
+      prompt: "[Match each purpose with the correct timber cut, A, B or C]\nto generate income across a number of years",
+      options: [
+        "A. a TSI Cut",
+        "B. a Salvage Cut",
+        "C. a Shelterwood Cut"
+      ],
+      answerKey: { value: "C" },
+      explanation: "Đoạn F (Shelterwood Cut — C): 'It can also be used to develop a two-tier forest so that there are two harvests and the money that comes in is spread out over a decade or more.'",
     },
     {
       position: 21,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Canopy construction cranes were first deployed exclusively in European coniferous forests.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "FALSE" },
-      explanation: "Đoạn C ghi rõ cần cẩu được lắp đặt tại các khu bảo tồn rừng nhiệt đới ở Panama và Australia.",
+      type: QuestionType.MULTIPLE_CHOICE,
+      prompt: "[Match each purpose with the correct timber cut, A, B or C]\nto create a forest whose trees are close in age",
+      options: [
+        "A. a TSI Cut",
+        "B. a Salvage Cut",
+        "C. a Shelterwood Cut"
+      ],
+      answerKey: { value: "C" },
+      explanation: "Đoạn F (Shelterwood Cut — C): 'It leaves a young forest where all trees are at a similar point in their growth.'",
     },
     {
       position: 22,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Bromeliads obtain water only from underground taproots extending into deep soil.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "FALSE" },
-      explanation: "Đoạn D: Bromeliads là thực vật phụ sinh (epiphytes) tích trữ nước mưa trực tiếp ở bẹ lá trên ngọn cây, không cắm rễ xuống đất.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Complete the sentences below — ONE WORD ONLY]\nSome dead wood is removed to avoid the possibility of ________ .",
+      options: null,
+      answerKey: { value: "fire", accepted: ["fire", "fires"] },
+      explanation: "Đoạn G: 'Thinnings and dense and dead wood removal for fire prevention also center on the production of low-use wood.'",
     },
     {
       position: 23,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Canopy soils provide vital moisture reservoirs during periods of drought.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "TRUE" },
-      explanation: "Đoạn D: 'harbor specialized invertebrates and provide critical moisture reservoirs during prolonged dry spells.'",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Complete the sentences below — ONE WORD ONLY]\nThe ________ from the tops of cut trees can help improve soil quality.",
+      options: null,
+      answerKey: { value: "nutrients", accepted: ["nutrients"] },
+      explanation: "Đoạn G: 'The tops of trees that have been cut down should be left on the site so that their nutrients cycle back into the soil.'",
     },
     {
       position: 24,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Global warming has completely halted all evapotranspiration in South American rainforests.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "NOT GIVEN" },
-      explanation: "Đoạn E chỉ giải thích hiện tượng thoát hơi nước giúp làm mát khí hậu, không có thông tin nói rằng quá trình này đã bị dừng hoàn toàn.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Complete the sentences below — ONE WORD ONLY]\nSome damaged trees should be left, as their ________ provide habitats for a range of creatures.",
+      options: null,
+      answerKey: { value: "cavities", accepted: ["cavities"] },
+      explanation: "Đoạn G: 'In addition, trees with many cavities are extremely important habitats for insect predators like woodpeckers, bats and small mammals.'",
     },
     {
       position: 25,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Epiphytic orchids harm their host trees by actively feeding on internal vascular sap.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "NOT GIVEN" },
-      explanation: "Bài viết chỉ nhắc đến phong lan sống trên cây giữ mùn và nước, không có thông tin phong lan hút nhựa hay làm hại cây chủ.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Complete the sentences below — ONE WORD ONLY]\nSome trees that are small, such as ________ , are a source of food for animals and insects.",
+      options: null,
+      answerKey: { value: "hawthorn", accepted: ["hawthorn"] },
+      explanation: "Đoạn G: 'For example, many species like hawthorn provide food for wildlife.'",
     },
     {
       position: 26,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "The destruction of the canopy framework can lead to the extinction of specialized species.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "TRUE" },
-      explanation: "Đoạn F: 'causing cascading extinctions among specialized canopy organisms.'",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Complete the sentences below — ONE WORD ONLY]\nAny trees that are ________ should be left to grow, as they add to the variety of species in the forest.",
+      options: null,
+      answerKey: { value: "rare", accepted: ["rare"] },
+      explanation: "Đoạn G: 'Finally, rare species of trees in a forest should also stay behind as they add to its structural diversity.'",
     },
 
     // --- PASSAGE 3: Câu 27 -> 40 ---
