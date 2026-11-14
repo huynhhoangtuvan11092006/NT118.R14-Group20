@@ -376,8 +376,99 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         scrollQuestions.smoothScrollTo(0, 0)
     }
 
+    private fun bindBlankEditText(et: EditText, qPosition: Int) {
+        val existing = answersMap[qPosition]
+        if (!existing.isNullOrBlank()) {
+            et.setText(existing)
+        }
+
+        et.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                val txt = s?.toString()?.trim() ?: ""
+                if (txt.isNotBlank()) {
+                    answersMap[qPosition] = txt
+                } else {
+                    answersMap.remove(qPosition)
+                }
+                updateAnsweredCounter()
+            }
+        })
+    }
+
+    private fun renderCam18Test2Section1() {
+        val inflater = LayoutInflater.from(this)
+
+        // 1. Group 1: Working at Milo's Restaurants (Questions 1–5)
+        val notesView = inflater.inflate(R.layout.layout_cam18_t2_p1_notes, layoutDynamicQuestions, false)
+        val btnZoomNotes1 = notesView.findViewById<TextView>(R.id.btnZoomNotes1)
+        btnZoomNotes1.setOnClickListener {
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test2_part1_notes, "Working at Milo's Restaurants")
+        }
+
+        bindBlankEditText(notesView.findViewById(R.id.etNoteBlank1), 1)
+        bindBlankEditText(notesView.findViewById(R.id.etNoteBlank2), 2)
+        bindBlankEditText(notesView.findViewById(R.id.etNoteBlank3), 3)
+        bindBlankEditText(notesView.findViewById(R.id.etNoteBlank4), 4)
+        bindBlankEditText(notesView.findViewById(R.id.etNoteBlank5), 5)
+
+        layoutDynamicQuestions.addView(notesView)
+
+        // 2. Group 2: Table (Questions 6–10)
+        val tableView = inflater.inflate(R.layout.layout_cam18_t2_p1_table, layoutDynamicQuestions, false)
+        val btnZoomTable1 = tableView.findViewById<TextView>(R.id.btnZoomTable1)
+        btnZoomTable1.setOnClickListener {
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test2_part1_table, "Bảng tuyển dụng (Jobs Table)")
+        }
+
+        bindBlankEditText(tableView.findViewById(R.id.etTableBlank6), 6)
+        bindBlankEditText(tableView.findViewById(R.id.etTableBlank7), 7)
+        bindBlankEditText(tableView.findViewById(R.id.etTableBlank8), 8)
+        bindBlankEditText(tableView.findViewById(R.id.etTableBlank9), 9)
+        bindBlankEditText(tableView.findViewById(R.id.etTableBlank10), 10)
+
+        layoutDynamicQuestions.addView(tableView)
+    }
+
+    private fun renderCam18Test2Section4() {
+        val inflater = LayoutInflater.from(this)
+
+        // Group: Pockets (Questions 31–40)
+        val pocketsView = inflater.inflate(R.layout.layout_cam18_t2_p4_pockets, layoutDynamicQuestions, false)
+        val btnZoomPockets4 = pocketsView.findViewById<TextView>(R.id.btnZoomPockets4)
+        btnZoomPockets4.setOnClickListener {
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test2_part4_pockets, "Pockets")
+        }
+
+        bindBlankEditText(pocketsView.findViewById(R.id.etPocketBlank31), 31)
+        bindBlankEditText(pocketsView.findViewById(R.id.etPocketBlank32), 32)
+        bindBlankEditText(pocketsView.findViewById(R.id.etPocketBlank33), 33)
+        bindBlankEditText(pocketsView.findViewById(R.id.etPocketBlank34), 34)
+        bindBlankEditText(pocketsView.findViewById(R.id.etPocketBlank35), 35)
+        bindBlankEditText(pocketsView.findViewById(R.id.etPocketBlank36), 36)
+        bindBlankEditText(pocketsView.findViewById(R.id.etPocketBlank37), 37)
+        bindBlankEditText(pocketsView.findViewById(R.id.etPocketBlank38), 38)
+        bindBlankEditText(pocketsView.findViewById(R.id.etPocketBlank39), 39)
+        bindBlankEditText(pocketsView.findViewById(R.id.etPocketBlank40), 40)
+
+        layoutDynamicQuestions.addView(pocketsView)
+    }
+
     private fun renderQuestionsForSection(sectionNumber: Int) {
         layoutDynamicQuestions.removeAllViews()
+
+        val isTest2 = currentTestId.contains("test2") || testDetail?.title?.contains("Test 2") == true
+
+        if (isTest2 && sectionNumber == 1) {
+            renderCam18Test2Section1()
+            return
+        }
+
+        if (isTest2 && sectionNumber == 4) {
+            renderCam18Test2Section4()
+            return
+        }
 
         val allQuestions = testDetail?.questions ?: emptyList()
         val sectionQuestions = allQuestions.filter { it.sectionNumber == sectionNumber }
