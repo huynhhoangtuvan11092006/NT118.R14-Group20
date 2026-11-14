@@ -1523,7 +1523,7 @@ object CambridgeListeningTestDetailDataSource {
                 title = "Part 2: Museum of Farming Life",
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758844/%E5%89%9118_section4_part1.mp3",
                 durationSeconds = 410,
-                transcript = "[00:00] Part 2. You will hear a talk on the Museum of Farming Life."
+                transcript = "[00:50] GUIDE: Good morning, everyone, and welcome to the Museum of Farming Life. Since this is your first visit, I'll explain the museum's history and introduce the different things you can see here.\n[01:07] GUIDE: We're standing at the entrance to a large building originally constructed in 1880. It was the private home of Alfred Palmer, a local businessman associated with the Palmer Biscuit Factory. [Q11]\n[01:21] GUIDE: The building later became student accommodation in 1911, before being converted into a museum in 1951. A modern extension was added in 2005 to provide more space for the collections.\n[01:41] GUIDE: The university owns the museum building. Apart from two rooms used as our offices, the university uses the main part of the building for teaching. [Q12]\n[01:54] GUIDE: You may see university students attending lessons there, but visitors cannot enter that section. It's unfortunate because the building has some remarkable architectural features, especially the former library.\n[02:09] GUIDE: Fortunately, admission to the museum is free. This includes the galleries, the outdoor spaces and the rooms used for special exhibitions.\n[02:24] GUIDE: We also organise free activities for children and students, including a museum club. We do have a donation box, though, if you'd like to contribute. [Q13]\n[02:42] GUIDE: There's a cloakroom where you can leave coats and bags. Unlike many museums, we're happy for visitors to take photographs, so you may want to keep your cameras with you.\n[02:56] GUIDE: However, carrying a heavy backpack around may be uncomfortable. Please keep your coats on because the museum garden is quite cold today. [Q14]\n[03:51] GUIDE: Let me introduce the different areas of the museum, starting with Four Seasons, which is situated near the main gallery.\n[04:06] GUIDE: Four Seasons features a short animated film showing a woodland environment. Young people studying film production created it especially for this museum. Both children and adults tend to enjoy it. [Q15]\n[04:20] GUIDE: The main gallery is called Town and Country. It contains a photographic collection featuring prize-winning sheep and the people who look after them.\n[04:35] GUIDE: Next is Farmhouse Kitchen. As the name suggests, this area focuses on traditional farm kitchens. It houses the country's oldest collection of equipment used to make butter and cheese.\n[04:50] GUIDE: A specialist cheesemaker will demonstrate the production process this morning, and visitors may even have the chance to taste the finished product. [Q16]\n[04:58] GUIDE: After that, you can go upstairs to a landing with a view over the galleries, or turn left into a room called A Year on the Farm.\n[05:05] GUIDE: That room has plenty of seats. We sometimes use it for school groups, so it's a good place to take a break. Visitors can also test their memory by answering questions about the exhibits they've seen. [Q17]\n[05:27] GUIDE: Another section is Waggon Walk, which displays farm carts collected from different parts of the country. The designs vary considerably from region to region, and information boards explain the background of each cart.\n[05:50] GUIDE: These carts are old and fragile, so please keep children close and don't allow them to climb on the displays. [Q18]\n[05:58] GUIDE: From Waggon Walk, you can return to reception, visit the garden or go back to the galleries.\n[06:06] GUIDE: One garden area, called Bees are Magic, is currently being redeveloped and cannot be visited. However, you can still purchase our honey in the museum shop. [Q19]\n[06:19] GUIDE: Finally, the pond is home to a variety of wildlife, including very young ducklings and small frogs.\n[06:34] GUIDE: There's a fence around the pond, and the water isn't deep, so the area is safe for children. [Q20]"
             ),
             ListeningSectionDto(
                 sectionNumber = 3,
@@ -1642,105 +1642,175 @@ object CambridgeListeningTestDetailDataSource {
                 timestampStart = 348,
                 timestampEnd = 0
             ),
-            // Provisional Q11-40 for Test 4
+            // Section 2: Q11-20
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q11",
                 position = 11,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Museum of Farming Life\nQuestions 11â€“14: Choose the correct letter, A, B or C.\n11. The main building of the museum was originally",
-                options = listOf("A. a farmhouse.", "B. a private home.", "C. a factory."),
+                prompt = "The Museum of Farming Life\nQuestions 11–14: Choose the correct letter, A, B or C.\n\n11. The museum building was originally",
+                options = listOf(
+                    "A. a factory.",
+                    "B. a private home.",
+                    "C. a hall of residence."
+                ),
                 sectionNumber = 2,
-                timestampStart = 60,
+                timestampStart = 67,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q12",
                 position = 12,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Museum of Farming Life\n12. What was the Palmer family's main business?",
-                options = listOf("A. farming", "B. shipping", "C. manufacturing"),
+                prompt = "The Museum of Farming Life\nQuestions 11–14: Choose the correct letter, A, B or C.\n\n12. The university uses part of the museum building as",
+                options = listOf(
+                    "A. teaching rooms.",
+                    "B. a research library.",
+                    "C. administration offices."
+                ),
                 sectionNumber = 2,
-                timestampStart = 90,
+                timestampStart = 101,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q13",
                 position = 13,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Museum of Farming Life\n13. What is special about the farmhouse exhibition?",
-                options = listOf("A. It has interactive displays.", "B. Visitors can touch the objects.", "C. It reconstructs Victorian life."),
+                prompt = "The Museum of Farming Life\nQuestions 11–14: Choose the correct letter, A, B or C.\n\n13. What does the guide say about the entrance fee?",
+                options = listOf(
+                    "A. Visitors decide whether or not they wish to pay.",
+                    "B. Only some parts of the museum are free.",
+                    "C. It is cheaper for students and children."
+                ),
                 sectionNumber = 2,
-                timestampStart = 120,
+                timestampStart = 144,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q14",
                 position = 14,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Museum of Farming Life\n14. The guide recommends visiting the cafe for its",
-                options = listOf("A. views over the fields.", "B. historic atmosphere.", "C. home-baked cakes."),
+                prompt = "The Museum of Farming Life\nQuestions 11–14: Choose the correct letter, A, B or C.\n\n14. What are visitors advised to leave in the cloakroom?",
+                options = listOf(
+                    "A. cameras",
+                    "B. coats",
+                    "C. bags"
+                ),
                 sectionNumber = 2,
-                timestampStart = 150,
+                timestampStart = 176,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q15",
                 position = 15,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Museum of Farming Life\nQuestions 15â€“20: Museum areas\n15. Four Seasons",
-                options = listOf("A. Closed today", "B. Requires adult supervision", "C. Recent addition"),
+                prompt = "The Museum of Farming Life\nQuestions 15–20: What does the guide say about each of the following areas of the museum?\nChoose SIX answers from the box and write the correct letter, A–H, next to Questions 15–20.\n\nFeatures:\nA. Parents must supervise their children.\nB. There are new things to see.\nC. It is closed today.\nD. This is only for school groups.\nE. There is a quiz for visitors.\nF. It features something created by students.\nG. An expert is here today.\nH. There is a one-way system.\n\n15. Four Seasons",
+                options = listOf(
+                    "A. Parents must supervise their children.",
+                    "B. There are new things to see.",
+                    "C. It is closed today.",
+                    "D. This is only for school groups.",
+                    "E. There is a quiz for visitors.",
+                    "F. It features something created by students.",
+                    "G. An expert is here today.",
+                    "H. There is a one-way system."
+                ),
                 sectionNumber = 2,
-                timestampStart = 180,
+                timestampStart = 246,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q16",
                 position = 16,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Museum of Farming Life\n16. Farmhouse Kitchen",
-                options = listOf("A. Closed today", "B. Requires adult supervision", "C. Recent addition"),
+                prompt = "The Museum of Farming Life\nQuestions 15–20: What does the guide say about each of the following areas of the museum?\nChoose SIX answers from the box and write the correct letter, A–H, next to Questions 15–20.\n\nFeatures:\nA. Parents must supervise their children.\nB. There are new things to see.\nC. It is closed today.\nD. This is only for school groups.\nE. There is a quiz for visitors.\nF. It features something created by students.\nG. An expert is here today.\nH. There is a one-way system.\n\n16. Farmhouse Kitchen",
+                options = listOf(
+                    "A. Parents must supervise their children.",
+                    "B. There are new things to see.",
+                    "C. It is closed today.",
+                    "D. This is only for school groups.",
+                    "E. There is a quiz for visitors.",
+                    "F. It features something created by students.",
+                    "G. An expert is here today.",
+                    "H. There is a one-way system."
+                ),
                 sectionNumber = 2,
-                timestampStart = 210,
+                timestampStart = 290,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q17",
                 position = 17,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Museum of Farming Life\n17. A Year on the Farm",
-                options = listOf("A. Closed today", "B. Requires adult supervision", "C. Recent addition"),
+                prompt = "The Museum of Farming Life\nQuestions 15–20: What does the guide say about each of the following areas of the museum?\nChoose SIX answers from the box and write the correct letter, A–H, next to Questions 15–20.\n\nFeatures:\nA. Parents must supervise their children.\nB. There are new things to see.\nC. It is closed today.\nD. This is only for school groups.\nE. There is a quiz for visitors.\nF. It features something created by students.\nG. An expert is here today.\nH. There is a one-way system.\n\n17. A Year on the Farm",
+                options = listOf(
+                    "A. Parents must supervise their children.",
+                    "B. There are new things to see.",
+                    "C. It is closed today.",
+                    "D. This is only for school groups.",
+                    "E. There is a quiz for visitors.",
+                    "F. It features something created by students.",
+                    "G. An expert is here today.",
+                    "H. There is a one-way system."
+                ),
                 sectionNumber = 2,
-                timestampStart = 240,
+                timestampStart = 305,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q18",
                 position = 18,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Museum of Farming Life\n18. Wagon Walk",
-                options = listOf("A. Closed today", "B. Requires adult supervision", "C. Recent addition"),
+                prompt = "The Museum of Farming Life\nQuestions 15–20: What does the guide say about each of the following areas of the museum?\nChoose SIX answers from the box and write the correct letter, A–H, next to Questions 15–20.\n\nFeatures:\nA. Parents must supervise their children.\nB. There are new things to see.\nC. It is closed today.\nD. This is only for school groups.\nE. There is a quiz for visitors.\nF. It features something created by students.\nG. An expert is here today.\nH. There is a one-way system.\n\n18. Wagon Walk",
+                options = listOf(
+                    "A. Parents must supervise their children.",
+                    "B. There are new things to see.",
+                    "C. It is closed today.",
+                    "D. This is only for school groups.",
+                    "E. There is a quiz for visitors.",
+                    "F. It features something created by students.",
+                    "G. An expert is here today.",
+                    "H. There is a one-way system."
+                ),
                 sectionNumber = 2,
-                timestampStart = 270,
+                timestampStart = 350,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q19",
                 position = 19,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Museum of Farming Life\n19. Bees are Magic",
-                options = listOf("A. Closed today", "B. Requires adult supervision", "C. Recent addition"),
+                prompt = "The Museum of Farming Life\nQuestions 15–20: What does the guide say about each of the following areas of the museum?\nChoose SIX answers from the box and write the correct letter, A–H, next to Questions 15–20.\n\nFeatures:\nA. Parents must supervise their children.\nB. There are new things to see.\nC. It is closed today.\nD. This is only for school groups.\nE. There is a quiz for visitors.\nF. It features something created by students.\nG. An expert is here today.\nH. There is a one-way system.\n\n19. Bees are Magic",
+                options = listOf(
+                    "A. Parents must supervise their children.",
+                    "B. There are new things to see.",
+                    "C. It is closed today.",
+                    "D. This is only for school groups.",
+                    "E. There is a quiz for visitors.",
+                    "F. It features something created by students.",
+                    "G. An expert is here today.",
+                    "H. There is a one-way system."
+                ),
                 sectionNumber = 2,
-                timestampStart = 300,
+                timestampStart = 366,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q20",
                 position = 20,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Museum of Farming Life\n20. The Pond",
-                options = listOf("A. Closed today", "B. Requires adult supervision", "C. Recent addition"),
+                prompt = "The Museum of Farming Life\nQuestions 15–20: What does the guide say about each of the following areas of the museum?\nChoose SIX answers from the box and write the correct letter, A–H, next to Questions 15–20.\n\nFeatures:\nA. Parents must supervise their children.\nB. There are new things to see.\nC. It is closed today.\nD. This is only for school groups.\nE. There is a quiz for visitors.\nF. It features something created by students.\nG. An expert is here today.\nH. There is a one-way system.\n\n20. The Pond",
+                options = listOf(
+                    "A. Parents must supervise their children.",
+                    "B. There are new things to see.",
+                    "C. It is closed today.",
+                    "D. This is only for school groups.",
+                    "E. There is a quiz for visitors.",
+                    "F. It features something created by students.",
+                    "G. An expert is here today.",
+                    "H. There is a one-way system."
+                ),
                 sectionNumber = 2,
-                timestampStart = 330,
+                timestampStart = 379,
                 timestampEnd = 0
             ),
             // Section 3: Q21-30

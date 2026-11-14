@@ -649,8 +649,8 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
             listOf(
                 "receptionist", "medical", "Chastons", "appointments", "database",
                 "experience", "confident", "temporary", "1.15", "parking",
-                "B", "C", "B", "C", "C",
-                "B", "B", "A", "C", "B",
+                "B", "A", "A", "C", "F",
+                "G", "E", "A", "C", "B",
                 "A", "E", "B", "D", "G",
                 "E", "B", "C", "F", "A",
                 "plot", "poverty", "Europe", "poetry", "drawings",
@@ -703,8 +703,16 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
                 "However, it's a temporary position rather than a permanent one.",
                 "What time would I finish? At 1:15 p.m.",
                 "Is there a car park for employees at the medical centre? Yes, staff can park there.",
-                "Dẫn chứng câu 11", "Dẫn chứng câu 12", "Dẫn chứng câu 13", "Dẫn chứng câu 14", "Dẫn chứng câu 15",
-                "Dẫn chứng câu 16", "Dẫn chứng câu 17", "Dẫn chứng câu 18", "Dẫn chứng câu 19", "Dẫn chứng câu 20",
+                "We're standing at the entrance to a large building originally constructed in 1880. It was the private home of Alfred Palmer",
+                "Apart from two rooms used as our offices, the university uses the main part of the building for teaching.",
+                "Fortunately, admission to the museum is free... We do have a donation box, though, if you'd like to contribute.",
+                "carrying a heavy backpack around may be uncomfortable. Please keep your coats on because the museum garden is quite cold today.",
+                "Four Seasons features a short animated film... Young people studying film production created it especially for this museum.",
+                "A specialist cheesemaker will demonstrate the production process this morning, and visitors may even have the chance to taste the finished product.",
+                "Visitors can also test their memory by answering questions about the exhibits they've seen.",
+                "These carts are old and fragile, so please keep children close and don't allow them to climb on the displays.",
+                "One garden area, called Bees are Magic, is currently being redeveloped and cannot be visited.",
+                "Finally, the pond is home to a variety of wildlife, including very young ducklings and small frogs.",
                 "Dẫn chứng câu 21", "Dẫn chứng câu 22", "Dẫn chứng câu 23", "Dẫn chứng câu 24", "Dẫn chứng câu 25",
                 "Dẫn chứng câu 26", "Dẫn chứng câu 27", "Dẫn chứng câu 28", "Dẫn chứng câu 29", "Dẫn chứng câu 30",
                 "Dẫn chứng câu 31", "Dẫn chứng câu 32", "Dẫn chứng câu 33", "Dẫn chứng câu 34", "Dẫn chứng câu 35",
@@ -816,7 +824,7 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
         val timestamps = if (isTest4) {
             listOf(
                 106, 122, 134, 158, 169, 238, 258, 303, 337, 348,
-                60, 90, 120, 150, 180, 210, 240, 270, 300, 330,
+                67, 101, 144, 176, 246, 290, 305, 350, 366, 379,
                 60, 90, 120, 150, 180, 210, 240, 270, 300, 330,
                 60, 90, 120, 150, 180, 210, 240, 270, 300, 330
             )
