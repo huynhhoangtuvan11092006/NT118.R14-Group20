@@ -679,8 +679,16 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
                 "to begin with, you'd be getting £9.75",
                 "making sure there's enough stock each week and sorting out all the deliveries.",
                 "you do get one Sunday off every four weeks",
-                "Planned Housing Development - 11", "Planned Housing Development - 12", "Planned Housing Development - 13", "Planned Housing Development - 14", "Planned Housing Development - 15",
-                "Planned Housing Development - 16", "Planned Housing Development - 17", "Planned Housing Development - 18", "Planned Housing Development - 19", "Planned Housing Development - 20",
+                "because of the new industrial centre in Nunston, there's a lot of demand for housing for employees",
+                "excellent hospital just 15 km away, and a large secondary school even closer",
+                "blended in well with the natural features of the landscape, with provision made for protecting trees and wildlife",
+                "place where people of all ages can live together happily.",
+                "The school will be on that road, at the corner of the second turning to the left.",
+                "A large sports centre is planned... western side of the development, just below the road that branches off",
+                "The clinic will be just below this, to the right of a street of houses.",
+                "row of specially designed houses... community centre will be adjoining this.",
+                "There'll be a supermarket between the two entrances... just to the south of these.",
+                "road that goes up from the south entrance... curves round to the left... playground will be in that curve",
                 "The Laki Eruption of 1783 - 21", "The Laki Eruption of 1783 - 22", "The Laki Eruption of 1783 - 23", "The Laki Eruption of 1783 - 24", "The Laki Eruption of 1783 - 25",
                 "The Laki Eruption of 1783 - 26", "The Laki Eruption of 1783 - 27", "The Laki Eruption of 1783 - 28", "The Laki Eruption of 1783 - 29", "The Laki Eruption of 1783 - 30",
                 "convenient", "suits", "tailor", "profession", "visible",
@@ -714,7 +722,7 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
         val timestamps = if (isTest2) {
             listOf(
                 99, 115, 136, 172, 204, 254, 288, 316, 361, 441,
-                15, 30, 45, 60, 75, 90, 105, 120, 135, 150,
+                79, 112, 159, 179, 299, 308, 333, 340, 362, 370,
                 15, 30, 45, 60, 75, 90, 105, 120, 135, 150,
                 15, 30, 45, 60, 75, 90, 105, 120, 135, 150
             )
