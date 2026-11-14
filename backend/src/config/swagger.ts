@@ -18,7 +18,7 @@ export const swaggerDocument = {
     { name: "Authentication", description: "Các API xác thực và tài khoản" },
     { name: "Users", description: "Các API quản lý người dùng và mục tiêu học tập" },
     { name: "System", description: "Kiểm tra hệ thống" },
-    { name: "Writing AI", description: "Gemini đánh giá IELTS Writing theo 4 tiêu chí" },
+    { name: "Writing AI", description: "AI đánh giá IELTS Writing theo 4 tiêu chí" },
   ],
   components: {
     securitySchemes: {
@@ -101,7 +101,7 @@ export const swaggerDocument = {
     "/ai/evaluate/writing": {
       post: {
         tags: ["Writing AI"],
-        summary: "Chấm IELTS Writing bằng Gemini (ước tính, không phải điểm chính thức)",
+        summary: "Chấm IELTS Writing bằng AI (ước tính, không phải điểm chính thức)",
         security: [{ bearerAuth: [] }],
         requestBody: {
           required: true,
@@ -124,10 +124,10 @@ export const swaggerDocument = {
           200: { description: "Estimated band, four criteria, Vietnamese feedback and grammar rewrites, as JSON" },
           400: { description: "Invalid input" },
           401: { description: "Bearer access token required" },
-          429: { description: "Gemini rate limit" },
+          429: { description: "AI rate limit" },
           502: { description: "Provider error or invalid AI JSON" },
-          503: { description: "Gemini key missing or invalid" },
-          504: { description: "Gemini timeout" },
+          503: { description: "AI key missing or invalid" },
+          504: { description: "AI timeout" },
         },
       },
     },

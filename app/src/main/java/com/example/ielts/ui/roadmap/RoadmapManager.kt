@@ -232,7 +232,7 @@ object RoadmapManager {
             .roundToInt()
             .coerceIn(0, 100)
 
-        // 3. Kiểm tra cache Gemini AI theo cặp Band hiện tại -> Mục tiêu
+        // 3. Kiểm tra cache AI theo cặp Band hiện tại -> Mục tiêu
         val focusSkills = userPrefs.getStringSet("focus_skills", setOf("Writing", "Speaking")) ?: setOf("Writing", "Speaking")
         val pairKey = String.format(Locale.US, "%.1f_%.1f_%s", currentBand, targetBand, focusSkills.sorted().joinToString("-"))
         val aiCache = getAiCache(context)?.takeIf { it.targetPairKey == pairKey }
@@ -429,7 +429,8 @@ object RoadmapManager {
             )
         }
 
-        val displayAdvice = aiCache?.strategicAdvice?.takeIf { it.isNotBlank() } ?: defaultAdvice
+        val rawAdvice = aiCache?.strategicAdvice?.takeIf { it.isNotBlank() } ?: defaultAdvice
+        val displayAdvice = rawAdvice.replace(Regex("(?i)gemini\\s*ai|ai\\s*gemini|gemini"), "AI")
 
         return PersonalizedRoadmapData(
             currentBand = currentBand,
@@ -442,7 +443,7 @@ object RoadmapManager {
             studyTimeLabel = studyTimeLabel,
             streakDays = streakDays,
             aiStrategicAdvice = displayAdvice,
-            aiModelBadge = if (aiCache != null) "Gemini AI • ${aiCache.aiModel}" else "Gemini AI ✨",
+            aiModelBadge = "AI ✨",
             dailyTasks = dailyTasks,
             phases = phases,
             hasAiCache = aiCache != null,
@@ -525,7 +526,7 @@ object RoadmapManager {
     }
 
     /**
-     * Gọi thực tế Google Gemini AI trên Backend để phân tích hồ sơ học viên
+     * Gọi thực tế AI trên Backend để phân tích hồ sơ học viên
      * và sinh lời khuyên Cố vấn chiến lược + 3 Chặng mục tiêu (5 bài/chặng).
      */
     suspend fun generatePersonalizedRoadmapWithAi(context: Context): Result<PersonalizedRoadmapData> {
@@ -549,7 +550,7 @@ object RoadmapManager {
                 focusSkills.sorted().joinToString("-")
             )
 
-            // 1. Ưu tiên gọi Endpoint chuyên biệt /api/v1/ai/evaluate/roadmap (Gemini 3.5 Flash Lite / Flash)
+            // 1. Ưu tiên gọi Endpoint chuyên biệt /api/v1/ai/evaluate/roadmap
             try {
                 val roadmapResp = ApiClient.apiService.generateRoadmap(
                     token = bearerToken,
@@ -711,7 +712,7 @@ object RoadmapManager {
         } else {
             String.format(
                 Locale.US,
-                "Để bứt phá từ Band %.1f lên %.1f (%s), Gemini AI đề xuất bạn khởi động ngay Chặng 1 (5 bài) với đề Cambridge IELTS 19 Test 1, luyện viết Task 1 Line Graph (Urban Population) và học 15 từ vựng Environment.",
+                "Để bứt phá từ Band %.1f lên %.1f (%s), AI đề xuất bạn khởi động ngay Chặng 1 (5 bài) với đề Cambridge IELTS 19 Test 1, luyện viết Task 1 Line Graph (Urban Population) và học 15 từ vựng Environment.",
                 currentBand,
                 targetBand,
                 countdownLabel

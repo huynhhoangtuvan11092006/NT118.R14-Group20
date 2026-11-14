@@ -66,7 +66,7 @@ interface IeltsApiService {
         @Body request: UpdateProfileRequest
     ): Response<com.example.ielts.data.remote.dto.UserResponse>
 
-    // --- CHẤM ĐIỂM WRITING & LỘ TRÌNH HỌC BẰNG AI GEMINI ---
+    // --- CHẤM ĐIỂM WRITING & LỘ TRÌNH HỌC BẰNG AI ---
     @POST("api/v1/ai/evaluate/writing")
     suspend fun evaluateWriting(
         @Header("Authorization") token: String,

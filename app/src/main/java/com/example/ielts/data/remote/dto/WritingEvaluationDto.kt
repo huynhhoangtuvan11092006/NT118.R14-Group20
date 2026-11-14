@@ -19,7 +19,7 @@ data class WritingEvaluationRequest(
 )
 
 /**
- * Response chấm điểm Writing từ Gemini AI thông qua Backend
+ * Response chấm điểm Writing từ AI thông qua Backend
  */
 data class WritingEvaluationResponse(
     @SerializedName("taskType")
@@ -106,6 +106,6 @@ data class AiRoadmapResponse(
     @SerializedName("phase3Desc")
     val phase3Desc: String = "",
     @SerializedName("model")
-    val model: String = "gemini-2.5-flash"
+    val model: String = "AI"
 )
 

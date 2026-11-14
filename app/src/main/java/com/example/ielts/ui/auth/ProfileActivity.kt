@@ -254,7 +254,7 @@ class ProfileActivity : AppCompatActivity() {
                 }
                 getSharedPreferences("ielts_login_preferences", MODE_PRIVATE).edit().putBoolean("IS_LOGGED_IN", true).apply()
 
-                // Xóa cache lộ trình cũ để Gemini AI tạo mới theo đúng hồ sơ vừa thiết lập
+                // Xóa cache lộ trình cũ để AI tạo mới theo đúng hồ sơ vừa thiết lập
                 com.example.ielts.ui.roadmap.RoadmapManager.clearAiCache(this@ProfileActivity)
 
                 Toast.makeText(

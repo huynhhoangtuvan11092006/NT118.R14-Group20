@@ -52,7 +52,7 @@ class RoadmapActivity : AppCompatActivity() {
     private lateinit var tvStudyHoursValue: TextView
     private lateinit var tvStreakDaysValue: TextView
 
-    // Gemini AI Advisor Card
+    // AI Advisor Card
     private lateinit var cardAiAdvisor: LinearLayout
     private lateinit var tvAiAdvisorHeader: TextView
     private lateinit var tvAiModelBadge: TextView
@@ -225,7 +225,7 @@ class RoadmapActivity : AppCompatActivity() {
             finish()
         }
 
-        // Bấm nút AI Sparkle hoặc thẻ Cố vấn AI để gọi Gemini AI tối ưu lộ trình
+        // Bấm nút AI Sparkle hoặc thẻ Cố vấn AI để gọi AI tối ưu lộ trình
         val aiClickListener = View.OnClickListener {
             triggerAiRoadmapOptimization(forceRefresh = true)
         }
@@ -561,7 +561,7 @@ class RoadmapActivity : AppCompatActivity() {
         if (isAiGenerating) return
         isAiGenerating = true
 
-        showAiStatusToast("Gemini AI đang phân tích hồ sơ & kho đề học tập...")
+        showAiStatusToast("AI đang phân tích hồ sơ & kho đề học tập...")
         btnAiOptimize.animate().rotationBy(360f).setDuration(900).start()
 
         lifecycleScope.launch {
@@ -570,7 +570,7 @@ class RoadmapActivity : AppCompatActivity() {
 
             result.onSuccess {
                 renderRoadmapUI()
-                showAiStatusToast("✨ Gemini AI đã cập nhật lộ trình cá nhân hóa!")
+                showAiStatusToast("✨ AI đã cập nhật lộ trình cá nhân hóa!")
                 delay(2800)
                 hideAiStatusToast()
             }.onFailure {

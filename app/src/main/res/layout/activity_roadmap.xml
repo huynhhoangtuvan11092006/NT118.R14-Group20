@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Gemini AI đang phân tích dữ liệu học tập..."
+            android:text="AI đang phân tích dữ liệu học tập..."
             android:textColor="#EEF0FF"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -397,7 +397,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- 1B. Gemini AI Advisor Strategic Insight Card -->
+            <!-- 1B. AI Advisor Strategic Insight Card -->
             <LinearLayout
                 android:id="@+id/cardAiAdvisor"
                 android:layout_width="match_parent"
@@ -425,7 +425,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
                         android:layout_weight="1"
-                        android:text="Cố vấn chiến lược Gemini AI"
+                        android:text="Cố vấn chiến lược AI"
                         android:textColor="#004AC6"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -439,7 +439,7 @@
                         android:paddingTop="2dp"
                         android:paddingEnd="8dp"
                         android:paddingBottom="2dp"
-                        android:text="AI Cá nhân hóa ✨"
+                        android:text="AI ✨"
                         android:textColor="#004AC6"
                         android:textSize="10.5sp"
                         android:textStyle="bold" />
@@ -451,7 +451,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:lineSpacingExtra="2dp"
-                    android:text="Dựa trên mục tiêu từ Band 5.5 lên 8.5, Gemini AI đề xuất tập trung 45% thời lượng vào Writing Task 1-2 và Nghe Section 3-4, kết hợp ôn 15 từ vựng học thuật mỗi ngày."
+                    android:text="Dựa trên mục tiêu từ Band 5.5 lên 8.5, AI đề xuất tập trung 45% thời lượng vào Writing Task 1-2 và Nghe Section 3-4, kết hợp ôn 15 từ vựng học thuật mỗi ngày."
                     android:textColor="#131B2E"
                     android:textSize="12.5sp" />
             </LinearLayout>

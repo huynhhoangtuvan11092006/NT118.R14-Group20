@@ -366,7 +366,7 @@ class WritingEditorActivity : AppCompatActivity() {
     private fun performAiEvaluation(essay: String, wordCount: Int) {
         val progressDialog = ProgressDialog(this).apply {
             setTitle("AI Examiner ✨")
-            setMessage("Đang gửi bài viết tới AI Gemini để phân tích 4 tiêu chí & sửa lỗi ngữ pháp chi tiết... Vui lòng đợi trong giây lát.")
+            setMessage("Đang gửi bài viết tới AI để phân tích 4 tiêu chí & sửa lỗi ngữ pháp chi tiết... Vui lòng đợi trong giây lát.")
             setCancelable(false)
             show()
         }
@@ -424,7 +424,7 @@ class WritingEditorActivity : AppCompatActivity() {
                     val prefs = getSharedPreferences("writing_drafts_pref", MODE_PRIVATE)
                     prefs.edit().remove("draft_$testId").apply()
 
-                    // Mở màn hình Kết quả với dữ liệu chấm thực từ Gemini AI
+                    // Mở màn hình Kết quả với dữ liệu chấm thực từ AI
                     openResultActivity(finalResult, essay, timeSpent, wordCount)
                 } else {
                     val errorRaw = response.errorBody()?.string() ?: ""
@@ -459,7 +459,7 @@ class WritingEditorActivity : AppCompatActivity() {
 
                 AlertDialog.Builder(this@WritingEditorActivity)
                     .setTitle("Không thể kết nối máy chủ AI ⚠️")
-                    .setMessage("Đã xảy ra sự cố kết nối tới dịch vụ chấm điểm Gemini AI: $errorDesc\n\nBài viết của bạn vẫn được lưu giữ an toàn trong khung soạn thảo.")
+                    .setMessage("Đã xảy ra sự cố kết nối tới dịch vụ chấm điểm AI: $errorDesc\n\nBài viết của bạn vẫn được lưu giữ an toàn trong khung soạn thảo.")
                     .setPositiveButton("Thử nộp lại") { _, _ ->
                         performAiEvaluation(essay, wordCount)
                     }
