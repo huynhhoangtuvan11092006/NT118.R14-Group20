@@ -568,8 +568,16 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                 "C", "D", "B", "H", "A",
                 "C", "A", "B", "B", "A",
                 "B", "D", "A", "C", "F",
-                "convenient", "suits", "tailor", "profession", "visible",
-                "string", "waist", "perfume", "image", "handbag"
+                "nothing is quite as convenient as being able to pop your phone or credit card into your pocket.",
+                "male fashion first, that was the time when suits became popular.",
+                "pockets were sewn into this cloth by whichever tailor the customer used.",
+                "plainer if the wearer was someone with a profession who needed to carry medical instruments",
+                "For one thing, they weren't nearly as visible or as easy to reach as men's.",
+                "have a pair of pockets made that were tied together with string.",
+                "Women tied the pockets around their waist so that they hung beneath their clothes.",
+                "opening in the folds of their skirts, through which they could reach whatever they needed, like their perfume.",
+                "They stood out too much and detracted from the woman's image.",
+                "inevitably led onto the handbag of more modern times, particularly when fashion removed pockets altogether."
             )
         } else {
             listOf(
@@ -616,8 +624,16 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                 "the famine there led to more people dying than any other country.",
                 "included an unusually high percentage of people under the age of 25.",
                 "snowbound until March in Virginia... ice floating down the Mississippi, which was unprecedented.",
-                "convenient", "suits", "tailor", "profession", "visible",
-                "string", "waist", "perfume", "image", "handbag"
+                "nothing is quite as convenient as being able to pop your phone or credit card into your pocket.",
+                "male fashion first, that was the time when suits became popular.",
+                "pockets were sewn into this cloth by whichever tailor the customer used.",
+                "plainer if the wearer was someone with a profession who needed to carry medical instruments",
+                "For one thing, they weren't nearly as visible or as easy to reach as men's.",
+                "have a pair of pockets made that were tied together with string.",
+                "Women tied the pockets around their waist so that they hung beneath their clothes.",
+                "opening in the folds of their skirts, through which they could reach whatever they needed, like their perfume.",
+                "They stood out too much and detracted from the woman's image.",
+                "inevitably led onto the handbag of more modern times, particularly when fashion removed pockets altogether."
             )
         } else {
             listOf(
@@ -649,7 +665,7 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                 99, 115, 136, 172, 204, 254, 288, 316, 361, 441,
                 79, 112, 159, 179, 299, 308, 333, 340, 362, 370,
                 106, 134, 163, 200, 226, 242, 313, 330, 353, 368,
-                15, 30, 45, 60, 75, 90, 105, 120, 135, 150
+                87, 125, 150, 170, 193, 223, 245, 261, 309, 325
             )
         } else {
             listOf(

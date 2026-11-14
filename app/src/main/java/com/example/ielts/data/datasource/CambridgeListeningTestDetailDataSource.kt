@@ -504,7 +504,7 @@ object CambridgeListeningTestDetailDataSource {
                 sectionNumber = 4,
                 title = "Part 4: Pockets",
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758609/%E5%89%9118_section2-part1.mp3",
-                durationSeconds = 450,
+                durationSeconds = 380,
                 transcript = "[00:00] Lecturer: In today's design history lecture, we shall investigate the evolution of pockets in clothing and their societal implications."
             )
         )
@@ -821,100 +821,100 @@ object CambridgeListeningTestDetailDataSource {
                 id = "cam18_t2_q31",
                 position = 31,
                 type = "FILL_IN_BLANK",
-                prompt = "Pockets\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nEarly history of pockets\n• pockets were initially 31 ________ rather than stylish",
+                prompt = "The history of pockets\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\n• Reason for choice: pockets are 31 ________ for carrying small modern items",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 15,
+                timestampStart = 87,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q32",
                 position = 32,
                 type = "FILL_IN_BLANK",
-                prompt = "Pockets\n• sewn inside men's [ 32 ] for security",
+                prompt = "The history of pockets\nMen's pockets in the 18th century\n• 32 ________ became fashionable, including breeches, waistcoats and jackets\n• pockets were sewn into the lining by a [ 33 ]",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 30,
+                timestampStart = 125,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q33",
                 position = 33,
                 type = "FILL_IN_BLANK",
-                prompt = "Pockets\n• customized by a local 33 ________ according to personal preference",
+                prompt = "The history of pockets\nMen's pockets in the 18th century\n• [ 32 ] became fashionable, including breeches, waistcoats and jackets\n• pockets were sewn into the lining by a 33 ________\n• pockets were larger and plainer for men with a [ 34 ]",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 45,
+                timestampStart = 150,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q34",
                 position = 34,
                 type = "FILL_IN_BLANK",
-                prompt = "Pockets\n• pocket designs reflected the owner's 34 ________ and status",
+                prompt = "The history of pockets\nMen's pockets in the 18th century\n• pockets were sewn into the lining by a [ 33 ]\n• pockets were larger and plainer for men with a 34 ________ (e.g. doctors)",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 60,
+                timestampStart = 170,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q35",
                 position = 35,
                 type = "FILL_IN_BLANK",
-                prompt = "Pockets\n• in women's clothing, pockets were not initially 35 ________ from the outside",
+                prompt = "The history of pockets\nWomen's pockets in the 18th and 19th centuries\n• were not as 35 ________ or easy to reach as men's pockets\n• pairs of pockets were tied together with [ 36 ]",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 75,
+                timestampStart = 193,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q36",
                 position = 36,
                 type = "FILL_IN_BLANK",
-                prompt = "Pockets\n• bags were tied with a 36 ________ under petticoats",
+                prompt = "The history of pockets\nWomen's pockets in the 18th and 19th centuries\n• were not as [ 35 ] or easy to reach as men's pockets\n• pairs of pockets were tied together with 36 ________\n• worn tied around the [ 37 ] beneath skirts and petticoats",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 90,
+                timestampStart = 223,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q37",
                 position = 37,
                 type = "FILL_IN_BLANK",
-                prompt = "Pockets\n• fastened around the 37 ________ for ease of carrying",
+                prompt = "The history of pockets\nWomen's pockets in the 18th and 19th centuries\n• pairs of pockets were tied together with [ 36 ]\n• worn tied around the 37 ________ beneath skirts and petticoats\n• accessed through an opening in folds to reach items like [ 38 ]",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 105,
+                timestampStart = 245,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q38",
                 position = 38,
                 type = "FILL_IN_BLANK",
-                prompt = "Pockets\n• used to hold small items such as keys, coins, and 38 ________",
+                prompt = "The history of pockets\nWomen's pockets in the 18th and 19th centuries\n• worn tied around the [ 37 ] beneath skirts and petticoats\n• accessed through an opening in folds to reach items like 38 ________",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 120,
+                timestampStart = 261,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q39",
                 position = 39,
                 type = "FILL_IN_BLANK",
-                prompt = "Pockets\n• changes in fashion silhouettes prioritized body 39 ________ over functionality",
+                prompt = "The history of pockets\nLate 19th century changes\n• dresses became tighter and less bulky, making pockets too noticeable\n• pockets detracted from a woman's 39 ________\n• led to the emergence of pouches and the modern [ 40 ]",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 135,
+                timestampStart = 309,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t2_q40",
                 position = 40,
                 type = "FILL_IN_BLANK",
-                prompt = "Pockets\n• led to the emergence of the modern 40 ________ as an indispensable accessory",
+                prompt = "The history of pockets\nLate 19th century changes\n• pockets detracted from a woman's [ 39 ]\n• led to the emergence of pouches and the modern 40 ________",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 150,
+                timestampStart = 325,
                 timestampEnd = 0
             )
         )
