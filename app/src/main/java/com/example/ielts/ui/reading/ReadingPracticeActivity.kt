@@ -565,9 +565,7 @@ class ReadingPracticeActivity : AppCompatActivity() {
                     else -> 3
                 }
                 val userAns = userAnswers[pos]?.trim()
-                val customMeta = if (testId == "cam18-test1") {
-                    CambridgeReadingDataSource.getCam18Test1AnswerMetadata(pos)
-                } else null
+                val customMeta = CambridgeReadingDataSource.getAnswerMetadata(testId, pos)
 
                 val (correctAns, explanation) = if (customMeta != null) {
                     Pair(customMeta.correctAnswer, customMeta.explanation)

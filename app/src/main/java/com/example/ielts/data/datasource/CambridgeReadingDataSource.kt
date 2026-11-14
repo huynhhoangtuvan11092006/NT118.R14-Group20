@@ -96,13 +96,13 @@ object CambridgeReadingDataSource {
         list.add(
             ReadingTestListItemDto(
                 id = "cam18-test2",
-                title = "Cambridge IELTS 18 - Test 2",
-                summary = "Bộ đề chuẩn khảo thí British Council & IDP",
-                difficulty = "Khó",
+                title = "Cambridge IELTS 18 - Academic Reading Test 2",
+                summary = "Bộ đề thi thử IELTS Reading Academic trích từ Cambridge IELTS 18 Test 2",
+                difficulty = "Academic",
                 durationMinutes = 60,
                 totalQuestions = 40,
                 passageTitles = listOf(
-                    "Stone Age Cave Art Discoveries",
+                    "Stonehenge",
                     "The Migration Patterns of Marine Animals",
                     "The Psychology of Decision Making"
                 ),
@@ -634,8 +634,10 @@ object CambridgeReadingDataSource {
         "[Paragraph G] Thinnings and dense and dead wood removal for fire prevention also center on the production of low-use wood. However, it is important to remember that some retention of what many would classify as low-use wood is very important. The tops of trees that have been cut down should be left on the site so that their nutrients cycle back into the soil. In addition, trees with many cavities are extremely important habitats for insect predators like woodpeckers, bats and small mammals. They help control problem insects and increase the health and resilience of the forest. It is also important to remember that not all small trees are low-use. For example, many species like hawthorn provide food for wildlife. Finally, rare species of trees in a forest should also stay behind as they add to its structural diversity."
 
     fun hasCustomExamContent(testId: String): Boolean {
-        return testId == "cam18-test1"
+        return testId == "cam18-test1" || testId == "cam18-test2"
     }
+
+    private const val CAM18_TEST2_PASSAGE1_CONTENT = "For centuries, historians and archaeologists have puzzled over the many mysteries of Stonehenge, a prehistoric monument that took an estimated 1,500 years to erect. Located on Salisbury Plain in southern England, it is comprised of roughly 100 massive upright stones placed in a circular layout.\n\nArchaeologists believe England's most iconic prehistoric ruin was built in several stages, with the earliest constructed 5,000 or more years ago. First, Neolithic* Britons used primitive tools, which may have been fashioned out of deer antlers, to dig a massive circular ditch and bank, or henge. Deep pits dating back to that era and located within the circle may have once held a ring of timber posts, according to some scholars.\n\nSeveral hundred years later, it is thought, Stonehenge's builders hoisted an estimated 80 bluestones, 43 of which remain today, into standing positions and placed them in either a horseshoe or circular formation. These stones have been traced all the way to the Preseli Hills in Wales, some 300 kilometres from Stonehenge. How, then, did prehistoric builders without sophisticated tools or engineering haul these boulders, which weigh up to four tons, over such a great distance?\n\nAccording to one long-standing theory among archaeologists, Stonehenge's builders fashioned sledges and rollers out of tree trunks to lug the bluestones from the Preseli Hills. They then transferred the boulders onto rafts and floated them first along the Welsh coast and then up the River Avon toward Salisbury Plain; alternatively, they may have towed each stone with a fleet of vessels. More recent archaeological hypotheses have them transporting the bluestones with supersized wicker baskets on a combination of ball bearings and long grooved planks, hauled by oxen.\n\nAs early as the 1970s, geologists have been adding their voices to the debate over how Stonehenge came into being. Challenging the classic image of industrious builders pushing, carting, rolling or hauling giant stones from faraway Wales, some scientists have suggested that it was glaciers, not humans, that carried the bluestones to Salisbury Plain. Most archaeologists have remained sceptical about this theory, however, wondering how the forces of nature could possibly have delivered the exact number of stones needed to complete the circle.\n\nThe third phase of construction took place around 2000 BCE. At this point, sandstone slabs — known as 'sarsens' — were arranged into an outer crescent or ring; some were assembled into the iconic three-pieced structures called trilithons that stand tall in the centre of Stonehenge. Some 50 of these stones are now visible on the site, which may once have contained many more. Radiocarbon dating has revealed that work continued at Stonehenge until roughly 1600 BCE, with the bluestones in particular being repositioned multiple times.\n\nBut who were the builders of Stonehenge? In the 17th century, archaeologist John Aubrey made the claim that Stonehenge was the work of druids, who had important religious, judicial and political roles in Celtic society. This theory was widely popularized by the antiquarian William Stukeley, who had unearthed primitive graves at the site. Even today, people who identify as modern druids continue to gather at Stonehenge for the summer solstice. However, in the mid-20th century, radiocarbon dating demonstrated that Stonehenge stood more than 1,000 years before the Celts inhabited the region.\n\nMany modern historians and archaeologists now agree that several distinct tribes of people contributed to Stonehenge, each undertaking a different phase of its construction. Bones, tools and other artefacts found on the site seem to support this hypothesis. The first stage was achieved by Neolithic agrarians who were likely to have been indigenous to the British Isles. Later, it is believed, groups with advanced tools and a more communal way of life left their mark on the site. Some believe that they were immigrants from the European continent, while others maintain that they were probably native Britons, descended from the original builders.\n\nIf the facts surrounding the architects and construction of Stonehenge remain shadowy at best, the purpose of the striking monument is even more of a mystery. While there is consensus among the majority of modern scholars that Stonehenge once served the function of burial ground, they have yet to determine what other purposes it had.\n\nIn the 1960s, the astronomer Gerald Hawkins suggested that the cluster of megalithic stones operated as a form of calendar, with different points corresponding to astrological phenomena such as solstices, equinoxes and eclipses occurring at different times of the year. While his theory has received a considerable amount of attention over the decades, critics maintain that Stonehenge's builders probably lacked the knowledge necessary to predict such events or that England's dense cloud cover would have obscured their view of the skies.\n\nMore recently, signs of illness and injury in the human remains unearthed at Stonehenge led a group of British archaeologists to speculate that it was considered a place of healing, perhaps because bluestones were thought to have curative powers."
 
     fun getPassagesForTest(testId: String): List<PassageDto> {
         if (testId == "cam18-test1") {
@@ -655,6 +657,29 @@ object CambridgeReadingDataSource {
                 PassageDto(
                     passageNumber = 3,
                     title = "Conquering Earth's space junk problem",
+                    wordCount = 740,
+                    content = "Satellites, rocket shards and collision debris are creating major traffic risks in orbit around the planet. Researchers are working to reduce these threats\n\n[Paragraph A] Last year, commercial companies, military and civil departments and amateurs sent more than 400 satellites into orbit, over four times the yearly average in the previous decade. Numbers could rise even more sharply if leading space companies follow through on plans to deploy hundreds to thousands of large constellations of satellites to space in the next few years.\n\nAll that traffic can lead to disaster. Ten years ago, a US commercial Iridium satellite smashed into an inactive Russian communications satellite called Cosmos-2251, creating thousands of new pieces of space shrapnel that now threaten other satellites in low Earth orbit — the zone stretching up to 2,000 kilometres in altitude. Altogether, there are roughly 20,000 human-made objects in orbit, from working satellites to small rocket pieces. And satellite operators can't steer away from every potential crash, because each move consumes time and fuel that could otherwise be used for the spacecraft's main job.\n\n[Paragraph B] Concern about space junk goes back to the beginning of the satellite era, but the number of objects in orbit is rising so rapidly that researchers are investigating new ways of attacking the problem. Several teams are trying to improve methods for assessing what is in orbit, so that satellite operators can work more efficiently in ever-more-crowded space. Some researchers are now starting to compile a massive data set that includes the best possible information on where everything is in orbit. Others are developing taxonomies of space debris — working on measuring properties such as the shape and size of an object, so that satellite operators know how much to worry about what's coming their way.\n\nThe alternative, many say, is unthinkable. Just a few uncontrolled space crashes could generate enough debris to set off a runaway cascade of fragments, rendering near-Earth space unusable. 'If we go on like this, we will reach a point of no return,' says Carolin Frueh, an astrodynamical researcher at Purdue University in West Lafayette, Indiana.\n\n[Paragraph C] Even as our ability to monitor space objects increases, so too does the total number of items in orbit. That means companies, governments and other players in space are collaborating in new ways to avoid a shared threat. International groups such as the Inter-Agency Space Debris Coordination Committee have developed guidelines on space sustainability. Those include inactivating satellites at the end of their useful life by venting pressurised materials or leftover fuel that might lead to explosions. The intergovernmental groups also advise lowering satellites deep enough into the atmosphere that they will burn up or disintegrate within 25 years. But so far, only about half of all missions have abided by this 25-year goal, says Holger Krag, head of the European Space Agency's space-debris office in Darmstadt, Germany. Operators of the planned large constellations of satellites say they will be responsible stewards in their enterprises in space, but Krag worries that problems could increase, despite their best intentions. 'What happens to those that fail or go bankrupt?' he asks. 'They are probably not going to spend money to remove their satellites from space.'\n\n[Paragraph D] In theory, given the vastness of space, satellite operators should have plenty of room for all these missions to fly safely without ever nearing another object. So some scientists are tackling the problem of space junk by trying to find out where all the debris is to a high degree of precision. That would alleviate the need for many of the unnecessary manoeuvres that are carried out to avoid potential collisions. 'If you knew precisely where everything was, you would almost never have a problem,' says Marlon Sorge, a space-debris specialist at the Aerospace Corporation in El Segundo, California.\n\n[Paragraph E] The field is called space traffic management, because it's similar to managing traffic on the roads or in the air. Think about a busy day at an airport, says Moriba Jah, an astrodynamicist at the University of Texas at Austin: planes line up in the sky, landing and taking off close to one another in a carefully choreographed routine. Air-traffic controllers know the location of the planes down to one metre in accuracy. The same can't be said for space debris. Not all objects in orbit are known, and even those included in databases are not tracked consistently.\n\n[Paragraph F] An additional problem is that there is no authoritative catalogue that accurately lists the orbits of all known space debris. Jah illustrates this with a web-based database that he has developed. It draws on several sources, such as catalogues maintained by the US and Russian governments, to visualise where objects are in space. When he types in an identifier for a particular space object, the database draws a purple line to designate its orbit. Only this doesn't quite work for a number of objects, such as a Russian rocket body designated in the database as object number 32280. When Jah enters that number, the database draws two purple lines: the US and Russian sources contain two completely different orbits for the same object. Jah says that it is almost impossible to tell which is correct, unless a third source of information made it possible to cross-correlate.\n\nJah describes himself as a space environmentalist: 'I want to make space a place that is safe to operate, that is free and useful for generations to come.' Until that happens, he argues, the space community will continue devolving into a tragedy in which all spaceflight operators are polluting a common resource."
+                )
+            )
+        }
+
+        if (testId == "cam18-test2") {
+            return listOf(
+                PassageDto(
+                    passageNumber = 1,
+                    title = "Stonehenge",
+                    wordCount = 710,
+                    content = CAM18_TEST2_PASSAGE1_CONTENT
+                ),
+                PassageDto(
+                    passageNumber = 2,
+                    title = "The Migration Patterns of Marine Animals",
+                    wordCount = 1220,
+                    content = "[Paragraph A] The historical Silk Road was an expansive network of Eurasian trade conduits active from the Han dynasty until the Ottoman boycott of Western maritime commerce.\n\n[Paragraph B] Beyond raw commodities such as Chinese sericulture, Central Asian equine breeds, and Roman glassware, the arteries facilitated unprecedented intellectual and religious dissemination.\n\n[Paragraph C] Papermaking techniques migrated eastward along trans-Pamir caravan tracks, revolutionizing archival administration throughout medieval Islamic caliphates."
+                ),
+                PassageDto(
+                    passageNumber = 3,
+                    title = "The Psychology of Decision Making",
                     wordCount = 1350,
                     content = "[Paragraph A] Machine learning algorithms trained on expansive radiological datasets now demonstrate non-inferiority to board-certified radiologists in identifying early-stage pulmonary nodules.\n\n[Paragraph B] Deep neural network architectures evaluate subtle optical coherence tomography variations to diagnose macular degeneration prior to irreversible photoreceptor apoptosis.\n\n[Paragraph C] However, algorithmic opacity, commonly designated the 'black box' phenomenon, continues to provoke ethical and jurisdictional hesitation among clinical practitioners."
                 )
@@ -1036,8 +1061,172 @@ object CambridgeReadingDataSource {
                     )
                 )
             }
+        } else if (testId == "cam18-test2") {
+            // Questions 1–8: Notes Completion (NO MORE THAN TWO WORDS)
+            val notesPrompts1to8 = listOf(
+                1 to "Construction — Stage 1: the ditch and henge were dug, possibly using tools made from ________",
+                2 to "Construction — Stage 1: ________ may have been arranged in deep pits inside the circle",
+                3 to "Construction — Stage 2 (archaeological theory): builders used ________ to make sledges and rollers",
+                4 to "Construction — Stage 2 (archaeological theory): ________ pulled them on giant baskets",
+                5 to "Construction — Stage 2 (geological theory): they were brought from Wales by ________",
+                6 to "Builders: a theory arose in the 17th century that its builders were Celtic ________",
+                7 to "Purpose: many experts agree it has been used as a ________ site",
+                8 to "Purpose: in the 1960s, it was suggested that it worked as a kind of ________"
+            )
+            for ((pos, promptText) in notesPrompts1to8) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t2_q$pos",
+                        position = pos,
+                        type = "FILL_IN_BLANK",
+                        prompt = "[Stonehenge Notes — Choose NO MORE THAN TWO WORDS from the passage]\n$promptText",
+                        passageNumber = 1,
+                        lineRef = "Questions 1–8 • Notes Completion (NO MORE THAN TWO WORDS)"
+                    )
+                )
+            }
+
+            // Questions 9–13: TRUE / FALSE / NOT GIVEN
+            val tfngPrompts9to13 = listOf(
+                9 to "During the third phase of construction, sandstone slabs were placed in both the outer areas and the middle of the Stonehenge site.",
+                10 to "There is scientific proof that the bluestones stood in the same spot until approximately 1600 BCE.",
+                11 to "John Aubrey's claim about Stonehenge was supported by 20th-century findings.",
+                12 to "Objects discovered at Stonehenge seem to indicate that it was constructed by a number of different groups of people.",
+                13 to "Criticism of Gerald Hawkins' theory about Stonehenge has come mainly from other astronomers."
+            )
+            for ((pos, promptText) in tfngPrompts9to13) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t2_q$pos",
+                        position = pos,
+                        type = "TRUE_FALSE",
+                        prompt = promptText,
+                        options = listOf("TRUE", "FALSE", "NOT GIVEN"),
+                        passageNumber = 1,
+                        lineRef = "Questions 9–13 • TRUE / FALSE / NOT GIVEN"
+                    )
+                )
+            }
+
+            // Fallback questions 14–40 for Passages 2 and 3
+            for (pos in 14..40) {
+                val pNum = if (pos <= 26) 2 else 3
+                val qType = when (pos % 3) {
+                    1 -> "TRUE_FALSE"
+                    2 -> "MULTIPLE_CHOICE"
+                    else -> "FILL_IN_BLANK"
+                }
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t2_q$pos",
+                        position = pos,
+                        type = qType,
+                        prompt = "Question $pos for Passage $pNum (Cambridge IELTS 18 - Test 2).",
+                        options = if (qType == "MULTIPLE_CHOICE") listOf(
+                            "A. Supporting evidence from recent studies",
+                            "B. Historical background and traditional views",
+                            "C. Environmental and geographical factors",
+                            "D. Future implications for scientific research"
+                        ) else if (qType == "TRUE_FALSE") listOf("TRUE", "FALSE", "NOT GIVEN") else null,
+                        passageNumber = pNum,
+                        lineRef = "Passage $pNum • Question $pos"
+                    )
+                )
+            }
         }
         return list
+    }
+
+    fun getAnswerMetadata(testId: String, position: Int): QuestionAnswerMetadata? {
+        return when (testId) {
+            "cam18-test1" -> getCam18Test1AnswerMetadata(position)
+            "cam18-test2" -> getCam18Test2AnswerMetadata(position)
+            else -> null
+        }
+    }
+
+    fun getCam18Test2AnswerMetadata(position: Int): QuestionAnswerMetadata? {
+        return when (position) {
+            1 -> QuestionAnswerMetadata(
+                correctAnswer = "deer antlers",
+                acceptedAnswers = listOf("deer antlers", "antlers"),
+                explanation = "Đoạn 2: Người Anh thời Đồ đá mới đã dùng các công cụ thô sơ làm từ sừng hươu (deer antlers) để đào hào và bờ đất vòng tròn.",
+                evidenceQuote = "primitive tools, which may have been fashioned out of deer antlers, to dig a massive circular ditch and bank"
+            )
+            2 -> QuestionAnswerMetadata(
+                correctAnswer = "timber posts",
+                acceptedAnswers = listOf("timber posts", "posts"),
+                explanation = "Đoạn 2: Những hố sâu có niên đại từ thời kỳ đó nằm bên trong vòng tròn có thể từng giữ một vòng cột gỗ (timber posts).",
+                evidenceQuote = "Deep pits dating back to that era and located within the circle may have once held a ring of timber posts"
+            )
+            3 -> QuestionAnswerMetadata(
+                correctAnswer = "tree trunks",
+                acceptedAnswers = listOf("tree trunks", "trunks"),
+                explanation = "Đoạn 4: Những người xây dựng Stonehenge đã chế tạo xe trượt và con lăn từ thân cây (tree trunks) để kéo đá xanh từ đồi Preseli.",
+                evidenceQuote = "builders fashioned sledges and rollers out of tree trunks to lug the bluestones from the Preseli Hills"
+            )
+            4 -> QuestionAnswerMetadata(
+                correctAnswer = "oxen",
+                acceptedAnswers = listOf("oxen"),
+                explanation = "Đoạn 4: Các giả thuyết khảo cổ gần đây cho rằng họ vận chuyển đá xanh bằng những chiếc giỏ đan cỡ lớn đặt trên ván có rãnh và ổ bi, được kéo bởi bò đực (oxen).",
+                evidenceQuote = "transporting the bluestones with supersized wicker baskets on a combination of ball bearings and long grooved planks, hauled by oxen"
+            )
+            5 -> QuestionAnswerMetadata(
+                correctAnswer = "glaciers",
+                acceptedAnswers = listOf("glaciers", "glacier"),
+                explanation = "Đoạn 5: Một số nhà khoa học địa chất cho rằng chính các sông băng (glaciers), chứ không phải con người, đã mang đá xanh đến đồng bằng Salisbury.",
+                evidenceQuote = "some scientists have suggested that it was glaciers, not humans, that carried the bluestones to Salisbury Plain"
+            )
+            6 -> QuestionAnswerMetadata(
+                correctAnswer = "druids",
+                acceptedAnswers = listOf("druids", "druid"),
+                explanation = "Đoạn 7: Vào thế kỷ 17, nhà khảo cổ John Aubrey đưa ra giả thuyết rằng Stonehenge là công trình của các tu sĩ druid (druids) trong xã hội Celtic.",
+                evidenceQuote = "In the 17th century, archaeologist John Aubrey made the claim that Stonehenge was the work of druids"
+            )
+            7 -> QuestionAnswerMetadata(
+                correctAnswer = "burial",
+                acceptedAnswers = listOf("burial", "burial ground"),
+                explanation = "Đoạn 9: Đa số các học giả hiện đại đều đồng thuận rằng Stonehenge từng có chức năng là một nơi chôn cất (burial ground -> điền 'burial' trước từ 'site').",
+                evidenceQuote = "consensus among the majority of modern scholars that Stonehenge once served the function of burial ground"
+            )
+            8 -> QuestionAnswerMetadata(
+                correctAnswer = "calendar",
+                acceptedAnswers = listOf("calendar"),
+                explanation = "Đoạn 10: Vào những năm 1960, nhà thiên văn học Gerald Hawkins đề xuất rằng cụm đá cự thạch hoạt động như một dạng lịch (calendar).",
+                evidenceQuote = "In the 1960s, the astronomer Gerald Hawkins suggested that the cluster of megalithic stones operated as a form of calendar"
+            )
+            9 -> QuestionAnswerMetadata(
+                correctAnswer = "TRUE",
+                acceptedAnswers = listOf("TRUE"),
+                explanation = "Đoạn 6: Trong giai đoạn xây dựng thứ ba, các phiến đá sa thạch (sarsens) được xếp thành vòng ngoài (outer crescent or ring) và một số được lắp thành cấu trúc 3 khối (trilithons) ở trung tâm (in the centre of Stonehenge) -> TRUE.",
+                evidenceQuote = "sandstone slabs – known as 'sarsens' – were arranged into an outer crescent or ring; some were assembled into the iconic three-pieced structures called trilithons that stand tall in the centre of Stonehenge"
+            )
+            10 -> QuestionAnswerMetadata(
+                correctAnswer = "FALSE",
+                acceptedAnswers = listOf("FALSE"),
+                explanation = "Đoạn 6: Phương pháp định tuổi bằng đồng vị carbon cho thấy công việc tiếp tục đến khoảng năm 1600 TCN, đặc biệt các khối đá xanh đã bị di dời vị trí nhiều lần ('repositioned multiple times'), trái ngược với việc đứng yên một chỗ -> FALSE.",
+                evidenceQuote = "with the bluestones in particular being repositioned multiple times"
+            )
+            11 -> QuestionAnswerMetadata(
+                correctAnswer = "FALSE",
+                acceptedAnswers = listOf("FALSE"),
+                explanation = "Đoạn 7: Vào giữa thế kỷ 20, định tuổi bằng carbon phóng xạ đã chứng minh rằng Stonehenge có niên đại hơn 1.000 năm trước khi người Celts đến sinh sống tại vùng này (bác bỏ chứ không phải củng cố tuyên bố của John Aubrey) -> FALSE.",
+                evidenceQuote = "However, in the mid-20th century, radiocarbon dating demonstrated that Stonehenge stood more than 1,000 years before the Celts inhabited the region"
+            )
+            12 -> QuestionAnswerMetadata(
+                correctAnswer = "TRUE",
+                acceptedAnswers = listOf("TRUE"),
+                explanation = "Đoạn 8: Xương cốt, công cụ và các hiện vật khác được tìm thấy tại di chỉ dường như ủng hộ giả thuyết rằng nhiều bộ lạc khác nhau đã đóng góp xây dựng Stonehenge qua các giai đoạn -> TRUE.",
+                evidenceQuote = "several distinct tribes of people contributed to Stonehenge, each undertaking a different phase of its construction. Bones, tools and other artefacts found on the site seem to support this hypothesis"
+            )
+            13 -> QuestionAnswerMetadata(
+                correctAnswer = "NOT GIVEN",
+                acceptedAnswers = listOf("NOT GIVEN"),
+                explanation = "Đoạn 10 chỉ nói những người chỉ trích ('critics') cho rằng người xây dựng Stonehenge thiếu kiến thức dự đoán thiên văn hoặc mây dày che khuất bầu trời, không hề đề cập liệu những người chỉ trích này có chủ yếu là các nhà thiên văn học khác hay không -> NOT GIVEN.",
+                evidenceQuote = "critics maintain that Stonehenge's builders probably lacked the knowledge necessary to predict such events"
+            )
+            else -> null
+        }
     }
 
     fun getCam18Test1AnswerMetadata(position: Int): QuestionAnswerMetadata? {
