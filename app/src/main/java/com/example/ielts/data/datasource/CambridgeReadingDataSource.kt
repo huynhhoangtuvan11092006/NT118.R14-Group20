@@ -112,13 +112,13 @@ object CambridgeReadingDataSource {
         list.add(
             ReadingTestListItemDto(
                 id = "cam18-test3",
-                title = "Cambridge IELTS 18 - Test 3",
-                summary = "Trích từ bộ đề thi Cambridge IELTS 18 Academic",
-                difficulty = "Trung bình",
+                title = "Cambridge IELTS 18 - Academic Reading Test 3",
+                summary = "Bộ đề thi thử IELTS Reading Academic trích từ Cambridge IELTS 18 Test 3",
+                difficulty = "Academic",
                 durationMinutes = 60,
                 totalQuestions = 40,
                 passageTitles = listOf(
-                    "Materials Science of Ancient Roman Concrete",
+                    "Materials to take us beyond concrete",
                     "Sensory Adaptations in Deep Subterranean Fauna",
                     "The Linguistic Geography of Indigenous Amazonian Dialects"
                 ),
@@ -634,8 +634,12 @@ object CambridgeReadingDataSource {
         "[Paragraph G] Thinnings and dense and dead wood removal for fire prevention also center on the production of low-use wood. However, it is important to remember that some retention of what many would classify as low-use wood is very important. The tops of trees that have been cut down should be left on the site so that their nutrients cycle back into the soil. In addition, trees with many cavities are extremely important habitats for insect predators like woodpeckers, bats and small mammals. They help control problem insects and increase the health and resilience of the forest. It is also important to remember that not all small trees are low-use. For example, many species like hawthorn provide food for wildlife. Finally, rare species of trees in a forest should also stay behind as they add to its structural diversity."
 
     fun hasCustomExamContent(testId: String): Boolean {
-        return testId == "cam18-test1" || testId == "cam18-test2"
+        return testId == "cam18-test1" || testId == "cam18-test2" || testId == "cam18-test3"
     }
+
+    private const val CAM18_TEST3_PASSAGE1_CONTENT = "Concrete is everywhere, but it's bad for the planet, generating large amounts of carbon dioxide – alternatives are being developed\n\n[Paragraph A] Concrete is the second most used substance in the global economy, after water — and one of the world's biggest single sources of greenhouse gas emissions. The chemical process by which cement, the key ingredient of concrete, is created results in large quantities of carbon dioxide. The UN estimates that there will be 9.8 billion people living on the planet by mid-century. They will need somewhere to live. If concrete is the only answer to the construction of new cities, then carbon emissions will soar, aggravating global warming. And so scientists have started innovating with other materials, in a scramble for alternatives to a universal commodity that has underpinned our modern life for many years.\n\n[Paragraph B] The problem with replacing concrete is that it is so very good at what it does. Chris Cheeseman, an engineering professor at Imperial College London, says the key thing to consider is the extent to which concrete is used around the world, and is likely to continue to be used. 'Concrete is not a high-carbon product. Cement is high carbon, but concrete is not. But it is the scale on which it is used that makes it high carbon. The sheer scale of manufacture is so huge, that is the issue.'\n\n[Paragraph C] Not only are the ingredients of concrete relatively cheap and found in abundance in most places around the globe, the stuff itself has marvellous properties: Portland cement, the vital component of concrete, is mouldable and pourable, but quickly sets hard. Cheeseman also notes another advantage: concrete and steel have similar thermal expansion properties, so steel can be used to reinforce concrete, making it far stronger and more flexible as a building material than it could be on its own. According to Cheeseman, all these factors together make concrete hard to beat. 'Concrete is amazing stuff. Making anything with similar properties is going to be very difficult. '\n\n[Paragraph D] A possible alternative to concrete is wood. Making buildings from wood may seem like a rather medieval idea, but climate change is driving architects to turn to treated timber as a possible resource. Recent years have seen the emergence of tall buildings constructed almost entirely from timber. Vancouver, Vienna and Brumunddal in Norway are all home to constructed tall, wooden buildings.\n\n[Paragraph E] Using wood to construct buildings, however, is not straightforward. Wood expands as it absorbs moisture from the air and is susceptible to pests, not to mention fire. But treating wood and combining it with other materials can improve its properties. Cross-laminated timber is engineered wood. An adhesive is used to stick layers of solid-sawn timber together, crosswise, to form building blocks. This material is light but has the strength of concrete and steel. Construction experts say that wooden buildings can be constructed at a greater speed than ones of concrete and steel and the process, it seems, is quieter.\n\n[Paragraph F] Stora Enso is Europe's biggest supplier of cross-laminated timber, and its vice-president Markus Mannström reports that the company is seeing increasing demand globally for building in wood, with climate change concerns the key driver. Finland, with its large forests, where Stora Enso is based, has been leading the way, but the company is seeing a rise in demand for its timber products across the world, including in Asia. Of course, using timber in a building also locks away the carbon that it absorbed as it grew. But even treated wood has its limitations and only when a wider range of construction projects has been proven in practice will it be possible to see wood as a real alternative to concrete in constructing tall buildings.\n\n[Paragraph G] Fly ash and slag from iron ore are possible alternatives to cement in a concrete mix. Fly ash, a byproduct of coal-burning power plants, can be incorporated into concrete mixes to make up as much as 15 to 30% of the cement, without harming the strength or durability of the resulting mix. Iron-ore slag, a byproduct of the iron-ore smelting process, can be used in a similar way. Their incorporation into concrete mixes has the potential to reduce greenhouse gas emissions.
+
+But Anna Surgenor, of the UK's Green Building Council, notes that although these waste products can save carbon in the concrete mix, their use is not always straightforward. 'It's possible to replace the cement content in concrete with waste products to lower the overall carbon impact. But there are several calculations that need to be considered across the entire life cycle of the building — these include factoring in where these materials are being shipped from. If they are transported over long distances, using fossil fuels, the use of alternative materials might not make sense from an overall carbon reduction perspective.'\n\n[Paragraph H] While these technologies are all promising ideas, they are either unproven or based on materials that are not abundant. In their overview of innovation in the concrete industry, Felix Preston and Johanna Lehne of the UK's Royal Institute of International Affairs reached the conclusion that, 'Some novel cements have been discussed for more than a decade within the research community, without breaking through. At present, these alternatives are rarely as cost-effective as conventional cement, and they face raw-material shortages and resistance from customers.'"
 
     private const val CAM18_TEST2_PASSAGE1_CONTENT = "For centuries, historians and archaeologists have puzzled over the many mysteries of Stonehenge, a prehistoric monument that took an estimated 1,500 years to erect. Located on Salisbury Plain in southern England, it is comprised of roughly 100 massive upright stones placed in a circular layout.\n\nArchaeologists believe England's most iconic prehistoric ruin was built in several stages, with the earliest constructed 5,000 or more years ago. First, Neolithic* Britons used primitive tools, which may have been fashioned out of deer antlers, to dig a massive circular ditch and bank, or henge. Deep pits dating back to that era and located within the circle may have once held a ring of timber posts, according to some scholars.\n\nSeveral hundred years later, it is thought, Stonehenge's builders hoisted an estimated 80 bluestones, 43 of which remain today, into standing positions and placed them in either a horseshoe or circular formation. These stones have been traced all the way to the Preseli Hills in Wales, some 300 kilometres from Stonehenge. How, then, did prehistoric builders without sophisticated tools or engineering haul these boulders, which weigh up to four tons, over such a great distance?\n\nAccording to one long-standing theory among archaeologists, Stonehenge's builders fashioned sledges and rollers out of tree trunks to lug the bluestones from the Preseli Hills. They then transferred the boulders onto rafts and floated them first along the Welsh coast and then up the River Avon toward Salisbury Plain; alternatively, they may have towed each stone with a fleet of vessels. More recent archaeological hypotheses have them transporting the bluestones with supersized wicker baskets on a combination of ball bearings and long grooved planks, hauled by oxen.\n\nAs early as the 1970s, geologists have been adding their voices to the debate over how Stonehenge came into being. Challenging the classic image of industrious builders pushing, carting, rolling or hauling giant stones from faraway Wales, some scientists have suggested that it was glaciers, not humans, that carried the bluestones to Salisbury Plain. Most archaeologists have remained sceptical about this theory, however, wondering how the forces of nature could possibly have delivered the exact number of stones needed to complete the circle.\n\nThe third phase of construction took place around 2000 BCE. At this point, sandstone slabs — known as 'sarsens' — were arranged into an outer crescent or ring; some were assembled into the iconic three-pieced structures called trilithons that stand tall in the centre of Stonehenge. Some 50 of these stones are now visible on the site, which may once have contained many more. Radiocarbon dating has revealed that work continued at Stonehenge until roughly 1600 BCE, with the bluestones in particular being repositioned multiple times.\n\nBut who were the builders of Stonehenge? In the 17th century, archaeologist John Aubrey made the claim that Stonehenge was the work of druids, who had important religious, judicial and political roles in Celtic society. This theory was widely popularized by the antiquarian William Stukeley, who had unearthed primitive graves at the site. Even today, people who identify as modern druids continue to gather at Stonehenge for the summer solstice. However, in the mid-20th century, radiocarbon dating demonstrated that Stonehenge stood more than 1,000 years before the Celts inhabited the region.\n\nMany modern historians and archaeologists now agree that several distinct tribes of people contributed to Stonehenge, each undertaking a different phase of its construction. Bones, tools and other artefacts found on the site seem to support this hypothesis. The first stage was achieved by Neolithic agrarians who were likely to have been indigenous to the British Isles. Later, it is believed, groups with advanced tools and a more communal way of life left their mark on the site. Some believe that they were immigrants from the European continent, while others maintain that they were probably native Britons, descended from the original builders.\n\nIf the facts surrounding the architects and construction of Stonehenge remain shadowy at best, the purpose of the striking monument is even more of a mystery. While there is consensus among the majority of modern scholars that Stonehenge once served the function of burial ground, they have yet to determine what other purposes it had.\n\nIn the 1960s, the astronomer Gerald Hawkins suggested that the cluster of megalithic stones operated as a form of calendar, with different points corresponding to astrological phenomena such as solstices, equinoxes and eclipses occurring at different times of the year. While his theory has received a considerable amount of attention over the decades, critics maintain that Stonehenge's builders probably lacked the knowledge necessary to predict such events or that England's dense cloud cover would have obscured their view of the skies.\n\nMore recently, signs of illness and injury in the human remains unearthed at Stonehenge led a group of British archaeologists to speculate that it was considered a place of healing, perhaps because bluestones were thought to have curative powers."
 
@@ -686,6 +690,29 @@ object CambridgeReadingDataSource {
                     title = "An ideal city",
                     wordCount = 720,
                     content = CAM18_TEST2_PASSAGE3_CONTENT
+                )
+            )
+        }
+
+        if (testId == "cam18-test3") {
+            return listOf(
+                PassageDto(
+                    passageNumber = 1,
+                    title = "Materials to take us beyond concrete",
+                    wordCount = 760,
+                    content = CAM18_TEST3_PASSAGE1_CONTENT
+                ),
+                PassageDto(
+                    passageNumber = 2,
+                    title = "Sensory Adaptations in Deep Subterranean Fauna",
+                    wordCount = 1220,
+                    content = "[Paragraph A] The historical Silk Road was an expansive network of Eurasian trade conduits active from the Han dynasty until the Ottoman boycott of Western maritime commerce.\n\n[Paragraph B] Beyond raw commodities such as Chinese sericulture, Central Asian equine breeds, and Roman glassware, the arteries facilitated unprecedented intellectual and religious dissemination.\n\n[Paragraph C] Papermaking techniques migrated eastward along trans-Pamir caravan tracks, revolutionizing archival administration throughout medieval Islamic caliphates."
+                ),
+                PassageDto(
+                    passageNumber = 3,
+                    title = "The Linguistic Geography of Indigenous Amazonian Dialects",
+                    wordCount = 1350,
+                    content = "[Paragraph A] Machine learning algorithms trained on expansive radiological datasets now demonstrate non-inferiority to board-certified radiologists in identifying early-stage pulmonary nodules.\n\n[Paragraph B] Deep neural network architectures evaluate subtle optical coherence tomography variations to diagnose macular degeneration prior to irreversible photoreceptor apoptosis.\n\n[Paragraph C] However, algorithmic opacity, commonly designated the 'black box' phenomenon, continues to provoke ethical and jurisdictional hesitation among clinical practitioners."
                 )
             )
         }
@@ -1284,6 +1311,102 @@ object CambridgeReadingDataSource {
                     )
                 )
             }
+        } else if (testId == "cam18-test3") {
+            // Questions 1–4: Which section contains the following information (A–H)
+            val sectionPrompts1to4 = listOf(
+                1 to "an explanation of the industrial processes that create potential raw materials for concrete",
+                2 to "a reference to the various locations where high-rise wooden buildings can be found",
+                3 to "an indication of how widely available the raw materials of concrete are",
+                4 to "the belief that more high-rise wooden buildings are needed before wood can be regarded as a viable construction material"
+            )
+            val sectionOptions = listOf("A", "B", "C", "D", "E", "F", "G", "H")
+            for ((pos, promptText) in sectionPrompts1to4) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t3_q$pos",
+                        position = pos,
+                        type = "MULTIPLE_CHOICE",
+                        prompt = "[Which section contains the following information, A–H]\n$promptText",
+                        options = sectionOptions,
+                        passageNumber = 1,
+                        lineRef = "Questions 1–4 • Information Matching (A–H)"
+                    )
+                )
+            }
+
+            // Questions 5–8: Summary Completion (Choose ONE WORD ONLY from the passage)
+            val summaryPrompts5to8 = listOf(
+                5 to "Wood is a traditional building material, but current environmental concerns are encouraging 5 ________ to use wood in modern construction projects.",
+                6 to "Using wood, however, has its challenges. For example, as 6 ________ in the atmosphere enters wood, it increases in size.",
+                7 to "In addition, wood is prone to pests and the risk of fire is greater. However, wood can be turned into a better construction material if it is treated and combined with other materials. In one process, 7 ________ of solid wood are glued together to create building blocks.",
+                8 to "These blocks are lighter than concrete and steel but equal them in strength. Experts say that wooden buildings are an improvement on those made of concrete and steel in terms of the 8 ________ with which they can be constructed and how much noise is generated by the process."
+            )
+            for ((pos, promptText) in summaryPrompts5to8) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t3_q$pos",
+                        position = pos,
+                        type = "FILL_IN_BLANK",
+                        prompt = "[Making buildings with wood — Choose ONE WORD ONLY from the passage]\n$promptText",
+                        passageNumber = 1,
+                        lineRef = "Questions 5–8 • Summary Completion (ONE WORD ONLY)"
+                    )
+                )
+            }
+
+            // Questions 9–13: Matching People (A–D, NB You may use any letter more than once)
+            val peopleOptions = listOf(
+                "A. Chris Cheeseman",
+                "B. Markus Mannström",
+                "C. Anna Surgenor",
+                "D. Felix Preston and Johanna Lehne"
+            )
+            val peoplePrompts9to13 = listOf(
+                9 to "The environmental advantage of cement alternatives may not be as great as initially assumed.",
+                10 to "It would be hard to create a construction alternative to concrete that offers so many comparable benefits.",
+                11 to "Worries about the environment have led to increased interest in wood as a construction material.",
+                12 to "Expense has been a factor in the negative response to the development of new cements.",
+                13 to "The environmental damage caused by concrete is due to it being produced in large quantities."
+            )
+            for ((pos, promptText) in peoplePrompts9to13) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t3_q$pos",
+                        position = pos,
+                        type = "MULTIPLE_CHOICE",
+                        prompt = "[Match each statement with the correct person, A, B, C or D]\n$promptText",
+                        options = peopleOptions,
+                        passageNumber = 1,
+                        lineRef = "Questions 9–13 • Matching People (A–D)"
+                    )
+                )
+            }
+
+            // Fallback questions 14–40 for Passages 2 and 3
+            for (pos in 14..40) {
+                val pNum = if (pos <= 26) 2 else 3
+                val qType = when (pos % 3) {
+                    1 -> "TRUE_FALSE"
+                    2 -> "MULTIPLE_CHOICE"
+                    else -> "FILL_IN_BLANK"
+                }
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t3_q$pos",
+                        position = pos,
+                        type = qType,
+                        prompt = "Question $pos for Passage $pNum (Cambridge IELTS 18 - Test 3).",
+                        options = if (qType == "MULTIPLE_CHOICE") listOf(
+                            "A. Supporting evidence from recent studies",
+                            "B. Historical background and traditional views",
+                            "C. Environmental and geographical factors",
+                            "D. Future implications for scientific research"
+                        ) else if (qType == "TRUE_FALSE") listOf("TRUE", "FALSE", "NOT GIVEN") else null,
+                        passageNumber = pNum,
+                        lineRef = "Passage $pNum • Question $pos"
+                    )
+                )
+            }
         }
         return list
     }
@@ -1292,6 +1415,91 @@ object CambridgeReadingDataSource {
         return when (testId) {
             "cam18-test1" -> getCam18Test1AnswerMetadata(position)
             "cam18-test2" -> getCam18Test2AnswerMetadata(position)
+            "cam18-test3" -> getCam18Test3AnswerMetadata(position)
+            else -> null
+        }
+    }
+
+    fun getCam18Test3AnswerMetadata(position: Int): QuestionAnswerMetadata? {
+        return when (position) {
+            1 -> QuestionAnswerMetadata(
+                correctAnswer = "G",
+                acceptedAnswers = listOf("G", "Section G", "Paragraph G"),
+                explanation = "Đoạn G giải thích các quy trình công nghiệp tạo ra nguyên liệu thô tiềm năng thay thế xi măng trong hỗn hợp bê tông: tro bay (fly ash) là phụ phẩm của nhà máy điện đốt than, và xỉ quặng sắt (iron-ore slag) là phụ phẩm của quá trình luyện xỉ quặng sắt -> G.",
+                evidenceQuote = "Fly ash, a byproduct of coal-burning power plants, can be incorporated into concrete mixes... Iron-ore slag, a byproduct of the iron-ore smelting process, can be used in a similar way."
+            )
+            2 -> QuestionAnswerMetadata(
+                correctAnswer = "D",
+                acceptedAnswers = listOf("D", "Section D", "Paragraph D"),
+                explanation = "Đoạn D liệt kê các địa điểm cụ thể xuất hiện những tòa nhà cao tầng bằng gỗ: Vancouver, Vienna và Brumunddal ở Na Uy -> D.",
+                evidenceQuote = "Vancouver, Vienna and Brumunddal in Norway are all home to constructed tall, wooden buildings."
+            )
+            3 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C", "Section C", "Paragraph C"),
+                explanation = "Đoạn C chỉ ra mức độ dồi dào, sẵn có của các thành phần làm bê tông: nguyên liệu tương đối rẻ và được tìm thấy phong phú, dồi dào ở hầu hết mọi nơi trên toàn cầu ('found in abundance in most places around the globe') -> C.",
+                evidenceQuote = "Not only are the ingredients of concrete relatively cheap and found in abundance in most places around the globe"
+            )
+            4 -> QuestionAnswerMetadata(
+                correctAnswer = "F",
+                acceptedAnswers = listOf("F", "Section F", "Paragraph F"),
+                explanation = "Đoạn F nêu quan điểm rằng chỉ khi có thêm nhiều dự án xây dựng được chứng minh trong thực tế thì gỗ mới có thể được coi là vật liệu thay thế khả thi cho bê tông trong việc xây dựng các tòa nhà cao tầng -> F.",
+                evidenceQuote = "only when a wider range of construction projects has been proven in practice will it be possible to see wood as a real alternative to concrete in constructing tall buildings."
+            )
+            5 -> QuestionAnswerMetadata(
+                correctAnswer = "architects",
+                acceptedAnswers = listOf("architects", "architect"),
+                explanation = "Đoạn D: '...climate change is driving architects to turn to treated timber as a possible resource.' (Biến đổi khí hậu đang thúc đẩy các kiến trúc sư hướng tới việc sử dụng gỗ xẻ đã qua xử lý -> architects).",
+                evidenceQuote = "climate change is driving architects to turn to treated timber as a possible resource"
+            )
+            6 -> QuestionAnswerMetadata(
+                correctAnswer = "moisture",
+                acceptedAnswers = listOf("moisture"),
+                explanation = "Đoạn E: 'Wood expands as it absorbs moisture from the air...' (Gỗ nở ra khi hút độ ẩm từ không khí -> moisture).",
+                evidenceQuote = "Wood expands as it absorbs moisture from the air and is susceptible to pests"
+            )
+            7 -> QuestionAnswerMetadata(
+                correctAnswer = "layers",
+                acceptedAnswers = listOf("layers", "layer"),
+                explanation = "Đoạn E: 'An adhesive is used to stick layers of solid-sawn timber together, crosswise, to form building blocks.' (Keo dán được dùng để dán các lớp gỗ đặc xẻ lại với nhau tạo thành các khối xây dựng -> layers).",
+                evidenceQuote = "An adhesive is used to stick layers of solid-sawn timber together, crosswise, to form building blocks."
+            )
+            8 -> QuestionAnswerMetadata(
+                correctAnswer = "speed",
+                acceptedAnswers = listOf("speed"),
+                explanation = "Đoạn E: 'Construction experts say that wooden buildings can be constructed at a greater speed than ones of concrete and steel and the process, it seems, is quieter.' (Tòa nhà gỗ có thể được xây dựng với tốc độ nhanh hơn -> speed).",
+                evidenceQuote = "wooden buildings can be constructed at a greater speed than ones of concrete and steel"
+            )
+            9 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C"),
+                explanation = "Đoạn G (Anna Surgenor — C): Nếu các vật liệu thay thế phải vận chuyển qua khoảng cách xa bằng nhiên liệu hóa thạch, thì lợi ích giảm lượng carbon tổng thể có thể không lớn như giả định ban đầu.",
+                evidenceQuote = "If they are transported over long distances, using fossil fuels, the use of alternative materials might not make sense from an overall carbon reduction perspective."
+            )
+            10 -> QuestionAnswerMetadata(
+                correctAnswer = "A",
+                acceptedAnswers = listOf("A"),
+                explanation = "Đoạn C (Chris Cheeseman — A): 'Concrete is amazing stuff. Making anything with similar properties is going to be very difficult.' (Rất khó để tạo ra bất kỳ vật liệu thay thế nào có những đặc tính tương tự vượt trội như bê tông).",
+                evidenceQuote = "According to Cheeseman, all these factors together make concrete hard to beat. 'Concrete is amazing stuff. Making anything with similar properties is going to be very difficult.'"
+            )
+            11 -> QuestionAnswerMetadata(
+                correctAnswer = "B",
+                acceptedAnswers = listOf("B"),
+                explanation = "Đoạn F (Markus Mannström — B): Markus Mannström báo cáo rằng công ty đang nhận thấy nhu cầu xây dựng bằng gỗ tăng lên trên toàn cầu, với mối lo ngại về biến đổi khí hậu là động lực chính.",
+                evidenceQuote = "Markus Mannström reports that the company is seeing increasing demand globally for building in wood, with climate change concerns the key driver."
+            )
+            12 -> QuestionAnswerMetadata(
+                correctAnswer = "D",
+                acceptedAnswers = listOf("D"),
+                explanation = "Đoạn H (Felix Preston and Johanna Lehne — D): Hiện tại các loại xi măng mới hiếm khi có hiệu quả về mặt chi phí so với xi măng thông thường, và phải đối mặt với sự phản đối từ khách hàng.",
+                evidenceQuote = "At present, these alternatives are rarely as cost-effective as conventional cement, and they face raw-material shortages and resistance from customers."
+            )
+            13 -> QuestionAnswerMetadata(
+                correctAnswer = "A",
+                acceptedAnswers = listOf("A"),
+                explanation = "Đoạn B (Chris Cheeseman — A): Bản thân bê tông không phải sản phẩm có lượng carbon cao, mà chính quy mô sản xuất và sử dụng quá khổng lồ của nó trên thế giới đã gây ra lượng khí thải lớn.",
+                evidenceQuote = "But it is the scale on which it is used that makes it high carbon. The sheer scale of manufacture is so huge, that is the issue."
+            )
             else -> null
         }
     }
