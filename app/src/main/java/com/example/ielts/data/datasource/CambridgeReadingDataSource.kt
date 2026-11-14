@@ -104,7 +104,7 @@ object CambridgeReadingDataSource {
                 passageTitles = listOf(
                     "Stonehenge",
                     "Living with artificial intelligence",
-                    "The Psychology of Decision Making"
+                    "An ideal city"
                 ),
                 userProgress = null
             )
@@ -641,6 +641,8 @@ object CambridgeReadingDataSource {
 
     private const val CAM18_TEST2_PASSAGE2_CONTENT = "Powerful artificial intelligence (AI) needs to be reliably aligned with human values, but does this mean AI will eventually have to police those values?\n\nThis has been the decade of AI, with one astonishing feat after another. A chess- playing AI that can defeat not only all human chess players, but also all previous human-programmed chess machines, after learning the game in just four hours? That's yesterday's news, what's next? True, these prodigious accomplishments are all in so- called narrow AI, where machines perform highly specialised tasks. But many experts believe this restriction is very temporary. By mid-century, we may have artificial general intelligence (AGI) — machines that can achieve human-level performance on the full range of tasks that we ourselves can tackle.\n\nIf so, there's little reason to think it will stop there. Machines will be free of many of the physical constraints on human intelligence. Our brains run at slow biochemical processing speeds on the power of a light bulb, and their size is restricted by the dimensions of the human birth canal. It is remarkable what they accomplish, given these handicaps. But they may be as far from the physical limits of thought as our eyes are from the incredibly powerful Webb Space Telescope.\n\nOnce machines are better than us at designing even smarter machines, progress towards these limits could accelerate. What would this mean for us? Could we ensure a safe and worthwhile coexistence with such machines? On the plus side, AI is already useful and profitable for many things, and super AI might be expected to be super useful, and super profitable. But the more powerful AI becomes, the more important it will be to specify its goals with great care. Folklore is full of tales of people who ask for the wrong thing, with disastrous consequences — King Midas, for example, might have wished that everything he touched turned to gold, but didn't really intend this to apply to his breakfast.\n\nSo we need to create powerful AI machines that are 'human-friendly' — that have goals reliably aligned with our own values. One thing that makes this task difficult is that we are far from reliably human-friendly ourselves. We do many terrible things to each other and to many other creatures with whom we share the planet. If superintelligent machines don't do a lot better than us, we'll be in deep trouble. We'll have powerful new intelligence amplifying the dark sides of our own fallible natures.\n\nFor safety's sake, then, we want the machines to be ethically as well as cognitively superhuman. We want them to aim for the moral high ground, not for the troughs in which many of us spend some of our time. Luckily they'll be smart enough for the job. If there are routes to the moral high ground, they'll be better than us at finding them, and steering us in the right direction.\n\nHowever, there are two big problems with this utopian vision. One is how we get the machines started on the journey, the other is what it would mean to reach this destination. The 'getting started' problem is that we need to tell the machines what they're looking for with sufficient clarity that we can be confident they will find it — whatever 'it' actually turns out to be. This won't be easy, given that we are tribal creatures and conflicted about the ideals ourselves. We often ignore the suffering of strangers, and even contribute to it, at least indirectly. How then, do we point machines in the direction of something better?\n\nAs for the 'destination' problem, we might, by putting ourselves in the hands of these moral guides and gatekeepers, be sacrificing our own autonomy — an important part of what makes us human. Machines who are better than us at sticking to the moral high ground may be expected to discourage some of the lapses we presently take for granted. We might lose our freedom to discriminate in favour of our own communities, for example.\n\nLoss of freedom to behave badly isn't always a bad thing, of course: denying ourselves the freedom to put children to work in factories, or to smoke in restaurants are signs of progress. But are we ready for ethical silicon police limiting our options? They might be so good at doing it that we won't notice them; but few of us are likely to welcome such a future.\n\nThese issues might seem far-fetched, but they are to some extent already here. AI already has some input into how resources are used in our National Health Service (NHS) here in the UK, for example. If it was given a greater role, it might do so much more efficiently than humans can manage, and act in the interests of taxpayers and those who use the health system. However, we'd be depriving some humans (e.g. senior doctors) of the control they presently enjoy. Since we'd want to ensure that people are treated equally and that policies are fair, the goals of AI would need to be specified correctly.\n\nWe have a new powerful technology to deal with — itself, literally, a new way of thinking. For our own safety, we need to point these new thinkers in the right direction, and get them to act well for us. It is not yet clear whether this is possible, but if it is, it will require a cooperative spirit, and a willingness to set aside self-interest.\n\nBoth general intelligence and moral reasoning are often thought to be uniquely human capacities. But safety seems to require that we think of them as a package: if we are to give general intelligence to machines, we'll need to give them moral authority, too. And where exactly would that leave human beings? All the more reason to think about the destination now, and to be careful about what we wish for."
 
+    private const val CAM18_TEST2_PASSAGE3_CONTENT = "Leonardo da Vinci's ideal city was centuries ahead of its time\n\nThe word 'genius' is universally associated with the name of Leonardo da Vinci. A true Renaissance man, he embodied scientific spirit, artistic talent and humanist sensibilities. Five hundred years have passed since Leonardo died in his home at Château du Clos Lucé, outside Tours, France. Yet far from fading into insignificance, his thinking has carried down the centuries and still surprises today.\n\nThe Renaissance marked the transition from the 15th century to modernity and took place after the spread of the plague in the 14th century, which caused a global crisis resulting in some 200 million deaths across Europe and Asia. Today, the world is on the cusp of a climate crisis, which is predicted to cause widespread displacement, extinctions and death, if left unaddressed. Then, as now, radical solutions were called for to revolutionise the way people lived and safeguard humanity against catastrophe.\n\nAround 1486 — after a pestilence that killed half the population in Milan, Italy — Leonardo turned his thoughts to urban planning problems. Following a typical Renaissance trend, he began to work on an 'ideal city' project, which — due to its excessive costs — would remain unfulfilled. Yet given that unsustainable urban models are a key cause of global climate change today, it's only natural to wonder how Leonardo might have changed the shape of modern cities.\n\nAlthough the Renaissance is renowned as an era of incredible progress in art and architecture, it is rarely noted that the 15th century also marked the birth of urbanism as a true academic discipline. The rigour and method behind the conscious conception of a city had been largely missing in Western thought until the moment when prominent Renaissance men pushed forward large-scale urban projects in Italy, such as the reconfiguration of the town of Pienza and the expansion of the city of Ferrara. These works surely inspired Leonardo's decision to rethink the design of medieval cities, with their winding and overcrowded streets and with houses piled against one another.\n\nIt is not easy to identify a coordinated vision of Leonardo's ideal city because of his disordered way of working with notes and sketches. But from the largest collection of Leonardo's papers ever assembled, a series of innovative thoughts can be reconstructed regarding the foundation of a new city along the Ticino River, which runs from Switzerland into Italy and is 248 kilometres long. He designed the city for the easy transport of goods and clean urban spaces, and he wanted a comfortable and spacious city, with well-ordered streets and architecture. He recommended 'high, strong walls', with 'towers and battlements of all necessary and pleasant beauty'.\n\nHis plans for a modern and 'rational' city were consistent with Renaissance ideals. But, in keeping with his personality, Leonardo included several innovations in his urban design. Leonardo wanted the city to be built on several levels, linked with vertical outdoor staircases. This design can be seen in some of today's high-rise buildings but was unconventional at the time. Indeed, this idea of taking full advantage of the interior spaces wasn't implemented until the 1920s and 1930s, with the birth of the Modernist movement.\n\nWhile in the upper layers of the city, people could walk undisturbed between elegant palaces and streets, the lower layer was the place for services, trade, transport and industry. But the true originality of Leonardo's vision was its fusion of architecture and engineering. Leonardo designed extensive hydraulic plants to create artificial canals throughout the city. The canals, regulated by clocks and basins, were supposed to make it easier for boats to navigate inland. Leonardo also thought that the width of the streets ought to match the average height of the adjacent houses: a rule still followed in many contemporary cities across Italy, to allow access to sun and reduce the risk of damage from earthquakes.\n\nAlthough some of these features existed in Roman cities, before Leonardo's drawings there had never been a multi-level, compact modern city which was thoroughly technically conceived. Indeed, it wasn't until the 19th century that some of his ideas were applied. For example, the subdivision of the city by function — with services and infrastructures located in the lower levels and wide and well-ventilated boulevards and walkways above for residents — is an idea that can be found in Georges-Eugène Haussmann's renovation of Paris under Emperor Napoleon III between 1853 and 1870.\n\nToday, Leonardo's ideas are not simply valid, they actually suggest a way forward for urban planning. Many scholars think that the compact city, built upwards instead of outwards, integrated with nature (especially water systems), with efficient transport infrastructure, could help modern cities become more efficient and sustainable. This is yet another reason why Leonardo was aligned so closely with modern urban planning and centuries ahead of his time."
+
     fun getPassagesForTest(testId: String): List<PassageDto> {
         if (testId == "cam18-test1") {
             return listOf(
@@ -681,9 +683,9 @@ object CambridgeReadingDataSource {
                 ),
                 PassageDto(
                     passageNumber = 3,
-                    title = "The Psychology of Decision Making",
-                    wordCount = 1350,
-                    content = "[Paragraph A] Machine learning algorithms trained on expansive radiological datasets now demonstrate non-inferiority to board-certified radiologists in identifying early-stage pulmonary nodules.\n\n[Paragraph B] Deep neural network architectures evaluate subtle optical coherence tomography variations to diagnose macular degeneration prior to irreversible photoreceptor apoptosis.\n\n[Paragraph C] However, algorithmic opacity, commonly designated the 'black box' phenomenon, continues to provoke ethical and jurisdictional hesitation among clinical practitioners."
+                    title = "An ideal city",
+                    wordCount = 720,
+                    content = CAM18_TEST2_PASSAGE3_CONTENT
                 )
             )
         }
@@ -1236,28 +1238,49 @@ object CambridgeReadingDataSource {
                 )
             }
 
-            // Fallback questions 27–40 for Passage 3
-            for (pos in 27..40) {
-                val pNum = 3
-                val qType = when (pos % 3) {
-                    1 -> "TRUE_FALSE"
-                    2 -> "MULTIPLE_CHOICE"
-                    else -> "FILL_IN_BLANK"
-                }
+            // Questions 27–33: TRUE / FALSE / NOT GIVEN
+            val tfngPrompts27to33 = listOf(
+                27 to "People first referred to Leonardo da Vinci as a genius 500 years ago.",
+                28 to "The current climate crisis is predicted to cause more deaths than the plague.",
+                29 to "Some of the challenges we face today can be compared to those of earlier times.",
+                30 to "Leonardo da Vinci's 'ideal city' was constructed in the 15th century.",
+                31 to "Poor town planning is a major contributor to climate change.",
+                32 to "In Renaissance times, local people fought against the changes to Pienza and Ferrara.",
+                33 to "Leonardo da Vinci kept a neat, organised record of his designs."
+            )
+            for ((pos, promptText) in tfngPrompts27to33) {
                 list.add(
                     QuestionDetailDto(
                         id = "cam18_t2_q$pos",
                         position = pos,
-                        type = qType,
-                        prompt = "Question $pos for Passage $pNum (Cambridge IELTS 18 - Test 2).",
-                        options = if (qType == "MULTIPLE_CHOICE") listOf(
-                            "A. Supporting evidence from recent studies",
-                            "B. Historical background and traditional views",
-                            "C. Environmental and geographical factors",
-                            "D. Future implications for scientific research"
-                        ) else if (qType == "TRUE_FALSE") listOf("TRUE", "FALSE", "NOT GIVEN") else null,
-                        passageNumber = pNum,
-                        lineRef = "Passage $pNum • Question $pos"
+                        type = "TRUE_FALSE",
+                        prompt = promptText,
+                        options = listOf("TRUE", "FALSE", "NOT GIVEN"),
+                        passageNumber = 3,
+                        lineRef = "Questions 27–33 • TRUE / FALSE / NOT GIVEN"
+                    )
+                )
+            }
+
+            // Questions 34–40: Summary Completion (Choose ONE WORD ONLY from the passage)
+            val summaryPrompts34to40 = listOf(
+                34 to "A collection of Leonardo da Vinci's paperwork reveals his design of a new city beside the Ticino River. This was to provide better 34 ________ for trade and a less polluted environment.",
+                35 to "Although Leonardo da Vinci's city shared many of the ideals of his time, some of his innovations were considered unconventional in their design. They included features that can be seen in some tower blocks today, such as 35 ________ on the exterior of a building.",
+                36 to "Leonardo da Vinci wasn't only an architect. His expertise in 36 ________ was evident in his plans for artificial canals within his ideal city.",
+                37 to "He also believed that the height of houses should relate to the width of streets in case earthquakes occurred. The design of many cities in Italy today follows this 37 ________.",
+                38 to "While some cities from 38 ________ times have aspects that can also be found in Leonardo's designs, his ideas weren't put into practice until long after his death.",
+                39 to "39 ________ is one example of a city that was redesigned in the 19th century in the way that Leonardo had envisaged.",
+                40 to "His ideas are also relevant to today's world, where building 40 ________ no longer seems to be the best approach."
+            )
+            for ((pos, promptText) in summaryPrompts34to40) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t2_q$pos",
+                        position = pos,
+                        type = "FILL_IN_BLANK",
+                        prompt = "[Leonardo da Vinci's ideal city — Choose ONE WORD ONLY from the passage]\n$promptText",
+                        passageNumber = 3,
+                        lineRef = "Questions 34–40 • Summary Completion (ONE WORD ONLY)"
                     )
                 )
             }
@@ -1430,6 +1453,90 @@ object CambridgeReadingDataSource {
                 acceptedAnswers = listOf("E", "professional authority"),
                 explanation = "Đoạn 9: '...depriving some humans (e.g. senior doctors) of the control they presently enjoy.' ('the control they presently enjoy' tương ứng với quyền hạn chuyên môn -> E. professional authority).",
                 evidenceQuote = "However, we'd be depriving some humans (e.g. senior doctors) of the control they presently enjoy."
+            )
+            27 -> QuestionAnswerMetadata(
+                correctAnswer = "NOT GIVEN",
+                acceptedAnswers = listOf("NOT GIVEN"),
+                explanation = "Đoạn 1 nói từ 'thiên tài' (genius) được gắn liền phổ biến với tên tuổi Leonardo da Vinci và đã 500 năm trôi qua kể từ khi ông qua đời, nhưng không có thông tin nói người ta lần đầu tiên gọi ông là thiên tài cách đây 500 năm -> NOT GIVEN.",
+                evidenceQuote = "The word 'genius' is universally associated with the name of Leonardo da Vinci... Five hundred years have passed since Leonardo died"
+            )
+            28 -> QuestionAnswerMetadata(
+                correctAnswer = "NOT GIVEN",
+                acceptedAnswers = listOf("NOT GIVEN"),
+                explanation = "Đoạn 2 đề cập dịch hạch thế kỷ 14 gây ra khoảng 200 triệu cái chết và khủng hoảng khí hậu hiện nay được dự báo sẽ gây ra di dời diện rộng, tuyệt chủng và tử vong, nhưng không hề so sánh số người chết giữa hai thảm họa -> NOT GIVEN.",
+                evidenceQuote = "Today, the world is on the cusp of a climate crisis, which is predicted to cause widespread displacement, extinctions and death, if left unaddressed."
+            )
+            29 -> QuestionAnswerMetadata(
+                correctAnswer = "TRUE",
+                acceptedAnswers = listOf("TRUE"),
+                explanation = "Đoạn 2: 'Then, as now, radical solutions were called for to revolutionise the way people lived and safeguard humanity against catastrophe.' (Cả thời Phục hưng lẫn hiện nay đều đối mặt với khủng hoảng toàn cầu đòi hỏi các giải pháp triệt để nhằm bảo vệ nhân loại) -> TRUE.",
+                evidenceQuote = "Then, as now, radical solutions were called for to revolutionise the way people lived and safeguard humanity against catastrophe."
+            )
+            30 -> QuestionAnswerMetadata(
+                correctAnswer = "FALSE",
+                acceptedAnswers = listOf("FALSE"),
+                explanation = "Đoạn 3: Khoảng năm 1486, Leonardo bắt đầu thực hiện dự án 'thành phố lý tưởng', nhưng do chi phí quá lớn nên dự án này đã không bao giờ được thực hiện ('would remain unfulfilled'), trái ngược với 'was constructed' -> FALSE.",
+                evidenceQuote = "he began to work on an 'ideal city' project, which – due to its excessive costs – would remain unfulfilled."
+            )
+            31 -> QuestionAnswerMetadata(
+                correctAnswer = "TRUE",
+                acceptedAnswers = listOf("TRUE"),
+                explanation = "Đoạn 3: 'Yet given that unsustainable urban models are a key cause of global climate change today...' (Các mô hình đô thị thiếu bền vững là nguyên nhân chính gây ra biến đổi khí hậu toàn cầu hiện nay) -> TRUE.",
+                evidenceQuote = "Yet given that unsustainable urban models are a key cause of global climate change today"
+            )
+            32 -> QuestionAnswerMetadata(
+                correctAnswer = "NOT GIVEN",
+                acceptedAnswers = listOf("NOT GIVEN"),
+                explanation = "Đoạn 4 nhắc đến việc tái cấu trúc thị trấn Pienza và mở rộng thành phố Ferrara nhưng hoàn toàn không đề cập liệu người dân địa phương có phản đối hay đấu tranh chống lại những thay đổi đó không -> NOT GIVEN.",
+                evidenceQuote = "large-scale urban projects in Italy, such as the reconfiguration of the town of Pienza and the expansion of the city of Ferrara"
+            )
+            33 -> QuestionAnswerMetadata(
+                correctAnswer = "FALSE",
+                acceptedAnswers = listOf("FALSE"),
+                explanation = "Đoạn 5: 'It is not easy to identify a coordinated vision of Leonardo's ideal city because of his disordered way of working with notes and sketches.' (Cách làm việc với các ghi chú và bản phác thảo của ông rất lộn xộn/thiếu trật tự, trái ngược với 'neat, organised record') -> FALSE.",
+                evidenceQuote = "It is not easy to identify a coordinated vision of Leonardo's ideal city because of his disordered way of working with notes and sketches."
+            )
+            34 -> QuestionAnswerMetadata(
+                correctAnswer = "transport",
+                acceptedAnswers = listOf("transport"),
+                explanation = "Đoạn 5: 'He designed the city for the easy transport of goods and clean urban spaces...' (Thiết kế thành phố giúp việc vận chuyển hàng hóa thuận tiện hơn -> transport).",
+                evidenceQuote = "He designed the city for the easy transport of goods and clean urban spaces"
+            )
+            35 -> QuestionAnswerMetadata(
+                correctAnswer = "staircases",
+                acceptedAnswers = listOf("staircases"),
+                explanation = "Đoạn 6: 'Leonardo wanted the city to be built on several levels, linked with vertical outdoor staircases. This design can be seen in some of today's high-rise buildings...' (Các cầu thang ngoài trời nối các tầng, giống thiết kế ở một số tòa nhà cao tầng ngày nay -> staircases).",
+                evidenceQuote = "Leonardo wanted the city to be built on several levels, linked with vertical outdoor staircases."
+            )
+            36 -> QuestionAnswerMetadata(
+                correctAnswer = "engineering",
+                acceptedAnswers = listOf("engineering"),
+                explanation = "Đoạn 7: 'But the true originality of Leonardo's vision was its fusion of architecture and engineering. Leonardo designed extensive hydraulic plants to create artificial canals throughout the city.' (Chuyên môn về kỹ thuật của ông thể hiện rõ qua thiết kế kênh đào nhân tạo -> engineering).",
+                evidenceQuote = "But the true originality of Leonardo's vision was its fusion of architecture and engineering."
+            )
+            37 -> QuestionAnswerMetadata(
+                correctAnswer = "rule",
+                acceptedAnswers = listOf("rule"),
+                explanation = "Đoạn 7: 'Leonardo also thought that the width of the streets ought to match the average height of the adjacent houses: a rule still followed in many contemporary cities across Italy, to allow access to sun and reduce the risk of damage from earthquakes.' (Quy tắc này vẫn được tuân thủ ở nhiều thành phố tại Ý ngày nay -> rule).",
+                evidenceQuote = "a rule still followed in many contemporary cities across Italy, to allow access to sun and reduce the risk of damage from earthquakes"
+            )
+            38 -> QuestionAnswerMetadata(
+                correctAnswer = "Roman",
+                acceptedAnswers = listOf("Roman", "roman"),
+                explanation = "Đoạn 8: 'Although some of these features existed in Roman cities, before Leonardo's drawings there had never been a multi-level, compact modern city...' (Một số đặc điểm từng xuất hiện ở các thành phố thời La Mã -> Roman).",
+                evidenceQuote = "Although some of these features existed in Roman cities, before Leonardo's drawings there had never been a multi-level, compact modern city"
+            )
+            39 -> QuestionAnswerMetadata(
+                correctAnswer = "Paris",
+                acceptedAnswers = listOf("Paris", "paris"),
+                explanation = "Đoạn 8: '...is an idea that can be found in Georges-Eugène Haussmann's renovation of Paris under Emperor Napoleon III between 1853 and 1870.' (Paris là ví dụ về thành phố được cải tạo vào thế kỷ 19 theo cách Leonardo từng hình dung -> Paris).",
+                evidenceQuote = "is an idea that can be found in Georges-Eugène Haussmann's renovation of Paris under Emperor Napoleon III between 1853 and 1870"
+            )
+            40 -> QuestionAnswerMetadata(
+                correctAnswer = "outwards",
+                acceptedAnswers = listOf("outwards"),
+                explanation = "Đoạn 9: 'Many scholars think that the compact city, built upwards instead of outwards, integrated with nature...' (Xây dựng phát triển lên cao thay vì dàn trải ra bên ngoài -> outwards).",
+                evidenceQuote = "Many scholars think that the compact city, built upwards instead of outwards, integrated with nature"
             )
             else -> null
         }
