@@ -345,31 +345,38 @@ class ReadingPracticeActivity : AppCompatActivity() {
 
     private fun loadExamData() {
         lifecycleScope.launch {
-            try {
-                val response = ApiClient.apiService.getReadingTestDetail(testId)
-                if (response.isSuccessful && response.body() != null) {
-                    val body = response.body()!!
-                    if (body.passages.isNotEmpty()) {
-                        passages.clear()
-                        passages.addAll(body.passages)
-                    }
-                    if (body.questions.isNotEmpty()) {
-                        allQuestions.clear()
-                        val mappedQuestions = body.questions.map { q ->
-                            val pNum = if (q.passageNumber <= 1 && q.position > 13) {
-                                when {
-                                    q.position <= 13 -> 1
-                                    q.position <= 26 -> 2
-                                    else -> 3
-                                }
-                            } else q.passageNumber
-                            q.copy(passageNumber = pNum)
+            if (CambridgeReadingDataSource.hasCustomExamContent(testId)) {
+                passages.clear()
+                passages.addAll(CambridgeReadingDataSource.getPassagesForTest(testId))
+                allQuestions.clear()
+                allQuestions.addAll(CambridgeReadingDataSource.getQuestionsForTest(testId))
+            } else {
+                try {
+                    val response = ApiClient.apiService.getReadingTestDetail(testId)
+                    if (response.isSuccessful && response.body() != null) {
+                        val body = response.body()!!
+                        if (body.passages.isNotEmpty()) {
+                            passages.clear()
+                            passages.addAll(body.passages)
                         }
-                        allQuestions.addAll(mappedQuestions)
+                        if (body.questions.isNotEmpty()) {
+                            allQuestions.clear()
+                            val mappedQuestions = body.questions.map { q ->
+                                val pNum = if (q.passageNumber <= 1 && q.position > 13) {
+                                    when {
+                                        q.position <= 13 -> 1
+                                        q.position <= 26 -> 2
+                                        else -> 3
+                                    }
+                                } else q.passageNumber
+                                q.copy(passageNumber = pNum)
+                            }
+                            allQuestions.addAll(mappedQuestions)
+                        }
                     }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
 
             // Fallback sample data if empty
@@ -382,7 +389,12 @@ class ReadingPracticeActivity : AppCompatActivity() {
                 }
             }
             if (allQuestions.isEmpty()) {
-                populateSampleQuestions()
+                val customQuestions = CambridgeReadingDataSource.getQuestionsForTest(testId)
+                if (customQuestions.isNotEmpty()) {
+                    allQuestions.addAll(customQuestions)
+                } else {
+                    populateSampleQuestions()
+                }
             }
 
             switchPassage(0)
@@ -553,10 +565,23 @@ class ReadingPracticeActivity : AppCompatActivity() {
                     else -> 3
                 }
                 val userAns = userAnswers[pos]?.trim()
-                val (correctAns, explanation) = getExplanationForQuestion(pos, qType)
+                val customMeta = if (testId == "cam18-test1") {
+                    CambridgeReadingDataSource.getCam18Test1AnswerMetadata(pos)
+                } else null
+
+                val (correctAns, explanation) = if (customMeta != null) {
+                    Pair(customMeta.correctAnswer, customMeta.explanation)
+                } else {
+                    getExplanationForQuestion(pos, qType)
+                }
 
                 val isCorrect = if (userAns.isNullOrBlank()) {
                     false
+                } else if (customMeta != null) {
+                    val normUser = userAns.lowercase().replace(Regex("\\s+"), " ").trim()
+                    customMeta.acceptedAnswers.any { acc ->
+                        acc.lowercase().replace(Regex("\\s+"), " ").trim() == normUser
+                    }
                 } else {
                     if (qType == "TRUE_FALSE" || qType == "MULTIPLE_CHOICE") {
                         userAns.equals(correctAns, ignoreCase = true)
@@ -579,7 +604,7 @@ class ReadingPracticeActivity : AppCompatActivity() {
                         explanation = explanation,
                         prompt = qPrompt,
                         passageNumber = qPassage,
-                        evidenceQuote = getEvidenceQuoteForQuestion(pos)
+                        evidenceQuote = customMeta?.evidenceQuote ?: getEvidenceQuoteForQuestion(pos)
                     )
                 )
             }

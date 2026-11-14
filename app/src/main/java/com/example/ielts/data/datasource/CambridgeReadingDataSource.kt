@@ -86,9 +86,9 @@ object CambridgeReadingDataSource {
                 durationMinutes = 60,
                 totalQuestions = 40,
                 passageTitles = listOf(
-                    "Urban Farming & Green Cities",
-                    "The Forest Canopy Exploration",
-                    "Artificial Intelligence in Modern Healthcare"
+                    "Urban farming",
+                    "Forest management in Pennsylvania, USA",
+                    "Conquering Earth's space junk problem"
                 ),
                 userProgress = null
             )
@@ -607,7 +607,50 @@ object CambridgeReadingDataSource {
         return list
     }
 
+    data class QuestionAnswerMetadata(
+        val correctAnswer: String,
+        val acceptedAnswers: List<String>,
+        val explanation: String,
+        val evidenceQuote: String
+    )
+
+    private const val CAM18_TEST1_PASSAGE1_CONTENT =
+        "In Paris, urban farmers are trying a soil-free approach to agriculture that uses less space and fewer resources. Could it help cities face the threats to our food supplies?\n\n" +
+        "On top of a striking new exhibition hall in southern Paris, the world’s largest urban rooftop farm has started to bear fruit. Strawberries that are small, intensely flavoured and resplendently red sprout abundantly from large plastic tubes. Peer inside and you see the tubes are completely hollow, the roots of dozens of strawberry plants dangling down inside them. From identical vertical tubes nearby burst row upon row of lettuces; near those are aromatic herbs, such as basil, sage and peppermint. Opposite, in narrow, horizontal trays packed not with soil but with coconut fibre, grow cherry tomatoes, shiny aubergines and brightly coloured chards.\n\n" +
+        "Pascal Hardy, an engineer and sustainable development consultant, began experimenting with vertical farming and aeroponic growing towers – as the soil-free plastic tubes are known – on his Paris apartment block roof five years ago. The urban rooftop space above the exhibition hall is somewhat bigger: 14,000 square metres and almost exactly the size of a couple of football pitches. Already, the team of young urban farmers who tend it have picked, in one day, 3,000 lettuces and 150 punnets of strawberries. When the remaining two thirds of the vast open area are in production, 20 staff will harvest up to 1,000 kg of perhaps 35 different varieties of fruit and vegetables, every day. ‘We’re not ever, obviously, going to feed the whole city this way,’ cautions Hardy. ‘In the urban environment you’re working with very significant practical constraints, clearly, on what you can do and where. But if enough unused space can be developed like this, there’s no reason why you shouldn’t eventually target maybe between 5% and 10% of consumption.’\n\n" +
+        "Perhaps most significantly, however, this is a real-life showcase for the work of Hardy’s flourishing urban agriculture consultancy, Agripolis, which is currently fielding enquiries from around the world to design, build and equip a new breed of soil-free inner-city farm. ‘The method’s advantages are many,’ he says. ‘First, I don’t much like the fact that most of the fruit and vegetables we eat have been treated with something like 17 different pesticides, or that the intensive farming techniques that produced them are such huge generators of greenhouse gases. I don’t much like the fact, either, that they’ve travelled an average of 2,000 refrigerated kilometres to my plate, that their quality is so poor, because the varieties are selected for their capacity to withstand such substantial journeys, or that 80% of the price I pay goes to wholesalers and transport companies, not the producers.’\n\n" +
+        "Produce grown using this soil-free method, on the other hand – which relies solely on a small quantity of water, enriched with organic nutrients, pumped around a closed circuit of pipes, towers and trays – is ‘produced up here, and sold locally, just down there. It barely travels at all,’ Hardy says. ‘You can select crop varieties for their flavour, not their resistance to the transport and storage chain, and you can pick them when they’re really at their best, and not before.’ No soil is exhausted, and the water that gently showers the plants’ roots every 12 minutes is recycled, so the method uses 90% less water than a classic intensive farm for the same yield.\n\n" +
+        "Urban farming is not, of course, a new phenomenon. Inner-city agriculture is booming from Shanghai to Detroit and Tokyo to Bangkok. Strawberries are being grown in disused shipping containers, mushrooms in underground carparks. Aeroponic farming, he says, is ‘virtuous’. The equipment weighs little, can be installed on almost any flat surface and is cheap to buy: roughly €100 to €150 per square metre. It is cheap to run, too, consuming a tiny fraction of the electricity used by some techniques.\n\n" +
+        "Produce grown this way typically sells at prices that, while generally higher than those of classic intensive agriculture, are lower than soil-based organic growers. There are limits to what farmers can grow this way, of course, and much of the produce is suited to the summer months. ‘Root vegetables we cannot do, at least not yet,’ he says. ‘Radishes are OK, but carrots, potatoes, that kind of thing – the roots are simply too long. Fruit trees are obviously not an option. And beans tend to take up a lot of space for not much return.’ Nevertheless, urban farming of the kind being practised in Paris is one part of a bigger and fast-changing picture that is bringing food production closer to our lives."
+
+    fun hasCustomExamContent(testId: String): Boolean {
+        return testId == "cam18-test1"
+    }
+
     fun getPassagesForTest(testId: String): List<PassageDto> {
+        if (testId == "cam18-test1") {
+            return listOf(
+                PassageDto(
+                    passageNumber = 1,
+                    title = "Urban farming",
+                    wordCount = 755,
+                    content = CAM18_TEST1_PASSAGE1_CONTENT
+                ),
+                PassageDto(
+                    passageNumber = 2,
+                    title = "Forest management in Pennsylvania, USA",
+                    wordCount = 1220,
+                    content = "[Paragraph A] The historical Silk Road was an expansive network of Eurasian trade conduits active from the Han dynasty until the Ottoman boycott of Western maritime commerce.\n\n[Paragraph B] Beyond raw commodities such as Chinese sericulture, Central Asian equine breeds, and Roman glassware, the arteries facilitated unprecedented intellectual and religious dissemination.\n\n[Paragraph C] Papermaking techniques migrated eastward along trans-Pamir caravan tracks, revolutionizing archival administration throughout medieval Islamic caliphates."
+                ),
+                PassageDto(
+                    passageNumber = 3,
+                    title = "Conquering Earth's space junk problem",
+                    wordCount = 1350,
+                    content = "[Paragraph A] Machine learning algorithms trained on expansive radiological datasets now demonstrate non-inferiority to board-certified radiologists in identifying early-stage pulmonary nodules.\n\n[Paragraph B] Deep neural network architectures evaluate subtle optical coherence tomography variations to diagnose macular degeneration prior to irreversible photoreceptor apoptosis.\n\n[Paragraph C] However, algorithmic opacity, commonly designated the 'black box' phenomenon, continues to provoke ethical and jurisdictional hesitation among clinical practitioners."
+                )
+            )
+        }
+
         val test = getAllTests().firstOrNull { it.id == testId }
         val p1Title = test?.passageTitles?.getOrElse(0) { "Reading Passage 1" } ?: "The Secret Life of Urban Forests"
         val p2Title = test?.passageTitles?.getOrElse(1) { "Reading Passage 2" } ?: "The History of Silk Road Trade & Cultural Exchange"
@@ -633,5 +676,267 @@ object CambridgeReadingDataSource {
                 content = "[Paragraph A] Machine learning algorithms trained on expansive radiological datasets now demonstrate non-inferiority to board-certified radiologists in identifying early-stage pulmonary nodules.\n\n[Paragraph B] Deep neural network architectures evaluate subtle optical coherence tomography variations to diagnose macular degeneration prior to irreversible photoreceptor apoptosis.\n\n[Paragraph C] However, algorithmic opacity, commonly designated the 'black box' phenomenon, continues to provoke ethical and jurisdictional hesitation among clinical practitioners."
             )
         )
+    }
+
+    fun getQuestionsForTest(testId: String): List<QuestionDetailDto> {
+        val list = mutableListOf<QuestionDetailDto>()
+        if (testId == "cam18-test1") {
+            // Questions 1–3: Sentence Completion (NO MORE THAN TWO WORDS AND/OR A NUMBER)
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q1",
+                    position = 1,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Urban farming in Paris — NO MORE THAN TWO WORDS AND/OR A NUMBER]\nVertical tubes are used to grow strawberries, ________ and herbs.",
+                    passageNumber = 1,
+                    lineRef = "Questions 1–3 • Sentence Completion"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q2",
+                    position = 2,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Urban farming in Paris — NO MORE THAN TWO WORDS AND/OR A NUMBER]\nThere will eventually be a daily harvest of as much as ________ in weight of fruit and vegetables.",
+                    passageNumber = 1,
+                    lineRef = "Questions 1–3 • Sentence Completion"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q3",
+                    position = 3,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Urban farming in Paris — NO MORE THAN TWO WORDS AND/OR A NUMBER]\nIt may be possible that the farm's produce will account for as much as 10% of the city's ________ overall.",
+                    passageNumber = 1,
+                    lineRef = "Questions 1–3 • Sentence Completion"
+                )
+            )
+
+            // Questions 4–7: Table Completion (ONE WORD ONLY)
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q4",
+                    position = 4,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Intensive farming vs Aeroponic urban farming — ONE WORD ONLY]\nIntensive farming (Growth):\n• wide range of ________ used\n• techniques pollute air",
+                    passageNumber = 1,
+                    lineRef = "Questions 4–7 • Table Completion"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q5",
+                    position = 5,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Intensive farming vs Aeroponic urban farming — ONE WORD ONLY]\nIntensive farming (Selection):\n• quality not good\n• varieties of fruit and vegetables chosen that can survive long ________",
+                    passageNumber = 1,
+                    lineRef = "Questions 4–7 • Table Completion"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q6",
+                    position = 6,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Intensive farming vs Aeroponic urban farming — ONE WORD ONLY]\nIntensive farming (Sale):\n• ________ receive very little of overall income",
+                    passageNumber = 1,
+                    lineRef = "Questions 4–7 • Table Completion"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q7",
+                    position = 7,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Intensive farming vs Aeroponic urban farming — ONE WORD ONLY]\nAeroponic urban farming (Selection):\n• produce chosen because of its ________",
+                    passageNumber = 1,
+                    lineRef = "Questions 4–7 • Table Completion"
+                )
+            )
+
+            // Questions 8–13: TRUE / FALSE / NOT GIVEN
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q8",
+                    position = 8,
+                    type = "TRUE_FALSE",
+                    prompt = "Urban farming can take place above or below ground.",
+                    options = "TRUE FALSE NOT GIVEN",
+                    passageNumber = 1,
+                    lineRef = "Questions 8–13 • TRUE / FALSE / NOT GIVEN"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q9",
+                    position = 9,
+                    type = "TRUE_FALSE",
+                    prompt = "Some of the equipment used in aeroponic farming can be made by hand.",
+                    options = "TRUE FALSE NOT GIVEN",
+                    passageNumber = 1,
+                    lineRef = "Questions 8–13 • TRUE / FALSE / NOT GIVEN"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q10",
+                    position = 10,
+                    type = "TRUE_FALSE",
+                    prompt = "Urban farming relies more on electricity than some other types of farming.",
+                    options = "TRUE FALSE NOT GIVEN",
+                    passageNumber = 1,
+                    lineRef = "Questions 8–13 • TRUE / FALSE / NOT GIVEN"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q11",
+                    position = 11,
+                    type = "TRUE_FALSE",
+                    prompt = "Fruit and vegetables grown on an aeroponic urban farm are cheaper than traditionally grown organic produce.",
+                    options = "TRUE FALSE NOT GIVEN",
+                    passageNumber = 1,
+                    lineRef = "Questions 8–13 • TRUE / FALSE / NOT GIVEN"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q12",
+                    position = 12,
+                    type = "TRUE_FALSE",
+                    prompt = "Most produce can be grown on an aeroponic urban farm at any time of the year.",
+                    options = "TRUE FALSE NOT GIVEN",
+                    passageNumber = 1,
+                    lineRef = "Questions 8–13 • TRUE / FALSE / NOT GIVEN"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q13",
+                    position = 13,
+                    type = "TRUE_FALSE",
+                    prompt = "Beans take longer to grow on an urban farm than other vegetables.",
+                    options = "TRUE FALSE NOT GIVEN",
+                    passageNumber = 1,
+                    lineRef = "Questions 8–13 • TRUE / FALSE / NOT GIVEN"
+                )
+            )
+
+            // Passage 2: Questions 14–26
+            for (i in 14..26) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t1_q$i",
+                        position = i,
+                        type = if (i % 2 == 0) "MULTIPLE_CHOICE" else "TRUE_FALSE",
+                        prompt = "The trans-Pamir caravan network was essential for the dissemination of technological papermaking know-how.",
+                        options = if (i % 2 == 0) "A. Han imperial edicts\nB. Religious and scholastic texts\nC. Silver bullion coinage\nD. Bronze metallurgical ores" else "TRUE FALSE NOT GIVEN",
+                        passageNumber = 2,
+                        lineRef = "Passage 2 • Question $i"
+                    )
+                )
+            }
+
+            // Passage 3: Questions 27–40
+            for (i in 27..40) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t1_q$i",
+                        position = i,
+                        type = if (i % 3 == 0) "FILL_IN_BLANK" else if (i % 2 == 0) "TRUE_FALSE" else "MULTIPLE_CHOICE",
+                        prompt = "The inability of deep networks to show the intelligible causal reasoning behind classifications is commonly called the '________' problem.",
+                        options = if (i % 2 == 0) "TRUE FALSE NOT GIVEN" else "A. Black box\nB. Algorithmic bias\nC. Optical variance\nD. Data loss",
+                        passageNumber = 3,
+                        lineRef = "Passage 3 • Question $i"
+                    )
+                )
+            }
+        }
+        return list
+    }
+
+    fun getCam18Test1AnswerMetadata(position: Int): QuestionAnswerMetadata? {
+        return when (position) {
+            1 -> QuestionAnswerMetadata(
+                correctAnswer = "lettuces",
+                acceptedAnswers = listOf("lettuces", "lettuce"),
+                explanation = "Đoạn 1: 'From identical vertical tubes nearby burst row upon row of lettuces; near those are aromatic herbs...' (Từ những ống thẳng đứng tương tự gần đó mọc lên hàng loạt cây xà lách).",
+                evidenceQuote = "From identical vertical tubes nearby burst row upon row of lettuces; near those are aromatic herbs"
+            )
+            2 -> QuestionAnswerMetadata(
+                correctAnswer = "1,000 kg",
+                acceptedAnswers = listOf("1,000 kg", "1000 kg", "1,000kg", "1000kg", "1,000 kilograms", "1000 kilograms"),
+                explanation = "Đoạn 2: 'When the remaining two thirds of the vast open area are in production, 20 staff will harvest up to 1,000 kg of perhaps 35 different varieties of fruit and vegetables, every day.'",
+                evidenceQuote = "20 staff will harvest up to 1,000 kg of perhaps 35 different varieties of fruit and vegetables, every day"
+            )
+            3 -> QuestionAnswerMetadata(
+                correctAnswer = "consumption",
+                acceptedAnswers = listOf("consumption", "food consumption"),
+                explanation = "Đoạn 2: 'But if enough unused space can be developed like this, there’s no reason why you shouldn’t eventually target maybe between 5% and 10% of consumption.'",
+                evidenceQuote = "there’s no reason why you shouldn’t eventually target maybe between 5% and 10% of consumption"
+            )
+            4 -> QuestionAnswerMetadata(
+                correctAnswer = "pesticides",
+                acceptedAnswers = listOf("pesticides", "pesticide"),
+                explanation = "Đoạn 3: 'First, I don’t much like the fact that most of the fruit and vegetables we eat have been treated with something like 17 different pesticides...'",
+                evidenceQuote = "most of the fruit and vegetables we eat have been treated with something like 17 different pesticides"
+            )
+            5 -> QuestionAnswerMetadata(
+                correctAnswer = "journeys",
+                acceptedAnswers = listOf("journeys", "journey"),
+                explanation = "Đoạn 3: '...that their quality is so poor, because the varieties are selected for their capacity to withstand such substantial journeys...'",
+                evidenceQuote = "because the varieties are selected for their capacity to withstand such substantial journeys"
+            )
+            6 -> QuestionAnswerMetadata(
+                correctAnswer = "producers",
+                acceptedAnswers = listOf("producers", "producer"),
+                explanation = "Đoạn 3: '...or that 80% of the price I pay goes to wholesalers and transport companies, not the producers.' (80% giá tiền thuộc về nhà bán buôn và công ty vận tải chứ không phải người sản xuất).",
+                evidenceQuote = "80% of the price I pay goes to wholesalers and transport companies, not the producers"
+            )
+            7 -> QuestionAnswerMetadata(
+                correctAnswer = "flavour",
+                acceptedAnswers = listOf("flavour", "flavor"),
+                explanation = "Đoạn 4: 'You can select crop varieties for their flavour, not their resistance to the transport and storage chain...'",
+                evidenceQuote = "You can select crop varieties for their flavour, not their resistance to the transport and storage chain"
+            )
+            8 -> QuestionAnswerMetadata(
+                correctAnswer = "TRUE",
+                acceptedAnswers = listOf("TRUE"),
+                explanation = "Đoạn 1 & Đoạn 5: Nông nghiệp đô thị diễn ra cả ở trên cao ('urban rooftop farm') và dưới lòng đất ('mushrooms in underground carparks') -> TRUE.",
+                evidenceQuote = "Strawberries are being grown in disused shipping containers, mushrooms in underground carparks"
+            )
+            9 -> QuestionAnswerMetadata(
+                correctAnswer = "NOT GIVEN",
+                acceptedAnswers = listOf("NOT GIVEN"),
+                explanation = "Đoạn 5 có đề cập thiết bị nhẹ, dễ lắp đặt và rẻ (€100–€150/m²), nhưng hoàn toàn không có thông tin nào nói thiết bị có thể tự làm bằng tay (made by hand) -> NOT GIVEN.",
+                evidenceQuote = "The equipment weighs little, can be installed on almost any flat surface and is cheap to buy"
+            )
+            10 -> QuestionAnswerMetadata(
+                correctAnswer = "FALSE",
+                acceptedAnswers = listOf("FALSE"),
+                explanation = "Đoạn 5: 'It is cheap to run, too, consuming a tiny fraction of the electricity used by some techniques.' (Tiêu thụ lượng điện rất nhỏ so với một số kỹ thuật khác, trái ngược với 'relies more on electricity') -> FALSE.",
+                evidenceQuote = "consuming a tiny fraction of the electricity used by some techniques"
+            )
+            11 -> QuestionAnswerMetadata(
+                correctAnswer = "TRUE",
+                acceptedAnswers = listOf("TRUE"),
+                explanation = "Đoạn 6: 'Produce grown this way typically sells at prices that, while generally higher than those of classic intensive agriculture, are lower than soil-based organic growers.' (Giá bán thấp hơn nông sản hữu cơ trồng trên đất truyền thống) -> TRUE.",
+                evidenceQuote = "while generally higher than those of classic intensive agriculture, are lower than soil-based organic growers"
+            )
+            12 -> QuestionAnswerMetadata(
+                correctAnswer = "FALSE",
+                acceptedAnswers = listOf("FALSE"),
+                explanation = "Đoạn 6: 'There are limits to what farmers can grow this way, of course, and much of the produce is suited to the summer months.' (Phần lớn nông sản chỉ phù hợp với các tháng mùa hè, không phải bất kỳ thời điểm nào trong năm) -> FALSE.",
+                evidenceQuote = "There are limits to what farmers can grow this way, of course, and much of the produce is suited to the summer months"
+            )
+            13 -> QuestionAnswerMetadata(
+                correctAnswer = "NOT GIVEN",
+                acceptedAnswers = listOf("NOT GIVEN"),
+                explanation = "Đoạn 6: 'And beans tend to take up a lot of space for not much return.' (Bài đọc chỉ nói đậu tốn diện tích mà thu hoạch chẳng được bao nhiêu, không đề cập thời gian sinh trưởng nhanh hay chậm hơn rau khác) -> NOT GIVEN.",
+                evidenceQuote = "And beans tend to take up a lot of space for not much return"
+            )
+            else -> null
+        }
     }
 }

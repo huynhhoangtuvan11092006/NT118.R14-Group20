@@ -32,25 +32,21 @@ async function main() {
     passages: [
       {
         passageNumber: 1,
-        title: "Urban Farming",
-        subtitle: "Growing crops in vertical and urban spaces",
-        content: `A
-Vertical farming is the practice of producing food in vertically stacked layers, vertically inclined surfaces and/or integrated into other structures (such as in a skyscraper, used warehouse, or shipping container). The modern ideas of vertical farming use indoor farming techniques and controlled-environment agriculture (CEA) technology, where all environmental factors can be controlled.
+        title: "Urban farming",
+        subtitle: "In Paris, urban farmers are trying a soil-free approach to agriculture that uses less space and fewer resources. Could it help cities face the threats to our food supplies?",
+        content: `In Paris, urban farmers are trying a soil-free approach to agriculture that uses less space and fewer resources. Could it help cities face the threats to our food supplies?
 
-B
-These facilities utilize artificial control of light, environmental control (humidity, temperature, gases...) and fertigation. Some vertical farms use techniques similar to greenhouses, where natural sunlight can be augmented with artificial lighting and metal reflectors. In contrast to conventional farming, vertical farming does not require soil. Instead, methods such as hydroponics, aquaponics, or aeroponics are used.
+On top of a striking new exhibition hall in southern Paris, the world’s largest urban rooftop farm has started to bear fruit. Strawberries that are small, intensely flavoured and resplendently red sprout abundantly from large plastic tubes. Peer inside and you see the tubes are completely hollow, the roots of dozens of strawberry plants dangling down inside them. From identical vertical tubes nearby burst row upon row of lettuces; near those are aromatic herbs, such as basil, sage and peppermint. Opposite, in narrow, horizontal trays packed not with soil but with coconut fibre, grow cherry tomatoes, shiny aubergines and brightly coloured chards.
 
-C
-Proponents point to several advantages of vertical farming. Chief among these is the dramatic reduction in the amount of land required. Because crops are stacked vertically, a vertical farm can produce as much as ten times the yield of an equivalent area of horizontal farmland. Furthermore, indoor farming eliminates the threat of adverse weather conditions, floods, droughts, and pests, enabling year-round harvest cycles.
+Pascal Hardy, an engineer and sustainable development consultant, began experimenting with vertical farming and aeroponic growing towers – as the soil-free plastic tubes are known – on his Paris apartment block roof five years ago. The urban rooftop space above the exhibition hall is somewhat bigger: 14,000 square metres and almost exactly the size of a couple of football pitches. Already, the team of young urban farmers who tend it have picked, in one day, 3,000 lettuces and 150 punnets of strawberries. When the remaining two thirds of the vast open area are in production, 20 staff will harvest up to 1,000 kg of perhaps 35 different varieties of fruit and vegetables, every day. ‘We’re not ever, obviously, going to feed the whole city this way,’ cautions Hardy. ‘In the urban environment you’re working with very significant practical constraints, clearly, on what you can do and where. But if enough unused space can be developed like this, there’s no reason why you shouldn’t eventually target maybe between 5% and 10% of consumption.’
 
-D
-Another significant benefit is water conservation. Traditional agricultural irrigation accounts for roughly 70 percent of global freshwater consumption. In closed-loop vertical systems, water is continuously recycled and transpired moisture is collected and reused, cutting water usage by up to 95 percent compared to open-field farming.
+Perhaps most significantly, however, this is a real-life showcase for the work of Hardy’s flourishing urban agriculture consultancy, Agripolis, which is currently fielding enquiries from around the world to design, build and equip a new breed of soil-free inner-city farm. ‘The method’s advantages are many,’ he says. ‘First, I don’t much like the fact that most of the fruit and vegetables we eat have been treated with something like 17 different pesticides, or that the intensive farming techniques that produced them are such huge generators of greenhouse gases. I don’t much like the fact, either, that they’ve travelled an average of 2,000 refrigerated kilometres to my plate, that their quality is so poor, because the varieties are selected for their capacity to withstand such substantial journeys, or that 80% of the price I pay goes to wholesalers and transport companies, not the producers.’
 
-E
-However, vertical farming faces substantial challenges. The primary obstacle is the colossal upfront capital cost required to construct high-tech facilities equipped with sensors, automated robotics, and LED arrays. Additionally, the electricity demanded to power 24-hour artificial lighting can lead to higher operational costs and a significant carbon footprint unless clean, renewable energy sources are employed.
+Produce grown using this soil-free method, on the other hand – which relies solely on a small quantity of water, enriched with organic nutrients, pumped around a closed circuit of pipes, towers and trays – is ‘produced up here, and sold locally, just down there. It barely travels at all,’ Hardy says. ‘You can select crop varieties for their flavour, not their resistance to the transport and storage chain, and you can pick them when they’re really at their best, and not before.’ No soil is exhausted, and the water that gently showers the plants’ roots every 12 minutes is recycled, so the method uses 90% less water than a classic intensive farm for the same yield.
 
-F
-Despite these hurdles, urban planners and food security experts believe vertical farming will play an indispensable role in feeding the projected global population of nearly 10 billion by 2050, especially as urbanization accelerates and arable land becomes increasingly scarce.`
+Urban farming is not, of course, a new phenomenon. Inner-city agriculture is booming from Shanghai to Detroit and Tokyo to Bangkok. Strawberries are being grown in disused shipping containers, mushrooms in underground carparks. Aeroponic farming, he says, is ‘virtuous’. The equipment weighs little, can be installed on almost any flat surface and is cheap to buy: roughly €100 to €150 per square metre. It is cheap to run, too, consuming a tiny fraction of the electricity used by some techniques.
+
+Produce grown this way typically sells at prices that, while generally higher than those of classic intensive agriculture, are lower than soil-based organic growers. There are limits to what farmers can grow this way, of course, and much of the produce is suited to the summer months. ‘Root vegetables we cannot do, at least not yet,’ he says. ‘Radishes are OK, but carrots, potatoes, that kind of thing – the roots are simply too long. Fruit trees are obviously not an option. And beans tend to take up a lot of space for not much return.’ Nevertheless, urban farming of the kind being practised in Paris is one part of a bigger and fast-changing picture that is bringing food production closer to our lives.`
       },
       {
         passageNumber: 2,
@@ -119,117 +115,107 @@ Ultimately, consensus among bioethicists and clinical leaders emphasizes that AI
     // --- PASSAGE 1: Câu 1 -> 13 ---
     {
       position: 1,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Vertical farming requires more land area than conventional open-field agriculture.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "FALSE" },
-      explanation: "Đoạn C khẳng định: Vertical farming giúp giảm mạnh diện tích đất, một trang trại thẳng đứng có thể cho sản lượng gấp 10 lần diện tích nông nghiệp truyền thống tương đương.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Urban farming in Paris — NO MORE THAN TWO WORDS AND/OR A NUMBER]\nVertical tubes are used to grow strawberries, ________ and herbs.",
+      options: null,
+      answerKey: { value: "lettuces", accepted: ["lettuces", "lettuce"] },
+      explanation: "Đoạn 1: 'From identical vertical tubes nearby burst row upon row of lettuces; near those are aromatic herbs...'",
     },
     {
       position: 2,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "All vertical farms rely exclusively on natural sunlight to grow crops.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "FALSE" },
-      explanation: "Đoạn B chỉ ra rằng các trang trại này kiểm soát nhân tạo ánh sáng (artificial light) và chỉ bổ sung ánh sáng tự nhiên chứ không phụ thuộc độc quyền vào mặt trời.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Urban farming in Paris — NO MORE THAN TWO WORDS AND/OR A NUMBER]\nThere will eventually be a daily harvest of as much as ________ in weight of fruit and vegetables.",
+      options: null,
+      answerKey: { value: "1,000 kg", accepted: ["1,000 kg", "1000 kg", "1,000kg", "1000kg", "1,000 kilograms", "1000 kilograms"] },
+      explanation: "Đoạn 2: 'When the remaining two thirds of the vast open area are in production, 20 staff will harvest up to 1,000 kg of perhaps 35 different varieties of fruit and vegetables, every day.'",
     },
     {
       position: 3,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Adverse weather events such as floods do not disrupt indoor vertical farming harvests.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "TRUE" },
-      explanation: "Đoạn C nêu rõ: Canh tác trong nhà loại bỏ hoàn toàn các mối đe dọa từ thời tiết bất lợi, lũ lụt, hạn hán và sâu bệnh, cho phép thu hoạch quanh năm.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Urban farming in Paris — NO MORE THAN TWO WORDS AND/OR A NUMBER]\nIt may be possible that the farm's produce will account for as much as 10% of the city's ________ overall.",
+      options: null,
+      answerKey: { value: "consumption", accepted: ["consumption", "food consumption"] },
+      explanation: "Đoạn 2: 'But if enough unused space can be developed like this, there’s no reason why you shouldn’t eventually target maybe between 5% and 10% of consumption.'",
     },
     {
       position: 4,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Closed-loop vertical farming systems can decrease agricultural water usage by up to 95 percent.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "TRUE" },
-      explanation: "Đoạn D nêu rõ: Hệ thống tuần hoàn khép kín tái sử dụng nước liên tục, giúp cắt giảm lượng nước tiêu thụ tới 95% so với đồng ruộng truyền thống.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Intensive farming vs Aeroponic urban farming — ONE WORD ONLY]\nIntensive farming (Growth):\n• wide range of ________ used\n• techniques pollute air",
+      options: null,
+      answerKey: { value: "pesticides", accepted: ["pesticides", "pesticide"] },
+      explanation: "Đoạn 3: 'First, I don’t much like the fact that most of the fruit and vegetables we eat have been treated with something like 17 different pesticides...'",
     },
     {
       position: 5,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Vertical farms are currently cheaper to build and operate than traditional greenhouses.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "FALSE" },
-      explanation: "Đoạn E nhấn mạnh trở ngại hàng đầu là chi phí đầu tư ban đầu khổng lồ (colossal upfront capital cost) và tiền điện cao do đèn LED 24/7.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Intensive farming vs Aeroponic urban farming — ONE WORD ONLY]\nIntensive farming (Selection):\n• quality not good\n• varieties of fruit and vegetables chosen that can survive long ________",
+      options: null,
+      answerKey: { value: "journeys", accepted: ["journeys", "journey"] },
+      explanation: "Đoạn 3: '...that their quality is so poor, because the varieties are selected for their capacity to withstand such substantial journeys...'",
     },
     {
       position: 6,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Vertical farming produces zero carbon emissions regardless of the electricity source used.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "FALSE" },
-      explanation: "Đoạn E ghi nhận lượng điện tiêu thụ lớn sẽ tạo ra dấu chân carbon đáng kể (significant carbon footprint) trừ khi sử dụng năng lượng tái tạo.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Intensive farming vs Aeroponic urban farming — ONE WORD ONLY]\nIntensive farming (Sale):\n• ________ receive very little of overall income",
+      options: null,
+      answerKey: { value: "producers", accepted: ["producers", "producer"] },
+      explanation: "Đoạn 3: '...or that 80% of the price I pay goes to wholesalers and transport companies, not the producers.'",
     },
     {
       position: 7,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "The United Nations has officially mandated vertical farming in all developing countries.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "NOT GIVEN" },
-      explanation: "Đoạn F chỉ đề cập các chuyên gia tin rằng vertical farming sẽ đóng vai trò quan trọng, không có thông tin Liên Hợp Quốc bắt buộc triển khai.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Intensive farming vs Aeroponic urban farming — ONE WORD ONLY]\nAeroponic urban farming (Selection):\n• produce chosen because of its ________",
+      options: null,
+      answerKey: { value: "flavour", accepted: ["flavour", "flavor"] },
+      explanation: "Đoạn 4: 'You can select crop varieties for their flavour, not their resistance to the transport and storage chain...'",
     },
     {
       position: 8,
-      type: QuestionType.FILL_IN_BLANK,
-      prompt: "Instead of soil, vertical farms often cultivate plants using methods such as aeroponics or ________.",
-      options: null,
-      answerKey: { value: "hydroponics", accepted: ["hydroponics", "aquaponics"] },
-      explanation: "Đoạn B: 'In contrast to conventional farming, vertical farming does not require soil. Instead, methods such as hydroponics, aquaponics, or aeroponics are used.'",
+      type: QuestionType.TRUE_FALSE,
+      prompt: "Urban farming can take place above or below ground.",
+      options: ["TRUE", "FALSE", "NOT GIVEN"],
+      answerKey: { value: "TRUE" },
+      explanation: "Đoạn 1 & Đoạn 5: Nông nghiệp đô thị diễn ra cả ở trên cao ('urban rooftop farm') và dưới lòng đất ('mushrooms in underground carparks') -> TRUE.",
     },
     {
       position: 9,
-      type: QuestionType.FILL_IN_BLANK,
-      prompt: "Traditional agricultural irrigation accounts for roughly ________ percent of global freshwater consumption.",
-      options: null,
-      answerKey: { value: "70", accepted: ["70", "70%", "70 percent"] },
-      explanation: "Đoạn D: 'Traditional agricultural irrigation accounts for roughly 70 percent of global freshwater consumption.'",
+      type: QuestionType.TRUE_FALSE,
+      prompt: "Some of the equipment used in aeroponic farming can be made by hand.",
+      options: ["TRUE", "FALSE", "NOT GIVEN"],
+      answerKey: { value: "NOT GIVEN" },
+      explanation: "Đoạn 5 có đề cập thiết bị nhẹ, dễ lắp đặt và rẻ (€100–€150/m²), nhưng hoàn toàn không có thông tin nào nói thiết bị có thể tự làm bằng tay (made by hand) -> NOT GIVEN.",
     },
     {
       position: 10,
-      type: QuestionType.FILL_IN_BLANK,
-      prompt: "In vertical farms, the high consumption of ________ can substantially increase operational expenditures.",
-      options: null,
-      answerKey: { value: "electricity", accepted: ["electricity", "power", "energy"] },
-      explanation: "Đoạn E: 'Additionally, the electricity demanded to power 24-hour artificial lighting can lead to higher operational costs...'",
+      type: QuestionType.TRUE_FALSE,
+      prompt: "Urban farming relies more on electricity than some other types of farming.",
+      options: ["TRUE", "FALSE", "NOT GIVEN"],
+      answerKey: { value: "FALSE" },
+      explanation: "Đoạn 5: 'It is cheap to run, too, consuming a tiny fraction of the electricity used by some techniques.' -> FALSE.",
     },
     {
       position: 11,
-      type: QuestionType.FILL_IN_BLANK,
-      prompt: "Food security experts project that the worldwide population will reach nearly ________ billion by the year 2050.",
-      options: null,
-      answerKey: { value: "10", accepted: ["10", "ten", "10 billion"] },
-      explanation: "Đoạn F: 'feeding the projected global population of nearly 10 billion by 2050.'",
+      type: QuestionType.TRUE_FALSE,
+      prompt: "Fruit and vegetables grown on an aeroponic urban farm are cheaper than traditionally grown organic produce.",
+      options: ["TRUE", "FALSE", "NOT GIVEN"],
+      answerKey: { value: "TRUE" },
+      explanation: "Đoạn 6: 'Produce grown this way typically sells at prices that, while generally higher than those of classic intensive agriculture, are lower than soil-based organic growers.' -> TRUE.",
     },
     {
       position: 12,
-      type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "According to Paragraph B, what is a key feature of Controlled-Environment Agriculture (CEA)?",
-      options: [
-        "A. Complete dependence on natural seasonal rainfall",
-        "B. Artificial control of light, humidity, and temperature",
-        "C. Mandatory use of organic animal compost",
-        "D. Open-air field cultivation without glass enclosures"
-      ],
-      answerKey: { value: "B" },
-      explanation: "Đoạn B chỉ rõ: CEA cho phép kiểm soát nhân tạo tất cả các yếu tố môi trường như ánh sáng, độ ẩm, nhiệt độ và dinh dưỡng.",
+      type: QuestionType.TRUE_FALSE,
+      prompt: "Most produce can be grown on an aeroponic urban farm at any time of the year.",
+      options: ["TRUE", "FALSE", "NOT GIVEN"],
+      answerKey: { value: "FALSE" },
+      explanation: "Đoạn 6: 'There are limits to what farmers can grow this way, of course, and much of the produce is suited to the summer months.' -> FALSE.",
     },
     {
       position: 13,
-      type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "What is the primary factor limiting the immediate widespread adoption of vertical farms according to Paragraph E?",
-      options: [
-        "A. Complete lack of consumer interest in indoor produce",
-        "B. Shortage of agricultural computer software",
-        "C. Substantial upfront construction and technology costs",
-        "D. Inability to produce edible leafy greens"
-      ],
-      answerKey: { value: "C" },
-      explanation: "Đoạn E nêu rõ: 'The primary obstacle is the colossal upfront capital cost required to construct high-tech facilities...'",
+      type: QuestionType.TRUE_FALSE,
+      prompt: "Beans take longer to grow on an urban farm than other vegetables.",
+      options: ["TRUE", "FALSE", "NOT GIVEN"],
+      answerKey: { value: "NOT GIVEN" },
+      explanation: "Đoạn 6: 'And beans tend to take up a lot of space for not much return.' (Không đề cập thời gian sinh trưởng lâu hơn rau khác) -> NOT GIVEN.",
     },
 
     // --- PASSAGE 2: Câu 14 -> 26 ---

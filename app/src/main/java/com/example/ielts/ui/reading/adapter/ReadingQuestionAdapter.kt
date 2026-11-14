@@ -171,19 +171,24 @@ class ReadingQuestionAdapter(
                 holder.layoutMultipleChoice.visibility = View.GONE
                 holder.layoutFillBlank.visibility = View.VISIBLE
 
-                holder.edtFillAnswer.tag = questionNum
+                (holder.edtFillAnswer.tag as? TextWatcher)?.let { oldWatcher ->
+                    holder.edtFillAnswer.removeTextChangedListener(oldWatcher)
+                }
+
                 if (holder.edtFillAnswer.text.toString() != (currentAnswer ?: "")) {
                     holder.edtFillAnswer.setText(currentAnswer ?: "")
                 }
 
-                holder.edtFillAnswer.setOnFocusChangeListener { _, hasFocus ->
-                    if (!hasFocus) {
-                        val text = holder.edtFillAnswer.text.toString().trim()
-                        if (text.isNotEmpty()) {
-                            onAnswerSelected(questionNum, text)
-                        }
+                val watcher = object : TextWatcher {
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                    override fun afterTextChanged(s: Editable?) {
+                        val text = s?.toString()?.trim() ?: ""
+                        onAnswerSelected(questionNum, text)
                     }
                 }
+                holder.edtFillAnswer.tag = watcher
+                holder.edtFillAnswer.addTextChangedListener(watcher)
             }
         }
     }
