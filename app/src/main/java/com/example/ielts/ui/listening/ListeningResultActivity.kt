@@ -662,11 +662,11 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
             "creativity to come up with an imaginative or novel way of fundraising", "useful if you can walk for long periods, sometimes uphill.",
             "good if you know something about nutrition and can give clear instructions.", "helping out at our Story Club for disabled children, especially if you have done some acting.",
             "take in a lot of information and not forget any important steps or details.",
-            "the students sitting next to me were talking loudly.", "there is much more variety in the job market than we had realised.",
-            "quite hard for us to follow at points.", "school careers advice was delivered far too late",
-            "differ on why we would like a career in fashion.", "realistic about the practice",
-            "paying too much attention to how she looked", "expecting to become well known right away",
-            "reasons why people return items", "fashion designs customers want but can't find",
+            "hard to see through people's heads, isn't it?", "there's a whole range of … areas of work that we hadn't even thought of",
+            "we're only first years, after all. We've got a lot to learn.", "none of them were very inspiring. They could have asked more people like today's speaker",
+            "promised myself that I'd go through this course and keep an open mind till the end.", "we'll be unpaid assistants in the industry for quite a long time... I'm prepared for that",
+            "more interested in her own appearance than his!", "she should have hidden her negative feelings about him, but she didn't.",
+            "garments sold there were being returned because they fell apart in the wash", "an item that no one's stocking but that consumers are looking for",
             "extensive damage to fences in the reserve.", "an entire family unit was selected",
             "employed helicopters to herd the animals", "minimise physiological stress",
             "positioned on their sides to prevent their immense weight from crushing lungs",
@@ -678,7 +678,7 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
         val timestamps = listOf(
             121, 154, 173, 192, 211, 273, 297, 308, 332, 345,
             78, 111, 130, 196, 168, 251, 269, 303, 312, 345,
-            12, 24, 40, 55, 70, 88, 105, 105, 130, 130,
+            90, 119, 160, 174, 204, 238, 289, 314, 345, 366,
             18, 32, 48, 65, 80, 98, 112, 130, 146, 162
         )
 

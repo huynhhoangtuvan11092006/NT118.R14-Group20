@@ -35,8 +35,8 @@ object CambridgeListeningTestDetailDataSource {
                 sectionNumber = 3,
                 title = "Part 3: Talk on jobs in fashion design",
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793754901/%E5%89%9118_section1-part3.mp3",
-                durationSeconds = 480,
-                transcript = "[00:05] Hugo: Hi Chantal, how did you find the guest lecture on fashion industry careers?\n[00:12] Chantal: Well, at the beginning I struggled because the students sitting next to me were talking loudly.\n[00:24] Hugo: Same here! But what surprised both of us was that there is much more variety in the job market than we had realised.\n[00:40] Chantal: Absolutely. Though we both agreed the speaker's main message was quite hard for us to follow at points.\n[00:55] Hugo: And our school careers advice was delivered far too late in the academic year.\n[01:10] Chantal: When looking to our own futures, you and I differ on why we would like a career in fashion.\n[01:28] Hugo: Regarding unpaid internships: I feel realistic about the practice – it's just the norm.\n[01:45] Chantal: The speaker admitted two early mistakes: paying too much attention to how she looked, and expecting to become well known right away.\n[02:10] Hugo: We also found two valuable retail statistics: the reasons why people return items, and the fashion designs customers want but can't find."
+                durationSeconds = 420,
+                transcript = "[00:55] HUGO: Hi Chantal. What did you think of the talk, then?\n[01:13] CHANTAL: Hi Hugo. I thought it was good once I'd moved seats.\n[01:17] HUGO: Oh- were the people beside you chatting or something?\n[01:20] CHANTAL: It wasn't that. I went early so that I'd get a seat and not have to stand, but then this guy sat right in front of me and he was so tall!\n[01:30] HUGO: It's hard to see through people's heads, isn't it? [Q21]\n[01:34] CHANTAL: Impossible! Anyway, to answer your question, I thought it was really interesting, especially what the speaker said about the job market.\n[01:44] HUGO: Me too. I mean we know we're going into a really competitive field so it's obvious that we may struggle to get work.\n[01:52] CHANTAL: That's right – and we know we can't all have that 'dream job'.\n[01:59] HUGO: Yeah, but it looks like there's a whole range of … areas of work that we hadn't even thought of – like fashion journalism, for instance. [Q22]\n[02:09] CHANTAL: Yeah – I wasn't expecting so many career options.\n[02:14] HUGO: Mmm. Overall, she had quite a strong message, didn't she?\n[02:23] CHANTAL: She did. She kept saying things like 'I know you all think this, but …' and then she'd tell us how it really is.\n[02:29] HUGO: Perhaps she thinks students are a bit narrow-minded about the industry.\n[02:35] CHANTAL: It was a bit harsh, though! We know it's a tough industry.\n[02:40] HUGO: Yeah – and we're only first years, after all. We've got a lot to learn. [Q23]\n[02:47] CHANTAL: Exactly. Do you think our secondary-school education should have been more career-focused?\n[02:54] HUGO: Well, we had numerous talks on careers, which was good, but none of them were very inspiring. They could have asked more people like today's speaker to talk to us. [Q24]\n[03:07] CHANTAL: I agree. We were told about lots of different careers – just when we needed to be, but not by the experts who really know stuff.\n[03:17] HUGO: So did today's talk influence your thoughts on what career you'd like to take up in the future?\n[03:24] CHANTAL: Well. I promised myself that I'd go through this course and keep an open mind till the end. [Q25]\n[03:33] HUGO: But I think it's better to pick an area of the industry now and then aim to get better and better at it.\n[03:42] CHANTAL: Well, I think we'll just have to differ on that issue!\n[03:47] HUGO: One thing's for certain, though. From what she said, we'll be unpaid assistants in the industry for quite a long time.\n[03:56] CHANTAL: Mmm.\n[03:58] HUGO: I'm prepared for that, aren't you? [Q26]\n[04:03] CHANTAL: Actually, I'm not going to accept that view.\n[04:08] HUGO: Really? But she knows it's the case- and everyone else says the same.\n[04:14] CHANTAL: That doesn't mean it has to be true for me.\n[04:18] HUGO: OK. Well – I hope you're right!\n[04:23] CHANTAL: I thought the speaker's account of her first job was fascinating.\n[04:28] HUGO: Yeah – she admitted she was lucky to get work being a personal dresser for a musician. She didn't even apply for the job and there she was getting paid to choose all his clothes.\n[04:40] CHANTAL: It must have felt amazing – though she said all she was looking for back then was experience, not financial reward.\n[04:49] HUGO: Mmm. And then he was so mean, telling her she was more interested in her own appearance than his! [Q27-28]\n[04:58] CHANTAL: But – she did realise he was right about that, which really made me think. I'm always considering my own clothes but now I can see you should be focusing on your client!\n[05:10] HUGO: She obviously regretted losing the job.\n[05:14] CHANTAL: Well, as she said, she should have hidden her negative feelings about him, but she didn't. [Q27-28]\n[05:23] HUGO: It was really brave the way she picked herself up and took that job in retail. Fancy working in a shop after that!\n[05:31] CHANTAL: Yeah – well, she recommended we all do it at some point. I guess as a designer you'd get to find out some useful information, like how big or small the average shopper is.\n[05:45] HUGO: I think that's an issue for manufacturers, not designers. However, it would be useful to know if there's a gap in the market – you know, an item that no one's stocking but that consumers are looking for. [Q29-30]\n[05:59] CHANTAL: Yeah, people don't give up searching. They also take things back to the store if they aren't right.\n[06:06] HUGO: Yeah. Imagine you worked in an expensive shop and you found out the garments sold there were being returned because they … fell apart in the wash! [Q29-30]\n[06:17] CHANTAL: Yeah, it would be good to know that kind of thing.\n[06:21] HUGO: Yeah."
             ),
             ListeningSectionDto(
                 sectionNumber = 4,
@@ -260,7 +260,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Talk on jobs in fashion design\nQuestions 21–26: Choose the correct letter, A, B or C.\n\n21. What problem did Chantal have at the start of the talk?",
                 options = listOf("A. Her view of the speaker was blocked.", "B. She was unable to find an empty seat.", "C. The students next to her were talking."),
                 sectionNumber = 3,
-                timestampStart = 12,
+                timestampStart = 90,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -270,7 +270,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Talk on jobs in fashion design\nQuestions 21–26: Choose the correct letter, A, B or C.\n\n22. What were Hugo and Chantal surprised to hear about the job market?",
                 options = listOf("A. It has become more competitive than it used to be.", "B. There is more variety in it than they had realised.", "C. Some areas of it are more exciting than others."),
                 sectionNumber = 3,
-                timestampStart = 24,
+                timestampStart = 119,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -280,7 +280,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Talk on jobs in fashion design\nQuestions 21–26: Choose the correct letter, A, B or C.\n\n23. Hugo and Chantal agree that the speaker's message was",
                 options = listOf("A. unfair to them at times.", "B. hard for them to follow.", "C. critical of the industry."),
                 sectionNumber = 3,
-                timestampStart = 40,
+                timestampStart = 160,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -290,7 +290,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Talk on jobs in fashion design\nQuestions 21–26: Choose the correct letter, A, B or C.\n\n24. What do Hugo and Chantal criticise about their school careers advice?",
                 options = listOf("A. when they received the advice", "B. how much advice was given", "C. who gave the advice"),
                 sectionNumber = 3,
-                timestampStart = 55,
+                timestampStart = 174,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -300,7 +300,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Talk on jobs in fashion design\nQuestions 21–26: Choose the correct letter, A, B or C.\n\n25. When discussing their future, Hugo and Chantal disagree on",
                 options = listOf("A. which is the best career in fashion.", "B. when to choose a career in fashion.", "C. why they would like a career in fashion."),
                 sectionNumber = 3,
-                timestampStart = 70,
+                timestampStart = 204,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -310,7 +310,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Talk on jobs in fashion design\nQuestions 21–26: Choose the correct letter, A, B or C.\n\n26. How does Hugo feel about being an unpaid assistant?",
                 options = listOf("A. He is realistic about the practice.", "B. He feels the practice is dishonest.", "C. He thinks others want to change the practice."),
                 sectionNumber = 3,
-                timestampStart = 88,
+                timestampStart = 238,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -320,7 +320,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Talk on jobs in fashion design\nQuestions 27 and 28: Choose TWO letters, A–E.\nWhich TWO mistakes did the speaker admit she made in her first job?\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
                 options = listOf("A. being dishonest to her employer", "B. paying too much attention to how she looked", "C. expecting to become well known", "D. trying to earn a lot of money", "E. openly disliking her client"),
                 sectionNumber = 3,
-                timestampStart = 105,
+                timestampStart = 289,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -330,7 +330,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Talk on jobs in fashion design\nQuestions 27 and 28: Choose TWO letters, A–E.\nWhich TWO mistakes did the speaker admit she made in her first job?\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
                 options = listOf("A. being dishonest to her employer", "B. paying too much attention to how she looked", "C. expecting to become well known", "D. trying to earn a lot of money", "E. openly disliking her client"),
                 sectionNumber = 3,
-                timestampStart = 105,
+                timestampStart = 314,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -340,7 +340,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Talk on jobs in fashion design\nQuestions 29 and 30: Choose TWO letters, A–E.\nWhich TWO pieces of retail information do Hugo and Chantal agree would be useful?\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
                 options = listOf("A. the reasons people return fashion items", "B. how much time people have to shop for clothes", "C. fashion designs people want but can't find", "D. the best time of year for fashion buying", "E. the most popular fashion sizes"),
                 sectionNumber = 3,
-                timestampStart = 130,
+                timestampStart = 345,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -350,7 +350,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Talk on jobs in fashion design\nQuestions 29 and 30: Choose TWO letters, A–E.\nWhich TWO pieces of retail information do Hugo and Chantal agree would be useful?\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
                 options = listOf("A. the reasons people return fashion items", "B. how much time people have to shop for clothes", "C. fashion designs people want but can't find", "D. the best time of year for fashion buying", "E. the most popular fashion sizes"),
                 sectionNumber = 3,
-                timestampStart = 130,
+                timestampStart = 366,
                 timestampEnd = 0
             ),
 
