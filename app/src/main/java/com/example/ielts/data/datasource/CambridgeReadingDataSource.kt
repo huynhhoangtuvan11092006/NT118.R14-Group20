@@ -103,7 +103,7 @@ object CambridgeReadingDataSource {
                 totalQuestions = 40,
                 passageTitles = listOf(
                     "Stonehenge",
-                    "The Migration Patterns of Marine Animals",
+                    "Living with artificial intelligence",
                     "The Psychology of Decision Making"
                 ),
                 userProgress = null
@@ -639,6 +639,8 @@ object CambridgeReadingDataSource {
 
     private const val CAM18_TEST2_PASSAGE1_CONTENT = "For centuries, historians and archaeologists have puzzled over the many mysteries of Stonehenge, a prehistoric monument that took an estimated 1,500 years to erect. Located on Salisbury Plain in southern England, it is comprised of roughly 100 massive upright stones placed in a circular layout.\n\nArchaeologists believe England's most iconic prehistoric ruin was built in several stages, with the earliest constructed 5,000 or more years ago. First, Neolithic* Britons used primitive tools, which may have been fashioned out of deer antlers, to dig a massive circular ditch and bank, or henge. Deep pits dating back to that era and located within the circle may have once held a ring of timber posts, according to some scholars.\n\nSeveral hundred years later, it is thought, Stonehenge's builders hoisted an estimated 80 bluestones, 43 of which remain today, into standing positions and placed them in either a horseshoe or circular formation. These stones have been traced all the way to the Preseli Hills in Wales, some 300 kilometres from Stonehenge. How, then, did prehistoric builders without sophisticated tools or engineering haul these boulders, which weigh up to four tons, over such a great distance?\n\nAccording to one long-standing theory among archaeologists, Stonehenge's builders fashioned sledges and rollers out of tree trunks to lug the bluestones from the Preseli Hills. They then transferred the boulders onto rafts and floated them first along the Welsh coast and then up the River Avon toward Salisbury Plain; alternatively, they may have towed each stone with a fleet of vessels. More recent archaeological hypotheses have them transporting the bluestones with supersized wicker baskets on a combination of ball bearings and long grooved planks, hauled by oxen.\n\nAs early as the 1970s, geologists have been adding their voices to the debate over how Stonehenge came into being. Challenging the classic image of industrious builders pushing, carting, rolling or hauling giant stones from faraway Wales, some scientists have suggested that it was glaciers, not humans, that carried the bluestones to Salisbury Plain. Most archaeologists have remained sceptical about this theory, however, wondering how the forces of nature could possibly have delivered the exact number of stones needed to complete the circle.\n\nThe third phase of construction took place around 2000 BCE. At this point, sandstone slabs — known as 'sarsens' — were arranged into an outer crescent or ring; some were assembled into the iconic three-pieced structures called trilithons that stand tall in the centre of Stonehenge. Some 50 of these stones are now visible on the site, which may once have contained many more. Radiocarbon dating has revealed that work continued at Stonehenge until roughly 1600 BCE, with the bluestones in particular being repositioned multiple times.\n\nBut who were the builders of Stonehenge? In the 17th century, archaeologist John Aubrey made the claim that Stonehenge was the work of druids, who had important religious, judicial and political roles in Celtic society. This theory was widely popularized by the antiquarian William Stukeley, who had unearthed primitive graves at the site. Even today, people who identify as modern druids continue to gather at Stonehenge for the summer solstice. However, in the mid-20th century, radiocarbon dating demonstrated that Stonehenge stood more than 1,000 years before the Celts inhabited the region.\n\nMany modern historians and archaeologists now agree that several distinct tribes of people contributed to Stonehenge, each undertaking a different phase of its construction. Bones, tools and other artefacts found on the site seem to support this hypothesis. The first stage was achieved by Neolithic agrarians who were likely to have been indigenous to the British Isles. Later, it is believed, groups with advanced tools and a more communal way of life left their mark on the site. Some believe that they were immigrants from the European continent, while others maintain that they were probably native Britons, descended from the original builders.\n\nIf the facts surrounding the architects and construction of Stonehenge remain shadowy at best, the purpose of the striking monument is even more of a mystery. While there is consensus among the majority of modern scholars that Stonehenge once served the function of burial ground, they have yet to determine what other purposes it had.\n\nIn the 1960s, the astronomer Gerald Hawkins suggested that the cluster of megalithic stones operated as a form of calendar, with different points corresponding to astrological phenomena such as solstices, equinoxes and eclipses occurring at different times of the year. While his theory has received a considerable amount of attention over the decades, critics maintain that Stonehenge's builders probably lacked the knowledge necessary to predict such events or that England's dense cloud cover would have obscured their view of the skies.\n\nMore recently, signs of illness and injury in the human remains unearthed at Stonehenge led a group of British archaeologists to speculate that it was considered a place of healing, perhaps because bluestones were thought to have curative powers."
 
+    private const val CAM18_TEST2_PASSAGE2_CONTENT = "Powerful artificial intelligence (AI) needs to be reliably aligned with human values, but does this mean AI will eventually have to police those values?\n\nThis has been the decade of AI, with one astonishing feat after another. A chess- playing AI that can defeat not only all human chess players, but also all previous human-programmed chess machines, after learning the game in just four hours? That's yesterday's news, what's next? True, these prodigious accomplishments are all in so- called narrow AI, where machines perform highly specialised tasks. But many experts believe this restriction is very temporary. By mid-century, we may have artificial general intelligence (AGI) — machines that can achieve human-level performance on the full range of tasks that we ourselves can tackle.\n\nIf so, there's little reason to think it will stop there. Machines will be free of many of the physical constraints on human intelligence. Our brains run at slow biochemical processing speeds on the power of a light bulb, and their size is restricted by the dimensions of the human birth canal. It is remarkable what they accomplish, given these handicaps. But they may be as far from the physical limits of thought as our eyes are from the incredibly powerful Webb Space Telescope.\n\nOnce machines are better than us at designing even smarter machines, progress towards these limits could accelerate. What would this mean for us? Could we ensure a safe and worthwhile coexistence with such machines? On the plus side, AI is already useful and profitable for many things, and super AI might be expected to be super useful, and super profitable. But the more powerful AI becomes, the more important it will be to specify its goals with great care. Folklore is full of tales of people who ask for the wrong thing, with disastrous consequences — King Midas, for example, might have wished that everything he touched turned to gold, but didn't really intend this to apply to his breakfast.\n\nSo we need to create powerful AI machines that are 'human-friendly' — that have goals reliably aligned with our own values. One thing that makes this task difficult is that we are far from reliably human-friendly ourselves. We do many terrible things to each other and to many other creatures with whom we share the planet. If superintelligent machines don't do a lot better than us, we'll be in deep trouble. We'll have powerful new intelligence amplifying the dark sides of our own fallible natures.\n\nFor safety's sake, then, we want the machines to be ethically as well as cognitively superhuman. We want them to aim for the moral high ground, not for the troughs in which many of us spend some of our time. Luckily they'll be smart enough for the job. If there are routes to the moral high ground, they'll be better than us at finding them, and steering us in the right direction.\n\nHowever, there are two big problems with this utopian vision. One is how we get the machines started on the journey, the other is what it would mean to reach this destination. The 'getting started' problem is that we need to tell the machines what they're looking for with sufficient clarity that we can be confident they will find it — whatever 'it' actually turns out to be. This won't be easy, given that we are tribal creatures and conflicted about the ideals ourselves. We often ignore the suffering of strangers, and even contribute to it, at least indirectly. How then, do we point machines in the direction of something better?\n\nAs for the 'destination' problem, we might, by putting ourselves in the hands of these moral guides and gatekeepers, be sacrificing our own autonomy — an important part of what makes us human. Machines who are better than us at sticking to the moral high ground may be expected to discourage some of the lapses we presently take for granted. We might lose our freedom to discriminate in favour of our own communities, for example.\n\nLoss of freedom to behave badly isn't always a bad thing, of course: denying ourselves the freedom to put children to work in factories, or to smoke in restaurants are signs of progress. But are we ready for ethical silicon police limiting our options? They might be so good at doing it that we won't notice them; but few of us are likely to welcome such a future.\n\nThese issues might seem far-fetched, but they are to some extent already here. AI already has some input into how resources are used in our National Health Service (NHS) here in the UK, for example. If it was given a greater role, it might do so much more efficiently than humans can manage, and act in the interests of taxpayers and those who use the health system. However, we'd be depriving some humans (e.g. senior doctors) of the control they presently enjoy. Since we'd want to ensure that people are treated equally and that policies are fair, the goals of AI would need to be specified correctly.\n\nWe have a new powerful technology to deal with — itself, literally, a new way of thinking. For our own safety, we need to point these new thinkers in the right direction, and get them to act well for us. It is not yet clear whether this is possible, but if it is, it will require a cooperative spirit, and a willingness to set aside self-interest.\n\nBoth general intelligence and moral reasoning are often thought to be uniquely human capacities. But safety seems to require that we think of them as a package: if we are to give general intelligence to machines, we'll need to give them moral authority, too. And where exactly would that leave human beings? All the more reason to think about the destination now, and to be careful about what we wish for."
+
     fun getPassagesForTest(testId: String): List<PassageDto> {
         if (testId == "cam18-test1") {
             return listOf(
@@ -673,9 +675,9 @@ object CambridgeReadingDataSource {
                 ),
                 PassageDto(
                     passageNumber = 2,
-                    title = "The Migration Patterns of Marine Animals",
-                    wordCount = 1220,
-                    content = "[Paragraph A] The historical Silk Road was an expansive network of Eurasian trade conduits active from the Han dynasty until the Ottoman boycott of Western maritime commerce.\n\n[Paragraph B] Beyond raw commodities such as Chinese sericulture, Central Asian equine breeds, and Roman glassware, the arteries facilitated unprecedented intellectual and religious dissemination.\n\n[Paragraph C] Papermaking techniques migrated eastward along trans-Pamir caravan tracks, revolutionizing archival administration throughout medieval Islamic caliphates."
+                    title = "Living with artificial intelligence",
+                    wordCount = 745,
+                    content = CAM18_TEST2_PASSAGE2_CONTENT
                 ),
                 PassageDto(
                     passageNumber = 3,
@@ -1108,9 +1110,135 @@ object CambridgeReadingDataSource {
                 )
             }
 
-            // Fallback questions 14–40 for Passages 2 and 3
-            for (pos in 14..40) {
-                val pNum = if (pos <= 26) 2 else 3
+            // Questions 14–19: Multiple Choice (Choose the correct letter, A, B, C or D)
+            val mcq14to19 = listOf(
+                Triple(
+                    14,
+                    "What point does the writer make about AI in the first paragraph?",
+                    listOf(
+                        "A. It is difficult to predict how quickly AI will progress.",
+                        "B. Much can be learned about the use of AI in chess machines.",
+                        "C. The future is unlikely to see limitations on the capabilities of AI.",
+                        "D. Experts disagree on which specialised tasks AI will be able to perform."
+                    )
+                ),
+                Triple(
+                    15,
+                    "What is the writer doing in the second paragraph?",
+                    listOf(
+                        "A. explaining why machines will be able to outperform humans",
+                        "B. describing the characteristics that humans and machines share",
+                        "C. giving information about the development of machine intelligence",
+                        "D. indicating which aspects of humans are the most advanced"
+                    )
+                ),
+                Triple(
+                    16,
+                    "Why does the writer mention the story of King Midas?",
+                    listOf(
+                        "A. to compare different visions of progress",
+                        "B. to illustrate that poorly defined objectives can go wrong",
+                        "C. to emphasise the need for cooperation",
+                        "D. to point out the financial advantages of a course of action"
+                    )
+                ),
+                Triple(
+                    17,
+                    "What challenge does the writer refer to in the fourth paragraph?",
+                    listOf(
+                        "A. encouraging humans to behave in a more principled way",
+                        "B. deciding which values we want AI to share with us",
+                        "C. creating a better world for all creatures on the planet",
+                        "D. ensuring AI is more human-friendly than we are ourselves"
+                    )
+                ),
+                Triple(
+                    18,
+                    "What does the writer suggest about the future of AI in the fifth paragraph?",
+                    listOf(
+                        "A. The safety of machines will become a key issue.",
+                        "B. It is hard to know what impact machines will have on the world.",
+                        "C. Machines will be superior to humans in certain respects.",
+                        "D. Many humans will oppose machines having a wider role."
+                    )
+                ),
+                Triple(
+                    19,
+                    "Which of the following best summarises the writer's argument in the sixth paragraph?",
+                    listOf(
+                        "A. More intelligent machines will result in greater abuses of power.",
+                        "B. Machine learning will share very few features with human learning.",
+                        "C. There are a limited number of people with the knowledge to program machines.",
+                        "D. Human shortcomings will make creating the machines we need more difficult."
+                    )
+                )
+            )
+            for ((pos, promptText, opts) in mcq14to19) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t2_q$pos",
+                        position = pos,
+                        type = "MULTIPLE_CHOICE",
+                        prompt = promptText,
+                        options = opts,
+                        passageNumber = 2,
+                        lineRef = "Questions 14–19 • Choose the correct letter, A, B, C or D"
+                    )
+                )
+            }
+
+            // Questions 20–23: YES / NO / NOT GIVEN
+            val ynngPrompts20to23 = listOf(
+                20 to "Machines with the ability to make moral decisions may prevent us from promoting the interests of our communities.",
+                21 to "Silicon police would need to exist in large numbers in order to be effective.",
+                22 to "Many people are comfortable with the prospect of their independence being restricted by machines.",
+                23 to "If we want to ensure that machines act in our best interests, we all need to work together."
+            )
+            for ((pos, promptText) in ynngPrompts20to23) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t2_q$pos",
+                        position = pos,
+                        type = "TRUE_FALSE",
+                        prompt = promptText,
+                        options = listOf("YES", "NO", "NOT GIVEN"),
+                        passageNumber = 2,
+                        lineRef = "Questions 20–23 • YES / NO / NOT GIVEN"
+                    )
+                )
+            }
+
+            // Questions 24–26: Summary Completion with List of Phrases (A–F)
+            val summaryPhraseOptions = listOf(
+                "A. medical practitioners",
+                "B. specialised tasks",
+                "C. available resources",
+                "D. reduced illness",
+                "E. professional authority",
+                "F. technology experts"
+            )
+            val summaryPrompts24to26 = listOf(
+                24 to "[Using AI in the UK health system — Complete the summary using the list of phrases, A–F]\nAI currently has a limited role in the way 24 ________ are allocated in the health service.",
+                25 to "[Using AI in the UK health system — Complete the summary using the list of phrases, A–F]\nThe positive aspect of AI having a bigger role is that it would be more efficient and lead to patient benefits. However, such a change would result, for example, in certain 25 ________ not having their current level of...",
+                26 to "[Using AI in the UK health system — Complete the summary using the list of phrases, A–F]\n...not having their current level of 26 ________. It is therefore important that AI goals are appropriate so that discriminatory practices could be avoided."
+            )
+            for ((pos, promptText) in summaryPrompts24to26) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t2_q$pos",
+                        position = pos,
+                        type = "MULTIPLE_CHOICE",
+                        prompt = promptText,
+                        options = summaryPhraseOptions,
+                        passageNumber = 2,
+                        lineRef = "Questions 24–26 • Summary Completion (A–F)"
+                    )
+                )
+            }
+
+            // Fallback questions 27–40 for Passage 3
+            for (pos in 27..40) {
+                val pNum = 3
                 val qType = when (pos % 3) {
                     1 -> "TRUE_FALSE"
                     2 -> "MULTIPLE_CHOICE"
@@ -1224,6 +1352,84 @@ object CambridgeReadingDataSource {
                 acceptedAnswers = listOf("NOT GIVEN"),
                 explanation = "Đoạn 10 chỉ nói những người chỉ trích ('critics') cho rằng người xây dựng Stonehenge thiếu kiến thức dự đoán thiên văn hoặc mây dày che khuất bầu trời, không hề đề cập liệu những người chỉ trích này có chủ yếu là các nhà thiên văn học khác hay không -> NOT GIVEN.",
                 evidenceQuote = "critics maintain that Stonehenge's builders probably lacked the knowledge necessary to predict such events"
+            )
+            14 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C"),
+                explanation = "Đoạn 1: Nhiều chuyên gia tin rằng sự giới hạn ở AI hẹp (narrow AI) chỉ là tạm thời, và đến giữa thế kỷ chúng ta có thể có trí tuệ nhân tạo tổng quát (AGI) đạt hiệu suất ngang con người trên toàn bộ các tác vụ -> Tương lai khó có giới hạn nào đối với khả năng của AI (C).",
+                evidenceQuote = "But many experts believe this restriction is very temporary. By mid-century, we may have artificial general intelligence (AGI) – machines that can achieve human-level performance on the full range of tasks that we ourselves can tackle."
+            )
+            15 -> QuestionAnswerMetadata(
+                correctAnswer = "A",
+                acceptedAnswers = listOf("A"),
+                explanation = "Đoạn 2: Tác giả giải thích lý do vì sao máy móc sẽ vượt xa con người: máy móc không bị ràng buộc bởi những giới hạn vật lý của trí thông minh con người (tốc độ xử lý sinh hóa chậm, công suất chỉ bằng bóng đèn, kích thước não bị giới hạn bởi ống sinh) -> A.",
+                evidenceQuote = "Machines will be free of many of the physical constraints on human intelligence. Our brains run at slow biochemical processing speeds on the power of a light bulb"
+            )
+            16 -> QuestionAnswerMetadata(
+                correctAnswer = "B",
+                acceptedAnswers = listOf("B"),
+                explanation = "Đoạn 3: Tác giả nhắc đến câu chuyện Vua Midas (ước mọi thứ chạm vào đều hóa vàng nhưng không ngờ áp dụng cho cả bữa sáng của mình) để minh họa rằng mục tiêu được xác định không kỹ lưỡng có thể dẫn đến hậu quả tai hại -> B.",
+                evidenceQuote = "But the more powerful AI becomes, the more important it will be to specify its goals with great care. Folklore is full of tales of people who ask for the wrong thing, with disastrous consequences – King Midas, for example"
+            )
+            17 -> QuestionAnswerMetadata(
+                correctAnswer = "D",
+                acceptedAnswers = listOf("D"),
+                explanation = "Đoạn 4: Thách thức được nêu là bản thân con người còn lâu mới thực sự 'thân thiện với con người' (human-friendly), nên nếu các cỗ máy siêu thông minh không làm tốt hơn chúng ta rất nhiều thì chúng ta sẽ gặp rắc rối lớn -> Đảm bảo AI thân thiện với con người hơn chính bản thân chúng ta (D).",
+                evidenceQuote = "One thing that makes this task difficult is that we are far from reliably human-friendly ourselves... If superintelligent machines don't do a lot better than us, we'll be in deep trouble."
+            )
+            18 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C"),
+                explanation = "Đoạn 5: Tác giả cho rằng máy móc sẽ siêu việt hơn con người cả về mặt đạo đức lẫn nhận thức ('ethically as well as cognitively superhuman') và giỏi hơn chúng ta trong việc tìm ra con đường đi tới chuẩn mực đạo đức cao -> Máy móc sẽ vượt trội hơn con người ở một số khía cạnh (C).",
+                evidenceQuote = "If there are routes to the moral high ground, they'll be better than us at finding them, and steering us in the right direction."
+            )
+            19 -> QuestionAnswerMetadata(
+                correctAnswer = "D",
+                acceptedAnswers = listOf("D"),
+                explanation = "Đoạn 6: Khó khăn trong việc định hướng cho máy móc xuất phát từ chính những khiếm khuyết của con người: chúng ta có tính bộ tộc, mâu thuẫn về lý tưởng, thường phớt lờ nỗi đau của người lạ -> Những thiếu sót của con người sẽ khiến việc tạo ra cỗ máy chúng ta cần trở nên khó khăn hơn (D).",
+                evidenceQuote = "This won't be easy, given that we are tribal creatures and conflicted about the ideals ourselves. We often ignore the suffering of strangers, and even contribute to it, at least indirectly."
+            )
+            20 -> QuestionAnswerMetadata(
+                correctAnswer = "YES",
+                acceptedAnswers = listOf("YES"),
+                explanation = "Đoạn 7: Những cỗ máy giỏi giữ vững chuẩn mực đạo đức hơn con người sẽ ngăn cản một số sai lệch mà chúng ta hiện coi là hiển nhiên, ví dụ chúng ta có thể mất tự do thiên vị cho cộng đồng của chính mình -> YES.",
+                evidenceQuote = "We might lose our freedom to discriminate in favour of our own communities, for example."
+            )
+            21 -> QuestionAnswerMetadata(
+                correctAnswer = "NOT GIVEN",
+                acceptedAnswers = listOf("NOT GIVEN"),
+                explanation = "Đoạn 8 có nhắc tới 'ethical silicon police limiting our options' nhưng hoàn toàn không đề cập liệu chúng có cần tồn tại với số lượng lớn để đạt hiệu quả hay không -> NOT GIVEN.",
+                evidenceQuote = "But are we ready for ethical silicon police limiting our options? They might be so good at doing it that we won't notice them"
+            )
+            22 -> QuestionAnswerMetadata(
+                correctAnswer = "NO",
+                acceptedAnswers = listOf("NO"),
+                explanation = "Đoạn 8: Tác giả khẳng định rất ít người trong chúng ta sẽ chào đón một tương lai bị giới hạn các lựa chọn bởi 'cảnh sát silicon đạo đức' ('few of us are likely to welcome such a future'), trái ngược với 'Many people are comfortable' -> NO.",
+                evidenceQuote = "but few of us are likely to welcome such a future."
+            )
+            23 -> QuestionAnswerMetadata(
+                correctAnswer = "YES",
+                acceptedAnswers = listOf("YES"),
+                explanation = "Đoạn 10: Để định hướng những 'nhà tư tưởng mới' này hành động vì lợi ích của chúng ta, sẽ cần một tinh thần hợp tác và sự sẵn lòng gạt bỏ lợi ích cá nhân ('require a cooperative spirit, and a willingness to set aside self-interest') -> YES.",
+                evidenceQuote = "For our own safety, we need to point these new thinkers in the right direction, and get them to act well for us. It is not yet clear whether this is possible, but if it is, it will require a cooperative spirit, and a willingness to set aside self-interest."
+            )
+            24 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C", "available resources"),
+                explanation = "Đoạn 9: 'AI already has some input into how resources are used in our National Health Service (NHS) here in the UK' (AI hiện có vai trò hạn chế trong cách phân bổ các nguồn lực sẵn có -> C. available resources).",
+                evidenceQuote = "AI already has some input into how resources are used in our National Health Service (NHS) here in the UK"
+            )
+            25 -> QuestionAnswerMetadata(
+                correctAnswer = "A",
+                acceptedAnswers = listOf("A", "medical practitioners"),
+                explanation = "Đoạn 9: 'However, we'd be depriving some humans (e.g. senior doctors) of the control they presently enjoy.' (Một số bác sĩ/nhân viên y tế sẽ mất đi mức độ kiểm soát hiện tại -> A. medical practitioners).",
+                evidenceQuote = "However, we'd be depriving some humans (e.g. senior doctors) of the control they presently enjoy."
+            )
+            26 -> QuestionAnswerMetadata(
+                correctAnswer = "E",
+                acceptedAnswers = listOf("E", "professional authority"),
+                explanation = "Đoạn 9: '...depriving some humans (e.g. senior doctors) of the control they presently enjoy.' ('the control they presently enjoy' tương ứng với quyền hạn chuyên môn -> E. professional authority).",
+                evidenceQuote = "However, we'd be depriving some humans (e.g. senior doctors) of the control they presently enjoy."
             )
             else -> null
         }
