@@ -132,17 +132,22 @@ class ReadingQuestionAdapter(
                 val optA = parsedOpts.getOrNull(0) ?: "A. Lựa chọn A"
                 val optB = parsedOpts.getOrNull(1) ?: "B. Lựa chọn B"
                 val optC = parsedOpts.getOrNull(2) ?: "C. Lựa chọn C"
-                val optD = parsedOpts.getOrNull(3) ?: "D. Lựa chọn D"
+                val optD = parsedOpts.getOrNull(3)
 
                 holder.btnOptA.text = optA
                 holder.btnOptB.text = optB
                 holder.btnOptC.text = optC
-                holder.btnOptD.text = optD
+                if (optD != null) {
+                    holder.btnOptD.visibility = View.VISIBLE
+                    holder.btnOptD.text = optD
+                    applyChoiceStyle(holder.btnOptD, currentAnswer == "D", optD)
+                } else {
+                    holder.btnOptD.visibility = View.GONE
+                }
 
                 applyChoiceStyle(holder.btnOptA, currentAnswer == "A", optA)
                 applyChoiceStyle(holder.btnOptB, currentAnswer == "B", optB)
                 applyChoiceStyle(holder.btnOptC, currentAnswer == "C", optC)
-                applyChoiceStyle(holder.btnOptD, currentAnswer == "D", optD)
 
                 holder.btnOptA.setOnClickListener {
                     onAnswerSelected(questionNum, "A")
@@ -214,8 +219,11 @@ class ReadingQuestionAdapter(
         }
         val str = rawOptions.toString().trim()
         if (str.isEmpty()) return emptyList()
+        if (str.contains("\n")) {
+            return str.split("\n").map { it.trim() }.filter { it.isNotEmpty() }
+        }
         val regex = Regex("([A-D]\\.\\s+[^A-D]+)")
         val matches = regex.findAll(str).map { it.value.trim() }.toList()
-        return if (matches.isNotEmpty()) matches else str.split("\n")
+        return if (matches.isNotEmpty()) matches else listOf(str)
     }
 }

@@ -623,6 +623,16 @@ object CambridgeReadingDataSource {
         "Urban farming is not, of course, a new phenomenon. Inner-city agriculture is booming from Shanghai to Detroit and Tokyo to Bangkok. Strawberries are being grown in disused shipping containers, mushrooms in underground carparks. Aeroponic farming, he says, is ‘virtuous’. The equipment weighs little, can be installed on almost any flat surface and is cheap to buy: roughly €100 to €150 per square metre. It is cheap to run, too, consuming a tiny fraction of the electricity used by some techniques.\n\n" +
         "Produce grown this way typically sells at prices that, while generally higher than those of classic intensive agriculture, are lower than soil-based organic growers. There are limits to what farmers can grow this way, of course, and much of the produce is suited to the summer months. ‘Root vegetables we cannot do, at least not yet,’ he says. ‘Radishes are OK, but carrots, potatoes, that kind of thing – the roots are simply too long. Fruit trees are obviously not an option. And beans tend to take up a lot of space for not much return.’ Nevertheless, urban farming of the kind being practised in Paris is one part of a bigger and fast-changing picture that is bringing food production closer to our lives."
 
+    private const val CAM18_TEST1_PASSAGE2_CONTENT =
+        "How managing low-quality wood (also known as low-use wood) for bioenergy can encourage sustainable forest management\n\n" +
+        "[Paragraph A] A tree’s ‘value’ depends on several factors including its species, size, form, condition, quality, function, and accessibility, and depends on the management goals for a given forest. The same tree can be valued very differently by each person who looks at it. A large, straight black cherry tree has high value as timber to be cut into logs or made into furniture, but for a landowner more interested in wildlife habitat, the real value of that stem (or trunk) may be the food it provides to animals. Likewise, if the tree suffers from black knot disease, its value for timber decreases, but to a woodworker interested in making bowls, it brings an opportunity for a unique and beautiful piece of art.\n\n" +
+        "[Paragraph B] In the past, Pennsylvania landowners were solely interested in the value of their trees as high-quality timber. The norm was to remove the stems of highest quality and leave behind poorly formed trees that were not as well suited to the site where they grew. This practice, called ‘high-grading’, has left a legacy of ‘low-use wood’ in the forests. Some people even call these ‘junk trees’, and they are abundant in Pennsylvania. These trees have lower economic value for traditional timber markets, compete for growth with higher-value trees, shade out desirable regeneration and decrease the health of a stand leaving it more vulnerable to poor weather and disease. Management that specifically targets low-use wood can help landowners manage these forest health issues, and wood energy markets help promote this.\n\n" +
+        "[Paragraph C] Wood energy markets can accept less expensive wood material of lower quality than would be suitable for traditional timber markets. Most wood used for energy in Pennsylvania is used to produce heat or electricity through combustion. Many schools and hospitals use wood boiler systems to heat and power their facilities, many homes are primarily heated with wood, and some coal plants incorporate wood into their coal streams to produce electricity. Wood can also be gasified for electrical generation and can even be made into liquid fuels like ethanol and gasoline for lorries and cars. All these products are made primarily from low-use wood. Several tree- and plant-cutting approaches, which could greatly improve the long-term quality of a forest, focus strongly or solely on the use of wood for those markets.\n\n" +
+        "[Paragraph D] One such approach is called a Timber Stand Improvement (TSI) Cut. In a TSI Cut, really poor-quality tree and plant material is cut down to allow more space, light, and other resources to the highest-valued stems that remain. Removing invasive plants might be another primary goal of a TSI Cut. The stems that are left behind might then grow in size and develop more foliage and larger crowns or tops that produce more coverage for wildlife; they have a better chance to regenerate in a less crowded environment. TSI Cuts can be tailored to one farmer’s specific management goals for his or her land.\n\n" +
+        "[Paragraph E] Another approach that might yield a high amount of low-use wood is a Salvage Cut. With the many pests and pathogens visiting forests including hemlock wooly adelgid, Asian longhorned beetle, emerald ash borer, and gypsy moth, to name just a few, it is important to remember that those working in the forests can help ease these issues through cutting procedures. These types of cut reduce the number of sick trees and seek to manage the future spread of a pest problem. They leave vigorous trees that have stayed healthy enough to survive the outbreak.\n\n" +
+        "[Paragraph F] A Shelterwood Cut, which only takes place in a mature forest that has already been thinned several times, involves removing all the mature trees when other seedlings have become established. This then allows the forester to decide which tree species are regenerated. It leaves a young forest where all trees are at a similar point in their growth. It can also be used to develop a two-tier forest so that there are two harvests and the money that comes in is spread out over a decade or more.\n\n" +
+        "[Paragraph G] Thinnings and dense and dead wood removal for fire prevention also center on the production of low-use wood. However, it is important to remember that some retention of what many would classify as low-use wood is very important. The tops of trees that have been cut down should be left on the site so that their nutrients cycle back into the soil. In addition, trees with many cavities are extremely important habitats for insect predators like woodpeckers, bats and small mammals. They help control problem insects and increase the health and resilience of the forest. It is also important to remember that not all small trees are low-use. For example, many species like hawthorn provide food for wildlife. Finally, rare species of trees in a forest should also stay behind as they add to its structural diversity."
+
     fun hasCustomExamContent(testId: String): Boolean {
         return testId == "cam18-test1"
     }
@@ -639,8 +649,8 @@ object CambridgeReadingDataSource {
                 PassageDto(
                     passageNumber = 2,
                     title = "Forest management in Pennsylvania, USA",
-                    wordCount = 1220,
-                    content = "[Paragraph A] The historical Silk Road was an expansive network of Eurasian trade conduits active from the Han dynasty until the Ottoman boycott of Western maritime commerce.\n\n[Paragraph B] Beyond raw commodities such as Chinese sericulture, Central Asian equine breeds, and Roman glassware, the arteries facilitated unprecedented intellectual and religious dissemination.\n\n[Paragraph C] Papermaking techniques migrated eastward along trans-Pamir caravan tracks, revolutionizing archival administration throughout medieval Islamic caliphates."
+                    wordCount = 685,
+                    content = CAM18_TEST1_PASSAGE2_CONTENT
                 ),
                 PassageDto(
                     passageNumber = 3,
@@ -823,20 +833,145 @@ object CambridgeReadingDataSource {
                 )
             )
 
-            // Passage 2: Questions 14–26
-            for (i in 14..26) {
-                list.add(
-                    QuestionDetailDto(
-                        id = "cam18_t1_q$i",
-                        position = i,
-                        type = if (i % 2 == 0) "MULTIPLE_CHOICE" else "TRUE_FALSE",
-                        prompt = "The trans-Pamir caravan network was essential for the dissemination of technological papermaking know-how.",
-                        options = if (i % 2 == 0) "A. Han imperial edicts\nB. Religious and scholastic texts\nC. Silver bullion coinage\nD. Bronze metallurgical ores" else "TRUE FALSE NOT GIVEN",
-                        passageNumber = 2,
-                        lineRef = "Passage 2 • Question $i"
-                    )
+            // Passage 2: Questions 14–18: Matching Information (Paragraph A–G)
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q14",
+                    position = 14,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Which paragraph (A–G) contains the following information?]\nbad outcomes for a forest when people focus only on its financial reward",
+                    passageNumber = 2,
+                    lineRef = "Questions 14–18 • Matching Information (A–G)"
                 )
-            }
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q15",
+                    position = 15,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Which paragraph (A–G) contains the following information?]\nreference to the aspects of any tree that contribute to its worth",
+                    passageNumber = 2,
+                    lineRef = "Questions 14–18 • Matching Information (A–G)"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q16",
+                    position = 16,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Which paragraph (A–G) contains the following information?]\nmention of the potential use of wood to help run vehicles",
+                    passageNumber = 2,
+                    lineRef = "Questions 14–18 • Matching Information (A–G)"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q17",
+                    position = 17,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Which paragraph (A–G) contains the following information?]\nexamples of insects that attack trees",
+                    passageNumber = 2,
+                    lineRef = "Questions 14–18 • Matching Information (A–G)"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q18",
+                    position = 18,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Which paragraph (A–G) contains the following information?]\nan alternative name for trees that produce low-use wood",
+                    passageNumber = 2,
+                    lineRef = "Questions 14–18 • Matching Information (A–G)"
+                )
+            )
+
+            // Passage 2: Questions 19–21: Matching Classification (List of Timber Cuts: A, B or C)
+            val timberCutOptions = "A. a TSI Cut\nB. a Salvage Cut\nC. a Shelterwood Cut"
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q19",
+                    position = 19,
+                    type = "MULTIPLE_CHOICE",
+                    prompt = "[Match each purpose with the correct timber cut, A, B or C]\nto remove trees that are diseased",
+                    options = timberCutOptions,
+                    passageNumber = 2,
+                    lineRef = "Questions 19–21 • List of Timber Cuts (A–C)"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q20",
+                    position = 20,
+                    type = "MULTIPLE_CHOICE",
+                    prompt = "[Match each purpose with the correct timber cut, A, B or C]\nto generate income across a number of years",
+                    options = timberCutOptions,
+                    passageNumber = 2,
+                    lineRef = "Questions 19–21 • List of Timber Cuts (A–C)"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q21",
+                    position = 21,
+                    type = "MULTIPLE_CHOICE",
+                    prompt = "[Match each purpose with the correct timber cut, A, B or C]\nto create a forest whose trees are close in age",
+                    options = timberCutOptions,
+                    passageNumber = 2,
+                    lineRef = "Questions 19–21 • List of Timber Cuts (A–C)"
+                )
+            )
+
+            // Passage 2: Questions 22–26: Sentence Completion (ONE WORD ONLY)
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q22",
+                    position = 22,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Complete the sentences below — ONE WORD ONLY]\nSome dead wood is removed to avoid the possibility of ________ .",
+                    passageNumber = 2,
+                    lineRef = "Questions 22–26 • Sentence Completion"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q23",
+                    position = 23,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Complete the sentences below — ONE WORD ONLY]\nThe ________ from the tops of cut trees can help improve soil quality.",
+                    passageNumber = 2,
+                    lineRef = "Questions 22–26 • Sentence Completion"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q24",
+                    position = 24,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Complete the sentences below — ONE WORD ONLY]\nSome damaged trees should be left, as their ________ provide habitats for a range of creatures.",
+                    passageNumber = 2,
+                    lineRef = "Questions 22–26 • Sentence Completion"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q25",
+                    position = 25,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Complete the sentences below — ONE WORD ONLY]\nSome trees that are small, such as ________ , are a source of food for animals and insects.",
+                    passageNumber = 2,
+                    lineRef = "Questions 22–26 • Sentence Completion"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t1_q26",
+                    position = 26,
+                    type = "FILL_IN_BLANK",
+                    prompt = "[Complete the sentences below — ONE WORD ONLY]\nAny trees that are ________ should be left to grow, as they add to the variety of species in the forest.",
+                    passageNumber = 2,
+                    lineRef = "Questions 22–26 • Sentence Completion"
+                )
+            )
 
             // Passage 3: Questions 27–40
             for (i in 27..40) {
@@ -935,6 +1070,84 @@ object CambridgeReadingDataSource {
                 acceptedAnswers = listOf("NOT GIVEN"),
                 explanation = "Đoạn 6: 'And beans tend to take up a lot of space for not much return.' (Bài đọc chỉ nói đậu tốn diện tích mà thu hoạch chẳng được bao nhiêu, không đề cập thời gian sinh trưởng nhanh hay chậm hơn rau khác) -> NOT GIVEN.",
                 evidenceQuote = "And beans tend to take up a lot of space for not much return"
+            )
+            14 -> QuestionAnswerMetadata(
+                correctAnswer = "B",
+                acceptedAnswers = listOf("B", "Paragraph B"),
+                explanation = "Đoạn B: Khi chủ rừng chỉ chú trọng lấy gỗ chất lượng cao ('solely interested in the value of their trees as high-quality timber'), rừng còn lại toàn cây kém chất lượng, cạnh tranh dinh dưỡng, che khuất cây con tái sinh và làm rừng dễ bị sâu bệnh, thời tiết xấu.",
+                evidenceQuote = "compete for growth with higher-value trees, shade out desirable regeneration and decrease the health of a stand leaving it more vulnerable to poor weather and disease"
+            )
+            15 -> QuestionAnswerMetadata(
+                correctAnswer = "A",
+                acceptedAnswers = listOf("A", "Paragraph A"),
+                explanation = "Đoạn A liệt kê các yếu tố tạo nên giá trị (worth/value) của một cái cây: 'A tree’s value depends on several factors including its species, size, form, condition, quality, function, and accessibility...'",
+                evidenceQuote = "A tree’s ‘value’ depends on several factors including its species, size, form, condition, quality, function, and accessibility"
+            )
+            16 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C", "Paragraph C"),
+                explanation = "Đoạn C đề cập việc chế biến gỗ thành nhiên liệu lỏng chạy xe tải và ô tô: 'Wood can also be gasified for electrical generation and can even be made into liquid fuels like ethanol and gasoline for lorries and cars.'",
+                evidenceQuote = "can even be made into liquid fuels like ethanol and gasoline for lorries and cars"
+            )
+            17 -> QuestionAnswerMetadata(
+                correctAnswer = "E",
+                acceptedAnswers = listOf("E", "Paragraph E"),
+                explanation = "Đoạn E nêu các ví dụ về sâu hại tấn công cây rừng: 'With the many pests and pathogens visiting forests including hemlock wooly adelgid, Asian longhorned beetle, emerald ash borer, and gypsy moth...'",
+                evidenceQuote = "including hemlock wooly adelgid, Asian longhorned beetle, emerald ash borer, and gypsy moth"
+            )
+            18 -> QuestionAnswerMetadata(
+                correctAnswer = "B",
+                acceptedAnswers = listOf("B", "Paragraph B"),
+                explanation = "Đoạn B nêu tên gọi khác của những cây cho gỗ giá trị sử dụng thấp (low-use wood) là 'junk trees': 'This practice, called high-grading, has left a legacy of low-use wood in the forests. Some people even call these junk trees...'",
+                evidenceQuote = "This practice, called ‘high-grading’, has left a legacy of ‘low-use wood’ in the forests. Some people even call these ‘junk trees’"
+            )
+            19 -> QuestionAnswerMetadata(
+                correctAnswer = "B",
+                acceptedAnswers = listOf("B"),
+                explanation = "Đoạn E (Salvage Cut — B): 'These types of cut reduce the number of sick trees and seek to manage the future spread of a pest problem.' (Loại bỏ các cây bị bệnh/sâu hại).",
+                evidenceQuote = "These types of cut reduce the number of sick trees and seek to manage the future spread of a pest problem"
+            )
+            20 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C"),
+                explanation = "Đoạn F (Shelterwood Cut — C): 'It can also be used to develop a two-tier forest so that there are two harvests and the money that comes in is spread out over a decade or more.' (Tạo thu nhập trải đều qua nhiều năm).",
+                evidenceQuote = "so that there are two harvests and the money that comes in is spread out over a decade or more"
+            )
+            21 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C"),
+                explanation = "Đoạn F (Shelterwood Cut — C): 'It leaves a young forest where all trees are at a similar point in their growth.' (Tạo ra khu rừng trẻ có các cây ở cùng độ tuổi/giai đoạn phát triển).",
+                evidenceQuote = "It leaves a young forest where all trees are at a similar point in their growth"
+            )
+            22 -> QuestionAnswerMetadata(
+                correctAnswer = "fire",
+                acceptedAnswers = listOf("fire", "fires"),
+                explanation = "Đoạn G: 'Thinnings and dense and dead wood removal for fire prevention also center on the production of low-use wood.' (Loại bỏ gỗ chết để phòng chống cháy rừng -> fire).",
+                evidenceQuote = "Thinnings and dense and dead wood removal for fire prevention also center on the production of low-use wood"
+            )
+            23 -> QuestionAnswerMetadata(
+                correctAnswer = "nutrients",
+                acceptedAnswers = listOf("nutrients"),
+                explanation = "Đoạn G: 'The tops of trees that have been cut down should be left on the site so that their nutrients cycle back into the soil.' (Chất dinh dưỡng từ ngọn cây bị đốn hạ quay trở lại cải thiện đất -> nutrients).",
+                evidenceQuote = "The tops of trees that have been cut down should be left on the site so that their nutrients cycle back into the soil"
+            )
+            24 -> QuestionAnswerMetadata(
+                correctAnswer = "cavities",
+                acceptedAnswers = listOf("cavities"),
+                explanation = "Đoạn G: 'In addition, trees with many cavities are extremely important habitats for insect predators like woodpeckers, bats and small mammals.' (Các hốc cây tạo môi trường sống cho nhiều loài sinh vật -> cavities).",
+                evidenceQuote = "trees with many cavities are extremely important habitats for insect predators like woodpeckers, bats and small mammals"
+            )
+            25 -> QuestionAnswerMetadata(
+                correctAnswer = "hawthorn",
+                acceptedAnswers = listOf("hawthorn"),
+                explanation = "Đoạn G: 'It is also important to remember that not all small trees are low-use. For example, many species like hawthorn provide food for wildlife.' (Cây nhỏ như cây táo gai cung cấp thức ăn cho động vật hoang dã -> hawthorn).",
+                evidenceQuote = "many species like hawthorn provide food for wildlife"
+            )
+            26 -> QuestionAnswerMetadata(
+                correctAnswer = "rare",
+                acceptedAnswers = listOf("rare"),
+                explanation = "Đoạn G: 'Finally, rare species of trees in a forest should also stay behind as they add to its structural diversity.' (Các loài cây quý hiếm cần được giữ lại để tăng tính đa dạng cho khu rừng -> rare).",
+                evidenceQuote = "Finally, rare species of trees in a forest should also stay behind as they add to its structural diversity"
             )
             else -> null
         }

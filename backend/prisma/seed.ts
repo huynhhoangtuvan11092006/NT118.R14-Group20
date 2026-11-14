@@ -50,25 +50,21 @@ Produce grown this way typically sells at prices that, while generally higher th
       },
       {
         passageNumber: 2,
-        title: "The Forest Canopy",
-        subtitle: "Exploring the secret life in the treetops of tropical rainforests",
-        content: `A
-The forest canopy, the upper layer formed by mature tree crowns, contains an extraordinary proportion of the world's terrestrial biodiversity. Historically, this treetop realm was virtually inaccessible to scientists, earning it the moniker 'the eighth continent' due to how little was known about its complex ecological web.
+        title: "Forest management in Pennsylvania, USA",
+        subtitle: "How managing low-quality wood (also known as low-use wood) for bioenergy can encourage sustainable forest management",
+        content: `[Paragraph A] A tree’s ‘value’ depends on several factors including its species, size, form, condition, quality, function, and accessibility, and depends on the management goals for a given forest. The same tree can be valued very differently by each person who looks at it. A large, straight black cherry tree has high value as timber to be cut into logs or made into furniture, but for a landowner more interested in wildlife habitat, the real value of that stem (or trunk) may be the food it provides to animals. Likewise, if the tree suffers from black knot disease, its value for timber decreases, but to a woodworker interested in making bowls, it brings an opportunity for a unique and beautiful piece of art.
 
-B
-Solar radiation is captured predominantly in the canopy, where leaves intercept over 80 percent of incoming sunlight. This abundant energy fuels rapid photosynthesis, creating lush micro-habitats that host thousands of species of epiphytes (air plants), insects, birds, and arboreal mammals that never touch the ground throughout their lifespans.
+[Paragraph B] In the past, Pennsylvania landowners were solely interested in the value of their trees as high-quality timber. The norm was to remove the stems of highest quality and leave behind poorly formed trees that were not as well suited to the site where they grew. This practice, called ‘high-grading’, has left a legacy of ‘low-use wood’ in the forests. Some people even call these ‘junk trees’, and they are abundant in Pennsylvania. These trees have lower economic value for traditional timber markets, compete for growth with higher-value trees, shade out desirable regeneration and decrease the health of a stand leaving it more vulnerable to poor weather and disease. Management that specifically targets low-use wood can help landowners manage these forest health issues, and wood energy markets help promote this.
 
-C
-In recent decades, pioneering canopy biologists invented new technologies to explore this elevated ecosystem. Early rope-climbing methods borrowed from mountaineering were gradually replaced by canopy walkways, hot-air balloons, and construction cranes installed in tropical reserves in Panama and Australia, allowing researchers to study treetops in three dimensions.
+[Paragraph C] Wood energy markets can accept less expensive wood material of lower quality than would be suitable for traditional timber markets. Most wood used for energy in Pennsylvania is used to produce heat or electricity through combustion. Many schools and hospitals use wood boiler systems to heat and power their facilities, many homes are primarily heated with wood, and some coal plants incorporate wood into their coal streams to produce electricity. Wood can also be gasified for electrical generation and can even be made into liquid fuels like ethanol and gasoline for lorries and cars. All these products are made primarily from low-use wood. Several tree- and plant-cutting approaches, which could greatly improve the long-term quality of a forest, focus strongly or solely on the use of wood for those markets.
 
-D
-One crucial discovery is the role of canopy epiphytes, such as bromeliads and orchids, in nutrient cycling. These plants collect falling organic debris and rainwater in their leaf bases, forming 'suspended soils' high above the earth. These aerial compost heaps harbor specialized invertebrates and provide critical moisture reservoirs during prolonged dry spells.
+[Paragraph D] One such approach is called a Timber Stand Improvement (TSI) Cut. In a TSI Cut, really poor-quality tree and plant material is cut down to allow more space, light, and other resources to the highest-valued stems that remain. Removing invasive plants might be another primary goal of a TSI Cut. The stems that are left behind might then grow in size and develop more foliage and larger crowns or tops that produce more coverage for wildlife; they have a better chance to regenerate in a less crowded environment. TSI Cuts can be tailored to one farmer’s specific management goals for his or her land.
 
-E
-Canopy environments also act as vital atmospheric regulators. By absorbing immense amounts of carbon dioxide and releasing moisture through evapotranspiration, the rainforest canopy drives regional weather patterns and exerts a cooling effect on the global climate.
+[Paragraph E] Another approach that might yield a high amount of low-use wood is a Salvage Cut. With the many pests and pathogens visiting forests including hemlock wooly adelgid, Asian longhorned beetle, emerald ash borer, and gypsy moth, to name just a few, it is important to remember that those working in the forests can help ease these issues through cutting procedures. These types of cut reduce the number of sick trees and seek to manage the future spread of a pest problem. They leave vigorous trees that have stayed healthy enough to survive the outbreak.
 
-F
-Nevertheless, canopy habitats are exceptionally vulnerable to anthropogenic disturbances. Selective logging removes the tallest emergent trees, fracturing the canopy framework and drastically altering light and humidity levels beneath, causing cascading extinctions among specialized canopy organisms.`
+[Paragraph F] A Shelterwood Cut, which only takes place in a mature forest that has already been thinned several times, involves removing all the mature trees when other seedlings have become established. This then allows the forester to decide which tree species are regenerated. It leaves a young forest where all trees are at a similar point in their growth. It can also be used to develop a two-tier forest so that there are two harvests and the money that comes in is spread out over a decade or more.
+
+[Paragraph G] Thinnings and dense and dead wood removal for fire prevention also center on the production of low-use wood. However, it is important to remember that some retention of what many would classify as low-use wood is very important. The tops of trees that have been cut down should be left on the site so that their nutrients cycle back into the soil. In addition, trees with many cavities are extremely important habitats for insect predators like woodpeckers, bats and small mammals. They help control problem insects and increase the health and resilience of the forest. It is also important to remember that not all small trees are low-use. For example, many species like hawthorn provide food for wildlife. Finally, rare species of trees in a forest should also stay behind as they add to its structural diversity.`
       },
       {
         passageNumber: 3,
@@ -221,137 +217,119 @@ Ultimately, consensus among bioethicists and clinical leaders emphasizes that AI
     // --- PASSAGE 2: Câu 14 -> 26 ---
     {
       position: 14,
-      type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "Why was the forest canopy historically described as 'the eighth continent'?",
-      options: [
-        "A. Because of its vast geographic area spanning oceans",
-        "B. Due to extreme difficulty of access and lack of scientific knowledge",
-        "C. Because it is inhabited exclusively by endangered birds",
-        "D. Due to its discovery by eighteenth-century explorers"
-      ],
-      answerKey: { value: "B" },
-      explanation: "Đoạn A: 'Historically, this treetop realm was virtually inaccessible to scientists, earning it the moniker 'the eighth continent' due to how little was known...'",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Which paragraph (A–G) contains the following information?]\nbad outcomes for a forest when people focus only on its financial reward",
+      options: null,
+      answerKey: { value: "B", accepted: ["B", "Paragraph B"] },
+      explanation: "Đoạn B: Khi chủ rừng chỉ chú trọng lấy gỗ chất lượng cao, rừng còn lại toàn cây kém chất lượng, cạnh tranh dinh dưỡng, che khuất cây con tái sinh và làm rừng dễ bị sâu bệnh, thời tiết xấu.",
     },
     {
       position: 15,
-      type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "According to Paragraph B, approximately how much sunlight is intercepted by the upper leaves of the canopy?",
-      options: [
-        "A. Less than 20 percent",
-        "B. Exactly 50 percent",
-        "C. Over 80 percent",
-        "D. Almost 100 percent in all weather"
-      ],
-      answerKey: { value: "C" },
-      explanation: "Đoạn B: 'Solar radiation is captured predominantly in the canopy, where leaves intercept over 80 percent of incoming sunlight.'",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Which paragraph (A–G) contains the following information?]\nreference to the aspects of any tree that contribute to its worth",
+      options: null,
+      answerKey: { value: "A", accepted: ["A", "Paragraph A"] },
+      explanation: "Đoạn A liệt kê các yếu tố tạo nên giá trị (worth/value) của một cái cây: 'A tree’s value depends on several factors including its species, size, form, condition, quality, function, and accessibility...'",
     },
     {
       position: 16,
-      type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "Which of the following devices was NOT mentioned as a tool used to explore the canopy in modern research?",
-      options: [
-        "A. Industrial construction cranes",
-        "B. Canopy walkways",
-        "C. Submersible research vehicles",
-        "D. Hot-air balloons"
-      ],
-      answerKey: { value: "C" },
-      explanation: "Đoạn C liệt kê canopy walkways, hot-air balloons, construction cranes. Tàu ngầm (submersible) không hề được dùng trong rừng.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Which paragraph (A–G) contains the following information?]\nmention of the potential use of wood to help run vehicles",
+      options: null,
+      answerKey: { value: "C", accepted: ["C", "Paragraph C"] },
+      explanation: "Đoạn C đề cập việc chế biến gỗ thành nhiên liệu lỏng chạy xe tải và ô tô: 'Wood can also be gasified for electrical generation and can even be made into liquid fuels like ethanol and gasoline for lorries and cars.'",
     },
     {
       position: 17,
-      type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "What are 'suspended soils' formed by epiphytic plants according to Paragraph D?",
-      options: [
-        "A. Artificial fertilizers introduced by field researchers",
-        "B. Collections of falling organic debris and trapped rainwater",
-        "C. Compacted clay transported from the ground by ants",
-        "D. Mineral dust blown from desert plains"
-      ],
-      answerKey: { value: "B" },
-      explanation: "Đoạn D: 'These plants collect falling organic debris and rainwater in their leaf bases, forming suspended soils high above the earth.'",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Which paragraph (A–G) contains the following information?]\nexamples of insects that attack trees",
+      options: null,
+      answerKey: { value: "E", accepted: ["E", "Paragraph E"] },
+      explanation: "Đoạn E nêu các ví dụ về sâu hại tấn công cây rừng: 'With the many pests and pathogens visiting forests including hemlock wooly adelgid, Asian longhorned beetle, emerald ash borer, and gypsy moth...'",
     },
     {
       position: 18,
-      type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "How does the rainforest canopy influence regional weather patterns according to Paragraph E?",
-      options: [
-        "A. By absorbing carbon dioxide and releasing moisture through evapotranspiration",
-        "B. By preventing clouds from forming over agricultural fields",
-        "C. By trapping greenhouse gases permanently under tree bark",
-        "D. By generating geothermal heat from deep subterranean roots"
-      ],
-      answerKey: { value: "A" },
-      explanation: "Đoạn E: 'By absorbing immense amounts of carbon dioxide and releasing moisture through evapotranspiration, the rainforest canopy drives regional weather patterns...'",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Which paragraph (A–G) contains the following information?]\nan alternative name for trees that produce low-use wood",
+      options: null,
+      answerKey: { value: "B", accepted: ["B", "Paragraph B"] },
+      explanation: "Đoạn B nêu tên gọi khác của những cây cho gỗ giá trị sử dụng thấp (low-use wood) là 'junk trees'.",
     },
     {
       position: 19,
       type: QuestionType.MULTIPLE_CHOICE,
-      prompt: "What is the primary danger posed by selective logging in the forest canopy (Paragraph F)?",
+      prompt: "[Match each purpose with the correct timber cut, A, B or C]\nto remove trees that are diseased",
       options: [
-        "A. Increased risk of underground volcanic activity",
-        "B. Destruction of tallest emergent trees, disrupting light and moisture levels",
-        "C. Total contamination of groundwater with industrial pesticides",
-        "D. Accelerated spread of bacterial infections among primates"
+        "A. a TSI Cut",
+        "B. a Salvage Cut",
+        "C. a Shelterwood Cut"
       ],
       answerKey: { value: "B" },
-      explanation: "Đoạn F: 'Selective logging removes the tallest emergent trees, fracturing the canopy framework and drastically altering light and humidity levels beneath...'",
+      explanation: "Đoạn E (Salvage Cut — B): 'These types of cut reduce the number of sick trees and seek to manage the future spread of a pest problem.'",
     },
     {
       position: 20,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Many organisms living in the tropical forest canopy spend their entire lives without descending to the forest floor.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "TRUE" },
-      explanation: "Đoạn B: 'epiphytes (air plants), insects, birds, and arboreal mammals that never touch the ground throughout their lifespans.'",
+      type: QuestionType.MULTIPLE_CHOICE,
+      prompt: "[Match each purpose with the correct timber cut, A, B or C]\nto generate income across a number of years",
+      options: [
+        "A. a TSI Cut",
+        "B. a Salvage Cut",
+        "C. a Shelterwood Cut"
+      ],
+      answerKey: { value: "C" },
+      explanation: "Đoạn F (Shelterwood Cut — C): 'It can also be used to develop a two-tier forest so that there are two harvests and the money that comes in is spread out over a decade or more.'",
     },
     {
       position: 21,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Canopy construction cranes were first deployed exclusively in European coniferous forests.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "FALSE" },
-      explanation: "Đoạn C ghi rõ cần cẩu được lắp đặt tại các khu bảo tồn rừng nhiệt đới ở Panama và Australia.",
+      type: QuestionType.MULTIPLE_CHOICE,
+      prompt: "[Match each purpose with the correct timber cut, A, B or C]\nto create a forest whose trees are close in age",
+      options: [
+        "A. a TSI Cut",
+        "B. a Salvage Cut",
+        "C. a Shelterwood Cut"
+      ],
+      answerKey: { value: "C" },
+      explanation: "Đoạn F (Shelterwood Cut — C): 'It leaves a young forest where all trees are at a similar point in their growth.'",
     },
     {
       position: 22,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Bromeliads obtain water only from underground taproots extending into deep soil.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "FALSE" },
-      explanation: "Đoạn D: Bromeliads là thực vật phụ sinh (epiphytes) tích trữ nước mưa trực tiếp ở bẹ lá trên ngọn cây, không cắm rễ xuống đất.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Complete the sentences below — ONE WORD ONLY]\nSome dead wood is removed to avoid the possibility of ________ .",
+      options: null,
+      answerKey: { value: "fire", accepted: ["fire", "fires"] },
+      explanation: "Đoạn G: 'Thinnings and dense and dead wood removal for fire prevention also center on the production of low-use wood.'",
     },
     {
       position: 23,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Canopy soils provide vital moisture reservoirs during periods of drought.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "TRUE" },
-      explanation: "Đoạn D: 'harbor specialized invertebrates and provide critical moisture reservoirs during prolonged dry spells.'",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Complete the sentences below — ONE WORD ONLY]\nThe ________ from the tops of cut trees can help improve soil quality.",
+      options: null,
+      answerKey: { value: "nutrients", accepted: ["nutrients"] },
+      explanation: "Đoạn G: 'The tops of trees that have been cut down should be left on the site so that their nutrients cycle back into the soil.'",
     },
     {
       position: 24,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Global warming has completely halted all evapotranspiration in South American rainforests.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "NOT GIVEN" },
-      explanation: "Đoạn E chỉ giải thích hiện tượng thoát hơi nước giúp làm mát khí hậu, không có thông tin nói rằng quá trình này đã bị dừng hoàn toàn.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Complete the sentences below — ONE WORD ONLY]\nSome damaged trees should be left, as their ________ provide habitats for a range of creatures.",
+      options: null,
+      answerKey: { value: "cavities", accepted: ["cavities"] },
+      explanation: "Đoạn G: 'In addition, trees with many cavities are extremely important habitats for insect predators like woodpeckers, bats and small mammals.'",
     },
     {
       position: 25,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "Epiphytic orchids harm their host trees by actively feeding on internal vascular sap.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "NOT GIVEN" },
-      explanation: "Bài viết chỉ nhắc đến phong lan sống trên cây giữ mùn và nước, không có thông tin phong lan hút nhựa hay làm hại cây chủ.",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Complete the sentences below — ONE WORD ONLY]\nSome trees that are small, such as ________ , are a source of food for animals and insects.",
+      options: null,
+      answerKey: { value: "hawthorn", accepted: ["hawthorn"] },
+      explanation: "Đoạn G: 'For example, many species like hawthorn provide food for wildlife.'",
     },
     {
       position: 26,
-      type: QuestionType.TRUE_FALSE,
-      prompt: "The destruction of the canopy framework can lead to the extinction of specialized species.",
-      options: ["TRUE", "FALSE", "NOT GIVEN"],
-      answerKey: { value: "TRUE" },
-      explanation: "Đoạn F: 'causing cascading extinctions among specialized canopy organisms.'",
+      type: QuestionType.FILL_IN_BLANK,
+      prompt: "[Complete the sentences below — ONE WORD ONLY]\nAny trees that are ________ should be left to grow, as they add to the variety of species in the forest.",
+      options: null,
+      answerKey: { value: "rare", accepted: ["rare"] },
+      explanation: "Đoạn G: 'Finally, rare species of trees in a forest should also stay behind as they add to its structural diversity.'",
     },
 
     // --- PASSAGE 3: Câu 27 -> 40 ---
