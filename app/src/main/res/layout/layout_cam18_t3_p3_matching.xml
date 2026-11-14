@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:background="@drawable/bg_test_card"
+    android:elevation="2dp"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Header bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/btnZoomMatchingT3P3"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_pill_soft_indigo"
+                android:paddingStart="8dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="2dp"
+                android:text="PART 3 • QUESTIONS 25–30"
+                android:textColor="@color/primary_blue"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Comments on jobs"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="What comment do the students make about each of the following jobs?\nChoose SIX answers from the box and write the correct letter, A–G, next to Questions 25–30."
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnZoomMatchingT3P3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="6dp"
+            android:text="View original 🔍"
+            android:textColor="@color/primary_blue"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <!-- Comments Box -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Comments"
+            android:textColor="@color/primary_blue"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="8dp"
+            android:background="#CBD5E1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            android:text="A   These jobs are likely to be at risk."
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="3dp"
+            android:text="B   Their role has become more interesting in recent years."
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="3dp"
+            android:text="C   The number of people working in this sector has fallen dramatically."
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="3dp"
+            android:text="D   This job will require more qualifications."
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="3dp"
+            android:text="E   Higher disposable income has led to a huge increase in jobs."
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="3dp"
+            android:text="F   There is likely to be a significant rise in demand for this service."
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="3dp"
+            android:text="G   Both employment and productivity have risen."
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <!-- Jobs Header -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Jobs (Choose A–G):"
+        android:textColor="@color/primary_blue"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <!-- Row 25: Accountants -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="25. Accountants"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMatchingSelected25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Not selected"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips25"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip25_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip25_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip25_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip25_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip25_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip25_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip25_G" style="@style/MatchingChipStyle" android:text="G" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 26: Hairdressers -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="26. Hairdressers"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMatchingSelected26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Not selected"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips26"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip26_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip26_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip26_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip26_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip26_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip26_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip26_G" style="@style/MatchingChipStyle" android:text="G" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 27: Administrative staff -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="27. Administrative staff"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMatchingSelected27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Not selected"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips27"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip27_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip27_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip27_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip27_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip27_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip27_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip27_G" style="@style/MatchingChipStyle" android:text="G" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 28: Agricultural workers -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="28. Agricultural workers"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMatchingSelected28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Not selected"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips28"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip28_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip28_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip28_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip28_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip28_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip28_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip28_G" style="@style/MatchingChipStyle" android:text="G" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 29: Care workers -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="29. Care workers"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMatchingSelected29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Not selected"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips29"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip29_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip29_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip29_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip29_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip29_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip29_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip29_G" style="@style/MatchingChipStyle" android:text="G" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 30: Bank clerks -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="30. Bank clerks"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMatchingSelected30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Not selected"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip30_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip30_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip30_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip30_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip30_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip30_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip30_G" style="@style/MatchingChipStyle" android:text="G" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
