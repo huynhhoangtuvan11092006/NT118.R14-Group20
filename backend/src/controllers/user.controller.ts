@@ -2,7 +2,9 @@ import type { Request, Response } from "express";
 import { prisma } from "../config/database.js";
 import { HttpError } from "../lib/http-error.js";
 import { publicUserSelect, presentUser } from "../services/auth.service.js";
-import { targetBandSchema, updateProfileSchema } from "../validators/user.validator.js";
+import { syncProgressSchema, targetBandSchema, updateProfileSchema } from "../validators/user.validator.js";
+
+const CLOUD_SYNC_WORD_KEY = "__CLOUD_SYNC_STATE_V1__";
 
 function authenticatedId(res: Response): string {
   const userId: unknown = res.locals.authUserId;
@@ -11,11 +13,51 @@ function authenticatedId(res: Response): string {
 }
 
 export async function getMe(req: Request, res: Response) {
+  const userId = authenticatedId(res);
   const user = await prisma.user.findUnique({
-    where: { id: authenticatedId(res) }, select: publicUserSelect,
+    where: { id: userId }, select: publicUserSelect,
   });
   if (!user) throw new HttpError(401, "UNAUTHORIZED", "Account not found");
   res.json({ user: presentUser(user) });
+}
+
+export async function getMyProgress(_req: Request, res: Response) {
+  const userId = authenticatedId(res);
+  const row = await prisma.vocabulary.findUnique({
+    where: { userId_word: { userId, word: CLOUD_SYNC_WORD_KEY } },
+  });
+  res.json({
+    progressJson: row?.meaning ?? null,
+    currentStreak: row?.reviewCount ?? 0,
+    updatedAt: row?.updatedAt?.toISOString() ?? null,
+  });
+}
+
+export async function updateMyProgress(req: Request, res: Response) {
+  const userId = authenticatedId(res);
+  const input = syncProgressSchema.parse(req.body);
+  const row = await prisma.vocabulary.upsert({
+    where: { userId_word: { userId, word: CLOUD_SYNC_WORD_KEY } },
+    create: {
+      userId,
+      word: CLOUD_SYNC_WORD_KEY,
+      meaning: input.progressJson,
+      isLearned: true,
+      reviewCount: input.currentStreak ?? 0,
+      lastReviewedAt: new Date(),
+    },
+    update: {
+      meaning: input.progressJson,
+      isLearned: true,
+      reviewCount: input.currentStreak ?? 0,
+      lastReviewedAt: new Date(),
+    },
+  });
+  res.json({
+    progressJson: row.meaning,
+    currentStreak: row.reviewCount,
+    updatedAt: row.updatedAt.toISOString(),
+  });
 }
 
 export async function updateMe(req: Request, res: Response) {

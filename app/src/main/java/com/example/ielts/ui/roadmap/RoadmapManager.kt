@@ -69,12 +69,31 @@ data class AiRoadmapCache(
     val updatedAtMillis: Long
 )
 
+data class WeeklyDayStudyItem(
+    val dayLabel: String,       // "T2".."CN"
+    val dateStr: String,        // "yyyy-MM-dd"
+    val minutes: Int,           // Số phút học thực tế trong ngày
+    val isToday: Boolean,
+    val metDailyGoal: Boolean
+)
+
+data class WeeklyStudySummary(
+    val days: List<WeeklyDayStudyItem>,
+    val totalMinutesWeek: Int,
+    val totalBadgeLabel: String,
+    val dailyGoalMinutes: Int,
+    val goalNoteLabel: String,
+    val summaryRightLabel: String
+)
+
 data class PersonalizedRoadmapData(
     val currentBand: Double,
     val targetBand: Double,
     val bandGain: Double,
     val countdownLabel: String,
     val overallProgressPercent: Int,
+    val completedLessonsCount: Int,
+    val totalLessonsCount: Int,
     val studyTimeLabel: String,
     val streakDays: Int,
     val aiStrategicAdvice: String,
@@ -93,17 +112,17 @@ object RoadmapManager {
     // Danh sách 5 bài học thực tế cho từng Chặng (Tổng lộ trình chuẩn: 15 bài học trên app)
     private val PHASE_1_READING_IDS = listOf("cam19-test1", "cam18-test1")
     private val PHASE_1_LISTENING_IDS = listOf("cam19-listening-test1")
-    private val PHASE_1_WRITING_IDS = listOf("cam18-writing-test1-task1")
+    private val PHASE_1_WRITING_IDS = listOf("cam18-test1-task1")
     private const val PHASE_1_VOCAB_TOPIC = VocabularyDataSource.TOPIC_ENVIRONMENT
 
     private val PHASE_2_READING_IDS = listOf("cam19-test2", "cam18-test2")
     private val PHASE_2_LISTENING_IDS = listOf("cam19-listening-test2")
-    private val PHASE_2_WRITING_IDS = listOf("cam18-writing-test1-task2")
+    private val PHASE_2_WRITING_IDS = listOf("cam18-test1-task2")
     private const val PHASE_2_VOCAB_TOPIC = VocabularyDataSource.TOPIC_EDUCATION
 
     private val PHASE_3_READING_IDS = listOf("cam19-test3")
     private val PHASE_3_LISTENING_IDS = listOf("cam19-listening-test3")
-    private val PHASE_3_WRITING_IDS = listOf("cam18-writing-test2-task1", "cam18-writing-test2-task2")
+    private val PHASE_3_WRITING_IDS = listOf("cam18-test2-task1", "cam18-test2-task2")
     private const val PHASE_3_VOCAB_TOPIC = VocabularyDataSource.TOPIC_TECHNOLOGY
 
     /**
@@ -111,21 +130,10 @@ object RoadmapManager {
      */
     fun clearDemoProgressIfNeeded(context: Context) {
         val prefs = context.getSharedPreferences(PREF_ROADMAP, Context.MODE_PRIVATE)
-        if (!prefs.getBoolean("real_progress_migrated_v4", false)) {
-            context.getSharedPreferences("reading_practice_stats_pref", Context.MODE_PRIVATE).edit().clear().apply()
-            context.getSharedPreferences("listening_practice_stats_pref", Context.MODE_PRIVATE).edit().clear().apply()
-            context.getSharedPreferences("writing_practice_stats_pref", Context.MODE_PRIVATE).edit().clear().apply()
-            context.getSharedPreferences("vocabulary_srs_pref", Context.MODE_PRIVATE).edit().clear().apply()
-            context.getSharedPreferences("vocabulary_srs_prefs", Context.MODE_PRIVATE).edit().clear().apply()
-            StreakManager.resetStreakIfNoRealStudy(context, false)
-            prefs.edit()
-                .remove(KEY_AI_CACHE_JSON)
-                .putBoolean("real_progress_migrated_v4", true)
-                .apply()
-        }
         if (!prefs.getBoolean("real_progress_migrated_v5", false)) {
             prefs.edit()
                 .remove(KEY_AI_CACHE_JSON)
+                .putBoolean("real_progress_migrated_v4", true)
                 .putBoolean("real_progress_migrated_v5", true)
                 .apply()
         }
@@ -180,17 +188,13 @@ object RoadmapManager {
         val vocabStats = VocabularyProgressManager.summaryStats(context, VocabularyDataSource.allWords)
         val vocabLearnedTotal = vocabStats.learning + vocabStats.mastered
 
+        val streakData = StreakManager.getStreakData(context)
+        val streakDays = streakData.currentStreak
         val hasAnyRealStudy = readingRecords.isNotEmpty() ||
             listeningRecords.isNotEmpty() ||
             writingRecords.isNotEmpty() ||
-            vocabLearnedTotal > 0
-
-        if (!hasAnyRealStudy) {
-            StreakManager.resetStreakIfNoRealStudy(context, false)
-        }
-
-        val streakData = StreakManager.getStreakData(context)
-        val streakDays = if (hasAnyRealStudy) streakData.currentStreak else 0
+            vocabLearnedTotal > 0 ||
+            streakDays > 0
 
         // Tổng thời gian học thực tế (phút)
         val readingMinutes = readingRecords.size * 60
@@ -228,7 +232,7 @@ object RoadmapManager {
             .roundToInt()
             .coerceIn(0, 100)
 
-        // 3. Kiểm tra cache Gemini AI theo cặp Band hiện tại -> Mục tiêu
+        // 3. Kiểm tra cache AI theo cặp Band hiện tại -> Mục tiêu
         val focusSkills = userPrefs.getStringSet("focus_skills", setOf("Writing", "Speaking")) ?: setOf("Writing", "Speaking")
         val pairKey = String.format(Locale.US, "%.1f_%.1f_%s", currentBand, targetBand, focusSkills.sorted().joinToString("-"))
         val aiCache = getAiCache(context)?.takeIf { it.targetPairKey == pairKey }
@@ -294,16 +298,22 @@ object RoadmapManager {
             "${targetWritingTest.topic} • ${targetWritingTest.durationMinutes} phút (AI chấm)"
         }
 
-        // Task 3: Vocabulary Topic thực tế trên app
+        // Task 3: Vocabulary Topic thực tế trên app (ưu tiên chủ đề đang học dở để hiển thị đúng số từ vừa học)
         val targetVocabTopic = allVocabTopics.firstOrNull { topic ->
+            val learned = countTopicLearned(context, topic.id)
+            learned in 1..14
+        } ?: allVocabTopics.firstOrNull { topic ->
             countTopicLearned(context, topic.id) < 15
         } ?: allVocabTopics.first()
 
         val topicPool = VocabularyDataSource.resolveScope(VocabularyDataSource.SCOPE_TOPIC, targetVocabTopic.id)
         val topicLearned = countTopicLearned(context, targetVocabTopic.id)
-        val isVocabTaskDone = topicLearned >= 15 && streakData.isActiveToday
-        val vocabSubtitle = if (topicLearned > 0) {
-            "Đã học $topicLearned/${topicPool.size} từ • Chủ đề ${targetVocabTopic.titleVi}"
+        val todayIso = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(java.util.Date())
+        val todayWordsStudied = VocabularyProgressManager.getDailyCountsMap(context)[todayIso] ?: 0
+        val effectiveVocabLearned = max(topicLearned, todayWordsStudied)
+        val isVocabTaskDone = effectiveVocabLearned >= 15
+        val vocabSubtitle = if (effectiveVocabLearned > 0) {
+            "Đã học $effectiveVocabLearned/15 từ mục tiêu • Chủ đề ${targetVocabTopic.titleVi}"
         } else {
             "Chưa học (0/${topicPool.size} từ) • ${targetVocabTopic.titleVi}"
         }
@@ -419,7 +429,8 @@ object RoadmapManager {
             )
         }
 
-        val displayAdvice = aiCache?.strategicAdvice?.takeIf { it.isNotBlank() } ?: defaultAdvice
+        val rawAdvice = aiCache?.strategicAdvice?.takeIf { it.isNotBlank() } ?: defaultAdvice
+        val displayAdvice = rawAdvice.replace(Regex("(?i)gemini\\s*ai|ai\\s*gemini|gemini"), "AI")
 
         return PersonalizedRoadmapData(
             currentBand = currentBand,
@@ -427,10 +438,12 @@ object RoadmapManager {
             bandGain = bandGain,
             countdownLabel = countdownLabel,
             overallProgressPercent = overallProgressPercent,
+            completedLessonsCount = completedLessonsTotal,
+            totalLessonsCount = totalRoadmapLessons,
             studyTimeLabel = studyTimeLabel,
             streakDays = streakDays,
             aiStrategicAdvice = displayAdvice,
-            aiModelBadge = if (aiCache != null) "Gemini AI • ${aiCache.aiModel}" else "Gemini AI ✨",
+            aiModelBadge = "AI ✨",
             dailyTasks = dailyTasks,
             phases = phases,
             hasAiCache = aiCache != null,
@@ -439,7 +452,81 @@ object RoadmapManager {
     }
 
     /**
-     * Gọi thực tế Google Gemini AI trên Backend để phân tích hồ sơ học viên
+     * Tính toán thống kê thời gian học thực tế của 7 ngày trong tuần hiện tại (T2 -> CN)
+     * dựa trên lịch sử làm bài Reading, Listening, Writing và Từ vựng SRS.
+     */
+    fun getWeeklyStudySummary(context: Context): WeeklyStudySummary {
+        clearDemoProgressIfNeeded(context)
+        val userPrefs = context.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE)
+        val dailyGoalMinutes = userPrefs.getInt("daily_minutes", 30).coerceAtLeast(15)
+
+        val fmt = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        val todayStr = fmt.format(System.currentTimeMillis())
+
+        val readingRecords = ReadingStatsManager.getRecords(context).values
+        val listeningRecords = ListeningStatsManager.getRecords(context).values
+        val writingRecords = WritingStatsManager.getRecords(context).values
+        val vocabDailyCounts = VocabularyProgressManager.getDailyCountsMap(context)
+
+        val cal = Calendar.getInstance()
+        cal.firstDayOfWeek = Calendar.MONDAY
+        val dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
+        val daysFromMonday = if (dayOfWeek == Calendar.SUNDAY) 6 else dayOfWeek - Calendar.MONDAY
+        cal.add(Calendar.DAY_OF_YEAR, -daysFromMonday)
+
+        val labels = listOf("T2", "T3", "T4", "T5", "T6", "T7", "CN")
+        val dayItems = mutableListOf<WeeklyDayStudyItem>()
+
+        for (i in 0..6) {
+            val dStr = fmt.format(cal.time)
+            val rMin = readingRecords.count { fmt.format(it.completedAtMillis) == dStr } * 60
+            val lMin = listeningRecords.count { fmt.format(it.completedAtMillis) == dStr } * 35
+            val wMin = writingRecords
+                .filter { fmt.format(it.completedAtMillis) == dStr }
+                .sumOf { max(15, it.timeSpentSeconds / 60) }
+            val vMin = (vocabDailyCounts[dStr] ?: 0) * 2
+
+            val totalDayMin = rMin + lMin + wMin + vMin
+            dayItems.add(
+                WeeklyDayStudyItem(
+                    dayLabel = labels[i],
+                    dateStr = dStr,
+                    minutes = totalDayMin,
+                    isToday = (dStr == todayStr),
+                    metDailyGoal = totalDayMin >= dailyGoalMinutes
+                )
+            )
+            cal.add(Calendar.DAY_OF_YEAR, 1)
+        }
+
+        val totalWeekMin = dayItems.sumOf { it.minutes }
+        val totalBadge = when {
+            totalWeekMin == 0 -> "Tổng: 0 phút"
+            totalWeekMin < 60 -> "Tổng: $totalWeekMin phút"
+            totalWeekMin % 60 == 0 -> "Tổng: ${totalWeekMin / 60} giờ"
+            else -> String.format(Locale.US, "Tổng: %.1f giờ", totalWeekMin / 60.0)
+        }
+
+        val activeDays = dayItems.count { it.minutes > 0 }
+        val metGoalDays = dayItems.count { it.metDailyGoal }
+        val summaryRight = when {
+            totalWeekMin == 0 -> "Chưa có giờ học tuần này"
+            metGoalDays > 0 -> "Đạt mục tiêu $metGoalDays/7 ngày"
+            else -> "Đã học $activeDays/7 ngày tuần này"
+        }
+
+        return WeeklyStudySummary(
+            days = dayItems,
+            totalMinutesWeek = totalWeekMin,
+            totalBadgeLabel = totalBadge,
+            dailyGoalMinutes = dailyGoalMinutes,
+            goalNoteLabel = "Mục tiêu ngày (≥ ${dailyGoalMinutes}p)",
+            summaryRightLabel = summaryRight
+        )
+    }
+
+    /**
+     * Gọi thực tế AI trên Backend để phân tích hồ sơ học viên
      * và sinh lời khuyên Cố vấn chiến lược + 3 Chặng mục tiêu (5 bài/chặng).
      */
     suspend fun generatePersonalizedRoadmapWithAi(context: Context): Result<PersonalizedRoadmapData> {
@@ -463,7 +550,7 @@ object RoadmapManager {
                 focusSkills.sorted().joinToString("-")
             )
 
-            // 1. Ưu tiên gọi Endpoint chuyên biệt /api/v1/ai/evaluate/roadmap (Gemini 3.5 Flash Lite / Flash)
+            // 1. Ưu tiên gọi Endpoint chuyên biệt /api/v1/ai/evaluate/roadmap
             try {
                 val roadmapResp = ApiClient.apiService.generateRoadmap(
                     token = bearerToken,
@@ -625,7 +712,7 @@ object RoadmapManager {
         } else {
             String.format(
                 Locale.US,
-                "Để bứt phá từ Band %.1f lên %.1f (%s), Gemini AI đề xuất bạn khởi động ngay Chặng 1 (5 bài) với đề Cambridge IELTS 19 Test 1, luyện viết Task 1 Line Graph (Urban Population) và học 15 từ vựng Environment.",
+                "Để bứt phá từ Band %.1f lên %.1f (%s), AI đề xuất bạn khởi động ngay Chặng 1 (5 bài) với đề Cambridge IELTS 19 Test 1, luyện viết Task 1 Line Graph (Urban Population) và học 15 từ vựng Environment.",
                 currentBand,
                 targetBand,
                 countdownLabel

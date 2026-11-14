@@ -84,3 +84,16 @@ data class MessageResponse(
     val devOtp: String? = null
 )
 
+// DTO đồng bộ tiến độ học tập (Streak, Reading, Listening, Writing, Vocabulary SRS) lên Cloud
+data class SyncProgressRequest(
+    val progressJson: String,
+    val currentStreak: Int = 0
+)
+
+data class SyncProgressResponse(
+    val progressJson: String? = null,
+    val currentStreak: Int = 0,
+    val updatedAt: String? = null
+)
+
+

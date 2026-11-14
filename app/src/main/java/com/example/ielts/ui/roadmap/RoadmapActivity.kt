@@ -52,7 +52,7 @@ class RoadmapActivity : AppCompatActivity() {
     private lateinit var tvStudyHoursValue: TextView
     private lateinit var tvStreakDaysValue: TextView
 
-    // Gemini AI Advisor Card
+    // AI Advisor Card
     private lateinit var cardAiAdvisor: LinearLayout
     private lateinit var tvAiAdvisorHeader: TextView
     private lateinit var tvAiModelBadge: TextView
@@ -119,10 +119,6 @@ class RoadmapActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O_MR1) {
-            setShowWhenLocked(true)
-            setTurnScreenOn(true)
-        }
         setContentView(R.layout.activity_roadmap)
 
         initViews()
@@ -225,7 +221,7 @@ class RoadmapActivity : AppCompatActivity() {
             finish()
         }
 
-        // Bấm nút AI Sparkle hoặc thẻ Cố vấn AI để gọi Gemini AI tối ưu lộ trình
+        // Bấm nút AI Sparkle hoặc thẻ Cố vấn AI để gọi AI tối ưu lộ trình
         val aiClickListener = View.OnClickListener {
             triggerAiRoadmapOptimization(forceRefresh = true)
         }
@@ -541,9 +537,12 @@ class RoadmapActivity : AppCompatActivity() {
                         val user = response.body()!!.user
                         prefs.edit().apply {
                             user.targetBand?.let { putFloat(Constants.KEY_TARGET_BAND, it) }
+                            user.currentBand?.let { putFloat("current_band", it) }
+                            user.dailyStudyMinutes?.let { putInt("study_minutes", it) }
                             user.expectedExamDate?.let { putString("exam_date_iso", it.take(10)) }
-                            apply()
+                            commit()
                         }
+                        com.example.ielts.data.local.CloudSyncManager.pullFromCloudSuspend(this@RoadmapActivity, user)
                         renderRoadmapUI()
                     }
                 } catch (_: Exception) {
@@ -561,7 +560,7 @@ class RoadmapActivity : AppCompatActivity() {
         if (isAiGenerating) return
         isAiGenerating = true
 
-        showAiStatusToast("Gemini AI đang phân tích hồ sơ & kho đề học tập...")
+        showAiStatusToast("AI đang phân tích hồ sơ & kho đề học tập...")
         btnAiOptimize.animate().rotationBy(360f).setDuration(900).start()
 
         lifecycleScope.launch {
@@ -570,7 +569,7 @@ class RoadmapActivity : AppCompatActivity() {
 
             result.onSuccess {
                 renderRoadmapUI()
-                showAiStatusToast("✨ Gemini AI đã cập nhật lộ trình cá nhân hóa!")
+                showAiStatusToast("✨ AI đã cập nhật lộ trình cá nhân hóa!")
                 delay(2800)
                 hideAiStatusToast()
             }.onFailure {
