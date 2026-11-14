@@ -973,17 +973,66 @@ object CambridgeReadingDataSource {
                 )
             )
 
-            // Passage 3: Questions 27–40
-            for (i in 27..40) {
+            // Passage 3: Questions 27–31: Matching Information (Section A–F)
+            val p3Prompts27to31 = listOf(
+                27 to "a reference to the cooperation that takes place to try and minimise risk",
+                28 to "an explanation of a person’s aims",
+                29 to "a description of a major collision that occurred in space",
+                30 to "a comparison between tracking objects in space and the efficiency of a transportation system",
+                31 to "a reference to efforts to classify space junk"
+            )
+            for ((pos, promptText) in p3Prompts27to31) {
                 list.add(
                     QuestionDetailDto(
-                        id = "cam18_t1_q$i",
-                        position = i,
-                        type = if (i % 3 == 0) "FILL_IN_BLANK" else if (i % 2 == 0) "TRUE_FALSE" else "MULTIPLE_CHOICE",
-                        prompt = "The inability of deep networks to show the intelligible causal reasoning behind classifications is commonly called the '________' problem.",
-                        options = if (i % 2 == 0) "TRUE FALSE NOT GIVEN" else "A. Black box\nB. Algorithmic bias\nC. Optical variance\nD. Data loss",
+                        id = "cam18_t1_q$pos",
+                        position = pos,
+                        type = "FILL_IN_BLANK",
+                        prompt = "[Which section (A–F) contains the following information?]\n$promptText",
                         passageNumber = 3,
-                        lineRef = "Passage 3 • Question $i"
+                        lineRef = "Questions 27–31 • Matching Information (A–F)"
+                    )
+                )
+            }
+
+            // Passage 3: Questions 32–35: Summary Completion (ONE WORD ONLY)
+            val p3Prompts32to35 = listOf(
+                32 to "The committee gives advice on how the ________ of space can be achieved.",
+                33 to "The committee advises that when satellites are no longer active, any unused ________ or pressurised material should be removed.",
+                34 to "Unused fuel or pressurised material that could cause ________ should be removed.",
+                35 to "Holger Krag points out that the operators that become ________ are unlikely to prioritise removing their satellites from space."
+            )
+            for ((pos, promptText) in p3Prompts32to35) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t1_q$pos",
+                        position = pos,
+                        type = "FILL_IN_BLANK",
+                        prompt = "[The Inter-Agency Space Debris Coordination Committee — ONE WORD ONLY]\n$promptText",
+                        passageNumber = 3,
+                        lineRef = "Questions 32–35 • Summary Completion"
+                    )
+                )
+            }
+
+            // Passage 3: Questions 36–40: Matching Statements with People (A–D)
+            val peopleOptions = "A. Carolin Frueh\nB. Holger Krag\nC. Marlon Sorge\nD. Moriba Jah"
+            val p3Prompts36to40 = listOf(
+                36 to "Knowing the exact location of space junk would help prevent any possible danger.",
+                37 to "Space should be available to everyone and should be preserved for the future.",
+                38 to "A recommendation regarding satellites is widely ignored.",
+                39 to "There is conflicting information about where some satellites are in space.",
+                40 to "There is a risk we will not be able to undo the damage that occurs in space."
+            )
+            for ((pos, promptText) in p3Prompts36to40) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t1_q$pos",
+                        position = pos,
+                        type = "MULTIPLE_CHOICE",
+                        prompt = "[Match each statement with the correct person, A, B, C or D]\n$promptText",
+                        options = peopleOptions,
+                        passageNumber = 3,
+                        lineRef = "Questions 36–40 • List of People (A–D)"
                     )
                 )
             }
@@ -1148,6 +1197,90 @@ object CambridgeReadingDataSource {
                 acceptedAnswers = listOf("rare"),
                 explanation = "Đoạn G: 'Finally, rare species of trees in a forest should also stay behind as they add to its structural diversity.' (Các loài cây quý hiếm cần được giữ lại để tăng tính đa dạng cho khu rừng -> rare).",
                 evidenceQuote = "Finally, rare species of trees in a forest should also stay behind as they add to its structural diversity"
+            )
+            27 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C", "Section C", "Paragraph C"),
+                explanation = "Đoạn C đề cập sự hợp tác giữa các công ty, chính phủ và tổ chức quốc tế để giảm thiểu rủi ro rác vũ trụ.",
+                evidenceQuote = "companies, governments and other players in space are collaborating in new ways to avoid a shared threat"
+            )
+            28 -> QuestionAnswerMetadata(
+                correctAnswer = "F",
+                acceptedAnswers = listOf("F", "Section F", "Paragraph F"),
+                explanation = "Đoạn F nêu mục tiêu cá nhân của Moriba Jah với tư cách là một nhà bảo vệ môi trường không gian.",
+                evidenceQuote = "I want to make space a place that is safe to operate, that is free and useful for generations to come"
+            )
+            29 -> QuestionAnswerMetadata(
+                correctAnswer = "A",
+                acceptedAnswers = listOf("A", "Section A", "Paragraph A"),
+                explanation = "Đoạn A mô tả vụ va chạm lớn cách đây 10 năm giữa vệ tinh thương mại Iridium của Mỹ và vệ tinh Cosmos-2251 của Nga.",
+                evidenceQuote = "Ten years ago, a US commercial Iridium satellite smashed into an inactive Russian communications satellite called Cosmos-2251"
+            )
+            30 -> QuestionAnswerMetadata(
+                correctAnswer = "E",
+                acceptedAnswers = listOf("E", "Section E", "Paragraph E"),
+                explanation = "Đoạn E so sánh việc quản lý giao thông vũ trụ với hệ thống điều phối máy bay tại sân bay của kiểm soát viên không lưu.",
+                evidenceQuote = "The field is called space traffic management, because it's similar to managing traffic on the roads or in the air"
+            )
+            31 -> QuestionAnswerMetadata(
+                correctAnswer = "B",
+                acceptedAnswers = listOf("B", "Section B", "Paragraph B"),
+                explanation = "Đoạn B đề cập nỗ lực xây dựng hệ thống phân loại (taxonomies) rác vũ trụ dựa trên hình dạng và kích thước vật thể.",
+                evidenceQuote = "Others are developing taxonomies of space debris – working on measuring properties such as the shape and size of an object"
+            )
+            32 -> QuestionAnswerMetadata(
+                correctAnswer = "sustainability",
+                acceptedAnswers = listOf("sustainability"),
+                explanation = "Đoạn C: Ủy ban Điều phối Mảnh vỡ Vũ trụ Liên cơ quan đã xây dựng các hướng dẫn về sự bền vững không gian (space sustainability).",
+                evidenceQuote = "International groups such as the Inter-Agency Space Debris Coordination Committee have developed guidelines on space sustainability"
+            )
+            33 -> QuestionAnswerMetadata(
+                correctAnswer = "fuel",
+                acceptedAnswers = listOf("fuel"),
+                explanation = "Đoạn C: Vô hiệu hóa vệ tinh cuối vòng đời bằng cách xả vật liệu có áp suất hoặc nhiên liệu thừa (leftover fuel).",
+                evidenceQuote = "inactivating satellites at the end of their useful life by venting pressurised materials or leftover fuel"
+            )
+            34 -> QuestionAnswerMetadata(
+                correctAnswer = "explosions",
+                acceptedAnswers = listOf("explosions", "explosion"),
+                explanation = "Đoạn C: Nhiên liệu thừa hoặc vật liệu có áp suất có thể dẫn đến các vụ nổ (lead to explosions).",
+                evidenceQuote = "venting pressurised materials or leftover fuel that might lead to explosions"
+            )
+            35 -> QuestionAnswerMetadata(
+                correctAnswer = "bankrupt",
+                acceptedAnswers = listOf("bankrupt"),
+                explanation = "Đoạn C: Holger Krag đặt câu hỏi điều gì xảy ra với những nhà vận hành thất bại hoặc phá sản (go bankrupt) — họ sẽ khó ưu tiên chi tiền dọn vệ tinh.",
+                evidenceQuote = "What happens to those that fail or go bankrupt?"
+            )
+            36 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C"),
+                explanation = "Đoạn D (Marlon Sorge — C): Nếu biết chính xác vị trí của mọi mảnh vỡ với độ chính xác cao thì hầu như sẽ không bao giờ gặp sự cố va chạm.",
+                evidenceQuote = "If you knew precisely where everything was, you would almost never have a problem"
+            )
+            37 -> QuestionAnswerMetadata(
+                correctAnswer = "D",
+                acceptedAnswers = listOf("D"),
+                explanation = "Đoạn F (Moriba Jah — D): Mong muốn biến không gian thành nơi an toàn, tự do và hữu ích cho các thế hệ tương lai.",
+                evidenceQuote = "I want to make space a place that is safe to operate, that is free and useful for generations to come"
+            )
+            38 -> QuestionAnswerMetadata(
+                correctAnswer = "B",
+                acceptedAnswers = listOf("B"),
+                explanation = "Đoạn C (Holger Krag — B): Khuyến nghị hạ độ cao vệ tinh để tự bốc cháy trong vòng 25 năm mới chỉ được khoảng một nửa số sứ mệnh tuân thủ.",
+                evidenceQuote = "so far, only about half of all missions have abided by this 25-year goal, says Holger Krag"
+            )
+            39 -> QuestionAnswerMetadata(
+                correctAnswer = "D",
+                acceptedAnswers = listOf("D"),
+                explanation = "Đoạn F (Moriba Jah — D): Nguồn dữ liệu của Mỹ và Nga đưa ra hai quỹ đạo hoàn toàn khác nhau cho cùng một vật thể (mã 32280).",
+                evidenceQuote = "the US and Russian sources contain two completely different orbits for the same object"
+            )
+            40 -> QuestionAnswerMetadata(
+                correctAnswer = "A",
+                acceptedAnswers = listOf("A"),
+                explanation = "Đoạn B (Carolin Frueh — A): Cảnh báo nếu tiếp tục như hiện nay, chúng ta sẽ chạm tới điểm không thể quay đầu (a point of no return).",
+                evidenceQuote = "If we go on like this, we will reach a point of no return"
             )
             else -> null
         }
