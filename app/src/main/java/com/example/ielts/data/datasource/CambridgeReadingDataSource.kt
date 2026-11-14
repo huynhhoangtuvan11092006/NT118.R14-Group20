@@ -135,7 +135,7 @@ object CambridgeReadingDataSource {
                 totalQuestions = 40,
                 passageTitles = listOf(
                     "Green roofs",
-                    "Reading Passage 2",
+                    "The growth mindset",
                     "Reading Passage 3"
                 ),
                 userProgress = null
@@ -639,6 +639,8 @@ object CambridgeReadingDataSource {
 
     private const val CAM18_TEST4_PASSAGE1_CONTENT = "Green roofs\n\n[Paragraph A] Rooftops covered with grass, vegetable gardens and lush foliage are now a common sight in many cities around the world. More and more private companies and city authorities are investing in green roofs, drawn to their wide-ranging benefits. Among the benefits are saving on energy costs, mitigating the risk of floods, making habitats for urban wildlife, tackling air pollution and even growing food. These increasingly radical urban designs can help cities adapt to the monumental problems they face, such as access to resources and a lack of green space due to development. But the involvement of city authorities, businesses and other institutions is crucial to ensuring their success — as is research investigating different options to suit the variety of rooftop spaces found in cities. The UK is relatively new to developing green roofs, and local governments and institutions are playing a major role in spreading the practice. London is home to much of the UK's green roof market, mainly due to forward-thinking policies such as the London Plan, which has paved the way to more than doubling the area of green roofs in the capital.\n\n[Paragraph B] Ongoing research is showcasing how green roofs in cities can integrate with 'living walls': environmentally friendly walls which are partially or completely covered with greenery, including a growing medium, such as soil or water. Research also indicates that green roofs can be integrated with drainage systems on the ground, such as street trees, so that the water is managed better and the built environment is made more sustainable. There is also evidence to demonstrate the social value of green roofs. Doctors are increasingly prescribing time spent gardening outdoors for patients dealing with anxiety and depression. And research has found that access to even the most basic green spaces can provide a better quality of life for dementia sufferers and help people avoid obesity.\n\n[Paragraph C] In North America, green roofs have become mainstream, with a wide array of expansive, accessible and food-producing roofs installed in buildings. Again, city leaders and authorities have helped push the movement forward — only recently, San Francisco, USA, created a policy requiring new buildings to have green roofs. Toronto, Canada, has policies dating from the 1990s, encouraging the development of urban farms on rooftops. These countries also benefit from having newer buildings than in many parts of the world, which makes it easier to install green roofs. Being able to keep enough water at roof height and distribute it right across the rooftop is crucial to maintaining the plants on any green roof — especially on 'edible roofs' where fruit and vegetables are farmed. And it's much easier to do this in newer buildings, which can typically hold greater weight, than to retro-fit old ones. Having a stronger roof also makes it easier to grow a greater variety of plants, since the soil can be deeper.\n\n[Paragraph D] For green roofs to become the norm for new developments, there needs to be support from public authorities and private investors. Those responsible for maintaining buildings may have to acquire new skills, such as landscaping, and in some cases, volunteers may be needed to help out. Other considerations include installing drainage paths, meeting health and safety requirements and perhaps allowing access for the public, as well as planning restrictions and disruption from regular activities in and around the buildings during installation. To convince investors and developers that installing green roofs is worthwhile, economic arguments are still the most important. The term 'natural capital' has been developed to explain the economic value of nature; for example, measuring the money saved by installing natural solutions to protect against flood damage, adapt to climate change or help people lead healthier and happier lives.\n\n[Paragraph E] As the expertise about green roofs grows, official standards have been developed to ensure that they are designed, constructed and maintained properly, and function well. Improvements in the science and technology underpinning green roof development have also led to new variations in the concept. For example, 'blue roofs' enable buildings to hold water over longer periods of time, rather than draining it away quickly — crucial in times of heavier rainfall. There are also combinations of green roofs with solar panels, and 'brown roofs' which are wilder in nature and maximise biodiversity. If the trend continues, it could create new jobs and a more vibrant and sustainable local food economy alongside many other benefits. There are still barriers to overcome, but the evidence so far indicates that green roofs have the potential to transform cities and help them function sustainably long into the future. The success stories need to be studied and replicated elsewhere, to make green, blue, brown and food-producing roofs the norm in cities around the world."
 
+    private const val CAM18_TEST4_PASSAGE2_CONTENT = "The growth mindset\n\nOver the past century, a powerful idea has taken root in the educational landscape. The concept of intelligence as something innate has been supplanted by the idea that intelligence is not fixed, and that, with the right training, we can be the authors of our own cognitive capabilities. Psychologist Alfred Binet, the developer of the first intelligence tests, was one of many 19th-century scientists who held that earlier view and sought to quantify cognitive ability. Then, in the early 20th century, progressive thinkers revolted against the notion that inherent ability is destiny. Instead, educators such as John Dewey argued that every child's intelligence could be developed, given the right environment.\n\n'Growth mindset theory' is a relatively new — and extremely popular — version of this idea. In many schools today you will see hallways covered in motivational posters and hear speeches on the mindset of great sporting heroes who simply believed their way to the top. A major focus of the growth mindset in schools is coaxing students away from seeing failure as an indication of their ability, and towards seeing it as a chance to improve that ability. As educationalist Jeff Howard noted several decades ago: 'Smart is not something that you just are, smart is something that you can get.'\n\nThe idea of the growth mindset is based on the work of psychologist Carol Dweck in California in the 1990s. In one key experiment, Dweck divided a group of 10- to 12-year-olds into two groups. All were told that they had achieved a high score on a test but the first group were praised for their intelligence in achieving this, while the others were praised for their effort. The second group — those who had been instilled with a 'growth mindset' — were subsequently far more likely to put effort into future tasks. Meanwhile, the former took on only those tasks that would not risk their sense of worth. This group had inferred that success or failure is due to innate ability, and this 'fixed mindset' had led them to fear of failure and lack of effort. Praising ability actually made the students perform worse, while praising effort emphasised that change was possible.\n\nOne of the greatest impediments to successfully implementing a growth mindset, however, is the education system itself: in many parts of the world, the school climate is obsessed with performance in the form of constant testing, analysing and ranking of students — a key characteristic of the fixed mindset. Nor is it unusual for schools to create a certain cognitive dissonance, when they applaud the benefits of a growth mindset but then hand out fixed target grades in lessons based on performance.\n\nAside from the implementation problem, the original growth mindset research has also received harsh criticism. The statistician Andrew Gelman claims that 'their research designs have enough degrees of freedom that they could take their data to support just about any theory at all'. Professor of Psychology Timothy Bates, who has been trying to replicate Dweck's work, is finding that the results are repeatedly null. He notes that: 'People with a growth mindset don't cope any better with failure ... Kids with the growth mindset aren't getting better grades, either before or after our intervention study.'\n\nMuch of this criticism is not lost on Dweck, and she deserves great credit for responding to it and adapting her work accordingly. In fact, she argues that her work has been misunderstood and misapplied in a range of ways. She has also expressed concerns that her theories are being misappropriated in schools by being conflated with the self-esteem movement: 'For me the growth mindset is a tool for learning and improvement. It's not just a vehicle for making children feel good.'\n\nBut there is another factor at work here. The failure to translate the growth mindset into the classroom might reflect a misunderstanding of the nature of teaching and learning itself. Growth mindset supporters David Yeager and Gregory Walton claim that interventions should be delivered in a subtle way to maximise their effectiveness. They say that if adolescents perceive a teacher's intervention as conveying that they are in need of help, this could undo its intended effects.\n\nA lot of what drives students is their innate beliefs and how they perceive themselves. There is a strong correlation between self-perception and achievement, but there is evidence to suggest that the actual effect of achievement on self-perception is stronger than the other way round. To stand up in a classroom and successfully deliver a good speech is a genuine achievement, and that is likely to be more powerfully motivating than vague notions of 'motivation' itself.\n\nRecent evidence would suggest that growth mindset interventions are not the elixir of student learning that its proponents claim it to be. The growth mindset appears to be a viable construct in the lab, which, when administered in the classroom via targeted interventions, doesn't seem to work. It is hard to dispute that having faith in the capacity to change is a good attribute for students. Paradoxically, however, that aspiration is not well served by direct interventions that try to instil it.\n\nMotivational posters and talks are often a waste of time, and might well give students a deluded notion of what success actually means. Teaching concrete skills such as how to write an effective introduction to an essay then praising students' effort in getting there is probably a far better way of improving confidence than telling them how unique they are, or indeed how capable they are of changing their own brains. Perhaps growth mindset works best as a philosophy and not an intervention."
+
     private const val CAM18_TEST3_PASSAGE1_CONTENT = "Concrete is everywhere, but it's bad for the planet, generating large amounts of carbon dioxide – alternatives are being developed\n\n[Paragraph A] Concrete is the second most used substance in the global economy, after water — and one of the world's biggest single sources of greenhouse gas emissions. The chemical process by which cement, the key ingredient of concrete, is created results in large quantities of carbon dioxide. The UN estimates that there will be 9.8 billion people living on the planet by mid-century. They will need somewhere to live. If concrete is the only answer to the construction of new cities, then carbon emissions will soar, aggravating global warming. And so scientists have started innovating with other materials, in a scramble for alternatives to a universal commodity that has underpinned our modern life for many years.\n\n[Paragraph B] The problem with replacing concrete is that it is so very good at what it does. Chris Cheeseman, an engineering professor at Imperial College London, says the key thing to consider is the extent to which concrete is used around the world, and is likely to continue to be used. 'Concrete is not a high-carbon product. Cement is high carbon, but concrete is not. But it is the scale on which it is used that makes it high carbon. The sheer scale of manufacture is so huge, that is the issue.'\n\n[Paragraph C] Not only are the ingredients of concrete relatively cheap and found in abundance in most places around the globe, the stuff itself has marvellous properties: Portland cement, the vital component of concrete, is mouldable and pourable, but quickly sets hard. Cheeseman also notes another advantage: concrete and steel have similar thermal expansion properties, so steel can be used to reinforce concrete, making it far stronger and more flexible as a building material than it could be on its own. According to Cheeseman, all these factors together make concrete hard to beat. 'Concrete is amazing stuff. Making anything with similar properties is going to be very difficult. '\n\n[Paragraph D] A possible alternative to concrete is wood. Making buildings from wood may seem like a rather medieval idea, but climate change is driving architects to turn to treated timber as a possible resource. Recent years have seen the emergence of tall buildings constructed almost entirely from timber. Vancouver, Vienna and Brumunddal in Norway are all home to constructed tall, wooden buildings.\n\n[Paragraph E] Using wood to construct buildings, however, is not straightforward. Wood expands as it absorbs moisture from the air and is susceptible to pests, not to mention fire. But treating wood and combining it with other materials can improve its properties. Cross-laminated timber is engineered wood. An adhesive is used to stick layers of solid-sawn timber together, crosswise, to form building blocks. This material is light but has the strength of concrete and steel. Construction experts say that wooden buildings can be constructed at a greater speed than ones of concrete and steel and the process, it seems, is quieter.\n\n[Paragraph F] Stora Enso is Europe's biggest supplier of cross-laminated timber, and its vice-president Markus Mannström reports that the company is seeing increasing demand globally for building in wood, with climate change concerns the key driver. Finland, with its large forests, where Stora Enso is based, has been leading the way, but the company is seeing a rise in demand for its timber products across the world, including in Asia. Of course, using timber in a building also locks away the carbon that it absorbed as it grew. But even treated wood has its limitations and only when a wider range of construction projects has been proven in practice will it be possible to see wood as a real alternative to concrete in constructing tall buildings.\n\n[Paragraph G] Fly ash and slag from iron ore are possible alternatives to cement in a concrete mix. Fly ash, a byproduct of coal-burning power plants, can be incorporated into concrete mixes to make up as much as 15 to 30% of the cement, without harming the strength or durability of the resulting mix. Iron-ore slag, a byproduct of the iron-ore smelting process, can be used in a similar way. Their incorporation into concrete mixes has the potential to reduce greenhouse gas emissions.\n\nBut Anna Surgenor, of the UK's Green Building Council, notes that although these waste products can save carbon in the concrete mix, their use is not always straightforward. 'It's possible to replace the cement content in concrete with waste products to lower the overall carbon impact. But there are several calculations that need to be considered across the entire life cycle of the building — these include factoring in where these materials are being shipped from. If they are transported over long distances, using fossil fuels, the use of alternative materials might not make sense from an overall carbon reduction perspective.'\n\n[Paragraph H] While these technologies are all promising ideas, they are either unproven or based on materials that are not abundant. In their overview of innovation in the concrete industry, Felix Preston and Johanna Lehne of the UK's Royal Institute of International Affairs reached the conclusion that, 'Some novel cements have been discussed for more than a decade within the research community, without breaking through. At present, these alternatives are rarely as cost-effective as conventional cement, and they face raw-material shortages and resistance from customers.'"
 
     private const val CAM18_TEST3_PASSAGE2_CONTENT = "The successes and failures of the Doble brothers and their steam cars\n\n[Paragraph A] When primitive automobiles first began to appear in the 1800s, their engines were based on steam power. Steam had already enjoyed a long and successful career in the railways, so it was only natural that the technology evolved into a miniaturized version which was separate from the trains. But these early cars inherited steam's weaknesses along with its strengths. The boilers had to be lit by hand, and they required about twenty minutes to build up pressure before they could be driven. Furthermore, their water reservoirs only lasted for about thirty miles before needing replenishment. Despite such shortcomings, these newly designed self-propelled carriages offered quick transportation, and by the early 1900s it was not uncommon to see such machines shuttling wealthy citizens around town.\n\n[Paragraph B] But the glory days of steam cars were few. A new technology called the Internal Combustion Engine soon appeared, which offered the ability to drive down the road just moments after starting up. At first, these noisy gasoline cars were unpopular because they were more complicated to operate and they had difficult hand-crank starters, which were known to break arms when the engines backfired. But in 1912 General Motors introduced the electric starter, and over the following few years steam power was gradually phased out.\n\n[Paragraph C] Even as the market was declining, four brothers made one last effort to rekindle the technology. Between 1906 and 1909, while still attending high school, Abner Doble and his three brothers built their first steam car in their parents' basement. It comprised parts taken from a wrecked early steam car but reconfigured to drive an engine of their own design. Though it did not run well, the Doble brothers went on to build a second and third prototype in the following years. Though the Doble boys' third prototype, nicknamed the Model B, still lacked the convenience of an internal combustion engine, it drew the attention of automobile trade magazines due to its numerous improvements over previous steam cars. The Model B proved to be superior to gasoline automobiles in many ways. Its high-pressure steam drove the engine pistons in virtual silence, in contrast to clattering gas engines which emitted the aroma of burned hydrocarbons. Perhaps most impressively, the Model B was amazingly swift. It could accelerate from zero to sixty miles per hour in just fifteen seconds, a feat described as 'remarkable acceleration' by Automobile magazine in 1914.\n\n[Paragraph D] The following year Abner Doble drove the Model B from Massachusetts to Detroit in order to seek investment in his automobile design, which he used to open the General Engineering Company. He and his brothers immediately began working on the Model C, which was intended to expand upon the innovations of the Model B. The brothers added features such as a key-based ignition in the cabin, eliminating the need for the operator to manually ignite the boiler. With these enhancements, the Dobles' new car company promised a steam vehicle which would provide all of the convenience of a gasoline car, but with much greater speed, much simpler driving controls, and a virtually silent powerplant. By the following April, the General Engineering Company had received 5,390 deposits for Doble Detroits, which were scheduled for delivery in early 1918.\n\n[Paragraph E] Later that year Abner Doble delivered unhappy news to those eagerly awaiting the delivery of their modern new cars. Those buyers who received the handful of completed cars complained that the vehicles were sluggish and erratic, sometimes going in reverse when they should go forward. The new engine design, though innovative, was still plagued with serious glitches.\n\n[Paragraph F] The brothers made one final attempt to produce a viable steam automobile. In early 1924, the Doble brothers shipped a Model E to New York City to be road-tested by the Automobile Club of America. After sitting overnight in freezing temperatures, the car was pushed out into the road and left to sit for over an hour in the frosty morning air. At the turn of the key, the boiler lit and reached its operating pressure inside of forty seconds. As they drove the test vehicle further, they found that its evenly distributed weight lent it surprisingly good handling, even though it was so heavy. As the new Doble steamer was further developed and tested, its maximum speed was pushed to over a hundred miles per hour, and it achieved about fifteen miles per gallon of kerosene with negligible emissions.\n\n[Paragraph G] Sadly, the Dobles' brilliant steam car never was a financial success. Priced at around $18,000 in 1924, it was popular only among the very wealthy. Plus, it is said that no two Model Es were quite the same, because Abner Doble tinkered endlessly with the design. By the time the company folded in 1931, fewer than fifty of the amazing Model E steam cars had been produced. For his whole career, until his death in 1961, Abner Doble remained adamant that steam-powered automobiles were at least equal to gasoline cars, if not superior. Given the evidence, he may have been right. Many of the Model E Dobles which have survived are still in good working condition, some having been driven over half a million miles with only normal maintenance. Astonishingly, an unmodified Doble Model E runs clean enough to pass the emissions laws in California today, and they are pretty strict. It is true that the technology poses some difficult problems, but you cannot help but wonder how efficient a steam car might be with the benefit of modern materials and computers. Under the current pressure to improve automotive performance and reduce emissions, it is not unthinkable that the steam car may rise again."
@@ -731,9 +733,9 @@ object CambridgeReadingDataSource {
                 ),
                 PassageDto(
                     passageNumber = 2,
-                    title = "Reading Passage 2",
-                    wordCount = 950,
-                    content = "[Paragraph A] Passage 2 content will be updated soon."
+                    title = "The growth mindset",
+                    wordCount = 840,
+                    content = CAM18_TEST4_PASSAGE2_CONTENT
                 ),
                 PassageDto(
                     passageNumber = 3,
@@ -1633,10 +1635,10 @@ object CambridgeReadingDataSource {
             for ((pos, promptText) in paragraphPrompts1to5) {
                 list.add(
                     QuestionDetailDto(
-                        id = "cam18_t4_q",
+                        id = "cam18_t4_q$pos",
                         position = pos,
                         type = "MULTIPLE_CHOICE",
-                        prompt = "[Which paragraph contains the following information, A–E • NB You may use any letter more than once]\n",
+                        prompt = "[Which paragraph contains the following information, A–E • NB You may use any letter more than once]\n$promptText",
                         options = paragraphOptions,
                         passageNumber = 1,
                         lineRef = "Questions 1–5 • Paragraph Information Matching (A–E)"
@@ -1654,10 +1656,10 @@ object CambridgeReadingDataSource {
             for ((pos, promptText) in summaryPrompts6to9) {
                 list.add(
                     QuestionDetailDto(
-                        id = "cam18_t4_q",
+                        id = "cam18_t4_q$pos",
                         position = pos,
                         type = "FILL_IN_BLANK",
-                        prompt = "[Advantages of green roofs — Choose ONE WORD ONLY from the passage]\n",
+                        prompt = "[Advantages of green roofs — Choose ONE WORD ONLY from the passage]\n$promptText",
                         passageNumber = 1,
                         lineRef = "Questions 6–9 • Summary Completion (ONE WORD ONLY)"
                     )
@@ -1671,7 +1673,7 @@ object CambridgeReadingDataSource {
                     id = "cam18_t4_q10",
                     position = 10,
                     type = "MULTIPLE_CHOICE",
-                    prompt = "\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
+                    prompt = "$prompt10to11\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
                     options = listOf("A", "B", "C", "D", "E"),
                     passageNumber = 1,
                     lineRef = "Questions 10–11 • Multiple Choice (Choose TWO letters)"
@@ -1682,7 +1684,7 @@ object CambridgeReadingDataSource {
                     id = "cam18_t4_q11",
                     position = 11,
                     type = "MULTIPLE_CHOICE",
-                    prompt = "\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
+                    prompt = "$prompt10to11\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
                     options = listOf("A", "B", "C", "D", "E"),
                     passageNumber = 1,
                     lineRef = "Questions 10–11 • Multiple Choice (Choose TWO letters)"
@@ -1696,7 +1698,7 @@ object CambridgeReadingDataSource {
                     id = "cam18_t4_q12",
                     position = 12,
                     type = "MULTIPLE_CHOICE",
-                    prompt = "\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
+                    prompt = "$prompt12to13\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
                     options = listOf("A", "B", "C", "D", "E"),
                     passageNumber = 1,
                     lineRef = "Questions 12–13 • Multiple Choice (Choose TWO letters)"
@@ -1707,25 +1709,89 @@ object CambridgeReadingDataSource {
                     id = "cam18_t4_q13",
                     position = 13,
                     type = "MULTIPLE_CHOICE",
-                    prompt = "\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
+                    prompt = "$prompt12to13\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
                     options = listOf("A", "B", "C", "D", "E"),
                     passageNumber = 1,
                     lineRef = "Questions 12–13 • Multiple Choice (Choose TWO letters)"
                 )
             )
 
-            // Fallback Questions 14–40 for Passages 2 & 3
-            for (pos in 14..40) {
-                val passNum = if (pos <= 26) 2 else 3
+            // Questions 14–16: Choose the correct letter, A, B, C or D
+            val mcq14to16 = listOf(
+                14 to "What can we learn from the first paragraph?\nA. where the notion of innate intelligence first began\nB. when ideas about the nature of intelligence began to shift\nC. how scientists have responded to changing views of intelligence\nD. why thinkers turned away from the idea of intelligence being fixed",
+                15 to "The second paragraph describes how schools encourage students to\nA. identify their personal ambitions.\nB. help each other to realise their goals.\nC. have confidence in their potential to succeed.\nD. concentrate on where their particular strengths lie.",
+                16 to "In the third paragraph, the writer suggests that students with a fixed mindset\nA. tend to be less competitive.\nB. generally have a low sense of self-esteem.\nC. will only work hard if they are given constant encouragement.\nD. are afraid to push themselves beyond what they see as their limitations."
+            )
+            for ((pos, promptText) in mcq14to16) {
                 list.add(
                     QuestionDetailDto(
-                        id = "cam18_t4_q",
+                        id = "cam18_t4_q$pos",
                         position = pos,
                         type = "MULTIPLE_CHOICE",
-                        prompt = "Passage  Question  content will be updated soon.",
+                        prompt = promptText,
                         options = listOf("A", "B", "C", "D"),
-                        passageNumber = passNum,
-                        lineRef = "Questions "
+                        passageNumber = 2,
+                        lineRef = "Questions 14–16 • Multiple Choice (A, B, C, D)"
+                    )
+                )
+            }
+
+            // Questions 17–22: Matching People (A–E)
+            val peopleStatements17to22 = listOf(
+                17 to "The methodology behind the growth mindset studies was not strict enough.",
+                18 to "The idea of the growth mindset has been incorrectly interpreted.",
+                19 to "Intellectual ability is an unchangeable feature of each individual.",
+                20 to "The growth mindset should be promoted without students being aware of it.",
+                21 to "The growth mindset is not simply about boosting students' morale.",
+                22 to "Research shows that the growth mindset has no effect on academic achievement."
+            )
+            val peopleHeader = "[Questions 17–22: Match each statement with the correct person or people, A–E • NB You may use any letter more than once]\nList of People:\nA. Alfred Binet\nB. Carol Dweck\nC. Andrew Gelman\nD. Timothy Bates\nE. David Yeager and Gregory Walton\n\n"
+            for ((pos, statement) in peopleStatements17to22) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t4_q$pos",
+                        position = pos,
+                        type = "MULTIPLE_CHOICE",
+                        prompt = "$peopleHeader$statement",
+                        options = listOf("A", "B", "C", "D", "E"),
+                        passageNumber = 2,
+                        lineRef = "Questions 17–22 • Matching People (A–E)"
+                    )
+                )
+            }
+
+            // Questions 23–26: YES / NO / NOT GIVEN
+            val tfStatements23to26 = listOf(
+                23 to "Dweck has handled criticisms of her work in an admirable way.",
+                24 to "Students' self-perception is a more effective driver of self-confidence than actual achievement is.",
+                25 to "Recent evidence about growth mindset interventions has attracted unfair coverage in the media.",
+                26 to "Deliberate attempts to encourage students to strive for high achievement may have a negative effect."
+            )
+            for ((pos, statement) in tfStatements23to26) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t4_q$pos",
+                        position = pos,
+                        type = "TRUE_FALSE",
+                        prompt = statement,
+                        options = listOf("YES", "NO", "NOT GIVEN"),
+                        passageNumber = 2,
+                        lineRef = "Questions 23–26 • YES / NO / NOT GIVEN"
+                    )
+                )
+            }
+
+            // Fallback Questions 27–40 for Passage 3
+            for (pos in 27..40) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t4_q$pos",
+                        position = pos,
+                        type = "MULTIPLE_CHOICE",
+                        prompt = "Passage 3 Question $pos content will be updated soon.",
+                        options = listOf("A", "B", "C", "D"),
+                        passageNumber = 3,
+                        lineRef = "Questions $pos"
                     )
                 )
             }
@@ -2559,6 +2625,84 @@ object CambridgeReadingDataSource {
                 acceptedAnswers = listOf("A", "D"),
                 explanation = "Đoạn E: Kết hợp mái nhà xanh với tấm pin năng lượng mặt trời ('combinations of green roofs with solar panels' -> generate power from a sustainable source). Đáp án A hoặc D đều được chấp nhận.",
                 evidenceQuote = "There are also combinations of green roofs with solar panels, and 'brown roofs' which are wilder in nature and maximise biodiversity."
+            )
+            14 -> QuestionAnswerMetadata(
+                correctAnswer = "B",
+                acceptedAnswers = listOf("B"),
+                explanation = "Đoạn 1 nêu rõ thời điểm mà các quan niệm về bản chất của trí thông minh bắt đầu dịch chuyển: vào đầu thế kỷ 20, những nhà tư tưởng tiến bộ đã phản kháng lại quan niệm khả năng bẩm sinh là định mệnh ('in the early 20th century, progressive thinkers revolted against the notion that inherent ability is destiny') -> B (when ideas about the nature of intelligence began to shift).",
+                evidenceQuote = "Then, in the early 20th century, progressive thinkers revolted against the notion that inherent ability is destiny. Instead, educators such as John Dewey argued that every child's intelligence could be developed, given the right environment."
+            )
+            15 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C"),
+                explanation = "Đoạn 2 mô tả cách các trường học treo áp phích truyền cảm hứng, kể về các anh hùng thể thao tin tưởng để vươn tới đỉnh cao, hướng học sinh coi thất bại là cơ hội cải thiện khả năng và tin rằng trí thông minh là thứ có thể đạt được -> khích lệ học sinh tự tin vào tiềm năng thành công của mình -> C.",
+                evidenceQuote = "A major focus of the growth mindset in schools is coaxing students away from seeing failure as an indication of their ability, and towards seeing it as a chance to improve that ability... 'Smart is not something that you just are, smart is something that you can get.'"
+            )
+            16 -> QuestionAnswerMetadata(
+                correctAnswer = "D",
+                acceptedAnswers = listOf("D"),
+                explanation = "Đoạn 3 chỉ ra rằng nhóm học sinh có tư duy cố định (fixed mindset) chỉ nhận những nhiệm vụ không mạo hiểm thể diện, dẫn đến nỗi sợ thất bại và thiếu nỗ lực -> các em sợ vượt ra ngoài những gì bản thân coi là giới hạn -> D.",
+                evidenceQuote = "Meanwhile, the former took on only those tasks that would not risk their sense of worth. This group had inferred that success or failure is due to innate ability, and this 'fixed mindset' had led them to fear of failure and lack of effort."
+            )
+            17 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C"),
+                explanation = "Đoạn 5: Nhà thống kê Andrew Gelman (C) phê phán rằng các thiết kế nghiên cứu về tư duy phát triển có quá nhiều bậc tự do (degrees of freedom), cho phép số liệu có thể hỗ trợ gần như bất kỳ giả thuyết nào -> phương pháp nghiên cứu chưa đủ chặt chẽ.",
+                evidenceQuote = "The statistician Andrew Gelman claims that 'their research designs have enough degrees of freedom that they could take their data to support just about any theory at all'."
+            )
+            18 -> QuestionAnswerMetadata(
+                correctAnswer = "B",
+                acceptedAnswers = listOf("B"),
+                explanation = "Đoạn 6: Carol Dweck (B) lập luận rằng nghiên cứu của bà đã bị hiểu lầm và áp dụng sai lệch (misunderstood and misapplied) theo nhiều cách, đặc biệt là bị đánh đồng với phong trào tôn vinh lòng tự trọng của học sinh.",
+                evidenceQuote = "In fact, she argues that her work has been misunderstood and misapplied in a range of ways. She has also expressed concerns that her theories are being misappropriated in schools"
+            )
+            19 -> QuestionAnswerMetadata(
+                correctAnswer = "A",
+                acceptedAnswers = listOf("A"),
+                explanation = "Đoạn 1: Nhà tâm lý học Alfred Binet (A) cùng nhiều nhà khoa học thế kỷ 19 tin vào quan niệm trước đây rằng trí thông minh là thứ bẩm sinh (innate) và không thể thay đổi.",
+                evidenceQuote = "The concept of intelligence as something innate has been supplanted by the idea that intelligence is not fixed... Alfred Binet, the developer of the first intelligence tests, was one of many 19th-century scientists who held that earlier view"
+            )
+            20 -> QuestionAnswerMetadata(
+                correctAnswer = "E",
+                acceptedAnswers = listOf("E"),
+                explanation = "Đoạn 7: David Yeager và Gregory Walton (E) khẳng định các can thiệp tư duy phát triển nên được đưa ra một cách tinh tế (subtle way) để tối đa hoá hiệu quả; nếu thanh thiếu niên nhận thấy sự can thiệp của giáo viên là biểu hiện họ cần giúp đỡ thì tác dụng sẽ bị phản tác dụng -> nên thúc đẩy một cách kín đáo mà học sinh không bị áp đặt nhận thức.",
+                evidenceQuote = "Growth mindset supporters David Yeager and Gregory Walton claim that interventions should be delivered in a subtle way to maximise their effectiveness. They say that if adolescents perceive a teacher's intervention as conveying that they are in need of help, this could undo its intended effects."
+            )
+            21 -> QuestionAnswerMetadata(
+                correctAnswer = "B",
+                acceptedAnswers = listOf("B"),
+                explanation = "Đoạn 6: Carol Dweck (B) nhấn mạnh tư duy phát triển là công cụ để học tập và tiến bộ, chứ không đơn thuần là phương tiện để làm trẻ cảm thấy vui vẻ / nâng cao tinh thần ('It's not just a vehicle for making children feel good').",
+                evidenceQuote = "For me the growth mindset is a tool for learning and improvement. It's not just a vehicle for making children feel good."
+            )
+            22 -> QuestionAnswerMetadata(
+                correctAnswer = "D",
+                acceptedAnswers = listOf("D"),
+                explanation = "Đoạn 5: Giáo sư Timothy Bates (D) khi lặp lại nghiên cứu của Dweck nhận thấy kết quả hoàn toàn vô hiệu (null): học sinh có tư duy phát triển không đạt điểm số tốt hơn cả trước lẫn sau can thiệp -> không ảnh hưởng đến thành tích học tập.",
+                evidenceQuote = "is finding that the results are repeatedly null. He notes that: 'People with a growth mindset don't cope any better with failure ... Kids with the growth mindset aren't getting better grades, either before or after our intervention study.'"
+            )
+            23 -> QuestionAnswerMetadata(
+                correctAnswer = "YES",
+                acceptedAnswers = listOf("YES"),
+                explanation = "Đoạn 6: Tác giả nhận định Dweck rất đáng được khen ngợi / khâm phục vì đã phản hồi và tiếp thu các lời phê bình để điều chỉnh công trình của mình ('she deserves great credit for responding to it and adapting her work accordingly') -> Đồng ý (YES).",
+                evidenceQuote = "Much of this criticism is not lost on Dweck, and she deserves great credit for responding to it and adapting her work accordingly."
+            )
+            24 -> QuestionAnswerMetadata(
+                correctAnswer = "NO",
+                acceptedAnswers = listOf("NO"),
+                explanation = "Đoạn 8: Bài đọc khẳng định bằng chứng cho thấy tác động thực tế của thành tích lên nhận thức bản thân mạnh hơn là chiều ngược lại ('the actual effect of achievement on self-perception is stronger than the other way round') -> Mệnh đề nói nhận thức bản thân hiệu quả hơn thành tích thực tế là sai (NO).",
+                evidenceQuote = "there is evidence to suggest that the actual effect of achievement on self-perception is stronger than the other way round."
+            )
+            25 -> QuestionAnswerMetadata(
+                correctAnswer = "NOT GIVEN",
+                acceptedAnswers = listOf("NOT GIVEN"),
+                explanation = "Đoạn 9 chỉ bàn về các bằng chứng gần đây cho thấy can thiệp trong phòng thí nghiệm không hiệu quả khi áp dụng vào lớp học, hoàn toàn KHÔNG đề cập đến việc truyền thông đưa tin bất công hay công bằng -> NOT GIVEN.",
+                evidenceQuote = "Recent evidence would suggest that growth mindset interventions are not the elixir of student learning that its proponents claim it to be."
+            )
+            26 -> QuestionAnswerMetadata(
+                correctAnswer = "YES",
+                acceptedAnswers = listOf("YES"),
+                explanation = "Đoạn 9 & 10: Tác giả chỉ ra rằng nghịch lý là nguyện vọng thay đổi không được đáp ứng tốt bởi các can thiệp trực tiếp cố gắng nhồi nhét nó, và các nỗ lực trực tiếp thúc đẩy có thể phản tác dụng hoặc làm học sinh ảo tưởng về thành công ('undo its intended effects', 'give students a deluded notion') -> Cố tình khuyến khích có thể gây tác dụng tiêu cực (YES).",
+                evidenceQuote = "Paradoxically, however, that aspiration is not well served by direct interventions that try to instil it... might well give students a deluded notion of what success actually means."
             )
             else -> null
         }
