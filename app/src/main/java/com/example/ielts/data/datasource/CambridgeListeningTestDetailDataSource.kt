@@ -955,8 +955,8 @@ object CambridgeListeningTestDetailDataSource {
                 sectionNumber = 3,
                 title = "Part 3: Automation and the Future of Work",
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758712/%E5%89%9118_section3_part1.mp3",
-                durationSeconds = 420,
-                transcript = "[00:00] Part 3. You will hear two students discussing automation and the future of work."
+                durationSeconds = 330,
+                transcript = "[00:00] ANNOUNCER: Introduction. Two business students are discussing a seminar they attended about automation, technological development and how these changes may affect employment in the future.\n[00:41] STUDENT 1: That seminar we attended yesterday about automation and the future of work was really interesting, wasn't it?\n[00:48] STUDENT 1: I particularly enjoyed learning about the First Industrial Revolution in Britain during the nineteenth century and how people reacted to the changes taking place at that time.\n[00:57] STUDENT 2: Yes, it was fascinating to find out how workers felt about the new technology and the difficulties they experienced.\n[01:03] STUDENT 2: At first, many textile workers strongly opposed the introduction of new machines.\n[01:08] STUDENT 1: That's right. The Luddites, for example, actually destroyed weaving machines because they were afraid that these machines would take away their jobs.\n[01:16] STUDENT 2: Their protests weren't successful in stopping industrialisation. In the long run, the development of industry created more employment opportunities than the number of jobs it replaced. [Q21-22]\n[01:24] STUDENT 1: I agree that things improved over time, but I can understand why those workers felt threatened. They had good reasons to worry about their future. [Q21-22]\n[01:32] STUDENT 2: The seminar seemed quite optimistic about modern technology. Robots could take over boring and repetitive tasks, allowing people to concentrate on more interesting work.\n[01:51] STUDENT 1: I'm not completely convinced. For instance, people often predict that technology will give us more free time, but the evidence seems to suggest that working hours are actually increasing. [Q23-24]\n[02:02] STUDENT 2: I also doubt that unemployment will decrease in the near future. Perhaps the situation will improve over a longer period. [Q23-24]\n[02:12] STUDENT 2: Another issue is that people may have to continue working until an older age because life expectancy is increasing.\n[02:19] STUDENT 1: That's already happening in some places, isn't it?\n[02:23] ANNOUNCER: Transition to Questions 25–30.\n[03:07] STUDENT 1: I find it particularly interesting to look at how technology has affected different professions.\n[03:13] STUDENT 2: Take accountants, for example. Although computers have changed the way they work, the number of people employed in accounting has actually increased. Technology allows them to complete their tasks more efficiently, but accountants are still needed. [Q25]\n[03:28] STUDENT 1: That's surprising. I wouldn't have expected the number of accountants to be around twenty times higher than it was in the nineteenth century.\n[03:35] STUDENT 2: Hairdressers are another interesting example. There are now approximately one hairdresser for every 287 people, compared with more than 1,500 people for each hairdresser in the past.\n[03:48] STUDENT 1: That may be because people have higher incomes and can afford to spend more money on personal services. Technology hasn't fundamentally changed the nature of hairdressing. [Q26]\n[04:04] STUDENT 2: Administrative work has changed much more dramatically. In the past, secretaries mainly took dictation and typed documents.\n[04:14] STUDENT 1: Nowadays, administrative employees often have greater responsibilities and a higher professional status. These jobs can even attract people with university degrees. [Q27]\n[04:21] STUDENT 1: Agriculture is another example. According to the 1871 census, approximately a quarter of the population worked on farms.\n[04:37] STUDENT 2: That's a huge difference from today, when the proportion is less than 0.2 per cent. [Q28]\n[04:43] STUDENT 1: Care work is also worth considering. In the past, fewer people needed long-term care because life expectancy was shorter. As people live longer, demand for care workers is expected to increase. [Q29]\n[04:54] STUDENT 2: In fact, there are already shortages of workers in the care sector.\n[04:58] STUDENT 1: What about bank tellers? Their numbers have fallen since automated teller machines were introduced in the 1980s.\n[05:05] STUDENT 2: And technology may eventually make many traditional banking tasks unnecessary. It's difficult to predict exactly what will happen to those jobs in the future. [Q30]\n[05:19] ANNOUNCER: End of Part 3."
             ),
             ListeningSectionDto(
                 sectionNumber = 4,
@@ -1222,100 +1222,172 @@ object CambridgeListeningTestDetailDataSource {
                 id = "cam18_t3_q21",
                 position = 21,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Automation and the future of work\nQuestions 21 and 22: Choose TWO letters, Aâ€“E.\nWhich TWO opinions do the students express about the Luddites?\n(Chá» n lá»±a chá» n thá»© nháº¥t trong 2 Ä‘Ã¡p Ã¡n)",
-                options = listOf("A. Their actions were ineffective.", "B. They were motivated by greed.", "C. They targeted the wrong machines.", "D. They received little public support.", "E. Their attitude is understandable."),
+                prompt = "Automation and the future of work\nQuestions 21 and 22: Choose TWO letters, A–E.\nWhich TWO opinions about the Luddites do the students express?\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
+                options = listOf(
+                    "A. Their actions were ineffective.",
+                    "B. They are still influential today.",
+                    "C. They have received unfair criticism.",
+                    "D. They were proved right.",
+                    "E. Their attitude is understandable."
+                ),
                 sectionNumber = 3,
-                timestampStart = 60,
+                timestampStart = 76,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q22",
                 position = 22,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Automation and the future of work\nQuestions 21 and 22: Choose TWO letters, Aâ€“E.\nWhich TWO opinions do the students express about the Luddites?\n(Chá» n lá»±a chá» n thá»© hai trong 2 Ä‘Ã¡p Ã¡n)",
-                options = listOf("A. Their actions were ineffective.", "B. They were motivated by greed.", "C. They targeted the wrong machines.", "D. They received little public support.", "E. Their attitude is understandable."),
+                prompt = "Automation and the future of work\nQuestions 21 and 22: Choose TWO letters, A–E.\nWhich TWO opinions about the Luddites do the students express?\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
+                options = listOf(
+                    "A. Their actions were ineffective.",
+                    "B. They are still influential today.",
+                    "C. They have received unfair criticism.",
+                    "D. They were proved right.",
+                    "E. Their attitude is understandable."
+                ),
                 sectionNumber = 3,
-                timestampStart = 90,
+                timestampStart = 84,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q23",
                 position = 23,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Automation and the future of work\nQuestions 23 and 24: Choose TWO letters, Aâ€“E.\nWhich TWO predictions about the future of work are the students doubtful about?\n(Chá» n lá»±a chá» n thá»© nháº¥t trong 2 Ä‘Ã¡p Ã¡n)",
-                options = listOf("A. More jobs will require IT skills.", "B. Unemployment will fall.", "C. Many repetitive jobs will disappear.", "D. Working hours will be shorter.", "E. Remote work will become universal."),
+                prompt = "Automation and the future of work\nQuestions 23 and 24: Choose TWO letters, A–E.\nWhich TWO predictions about the future of work are the students doubtful about?\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
+                options = listOf(
+                    "A. Work will be more rewarding.",
+                    "B. Unemployment will fall.",
+                    "C. People will want to delay retiring.",
+                    "D. Working hours will be shorter.",
+                    "E. People will change jobs more frequently."
+                ),
                 sectionNumber = 3,
-                timestampStart = 120,
+                timestampStart = 122,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q24",
                 position = 24,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Automation and the future of work\nQuestions 23 and 24: Choose TWO letters, Aâ€“E.\nWhich TWO predictions about the future of work are the students doubtful about?\n(Chá» n lá»±a chá» n thá»© hai trong 2 Ä‘Ã¡p Ã¡n)",
-                options = listOf("A. More jobs will require IT skills.", "B. Unemployment will fall.", "C. Many repetitive jobs will disappear.", "D. Working hours will be shorter.", "E. Remote work will become universal."),
+                prompt = "Automation and the future of work\nQuestions 23 and 24: Choose TWO letters, A–E.\nWhich TWO predictions about the future of work are the students doubtful about?\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
+                options = listOf(
+                    "A. Work will be more rewarding.",
+                    "B. Unemployment will fall.",
+                    "C. People will want to delay retiring.",
+                    "D. Working hours will be shorter.",
+                    "E. People will change jobs more frequently."
+                ),
                 sectionNumber = 3,
-                timestampStart = 150,
+                timestampStart = 111,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q25",
                 position = 25,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Automation and the future of work\n25. What do the students agree about current government retraining schemes?",
-                options = listOf("A. They are poorly funded.", "B. They focus too much on manufacturing.", "C. They do not prepare people for real jobs."),
+                prompt = "Automation and the future of work\nQuestions 25–30: What comment do the students make about each of the following jobs?\nChoose SIX answers from the box and write the correct letter, A–G, next to Questions 25–30.\n\nComments:\nA. These jobs are likely to be at risk\nB. Their role has become more interesting in recent years\nC. The number of people working in this sector has fallen dramatically\nD. This job will require more qualifications\nE. Higher disposable income has led to a huge increase in jobs\nF. There is likely to be a significant rise in demand for this service\nG. Both employment and productivity have risen\n\n25. Accountants",
+                options = listOf(
+                    "A. These jobs are likely to be at risk",
+                    "B. Their role has become more interesting in recent years",
+                    "C. The number of people working in this sector has fallen dramatically",
+                    "D. This job will require more qualifications",
+                    "E. Higher disposable income has led to a huge increase in jobs",
+                    "F. There is likely to be a significant rise in demand for this service",
+                    "G. Both employment and productivity have risen"
+                ),
                 sectionNumber = 3,
-                timestampStart = 180,
+                timestampStart = 193,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q26",
                 position = 26,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Automation and the future of work\n26. Both students believe that future education should place more emphasis on",
-                options = listOf("A. soft skills like critical thinking.", "B. advanced mathematics.", "C. vocational apprenticeships."),
+                prompt = "Automation and the future of work\nQuestions 25–30: What comment do the students make about each of the following jobs?\nChoose SIX answers from the box and write the correct letter, A–G, next to Questions 25–30.\n\nComments:\nA. These jobs are likely to be at risk\nB. Their role has become more interesting in recent years\nC. The number of people working in this sector has fallen dramatically\nD. This job will require more qualifications\nE. Higher disposable income has led to a huge increase in jobs\nF. There is likely to be a significant rise in demand for this service\nG. Both employment and productivity have risen\n\n26. Hairdressers",
+                options = listOf(
+                    "A. These jobs are likely to be at risk",
+                    "B. Their role has become more interesting in recent years",
+                    "C. The number of people working in this sector has fallen dramatically",
+                    "D. This job will require more qualifications",
+                    "E. Higher disposable income has led to a huge increase in jobs",
+                    "F. There is likely to be a significant rise in demand for this service",
+                    "G. Both employment and productivity have risen"
+                ),
                 sectionNumber = 3,
-                timestampStart = 210,
+                timestampStart = 228,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q27",
                 position = 27,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Automation and the future of work\n27. How does the female student feel about artificial intelligence in healthcare?",
-                options = listOf("A. suspicious of its diagnostic accuracy", "B. optimistic about earlier disease detection", "C. concerned about patient privacy"),
+                prompt = "Automation and the future of work\nQuestions 25–30: What comment do the students make about each of the following jobs?\nChoose SIX answers from the box and write the correct letter, A–G, next to Questions 25–30.\n\nComments:\nA. These jobs are likely to be at risk\nB. Their role has become more interesting in recent years\nC. The number of people working in this sector has fallen dramatically\nD. This job will require more qualifications\nE. Higher disposable income has led to a huge increase in jobs\nF. There is likely to be a significant rise in demand for this service\nG. Both employment and productivity have risen\n\n27. Administrative staff",
+                options = listOf(
+                    "A. These jobs are likely to be at risk",
+                    "B. Their role has become more interesting in recent years",
+                    "C. The number of people working in this sector has fallen dramatically",
+                    "D. This job will require more qualifications",
+                    "E. Higher disposable income has led to a huge increase in jobs",
+                    "F. There is likely to be a significant rise in demand for this service",
+                    "G. Both employment and productivity have risen"
+                ),
                 sectionNumber = 3,
-                timestampStart = 240,
+                timestampStart = 254,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q28",
                 position = 28,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Automation and the future of work\n28. What point is made about the gig economy?",
-                options = listOf("A. It offers unmatched flexibility.", "B. It is mainly used by young people.", "C. It lacks essential worker protections."),
+                prompt = "Automation and the future of work\nQuestions 25–30: What comment do the students make about each of the following jobs?\nChoose SIX answers from the box and write the correct letter, A–G, next to Questions 25–30.\n\nComments:\nA. These jobs are likely to be at risk\nB. Their role has become more interesting in recent years\nC. The number of people working in this sector has fallen dramatically\nD. This job will require more qualifications\nE. Higher disposable income has led to a huge increase in jobs\nF. There is likely to be a significant rise in demand for this service\nG. Both employment and productivity have risen\n\n28. Agricultural workers",
+                options = listOf(
+                    "A. These jobs are likely to be at risk",
+                    "B. Their role has become more interesting in recent years",
+                    "C. The number of people working in this sector has fallen dramatically",
+                    "D. This job will require more qualifications",
+                    "E. Higher disposable income has led to a huge increase in jobs",
+                    "F. There is likely to be a significant rise in demand for this service",
+                    "G. Both employment and productivity have risen"
+                ),
                 sectionNumber = 3,
-                timestampStart = 270,
+                timestampStart = 277,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q29",
                 position = 29,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Automation and the future of work\n29. Regarding the concept of Universal Basic Income, the male student",
-                options = listOf("A. questions whether countries can afford it.", "B. thinks it would discourage people from working.", "C. argues it would reduce economic inequality."),
+                prompt = "Automation and the future of work\nQuestions 25–30: What comment do the students make about each of the following jobs?\nChoose SIX answers from the box and write the correct letter, A–G, next to Questions 25–30.\n\nComments:\nA. These jobs are likely to be at risk\nB. Their role has become more interesting in recent years\nC. The number of people working in this sector has fallen dramatically\nD. This job will require more qualifications\nE. Higher disposable income has led to a huge increase in jobs\nF. There is likely to be a significant rise in demand for this service\nG. Both employment and productivity have risen\n\n29. Care workers",
+                options = listOf(
+                    "A. These jobs are likely to be at risk",
+                    "B. Their role has become more interesting in recent years",
+                    "C. The number of people working in this sector has fallen dramatically",
+                    "D. This job will require more qualifications",
+                    "E. Higher disposable income has led to a huge increase in jobs",
+                    "F. There is likely to be a significant rise in demand for this service",
+                    "G. Both employment and productivity have risen"
+                ),
                 sectionNumber = 3,
-                timestampStart = 300,
+                timestampStart = 283,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q30",
                 position = 30,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Automation and the future of work\n30. For their presentation, the students decide to focus on",
-                options = listOf("A. a comparison of three different industries.", "B. the impact of automation on service sector jobs.", "C. an interview with a tech company CEO."),
+                prompt = "Automation and the future of work\nQuestions 25–30: What comment do the students make about each of the following jobs?\nChoose SIX answers from the box and write the correct letter, A–G, next to Questions 25–30.\n\nComments:\nA. These jobs are likely to be at risk\nB. Their role has become more interesting in recent years\nC. The number of people working in this sector has fallen dramatically\nD. This job will require more qualifications\nE. Higher disposable income has led to a huge increase in jobs\nF. There is likely to be a significant rise in demand for this service\nG. Both employment and productivity have risen\n\n30. Bank clerks",
+                options = listOf(
+                    "A. These jobs are likely to be at risk",
+                    "B. Their role has become more interesting in recent years",
+                    "C. The number of people working in this sector has fallen dramatically",
+                    "D. This job will require more qualifications",
+                    "E. Higher disposable income has led to a huge increase in jobs",
+                    "F. There is likely to be a significant rise in demand for this service",
+                    "G. Both employment and productivity have risen"
+                ),
                 sectionNumber = 3,
-                timestampStart = 330,
+                timestampStart = 305,
                 timestampEnd = 0
             ),
             // Section 4: Q31-40

@@ -650,8 +650,8 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
                 "clouds", "timing", "Animal Magic", "movement", "dark",
                 "B", "C", "B", "D", "C",
                 "B", "B", "C", "A", "A",
-                "A", "E", "B", "D", "C",
-                "A", "B", "C", "A", "B",
+                "A", "E", "B", "D", "G",
+                "E", "B", "C", "F", "A",
                 "technical", "cheap", "thousands", "identification", "tracking",
                 "military", "location", "prediction", "database", "trust"
             )
@@ -701,8 +701,16 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
                 "building developments and the removal of water from natural areas can damage mushroom habitats.",
                 "put them in a brown paper bag and keep them in the refrigerator. You should use them within a few days",
                 "There are plenty of ways to cook wild mushrooms. You can add them to stir-fries, risotto or pasta dishes.",
-                "Dẫn chứng câu 21", "Dẫn chứng câu 22", "Dẫn chứng câu 23", "Dẫn chứng câu 24", "Dẫn chứng câu 25",
-                "Dẫn chứng câu 26", "Dẫn chứng câu 27", "Dẫn chứng câu 28", "Dẫn chứng câu 29", "Dẫn chứng câu 30",
+                "Their protests weren't successful in stopping industrialisation.",
+                "I can understand why those workers felt threatened. They had good reasons to worry about their future.",
+                "I also doubt that unemployment will decrease in the near future.",
+                "people often predict that technology will give us more free time, but the evidence seems to suggest that working hours are actually increasing.",
+                "Although computers have changed the way they work, the number of people employed in accounting has actually increased. Technology allows them to complete their tasks more efficiently",
+                "That may be because people have higher incomes and can afford to spend more money on personal services.",
+                "administrative employees often have greater responsibilities and a higher professional status.",
+                "quarter of the population worked on farms. That's a huge difference from today, when the proportion is less than 0.2 per cent.",
+                "As people live longer, demand for care workers is expected to increase.",
+                "technology may eventually make many traditional banking tasks unnecessary. It's difficult to predict exactly what will happen to those jobs in the future.",
                 "Dẫn chứng câu 31", "Dẫn chứng câu 32", "Dẫn chứng câu 33", "Dẫn chứng câu 34", "Dẫn chứng câu 35",
                 "Dẫn chứng câu 36", "Dẫn chứng câu 37", "Dẫn chứng câu 38", "Dẫn chứng câu 39", "Dẫn chứng câu 40"
             )
@@ -770,7 +778,7 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
             listOf(
                 124, 146, 178, 195, 266, 323, 340, 355, 359, 375,
                 82, 82, 174, 128, 262, 299, 308, 338, 369, 390,
-                60, 90, 120, 150, 180, 210, 240, 270, 300, 330,
+                76, 84, 122, 111, 193, 228, 254, 277, 283, 305,
                 60, 90, 120, 150, 180, 210, 240, 270, 300, 330
             )
         } else if (isTest2) {
