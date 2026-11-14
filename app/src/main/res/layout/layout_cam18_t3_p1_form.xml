@@ -98,7 +98,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="6dp"
             android:orientation="horizontal">
 
             <TextView
@@ -115,14 +115,14 @@
                 android:layout_weight="1"
                 android:text="Dan Green"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="13sp" />
         </LinearLayout>
 
         <!-- Email address -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="12dp"
             android:orientation="horizontal">
 
             <TextView
@@ -139,227 +139,190 @@
                 android:layout_weight="1"
                 android:text="dan1068@market.com"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="13sp" />
         </LinearLayout>
 
-        <!-- Home address (Q1) -->
+        <!-- Blank 1: Home address -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:background="@drawable/bg_choice_unselected_soft"
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <TextView
-                android:layout_width="120dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Home address:"
                 android:textColor="@color/text_secondary"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_marginTop="2dp"
+                android:text="52 [ 1 ] .................... Street, Peacetown"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="52 "
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/etFormBlank1"
-                    android:layout_width="120dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginEnd="4dp"
-                    android:background="@drawable/bg_input_answer_listening"
-                    android:gravity="center"
-                    android:hint="1"
-                    android:imeOptions="actionNext"
-                    android:inputType="textCapWords"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    android:singleLine="true"
-                    android:textColor="@color/primary_blue"
-                    android:textColorHint="#94A3B8"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" Street, Peacetown"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
-            </LinearLayout>
+            <EditText
+                android:id="@+id/etFormBlank1"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_input_answer_listening"
+                android:hint="Write answer for 1..."
+                android:imeOptions="actionNext"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:singleLine="true"
+                android:textColor="@color/primary_blue"
+                android:textSize="13sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Heard about us (Q2) -->
+        <!-- Blank 2: Heard about us -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:background="@drawable/bg_choice_unselected_soft"
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <TextView
-                android:layout_width="120dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Heard about us:"
                 android:textColor="@color/text_secondary"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_marginTop="2dp"
+                android:text="from a [ 2 ] ...................."
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="from a "
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/etFormBlank2"
-                    android:layout_width="130dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="4dp"
-                    android:background="@drawable/bg_input_answer_listening"
-                    android:gravity="center"
-                    android:hint="2"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    android:singleLine="true"
-                    android:textColor="@color/primary_blue"
-                    android:textColorHint="#94A3B8"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+            <EditText
+                android:id="@+id/etFormBlank2"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_input_answer_listening"
+                android:hint="Write answer for 2..."
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:singleLine="true"
+                android:textColor="@color/primary_blue"
+                android:textSize="13sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Reasons for joining (Q3) -->
+        <!-- Blank 3: Reasons for joining -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:background="@drawable/bg_choice_unselected_soft"
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <TextView
-                android:layout_width="120dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Reasons for\njoining:"
+                android:text="Reasons for joining:"
                 android:textColor="@color/text_secondary"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_marginTop="2dp"
+                android:text="• to enter competitions"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:text="• to enter competitions"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="• to [ 3 ] ...................."
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="• to "
-                        android:textColor="@color/text_primary"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/etFormBlank3"
-                        android:layout_width="150dp"
-                        android:layout_height="36dp"
-                        android:layout_marginStart="4dp"
-                        android:background="@drawable/bg_input_answer_listening"
-                        android:gravity="center"
-                        android:hint="3"
-                        android:imeOptions="actionNext"
-                        android:inputType="text"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:singleLine="true"
-                        android:textColor="@color/primary_blue"
-                        android:textColorHint="#94A3B8"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
+            <EditText
+                android:id="@+id/etFormBlank3"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_input_answer_listening"
+                android:hint="Write answer for 3..."
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:singleLine="true"
+                android:textColor="@color/primary_blue"
+                android:textSize="13sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Type of membership (Q4) -->
+        <!-- Blank 4: Type of membership -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:background="@drawable/bg_choice_unselected_soft"
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <TextView
-                android:layout_width="120dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Type of\nmembership:"
+                android:text="Type of membership:"
                 android:textColor="@color/text_secondary"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_marginTop="2dp"
+                android:text="[ 4 ] .................... membership (£30)"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/etFormBlank4"
-                    android:layout_width="110dp"
-                    android:layout_height="36dp"
-                    android:layout_marginEnd="4dp"
-                    android:background="@drawable/bg_input_answer_listening"
-                    android:gravity="center"
-                    android:hint="4"
-                    android:imeOptions="actionDone"
-                    android:inputType="text"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    android:singleLine="true"
-                    android:textColor="@color/primary_blue"
-                    android:textColorHint="#94A3B8"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" membership (£30)"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
-            </LinearLayout>
+            <EditText
+                android:id="@+id/etFormBlank4"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_input_answer_listening"
+                android:hint="Write answer for 4..."
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:singleLine="true"
+                android:textColor="@color/primary_blue"
+                android:textSize="13sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>

@@ -852,7 +852,7 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         // 1. Questions 1–4: Form
         val formView = inflater.inflate(R.layout.layout_cam18_t3_p1_form, layoutDynamicQuestions, false)
         formView.findViewById<TextView>(R.id.btnZoomFormT3P1).setOnClickListener {
-            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test3_part1, "Wayside Camera Club membership form")
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test3_part1_form, "Wayside Camera Club membership form")
         }
         bindBlankEditText(formView.findViewById(R.id.etFormBlank1), 1)
         bindBlankEditText(formView.findViewById(R.id.etFormBlank2), 2)
@@ -863,7 +863,7 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         // 2. Questions 5–10: Table
         val tableView = inflater.inflate(R.layout.layout_cam18_t3_p1_table, layoutDynamicQuestions, false)
         tableView.findViewById<TextView>(R.id.btnZoomTableT3P1).setOnClickListener {
-            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test3_part1, "Photography competitions table")
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test3_part1_table, "Photography competitions")
         }
         bindBlankEditText(tableView.findViewById(R.id.etTableBlank5), 5)
         bindBlankEditText(tableView.findViewById(R.id.etTableBlank6), 6)
