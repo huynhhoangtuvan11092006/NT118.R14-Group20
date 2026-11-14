@@ -256,6 +256,7 @@ class ProfileActivity : AppCompatActivity() {
 
                 // Xóa cache lộ trình cũ để AI tạo mới theo đúng hồ sơ vừa thiết lập
                 com.example.ielts.ui.roadmap.RoadmapManager.clearAiCache(this@ProfileActivity)
+                com.example.ielts.data.local.CloudSyncManager.pushToCloudAsync(this@ProfileActivity)
 
                 Toast.makeText(
                     this@ProfileActivity,

@@ -35,7 +35,9 @@ import com.example.ielts.ui.vocabulary.VocabularyHubActivity
 import com.example.ielts.ui.writing.WritingEditorActivity
 import com.example.ielts.ui.writing.WritingListActivity
 import com.example.ielts.utils.Constants
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -76,14 +78,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            setShowWhenLocked(true)
-            setTurnScreenOn(true)
-        }
         setContentView(R.layout.activity_main)
 
         initViews()
-        loadUserData()
         setupListeners()
         StudyReminderScheduler.scheduleDailyReminder(this)
 
@@ -139,14 +136,13 @@ class MainActivity : AppCompatActivity() {
         val token = prefs.getString(Constants.KEY_AUTH_TOKEN, null)
         if (!token.isNullOrEmpty()) {
             val authHeader = if (token.startsWith("Bearer ")) token else "Bearer $token"
-            lifecycleScope.launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     val response = ApiClient.apiService.getMe(authHeader)
                     if (response.isSuccessful && response.body() != null) {
                         val user = response.body()!!.user
                         val realName = user.fullName
                         val realBand = user.targetBand?.toDouble() ?: cachedBand.toDouble()
-                        val streak = user.streakDays ?: 0
 
                         var examDateFormatted = cachedExamDate
                         user.expectedExamDate?.let { isoDate ->
@@ -162,16 +158,25 @@ class MainActivity : AppCompatActivity() {
 
                         prefs.edit().apply {
                             putString(Constants.KEY_USER_NAME, realName)
+                            putString(Constants.KEY_USER_EMAIL, user.email)
                             putFloat(Constants.KEY_TARGET_BAND, realBand.toFloat())
+                            user.currentBand?.let { putFloat("current_band", it) }
+                            user.dailyStudyMinutes?.let { putInt("study_minutes", it) }
                             putString("exam_date", examDateFormatted)
                             if (user.expectedExamDate != null) {
                                 putString("exam_date_iso", user.expectedExamDate.take(10))
                             }
-                            apply()
+                            commit()
                         }
 
-                        applyUserToUI(realName, realBand, examDateFormatted, streak)
-                        updateStreakBadge()
+                        // Đồng bộ hai chiều tiến độ học tập (Streak, Reading, Listening, Writing, Từ vựng SRS) với Cloud
+                        com.example.ielts.data.local.CloudSyncManager.pullFromCloudSuspend(this@MainActivity, user)
+
+                        val updatedStreak = StreakManager.getStreakData(this@MainActivity).currentStreak
+                        withContext(Dispatchers.Main) {
+                            applyUserToUI(realName, realBand, examDateFormatted, updatedStreak)
+                            updateStreakBadge()
+                        }
                     }
                 } catch (_: Exception) {
                     // Nếu lỗi kết nối, giữ nguyên dữ liệu thực tế trên máy

@@ -66,6 +66,17 @@ interface IeltsApiService {
         @Body request: UpdateProfileRequest
     ): Response<com.example.ielts.data.remote.dto.UserResponse>
 
+    @GET("api/v1/users/me/progress")
+    suspend fun getMyProgress(
+        @Header("Authorization") token: String
+    ): Response<com.example.ielts.data.remote.dto.SyncProgressResponse>
+
+    @PUT("api/v1/users/me/progress")
+    suspend fun updateMyProgress(
+        @Header("Authorization") token: String,
+        @Body request: com.example.ielts.data.remote.dto.SyncProgressRequest
+    ): Response<com.example.ielts.data.remote.dto.SyncProgressResponse>
+
     // --- CHẤM ĐIỂM WRITING & LỘ TRÌNH HỌC BẰNG AI ---
     @POST("api/v1/ai/evaluate/writing")
     suspend fun evaluateWriting(

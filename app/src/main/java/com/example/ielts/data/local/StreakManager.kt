@@ -268,6 +268,9 @@ object StreakManager {
                 .commit()
         }
 
+        // Tự động đồng bộ tiến độ học tập & Streak lên Cloud
+        CloudSyncManager.pushToCloudAsync(context)
+
         return StreakRecordResult(
             previousStreak = previousStreak,
             newStreak = currentStreak,

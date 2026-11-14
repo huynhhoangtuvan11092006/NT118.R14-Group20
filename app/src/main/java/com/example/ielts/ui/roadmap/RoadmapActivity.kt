@@ -119,10 +119,6 @@ class RoadmapActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O_MR1) {
-            setShowWhenLocked(true)
-            setTurnScreenOn(true)
-        }
         setContentView(R.layout.activity_roadmap)
 
         initViews()
@@ -541,9 +537,12 @@ class RoadmapActivity : AppCompatActivity() {
                         val user = response.body()!!.user
                         prefs.edit().apply {
                             user.targetBand?.let { putFloat(Constants.KEY_TARGET_BAND, it) }
+                            user.currentBand?.let { putFloat("current_band", it) }
+                            user.dailyStudyMinutes?.let { putInt("study_minutes", it) }
                             user.expectedExamDate?.let { putString("exam_date_iso", it.take(10)) }
-                            apply()
+                            commit()
                         }
+                        com.example.ielts.data.local.CloudSyncManager.pullFromCloudSuspend(this@RoadmapActivity, user)
                         renderRoadmapUI()
                     }
                 } catch (_: Exception) {

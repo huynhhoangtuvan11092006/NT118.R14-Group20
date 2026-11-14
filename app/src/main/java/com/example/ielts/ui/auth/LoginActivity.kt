@@ -235,7 +235,14 @@ class LoginActivity : AppCompatActivity() {
                         authData.user.targetBand?.let {
                             putFloat(com.example.ielts.utils.Constants.KEY_TARGET_BAND, it.toFloat())
                         }
+                        authData.user.currentBand?.let {
+                            putFloat("current_band", it.toFloat())
+                        }
+                        authData.user.dailyStudyMinutes?.let {
+                            putInt("study_minutes", it)
+                        }
                         authData.user.expectedExamDate?.let { isoDate ->
+                            putString("exam_date_iso", isoDate.take(10))
                             try {
                                 val inputFormat = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US)
                                 val outputFormat = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault())
@@ -249,14 +256,11 @@ class LoginActivity : AppCompatActivity() {
                         if (cloudStreak > 0) {
                             putInt("streak_days", cloudStreak)
                         }
-                        apply()
+                        commit()
                     }
 
-                    // Đồng bộ Streak từ Cloud (nếu có) và tự khôi phục từ lịch sử bài học trên máy
-                    val restoredStreak = authData.user.streakDays ?: 0
-                    if (restoredStreak > 0) {
-                        com.example.ielts.data.local.StreakManager.syncFromCloud(this@LoginActivity, restoredStreak)
-                    }
+                    // Đồng bộ toàn bộ dữ liệu học tập (Streak, Reading, Listening, Writing, Từ vựng SRS) từ Cloud về máy
+                    com.example.ielts.data.local.CloudSyncManager.pullFromCloudSuspend(this@LoginActivity, authData.user)
 
                     Toast.makeText(
                         this@LoginActivity,
@@ -363,7 +367,14 @@ class LoginActivity : AppCompatActivity() {
                         authData.user.targetBand?.let {
                             putFloat(Constants.KEY_TARGET_BAND, it.toFloat())
                         }
+                        authData.user.currentBand?.let {
+                            putFloat("current_band", it.toFloat())
+                        }
+                        authData.user.dailyStudyMinutes?.let {
+                            putInt("study_minutes", it)
+                        }
                         authData.user.expectedExamDate?.let { isoDate ->
+                            putString("exam_date_iso", isoDate.take(10))
                             try {
                                 val inputFormat = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US)
                                 val outputFormat = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault())
@@ -377,14 +388,11 @@ class LoginActivity : AppCompatActivity() {
                         if (cloudStreak > 0) {
                             putInt("streak_days", cloudStreak)
                         }
-                        apply()
+                        commit()
                     }
 
-                    // Đồng bộ Streak từ Cloud (nếu có) và tự khôi phục từ lịch sử bài học trên máy
-                    val restoredStreak = authData.user.streakDays ?: 0
-                    if (restoredStreak > 0) {
-                        com.example.ielts.data.local.StreakManager.syncFromCloud(this@LoginActivity, restoredStreak)
-                    }
+                    // Đồng bộ toàn bộ dữ liệu học tập (Streak, Reading, Listening, Writing, Từ vựng SRS) từ Cloud về máy
+                    com.example.ielts.data.local.CloudSyncManager.pullFromCloudSuspend(this@LoginActivity, authData.user)
 
                     Toast.makeText(
                         this@LoginActivity,
