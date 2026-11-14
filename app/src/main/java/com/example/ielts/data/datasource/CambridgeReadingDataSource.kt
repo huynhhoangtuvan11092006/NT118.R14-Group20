@@ -128,15 +128,15 @@ object CambridgeReadingDataSource {
         list.add(
             ReadingTestListItemDto(
                 id = "cam18-test4",
-                title = "Cambridge IELTS 18 - Test 4",
+                title = "Cambridge IELTS 18 - Academic Reading Test 4",
                 summary = "Trích từ bộ đề thi Cambridge IELTS 18 Academic",
                 difficulty = "Nâng cao",
                 durationMinutes = 60,
                 totalQuestions = 40,
                 passageTitles = listOf(
-                    "Historical Wind-Powered Irrigation Networks",
-                    "Neuroplasticity and Language Acquisition in Bilinguals",
-                    "The Ethical Governance of Automated Algorithmic Sentencing"
+                    "Green roofs",
+                    "Reading Passage 2",
+                    "Reading Passage 3"
                 ),
                 userProgress = null
             )
@@ -634,8 +634,10 @@ object CambridgeReadingDataSource {
         "[Paragraph G] Thinnings and dense and dead wood removal for fire prevention also center on the production of low-use wood. However, it is important to remember that some retention of what many would classify as low-use wood is very important. The tops of trees that have been cut down should be left on the site so that their nutrients cycle back into the soil. In addition, trees with many cavities are extremely important habitats for insect predators like woodpeckers, bats and small mammals. They help control problem insects and increase the health and resilience of the forest. It is also important to remember that not all small trees are low-use. For example, many species like hawthorn provide food for wildlife. Finally, rare species of trees in a forest should also stay behind as they add to its structural diversity."
 
     fun hasCustomExamContent(testId: String): Boolean {
-        return testId == "cam18-test1" || testId == "cam18-test2" || testId == "cam18-test3"
+        return testId == "cam18-test1" || testId == "cam18-test2" || testId == "cam18-test3" || testId == "cam18-test4"
     }
+
+    private const val CAM18_TEST4_PASSAGE1_CONTENT = "Green roofs\n\n[Paragraph A] Rooftops covered with grass, vegetable gardens and lush foliage are now a common sight in many cities around the world. More and more private companies and city authorities are investing in green roofs, drawn to their wide-ranging benefits. Among the benefits are saving on energy costs, mitigating the risk of floods, making habitats for urban wildlife, tackling air pollution and even growing food. These increasingly radical urban designs can help cities adapt to the monumental problems they face, such as access to resources and a lack of green space due to development. But the involvement of city authorities, businesses and other institutions is crucial to ensuring their success — as is research investigating different options to suit the variety of rooftop spaces found in cities. The UK is relatively new to developing green roofs, and local governments and institutions are playing a major role in spreading the practice. London is home to much of the UK's green roof market, mainly due to forward-thinking policies such as the London Plan, which has paved the way to more than doubling the area of green roofs in the capital.\n\n[Paragraph B] Ongoing research is showcasing how green roofs in cities can integrate with 'living walls': environmentally friendly walls which are partially or completely covered with greenery, including a growing medium, such as soil or water. Research also indicates that green roofs can be integrated with drainage systems on the ground, such as street trees, so that the water is managed better and the built environment is made more sustainable. There is also evidence to demonstrate the social value of green roofs. Doctors are increasingly prescribing time spent gardening outdoors for patients dealing with anxiety and depression. And research has found that access to even the most basic green spaces can provide a better quality of life for dementia sufferers and help people avoid obesity.\n\n[Paragraph C] In North America, green roofs have become mainstream, with a wide array of expansive, accessible and food-producing roofs installed in buildings. Again, city leaders and authorities have helped push the movement forward — only recently, San Francisco, USA, created a policy requiring new buildings to have green roofs. Toronto, Canada, has policies dating from the 1990s, encouraging the development of urban farms on rooftops. These countries also benefit from having newer buildings than in many parts of the world, which makes it easier to install green roofs. Being able to keep enough water at roof height and distribute it right across the rooftop is crucial to maintaining the plants on any green roof — especially on 'edible roofs' where fruit and vegetables are farmed. And it's much easier to do this in newer buildings, which can typically hold greater weight, than to retro-fit old ones. Having a stronger roof also makes it easier to grow a greater variety of plants, since the soil can be deeper.\n\n[Paragraph D] For green roofs to become the norm for new developments, there needs to be support from public authorities and private investors. Those responsible for maintaining buildings may have to acquire new skills, such as landscaping, and in some cases, volunteers may be needed to help out. Other considerations include installing drainage paths, meeting health and safety requirements and perhaps allowing access for the public, as well as planning restrictions and disruption from regular activities in and around the buildings during installation. To convince investors and developers that installing green roofs is worthwhile, economic arguments are still the most important. The term 'natural capital' has been developed to explain the economic value of nature; for example, measuring the money saved by installing natural solutions to protect against flood damage, adapt to climate change or help people lead healthier and happier lives.\n\n[Paragraph E] As the expertise about green roofs grows, official standards have been developed to ensure that they are designed, constructed and maintained properly, and function well. Improvements in the science and technology underpinning green roof development have also led to new variations in the concept. For example, 'blue roofs' enable buildings to hold water over longer periods of time, rather than draining it away quickly — crucial in times of heavier rainfall. There are also combinations of green roofs with solar panels, and 'brown roofs' which are wilder in nature and maximise biodiversity. If the trend continues, it could create new jobs and a more vibrant and sustainable local food economy alongside many other benefits. There are still barriers to overcome, but the evidence so far indicates that green roofs have the potential to transform cities and help them function sustainably long into the future. The success stories need to be studied and replicated elsewhere, to make green, blue, brown and food-producing roofs the norm in cities around the world."
 
     private const val CAM18_TEST3_PASSAGE1_CONTENT = "Concrete is everywhere, but it's bad for the planet, generating large amounts of carbon dioxide – alternatives are being developed\n\n[Paragraph A] Concrete is the second most used substance in the global economy, after water — and one of the world's biggest single sources of greenhouse gas emissions. The chemical process by which cement, the key ingredient of concrete, is created results in large quantities of carbon dioxide. The UN estimates that there will be 9.8 billion people living on the planet by mid-century. They will need somewhere to live. If concrete is the only answer to the construction of new cities, then carbon emissions will soar, aggravating global warming. And so scientists have started innovating with other materials, in a scramble for alternatives to a universal commodity that has underpinned our modern life for many years.\n\n[Paragraph B] The problem with replacing concrete is that it is so very good at what it does. Chris Cheeseman, an engineering professor at Imperial College London, says the key thing to consider is the extent to which concrete is used around the world, and is likely to continue to be used. 'Concrete is not a high-carbon product. Cement is high carbon, but concrete is not. But it is the scale on which it is used that makes it high carbon. The sheer scale of manufacture is so huge, that is the issue.'\n\n[Paragraph C] Not only are the ingredients of concrete relatively cheap and found in abundance in most places around the globe, the stuff itself has marvellous properties: Portland cement, the vital component of concrete, is mouldable and pourable, but quickly sets hard. Cheeseman also notes another advantage: concrete and steel have similar thermal expansion properties, so steel can be used to reinforce concrete, making it far stronger and more flexible as a building material than it could be on its own. According to Cheeseman, all these factors together make concrete hard to beat. 'Concrete is amazing stuff. Making anything with similar properties is going to be very difficult. '\n\n[Paragraph D] A possible alternative to concrete is wood. Making buildings from wood may seem like a rather medieval idea, but climate change is driving architects to turn to treated timber as a possible resource. Recent years have seen the emergence of tall buildings constructed almost entirely from timber. Vancouver, Vienna and Brumunddal in Norway are all home to constructed tall, wooden buildings.\n\n[Paragraph E] Using wood to construct buildings, however, is not straightforward. Wood expands as it absorbs moisture from the air and is susceptible to pests, not to mention fire. But treating wood and combining it with other materials can improve its properties. Cross-laminated timber is engineered wood. An adhesive is used to stick layers of solid-sawn timber together, crosswise, to form building blocks. This material is light but has the strength of concrete and steel. Construction experts say that wooden buildings can be constructed at a greater speed than ones of concrete and steel and the process, it seems, is quieter.\n\n[Paragraph F] Stora Enso is Europe's biggest supplier of cross-laminated timber, and its vice-president Markus Mannström reports that the company is seeing increasing demand globally for building in wood, with climate change concerns the key driver. Finland, with its large forests, where Stora Enso is based, has been leading the way, but the company is seeing a rise in demand for its timber products across the world, including in Asia. Of course, using timber in a building also locks away the carbon that it absorbed as it grew. But even treated wood has its limitations and only when a wider range of construction projects has been proven in practice will it be possible to see wood as a real alternative to concrete in constructing tall buildings.\n\n[Paragraph G] Fly ash and slag from iron ore are possible alternatives to cement in a concrete mix. Fly ash, a byproduct of coal-burning power plants, can be incorporated into concrete mixes to make up as much as 15 to 30% of the cement, without harming the strength or durability of the resulting mix. Iron-ore slag, a byproduct of the iron-ore smelting process, can be used in a similar way. Their incorporation into concrete mixes has the potential to reduce greenhouse gas emissions.\n\nBut Anna Surgenor, of the UK's Green Building Council, notes that although these waste products can save carbon in the concrete mix, their use is not always straightforward. 'It's possible to replace the cement content in concrete with waste products to lower the overall carbon impact. But there are several calculations that need to be considered across the entire life cycle of the building — these include factoring in where these materials are being shipped from. If they are transported over long distances, using fossil fuels, the use of alternative materials might not make sense from an overall carbon reduction perspective.'\n\n[Paragraph H] While these technologies are all promising ideas, they are either unproven or based on materials that are not abundant. In their overview of innovation in the concrete industry, Felix Preston and Johanna Lehne of the UK's Royal Institute of International Affairs reached the conclusion that, 'Some novel cements have been discussed for more than a decade within the research community, without breaking through. At present, these alternatives are rarely as cost-effective as conventional cement, and they face raw-material shortages and resistance from customers.'"
 
@@ -715,6 +717,29 @@ object CambridgeReadingDataSource {
                     title = "The case for mixed-ability classes",
                     wordCount = 920,
                     content = CAM18_TEST3_PASSAGE3_CONTENT
+                )
+            )
+        }
+
+        if (testId == "cam18-test4") {
+            return listOf(
+                PassageDto(
+                    passageNumber = 1,
+                    title = "Green roofs",
+                    wordCount = 680,
+                    content = CAM18_TEST4_PASSAGE1_CONTENT
+                ),
+                PassageDto(
+                    passageNumber = 2,
+                    title = "Reading Passage 2",
+                    wordCount = 950,
+                    content = "[Paragraph A] Passage 2 content will be updated soon."
+                ),
+                PassageDto(
+                    passageNumber = 3,
+                    title = "Reading Passage 3",
+                    wordCount = 950,
+                    content = "[Paragraph A] Passage 3 content will be updated soon."
                 )
             )
         }
@@ -1595,6 +1620,115 @@ object CambridgeReadingDataSource {
                     )
                 )
             }
+        } else if (testId == "cam18-test4") {
+            // Questions 1–5: Which paragraph contains the following information (A–E)
+            val paragraphPrompts1to5 = listOf(
+                1 to "mention of several challenges to be overcome before a green roof can be installed",
+                2 to "reference to a city where green roofs have been promoted for many years",
+                3 to "a belief that existing green roofs should be used as a model for new ones",
+                4 to "examples of how green roofs can work in combination with other green urban initiatives",
+                5 to "the need to make a persuasive argument for the financial benefits of green roofs"
+            )
+            val paragraphOptions = listOf("A", "B", "C", "D", "E")
+            for ((pos, promptText) in paragraphPrompts1to5) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t4_q",
+                        position = pos,
+                        type = "MULTIPLE_CHOICE",
+                        prompt = "[Which paragraph contains the following information, A–E • NB You may use any letter more than once]\n",
+                        options = paragraphOptions,
+                        passageNumber = 1,
+                        lineRef = "Questions 1–5 • Paragraph Information Matching (A–E)"
+                    )
+                )
+            }
+
+            // Questions 6–9: Summary Completion (Choose ONE WORD ONLY from the passage)
+            val summaryPrompts6to9 = listOf(
+                6 to "City rooftops covered with greenery have many advantages. These include lessening the likelihood that floods will occur, reducing how much money is spent on 6 ________ and creating environments that are suitable for wildlife.",
+                7 to "In many cases, they can also be used for producing 7 ________.",
+                8 to "There are also social benefits of green roofs. For example, the medical profession recommends 8 ________ as an activity to help people cope with mental health issues.",
+                9 to "Studies have also shown that the availability of green spaces can prevent physical problems such as 9 ________."
+            )
+            for ((pos, promptText) in summaryPrompts6to9) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t4_q",
+                        position = pos,
+                        type = "FILL_IN_BLANK",
+                        prompt = "[Advantages of green roofs — Choose ONE WORD ONLY from the passage]\n",
+                        passageNumber = 1,
+                        lineRef = "Questions 6–9 • Summary Completion (ONE WORD ONLY)"
+                    )
+                )
+            }
+
+            // Questions 10 and 11: Choose TWO letters, A–E
+            val prompt10to11 = "[Questions 10 and 11: Choose TWO letters, A–E]\nWhich TWO advantages of using newer buildings for green roofs are mentioned in Paragraph C?\nA. a longer growing season for edible produce\nB. more economical use of water\nC. greater water-storage capacity\nD. ability to cultivate more plant types\nE. a large surface area for growing plants"
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t4_q10",
+                    position = 10,
+                    type = "MULTIPLE_CHOICE",
+                    prompt = "\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
+                    options = listOf("A", "B", "C", "D", "E"),
+                    passageNumber = 1,
+                    lineRef = "Questions 10–11 • Multiple Choice (Choose TWO letters)"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t4_q11",
+                    position = 11,
+                    type = "MULTIPLE_CHOICE",
+                    prompt = "\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
+                    options = listOf("A", "B", "C", "D", "E"),
+                    passageNumber = 1,
+                    lineRef = "Questions 10–11 • Multiple Choice (Choose TWO letters)"
+                )
+            )
+
+            // Questions 12 and 13: Choose TWO letters, A–E
+            val prompt12to13 = "[Questions 12 and 13: Choose TWO letters, A–E]\nWhich TWO aims of new variations on the concept of green roofs are mentioned in Paragraph E?\nA. to provide habitats for a wide range of species\nB. to grow plants successfully even in the wettest climates\nC. to regulate the temperature of the immediate environment\nD. to generate power from a sustainable source\nE. to collect water to supply other buildings"
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t4_q12",
+                    position = 12,
+                    type = "MULTIPLE_CHOICE",
+                    prompt = "\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
+                    options = listOf("A", "B", "C", "D", "E"),
+                    passageNumber = 1,
+                    lineRef = "Questions 12–13 • Multiple Choice (Choose TWO letters)"
+                )
+            )
+            list.add(
+                QuestionDetailDto(
+                    id = "cam18_t4_q13",
+                    position = 13,
+                    type = "MULTIPLE_CHOICE",
+                    prompt = "\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
+                    options = listOf("A", "B", "C", "D", "E"),
+                    passageNumber = 1,
+                    lineRef = "Questions 12–13 • Multiple Choice (Choose TWO letters)"
+                )
+            )
+
+            // Fallback Questions 14–40 for Passages 2 & 3
+            for (pos in 14..40) {
+                val passNum = if (pos <= 26) 2 else 3
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t4_q",
+                        position = pos,
+                        type = "MULTIPLE_CHOICE",
+                        prompt = "Passage  Question  content will be updated soon.",
+                        options = listOf("A", "B", "C", "D"),
+                        passageNumber = passNum,
+                        lineRef = "Questions "
+                    )
+                )
+            }
         }
         return list
     }
@@ -1604,6 +1738,7 @@ object CambridgeReadingDataSource {
             "cam18-test1" -> getCam18Test1AnswerMetadata(position)
             "cam18-test2" -> getCam18Test2AnswerMetadata(position)
             "cam18-test3" -> getCam18Test3AnswerMetadata(position)
+            "cam18-test4" -> getCam18Test4AnswerMetadata(position)
             else -> null
         }
     }
@@ -2341,6 +2476,89 @@ object CambridgeReadingDataSource {
                 acceptedAnswers = listOf("A"),
                 explanation = "Đoạn B (Carolin Frueh — A): Cảnh báo nếu tiếp tục như hiện nay, chúng ta sẽ chạm tới điểm không thể quay đầu (a point of no return).",
                 evidenceQuote = "If we go on like this, we will reach a point of no return"
+            )
+            else -> null
+        }
+    }
+    fun getCam18Test4AnswerMetadata(position: Int): QuestionAnswerMetadata? {
+        return when (position) {
+            1 -> QuestionAnswerMetadata(
+                correctAnswer = "D",
+                acceptedAnswers = listOf("D", "Paragraph D"),
+                explanation = "Đoạn D đề cập hàng loạt thách thức cần vượt qua trước khi lắp đặt mái nhà xanh: người bảo trì cần học kỹ năng mới (chăm sóc cảnh quan), cần tình nguyện viên giúp đỡ, lắp đường ống thoát nước, đáp ứng quy định an toàn vệ sinh lao động, rào cản quy hoạch và gián đoạn hoạt động thông thường.",
+                evidenceQuote = "Those responsible for maintaining buildings may have to acquire new skills... Other considerations include installing drainage paths, meeting health and safety requirements... as well as planning restrictions and disruption"
+            )
+            2 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C", "Paragraph C"),
+                explanation = "Đoạn C nhắc tới thành phố Toronto (Canada) đã khuyến khích phát triển nông trại trên mái từ thập niên 1990 (tức là đã thúc đẩy mái nhà xanh từ nhiều năm trước).",
+                evidenceQuote = "Toronto, Canada, has policies dating from the 1990s, encouraging the development of urban farms on rooftops."
+            )
+            3 -> QuestionAnswerMetadata(
+                correctAnswer = "E",
+                acceptedAnswers = listOf("E", "Paragraph E"),
+                explanation = "Đoạn E khẳng định các câu chuyện thành công hiện tại cần được nghiên cứu và nhân rộng ở nơi khác, biến mái nhà xanh thành tiêu chuẩn chuẩn mực ở các đô thị.",
+                evidenceQuote = "The success stories need to be studied and replicated elsewhere, to make green, blue, brown and food-producing roofs the norm in cities around the world."
+            )
+            4 -> QuestionAnswerMetadata(
+                correctAnswer = "B",
+                acceptedAnswers = listOf("B", "Paragraph B"),
+                explanation = "Đoạn B đưa ra ví dụ về cách mái nhà xanh kết hợp với các sáng kiến đô thị xanh khác: tích hợp với bức tường sống ('living walls') và hệ thống thoát nước trên mặt đất như cây xanh đường phố (street trees).",
+                evidenceQuote = "showcasing how green roofs in cities can integrate with 'living walls'... Research also indicates that green roofs can be integrated with drainage systems on the ground, such as street trees"
+            )
+            5 -> QuestionAnswerMetadata(
+                correctAnswer = "D",
+                acceptedAnswers = listOf("D", "Paragraph D"),
+                explanation = "Đoạn D nhấn mạnh để thuyết phục nhà đầu tư và nhà phát triển, các luận điểm kinh tế/tài chính vẫn là quan trọng nhất, từ đó thuật ngữ 'vốn tự nhiên' (natural capital) được xây dựng để đo lường giá trị tiền bạc tiết kiệm được.",
+                evidenceQuote = "To convince investors and developers that installing green roofs is worthwhile, economic arguments are still the most important. The term 'natural capital' has been developed to explain the economic value of nature"
+            )
+            6 -> QuestionAnswerMetadata(
+                correctAnswer = "energy",
+                acceptedAnswers = listOf("energy"),
+                explanation = "Đoạn A: Lợi ích của mái nhà xanh bao gồm tiết kiệm chi phí năng lượng (saving on energy costs -> reducing how much money is spent on energy), giảm nguy cơ ngập lụt và tạo môi trường sống cho động vật hoang dã.",
+                evidenceQuote = "Among the benefits are saving on energy costs, mitigating the risk of floods, making habitats for urban wildlife"
+            )
+            7 -> QuestionAnswerMetadata(
+                correctAnswer = "food",
+                acceptedAnswers = listOf("food"),
+                explanation = "Đoạn A: Ngoài ra mái nhà xanh còn được sử dụng để trồng thực phẩm ('and even growing food' -> 'producing food').",
+                evidenceQuote = "tackling air pollution and even growing food."
+            )
+            8 -> QuestionAnswerMetadata(
+                correctAnswer = "gardening",
+                acceptedAnswers = listOf("gardening"),
+                explanation = "Đoạn B: Bác sĩ ngày càng kê đơn thời gian làm vườn ngoài trời (gardening) cho các bệnh nhân đối phó với chứng lo âu và trầm cảm.",
+                evidenceQuote = "Doctors are increasingly prescribing time spent gardening outdoors for patients dealing with anxiety and depression."
+            )
+            9 -> QuestionAnswerMetadata(
+                correctAnswer = "obesity",
+                acceptedAnswers = listOf("obesity"),
+                explanation = "Đoạn B: Tiếp cận không gian xanh giúp cải thiện chất lượng cuộc sống cho người sa sút trí tuệ và giúp mọi người tránh bệnh béo phì (obesity).",
+                evidenceQuote = "provide a better quality of life for dementia sufferers and help people avoid obesity."
+            )
+            10 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C", "D"),
+                explanation = "Đoạn C: Giữ đủ lượng nước trên độ cao mái nhà ('keep enough water at roof height' -> greater water-storage capacity) và việc chịu tải tốt hơn giúp trồng được đa dạng các loại thực vật hơn ('grow a greater variety of plants' -> ability to cultivate more plant types) vì lớp đất có thể dày hơn. Đáp án C hoặc D đều được chấp nhận.",
+                evidenceQuote = "Being able to keep enough water at roof height and distribute it right across the rooftop is crucial... it's much easier to do this in newer buildings, which can typically hold greater weight"
+            )
+            11 -> QuestionAnswerMetadata(
+                correctAnswer = "D",
+                acceptedAnswers = listOf("C", "D"),
+                explanation = "Đoạn C: Mái nhà khỏe hơn giúp trồng được nhiều chủng loại cây hơn ('grow a greater variety of plants' -> ability to cultivate more plant types) vì lớp đất sâu hơn. Đáp án C hoặc D đều được chấp nhận.",
+                evidenceQuote = "Having a stronger roof also makes it easier to grow a greater variety of plants, since the soil can be deeper."
+            )
+            12 -> QuestionAnswerMetadata(
+                correctAnswer = "A",
+                acceptedAnswers = listOf("A", "D"),
+                explanation = "Đoạn E: 'Brown roofs' hoang dã hơn và tối đa hóa đa dạng sinh học ('maximise biodiversity' -> provide habitats for a wide range of species). Ngoài ra có sự kết hợp với pin năng lượng mặt trời ('solar panels' -> generate power from a sustainable source). Đáp án A hoặc D đều được chấp nhận.",
+                evidenceQuote = "There are also combinations of green roofs with solar panels, and 'brown roofs' which are wilder in nature and maximise biodiversity."
+            )
+            13 -> QuestionAnswerMetadata(
+                correctAnswer = "D",
+                acceptedAnswers = listOf("A", "D"),
+                explanation = "Đoạn E: Kết hợp mái nhà xanh với tấm pin năng lượng mặt trời ('combinations of green roofs with solar panels' -> generate power from a sustainable source). Đáp án A hoặc D đều được chấp nhận.",
+                evidenceQuote = "There are also combinations of green roofs with solar panels, and 'brown roofs' which are wilder in nature and maximise biodiversity."
             )
             else -> null
         }
