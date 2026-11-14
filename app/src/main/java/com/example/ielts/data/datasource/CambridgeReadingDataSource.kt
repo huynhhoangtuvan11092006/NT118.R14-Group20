@@ -119,7 +119,7 @@ object CambridgeReadingDataSource {
                 totalQuestions = 40,
                 passageTitles = listOf(
                     "Materials to take us beyond concrete",
-                    "Sensory Adaptations in Deep Subterranean Fauna",
+                    "The steam car",
                     "The Linguistic Geography of Indigenous Amazonian Dialects"
                 ),
                 userProgress = null
@@ -639,6 +639,8 @@ object CambridgeReadingDataSource {
 
     private const val CAM18_TEST3_PASSAGE1_CONTENT = "Concrete is everywhere, but it's bad for the planet, generating large amounts of carbon dioxide – alternatives are being developed\n\n[Paragraph A] Concrete is the second most used substance in the global economy, after water — and one of the world's biggest single sources of greenhouse gas emissions. The chemical process by which cement, the key ingredient of concrete, is created results in large quantities of carbon dioxide. The UN estimates that there will be 9.8 billion people living on the planet by mid-century. They will need somewhere to live. If concrete is the only answer to the construction of new cities, then carbon emissions will soar, aggravating global warming. And so scientists have started innovating with other materials, in a scramble for alternatives to a universal commodity that has underpinned our modern life for many years.\n\n[Paragraph B] The problem with replacing concrete is that it is so very good at what it does. Chris Cheeseman, an engineering professor at Imperial College London, says the key thing to consider is the extent to which concrete is used around the world, and is likely to continue to be used. 'Concrete is not a high-carbon product. Cement is high carbon, but concrete is not. But it is the scale on which it is used that makes it high carbon. The sheer scale of manufacture is so huge, that is the issue.'\n\n[Paragraph C] Not only are the ingredients of concrete relatively cheap and found in abundance in most places around the globe, the stuff itself has marvellous properties: Portland cement, the vital component of concrete, is mouldable and pourable, but quickly sets hard. Cheeseman also notes another advantage: concrete and steel have similar thermal expansion properties, so steel can be used to reinforce concrete, making it far stronger and more flexible as a building material than it could be on its own. According to Cheeseman, all these factors together make concrete hard to beat. 'Concrete is amazing stuff. Making anything with similar properties is going to be very difficult. '\n\n[Paragraph D] A possible alternative to concrete is wood. Making buildings from wood may seem like a rather medieval idea, but climate change is driving architects to turn to treated timber as a possible resource. Recent years have seen the emergence of tall buildings constructed almost entirely from timber. Vancouver, Vienna and Brumunddal in Norway are all home to constructed tall, wooden buildings.\n\n[Paragraph E] Using wood to construct buildings, however, is not straightforward. Wood expands as it absorbs moisture from the air and is susceptible to pests, not to mention fire. But treating wood and combining it with other materials can improve its properties. Cross-laminated timber is engineered wood. An adhesive is used to stick layers of solid-sawn timber together, crosswise, to form building blocks. This material is light but has the strength of concrete and steel. Construction experts say that wooden buildings can be constructed at a greater speed than ones of concrete and steel and the process, it seems, is quieter.\n\n[Paragraph F] Stora Enso is Europe's biggest supplier of cross-laminated timber, and its vice-president Markus Mannström reports that the company is seeing increasing demand globally for building in wood, with climate change concerns the key driver. Finland, with its large forests, where Stora Enso is based, has been leading the way, but the company is seeing a rise in demand for its timber products across the world, including in Asia. Of course, using timber in a building also locks away the carbon that it absorbed as it grew. But even treated wood has its limitations and only when a wider range of construction projects has been proven in practice will it be possible to see wood as a real alternative to concrete in constructing tall buildings.\n\n[Paragraph G] Fly ash and slag from iron ore are possible alternatives to cement in a concrete mix. Fly ash, a byproduct of coal-burning power plants, can be incorporated into concrete mixes to make up as much as 15 to 30% of the cement, without harming the strength or durability of the resulting mix. Iron-ore slag, a byproduct of the iron-ore smelting process, can be used in a similar way. Their incorporation into concrete mixes has the potential to reduce greenhouse gas emissions.\n\nBut Anna Surgenor, of the UK's Green Building Council, notes that although these waste products can save carbon in the concrete mix, their use is not always straightforward. 'It's possible to replace the cement content in concrete with waste products to lower the overall carbon impact. But there are several calculations that need to be considered across the entire life cycle of the building — these include factoring in where these materials are being shipped from. If they are transported over long distances, using fossil fuels, the use of alternative materials might not make sense from an overall carbon reduction perspective.'\n\n[Paragraph H] While these technologies are all promising ideas, they are either unproven or based on materials that are not abundant. In their overview of innovation in the concrete industry, Felix Preston and Johanna Lehne of the UK's Royal Institute of International Affairs reached the conclusion that, 'Some novel cements have been discussed for more than a decade within the research community, without breaking through. At present, these alternatives are rarely as cost-effective as conventional cement, and they face raw-material shortages and resistance from customers.'"
 
+    private const val CAM18_TEST3_PASSAGE2_CONTENT = "The successes and failures of the Doble brothers and their steam cars\n\n[Paragraph A] When primitive automobiles first began to appear in the 1800s, their engines were based on steam power. Steam had already enjoyed a long and successful career in the railways, so it was only natural that the technology evolved into a miniaturized version which was separate from the trains. But these early cars inherited steam's weaknesses along with its strengths. The boilers had to be lit by hand, and they required about twenty minutes to build up pressure before they could be driven. Furthermore, their water reservoirs only lasted for about thirty miles before needing replenishment. Despite such shortcomings, these newly designed self-propelled carriages offered quick transportation, and by the early 1900s it was not uncommon to see such machines shuttling wealthy citizens around town.\n\n[Paragraph B] But the glory days of steam cars were few. A new technology called the Internal Combustion Engine soon appeared, which offered the ability to drive down the road just moments after starting up. At first, these noisy gasoline cars were unpopular because they were more complicated to operate and they had difficult hand-crank starters, which were known to break arms when the engines backfired. But in 1912 General Motors introduced the electric starter, and over the following few years steam power was gradually phased out.\n\n[Paragraph C] Even as the market was declining, four brothers made one last effort to rekindle the technology. Between 1906 and 1909, while still attending high school, Abner Doble and his three brothers built their first steam car in their parents' basement. It comprised parts taken from a wrecked early steam car but reconfigured to drive an engine of their own design. Though it did not run well, the Doble brothers went on to build a second and third prototype in the following years. Though the Doble boys' third prototype, nicknamed the Model B, still lacked the convenience of an internal combustion engine, it drew the attention of automobile trade magazines due to its numerous improvements over previous steam cars. The Model B proved to be superior to gasoline automobiles in many ways. Its high-pressure steam drove the engine pistons in virtual silence, in contrast to clattering gas engines which emitted the aroma of burned hydrocarbons. Perhaps most impressively, the Model B was amazingly swift. It could accelerate from zero to sixty miles per hour in just fifteen seconds, a feat described as 'remarkable acceleration' by Automobile magazine in 1914.\n\n[Paragraph D] The following year Abner Doble drove the Model B from Massachusetts to Detroit in order to seek investment in his automobile design, which he used to open the General Engineering Company. He and his brothers immediately began working on the Model C, which was intended to expand upon the innovations of the Model B. The brothers added features such as a key-based ignition in the cabin, eliminating the need for the operator to manually ignite the boiler. With these enhancements, the Dobles' new car company promised a steam vehicle which would provide all of the convenience of a gasoline car, but with much greater speed, much simpler driving controls, and a virtually silent powerplant. By the following April, the General Engineering Company had received 5,390 deposits for Doble Detroits, which were scheduled for delivery in early 1918.\n\n[Paragraph E] Later that year Abner Doble delivered unhappy news to those eagerly awaiting the delivery of their modern new cars. Those buyers who received the handful of completed cars complained that the vehicles were sluggish and erratic, sometimes going in reverse when they should go forward. The new engine design, though innovative, was still plagued with serious glitches.\n\n[Paragraph F] The brothers made one final attempt to produce a viable steam automobile. In early 1924, the Doble brothers shipped a Model E to New York City to be road-tested by the Automobile Club of America. After sitting overnight in freezing temperatures, the car was pushed out into the road and left to sit for over an hour in the frosty morning air. At the turn of the key, the boiler lit and reached its operating pressure inside of forty seconds. As they drove the test vehicle further, they found that its evenly distributed weight lent it surprisingly good handling, even though it was so heavy. As the new Doble steamer was further developed and tested, its maximum speed was pushed to over a hundred miles per hour, and it achieved about fifteen miles per gallon of kerosene with negligible emissions.\n\n[Paragraph G] Sadly, the Dobles' brilliant steam car never was a financial success. Priced at around $18,000 in 1924, it was popular only among the very wealthy. Plus, it is said that no two Model Es were quite the same, because Abner Doble tinkered endlessly with the design. By the time the company folded in 1931, fewer than fifty of the amazing Model E steam cars had been produced. For his whole career, until his death in 1961, Abner Doble remained adamant that steam-powered automobiles were at least equal to gasoline cars, if not superior. Given the evidence, he may have been right. Many of the Model E Dobles which have survived are still in good working condition, some having been driven over half a million miles with only normal maintenance. Astonishingly, an unmodified Doble Model E runs clean enough to pass the emissions laws in California today, and they are pretty strict. It is true that the technology poses some difficult problems, but you cannot help but wonder how efficient a steam car might be with the benefit of modern materials and computers. Under the current pressure to improve automotive performance and reduce emissions, it is not unthinkable that the steam car may rise again."
+
     private const val CAM18_TEST2_PASSAGE1_CONTENT = "For centuries, historians and archaeologists have puzzled over the many mysteries of Stonehenge, a prehistoric monument that took an estimated 1,500 years to erect. Located on Salisbury Plain in southern England, it is comprised of roughly 100 massive upright stones placed in a circular layout.\n\nArchaeologists believe England's most iconic prehistoric ruin was built in several stages, with the earliest constructed 5,000 or more years ago. First, Neolithic* Britons used primitive tools, which may have been fashioned out of deer antlers, to dig a massive circular ditch and bank, or henge. Deep pits dating back to that era and located within the circle may have once held a ring of timber posts, according to some scholars.\n\nSeveral hundred years later, it is thought, Stonehenge's builders hoisted an estimated 80 bluestones, 43 of which remain today, into standing positions and placed them in either a horseshoe or circular formation. These stones have been traced all the way to the Preseli Hills in Wales, some 300 kilometres from Stonehenge. How, then, did prehistoric builders without sophisticated tools or engineering haul these boulders, which weigh up to four tons, over such a great distance?\n\nAccording to one long-standing theory among archaeologists, Stonehenge's builders fashioned sledges and rollers out of tree trunks to lug the bluestones from the Preseli Hills. They then transferred the boulders onto rafts and floated them first along the Welsh coast and then up the River Avon toward Salisbury Plain; alternatively, they may have towed each stone with a fleet of vessels. More recent archaeological hypotheses have them transporting the bluestones with supersized wicker baskets on a combination of ball bearings and long grooved planks, hauled by oxen.\n\nAs early as the 1970s, geologists have been adding their voices to the debate over how Stonehenge came into being. Challenging the classic image of industrious builders pushing, carting, rolling or hauling giant stones from faraway Wales, some scientists have suggested that it was glaciers, not humans, that carried the bluestones to Salisbury Plain. Most archaeologists have remained sceptical about this theory, however, wondering how the forces of nature could possibly have delivered the exact number of stones needed to complete the circle.\n\nThe third phase of construction took place around 2000 BCE. At this point, sandstone slabs — known as 'sarsens' — were arranged into an outer crescent or ring; some were assembled into the iconic three-pieced structures called trilithons that stand tall in the centre of Stonehenge. Some 50 of these stones are now visible on the site, which may once have contained many more. Radiocarbon dating has revealed that work continued at Stonehenge until roughly 1600 BCE, with the bluestones in particular being repositioned multiple times.\n\nBut who were the builders of Stonehenge? In the 17th century, archaeologist John Aubrey made the claim that Stonehenge was the work of druids, who had important religious, judicial and political roles in Celtic society. This theory was widely popularized by the antiquarian William Stukeley, who had unearthed primitive graves at the site. Even today, people who identify as modern druids continue to gather at Stonehenge for the summer solstice. However, in the mid-20th century, radiocarbon dating demonstrated that Stonehenge stood more than 1,000 years before the Celts inhabited the region.\n\nMany modern historians and archaeologists now agree that several distinct tribes of people contributed to Stonehenge, each undertaking a different phase of its construction. Bones, tools and other artefacts found on the site seem to support this hypothesis. The first stage was achieved by Neolithic agrarians who were likely to have been indigenous to the British Isles. Later, it is believed, groups with advanced tools and a more communal way of life left their mark on the site. Some believe that they were immigrants from the European continent, while others maintain that they were probably native Britons, descended from the original builders.\n\nIf the facts surrounding the architects and construction of Stonehenge remain shadowy at best, the purpose of the striking monument is even more of a mystery. While there is consensus among the majority of modern scholars that Stonehenge once served the function of burial ground, they have yet to determine what other purposes it had.\n\nIn the 1960s, the astronomer Gerald Hawkins suggested that the cluster of megalithic stones operated as a form of calendar, with different points corresponding to astrological phenomena such as solstices, equinoxes and eclipses occurring at different times of the year. While his theory has received a considerable amount of attention over the decades, critics maintain that Stonehenge's builders probably lacked the knowledge necessary to predict such events or that England's dense cloud cover would have obscured their view of the skies.\n\nMore recently, signs of illness and injury in the human remains unearthed at Stonehenge led a group of British archaeologists to speculate that it was considered a place of healing, perhaps because bluestones were thought to have curative powers."
 
     private const val CAM18_TEST2_PASSAGE2_CONTENT = "Powerful artificial intelligence (AI) needs to be reliably aligned with human values, but does this mean AI will eventually have to police those values?\n\nThis has been the decade of AI, with one astonishing feat after another. A chess- playing AI that can defeat not only all human chess players, but also all previous human-programmed chess machines, after learning the game in just four hours? That's yesterday's news, what's next? True, these prodigious accomplishments are all in so- called narrow AI, where machines perform highly specialised tasks. But many experts believe this restriction is very temporary. By mid-century, we may have artificial general intelligence (AGI) — machines that can achieve human-level performance on the full range of tasks that we ourselves can tackle.\n\nIf so, there's little reason to think it will stop there. Machines will be free of many of the physical constraints on human intelligence. Our brains run at slow biochemical processing speeds on the power of a light bulb, and their size is restricted by the dimensions of the human birth canal. It is remarkable what they accomplish, given these handicaps. But they may be as far from the physical limits of thought as our eyes are from the incredibly powerful Webb Space Telescope.\n\nOnce machines are better than us at designing even smarter machines, progress towards these limits could accelerate. What would this mean for us? Could we ensure a safe and worthwhile coexistence with such machines? On the plus side, AI is already useful and profitable for many things, and super AI might be expected to be super useful, and super profitable. But the more powerful AI becomes, the more important it will be to specify its goals with great care. Folklore is full of tales of people who ask for the wrong thing, with disastrous consequences — King Midas, for example, might have wished that everything he touched turned to gold, but didn't really intend this to apply to his breakfast.\n\nSo we need to create powerful AI machines that are 'human-friendly' — that have goals reliably aligned with our own values. One thing that makes this task difficult is that we are far from reliably human-friendly ourselves. We do many terrible things to each other and to many other creatures with whom we share the planet. If superintelligent machines don't do a lot better than us, we'll be in deep trouble. We'll have powerful new intelligence amplifying the dark sides of our own fallible natures.\n\nFor safety's sake, then, we want the machines to be ethically as well as cognitively superhuman. We want them to aim for the moral high ground, not for the troughs in which many of us spend some of our time. Luckily they'll be smart enough for the job. If there are routes to the moral high ground, they'll be better than us at finding them, and steering us in the right direction.\n\nHowever, there are two big problems with this utopian vision. One is how we get the machines started on the journey, the other is what it would mean to reach this destination. The 'getting started' problem is that we need to tell the machines what they're looking for with sufficient clarity that we can be confident they will find it — whatever 'it' actually turns out to be. This won't be easy, given that we are tribal creatures and conflicted about the ideals ourselves. We often ignore the suffering of strangers, and even contribute to it, at least indirectly. How then, do we point machines in the direction of something better?\n\nAs for the 'destination' problem, we might, by putting ourselves in the hands of these moral guides and gatekeepers, be sacrificing our own autonomy — an important part of what makes us human. Machines who are better than us at sticking to the moral high ground may be expected to discourage some of the lapses we presently take for granted. We might lose our freedom to discriminate in favour of our own communities, for example.\n\nLoss of freedom to behave badly isn't always a bad thing, of course: denying ourselves the freedom to put children to work in factories, or to smoke in restaurants are signs of progress. But are we ready for ethical silicon police limiting our options? They might be so good at doing it that we won't notice them; but few of us are likely to welcome such a future.\n\nThese issues might seem far-fetched, but they are to some extent already here. AI already has some input into how resources are used in our National Health Service (NHS) here in the UK, for example. If it was given a greater role, it might do so much more efficiently than humans can manage, and act in the interests of taxpayers and those who use the health system. However, we'd be depriving some humans (e.g. senior doctors) of the control they presently enjoy. Since we'd want to ensure that people are treated equally and that policies are fair, the goals of AI would need to be specified correctly.\n\nWe have a new powerful technology to deal with — itself, literally, a new way of thinking. For our own safety, we need to point these new thinkers in the right direction, and get them to act well for us. It is not yet clear whether this is possible, but if it is, it will require a cooperative spirit, and a willingness to set aside self-interest.\n\nBoth general intelligence and moral reasoning are often thought to be uniquely human capacities. But safety seems to require that we think of them as a package: if we are to give general intelligence to machines, we'll need to give them moral authority, too. And where exactly would that leave human beings? All the more reason to think about the destination now, and to be careful about what we wish for."
@@ -702,9 +704,9 @@ object CambridgeReadingDataSource {
                 ),
                 PassageDto(
                     passageNumber = 2,
-                    title = "Sensory Adaptations in Deep Subterranean Fauna",
-                    wordCount = 1220,
-                    content = "[Paragraph A] The historical Silk Road was an expansive network of Eurasian trade conduits active from the Han dynasty until the Ottoman boycott of Western maritime commerce.\n\n[Paragraph B] Beyond raw commodities such as Chinese sericulture, Central Asian equine breeds, and Roman glassware, the arteries facilitated unprecedented intellectual and religious dissemination.\n\n[Paragraph C] Papermaking techniques migrated eastward along trans-Pamir caravan tracks, revolutionizing archival administration throughout medieval Islamic caliphates."
+                    title = "The steam car",
+                    wordCount = 735,
+                    content = CAM18_TEST3_PASSAGE2_CONTENT
                 ),
                 PassageDto(
                     passageNumber = 3,
@@ -1380,9 +1382,109 @@ object CambridgeReadingDataSource {
                 )
             }
 
-            // Fallback questions 14–40 for Passages 2 and 3
-            for (pos in 14..40) {
-                val pNum = if (pos <= 26) 2 else 3
+            // Questions 14–20: Matching Headings (i–viii for Paragraphs A–G)
+            val headingsOptions = listOf(
+                "i. A period in cold conditions before the technology is assessed",
+                "ii. Marketing issues lead to failure",
+                "iii. Good and bad aspects of steam technology are passed on",
+                "iv. A possible solution to the issues of today",
+                "v. Further improvements lead to commercial orders",
+                "vi. Positive publicity at last for this quiet, clean, fast vehicle",
+                "vii. A disappointing outcome for customers",
+                "viii. A better option than the steam car arises"
+            )
+            val headingsPrompts = listOf(
+                14 to "Paragraph A",
+                15 to "Paragraph B",
+                16 to "Paragraph C",
+                17 to "Paragraph D",
+                18 to "Paragraph E",
+                19 to "Paragraph F",
+                20 to "Paragraph G"
+            )
+            for ((pos, para) in headingsPrompts) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t3_q$pos",
+                        position = pos,
+                        type = "MULTIPLE_CHOICE",
+                        prompt = "[Choose the correct heading for $para from the list of headings, i–viii]\n$para",
+                        options = headingsOptions,
+                        passageNumber = 2,
+                        lineRef = "Questions 14–20 • List of Headings (i–viii)"
+                    )
+                )
+            }
+
+            // Questions 21–23: Multiple Choice (Choose the correct letter, A, B, C or D)
+            val mcq21to23 = listOf(
+                Triple(
+                    21,
+                    "What point does the writer make about the steam car in Paragraph B?",
+                    listOf(
+                        "A. Its success was short-lived.",
+                        "B. Not enough cars were made.",
+                        "C. Car companies found them hard to sell.",
+                        "D. People found them hard to drive."
+                    )
+                ),
+                Triple(
+                    22,
+                    "When building their first steam car, the Doble brothers",
+                    listOf(
+                        "A. constructed all the parts themselves.",
+                        "B. made written notes at each stage of the construction.",
+                        "C. needed several attempts to achieve a competitive model.",
+                        "D. sought the advice of experienced people in the car industry."
+                    )
+                ),
+                Triple(
+                    23,
+                    "In order to produce the Model C, the Doble brothers",
+                    listOf(
+                        "A. moved production to a different city.",
+                        "B. raised financial capital.",
+                        "C. employed an additional worker.",
+                        "D. abandoned their earlier designs."
+                    )
+                )
+            )
+            for ((pos, promptText, opts) in mcq21to23) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t3_q$pos",
+                        position = pos,
+                        type = "MULTIPLE_CHOICE",
+                        prompt = promptText,
+                        options = opts,
+                        passageNumber = 2,
+                        lineRef = "Questions 21–23 • Choose the correct letter, A, B, C or D"
+                    )
+                )
+            }
+
+            // Questions 24–26: Summary Completion (Choose ONE WORD AND/OR A NUMBER from the passage)
+            val summaryPrompts24to26 = listOf(
+                24 to "[The Model E — Choose ONE WORD AND/OR A NUMBER from the passage]\nThe Model E was road-tested in 1924 by the Automobile Club of America. They found it easy to drive, despite its weight, and it impressed the spectators. A later version of the Model E raised its 24 ________, while keeping its emissions extremely low.",
+                25 to "[The Model E — Choose ONE WORD AND/OR A NUMBER from the passage]\nThe steam car was too expensive for many people and its design was constantly being altered. Under 25 ________ cars were produced before the company went out of business.",
+                26 to "[The Model E — Choose ONE WORD AND/OR A NUMBER from the passage]\nHowever, even today, there are Model Es on the road in the US. They are straightforward to maintain, and they satisfy California's 26 ________ emissions laws. Perhaps today's technology and materials would help us revive the steam car."
+            )
+            for ((pos, promptText) in summaryPrompts24to26) {
+                list.add(
+                    QuestionDetailDto(
+                        id = "cam18_t3_q$pos",
+                        position = pos,
+                        type = "FILL_IN_BLANK",
+                        prompt = promptText,
+                        passageNumber = 2,
+                        lineRef = "Questions 24–26 • Summary Completion (ONE WORD AND/OR A NUMBER)"
+                    )
+                )
+            }
+
+            // Fallback questions 27–40 for Passage 3
+            for (pos in 27..40) {
+                val pNum = 3
                 val qType = when (pos % 3) {
                     1 -> "TRUE_FALSE"
                     2 -> "MULTIPLE_CHOICE"
@@ -1497,6 +1599,84 @@ object CambridgeReadingDataSource {
                 acceptedAnswers = listOf("A"),
                 explanation = "Đoạn B (Chris Cheeseman — A): Bản thân bê tông không phải sản phẩm có lượng carbon cao, mà chính quy mô sản xuất và sử dụng quá khổng lồ của nó trên thế giới đã gây ra lượng khí thải lớn.",
                 evidenceQuote = "But it is the scale on which it is used that makes it high carbon. The sheer scale of manufacture is so huge, that is the issue."
+            )
+            14 -> QuestionAnswerMetadata(
+                correctAnswer = "iii",
+                acceptedAnswers = listOf("iii", "Heading iii"),
+                explanation = "Đoạn A: Ô tô chạy bằng hơi nước ban đầu kế thừa cả ưu điểm lẫn nhược điểm của công nghệ hơi nước ('inherited steam's weaknesses along with its strengths') -> iii. Good and bad aspects of steam technology are passed on.",
+                evidenceQuote = "But these early cars inherited steam's weaknesses along with its strengths. The boilers had to be lit by hand... Despite such shortcomings, these newly designed self-propelled carriages offered quick transportation"
+            )
+            15 -> QuestionAnswerMetadata(
+                correctAnswer = "viii",
+                acceptedAnswers = listOf("viii", "Heading viii"),
+                explanation = "Đoạn B: Sự xuất hiện của động cơ đốt trong (Internal Combustion Engine), đặc biệt sau khi General Motors giới thiệu bộ khởi động điện năm 1912, đã dần thay thế và loại bỏ xe hơi nước -> viii. A better option than the steam car arises.",
+                evidenceQuote = "A new technology called the Internal Combustion Engine soon appeared... But in 1912 General Motors introduced the electric starter, and over the following few years steam power was gradually phased out."
+            )
+            16 -> QuestionAnswerMetadata(
+                correctAnswer = "vi",
+                acceptedAnswers = listOf("vi", "Heading vi"),
+                explanation = "Đoạn C: Mẫu xe thử nghiệm Model B của anh em Doble thu hút sự chú ý tích cực từ các tạp chí ô tô nhờ vận hành êm ái, sạch và tăng tốc nhanh ấn tượng (0 đến 60 dặm/giờ trong 15 giây) -> vi. Positive publicity at last for this quiet, clean, fast vehicle.",
+                evidenceQuote = "it drew the attention of automobile trade magazines due to its numerous improvements over previous steam cars... Its high-pressure steam drove the engine pistons in virtual silence... 'remarkable acceleration' by Automobile magazine in 1914."
+            )
+            17 -> QuestionAnswerMetadata(
+                correctAnswer = "v",
+                acceptedAnswers = listOf("v", "Heading v"),
+                explanation = "Đoạn D: Những cải tiến bổ sung trên mẫu Model C (đánh lửa bằng chìa khóa trong cabin...) đã giúp công ty nhận được 5.390 đơn đặt cọc mua xe thương mại -> v. Further improvements lead to commercial orders.",
+                evidenceQuote = "The brothers added features such as a key-based ignition in the cabin... By the following April, the General Engineering Company had received 5,390 deposits for Doble Detroits"
+            )
+            18 -> QuestionAnswerMetadata(
+                correctAnswer = "vii",
+                acceptedAnswers = listOf("vii", "Heading vii"),
+                explanation = "Đoạn E: Abner Doble thông báo tin buồn cho các khách hàng đang háo hức chờ xe: những người nhận được số ít xe hoàn thiện đã phàn nàn vì xe chạy ì ạch, thất thường, thậm chí lùi khi muốn tiến -> vii. A disappointing outcome for customers.",
+                evidenceQuote = "Abner Doble delivered unhappy news to those eagerly awaiting the delivery of their modern new cars. Those buyers who received the handful of completed cars complained that the vehicles were sluggish and erratic"
+            )
+            19 -> QuestionAnswerMetadata(
+                correctAnswer = "i",
+                acceptedAnswers = listOf("i", "Heading i"),
+                explanation = "Đoạn F: Chiếc Model E được để qua đêm trong nhiệt độ đóng băng và để thêm hơn một giờ trong không khí sương giá buổi sáng trước khi tiến hành chạy thử nghiệm đánh giá công nghệ -> i. A period in cold conditions before the technology is assessed.",
+                evidenceQuote = "After sitting overnight in freezing temperatures, the car was pushed out into the road and left to sit for over an hour in the frosty morning air. At the turn of the key, the boiler lit and reached its operating pressure inside of forty seconds."
+            )
+            20 -> QuestionAnswerMetadata(
+                correctAnswer = "iv",
+                acceptedAnswers = listOf("iv", "Heading iv"),
+                explanation = "Đoạn G: Xe Model E chạy đủ sạch để vượt qua các quy định khí thải nghiêm ngặt hiện nay tại California. Dưới áp lực cải thiện hiệu suất ô tô và giảm phát thải của thế giới ngày nay, xe hơi nước hoàn toàn có thể trở lại -> iv. A possible solution to the issues of today.",
+                evidenceQuote = "runs clean enough to pass the emissions laws in California today... Under the current pressure to improve automotive performance and reduce emissions, it is not unthinkable that the steam car may rise again."
+            )
+            21 -> QuestionAnswerMetadata(
+                correctAnswer = "A",
+                acceptedAnswers = listOf("A"),
+                explanation = "Đoạn B: 'But the glory days of steam cars were few.' (Những ngày tháng hoàng kim của xe hơi nước rất ngắn ngủi -> A. Its success was short-lived).",
+                evidenceQuote = "But the glory days of steam cars were few."
+            )
+            22 -> QuestionAnswerMetadata(
+                correctAnswer = "C",
+                acceptedAnswers = listOf("C"),
+                explanation = "Đoạn C: Chiếc xe đầu tiên chạy không tốt, anh em nhà Doble tiếp tục chế tạo mẫu thứ hai và thứ ba (Model B) mới tạo ra được mẫu xe cạnh tranh được đánh giá cao -> C. needed several attempts to achieve a competitive model.",
+                evidenceQuote = "Though it did not run well, the Doble brothers went on to build a second and third prototype in the following years. Though the Doble boys' third prototype, nicknamed the Model B... drew the attention of automobile trade magazines due to its numerous improvements"
+            )
+            23 -> QuestionAnswerMetadata(
+                correctAnswer = "B",
+                acceptedAnswers = listOf("B"),
+                explanation = "Đoạn D: Abner Doble lái chiếc Model B đến Detroit để tìm kiếm vốn đầu tư (seek investment), nhờ đó ông mở công ty General Engineering Company và cùng các anh em bắt tay ngay vào chế tạo Model C -> B. raised financial capital.",
+                evidenceQuote = "Abner Doble drove the Model B from Massachusetts to Detroit in order to seek investment in his automobile design, which he used to open the General Engineering Company. He and his brothers immediately began working on the Model C"
+            )
+            24 -> QuestionAnswerMetadata(
+                correctAnswer = "speed",
+                acceptedAnswers = listOf("speed", "maximum speed"),
+                explanation = "Đoạn F: 'As the new Doble steamer was further developed and tested, its maximum speed was pushed to over a hundred miles per hour, and it achieved about fifteen miles per gallon of kerosene with negligible emissions.' (Phiên bản sau của Model E nâng tốc độ tối đa lên hơn 100 dặm/giờ -> speed).",
+                evidenceQuote = "its maximum speed was pushed to over a hundred miles per hour, and it achieved about fifteen miles per gallon of kerosene with negligible emissions"
+            )
+            25 -> QuestionAnswerMetadata(
+                correctAnswer = "50",
+                acceptedAnswers = listOf("50", "fifty"),
+                explanation = "Đoạn G: 'By the time the company folded in 1931, fewer than fifty of the amazing Model E steam cars had been produced.' (Chưa đầy 50 chiếc xe được sản xuất trước khi công ty đóng cửa -> 50 / fifty).",
+                evidenceQuote = "By the time the company folded in 1931, fewer than fifty of the amazing Model E steam cars had been produced"
+            )
+            26 -> QuestionAnswerMetadata(
+                correctAnswer = "strict",
+                acceptedAnswers = listOf("strict"),
+                explanation = "Đoạn G: 'Astonishingly, an unmodified Doble Model E runs clean enough to pass the emissions laws in California today, and they are pretty strict.' (Đáp ứng các luật khí thải nghiêm ngặt của California -> strict).",
+                evidenceQuote = "runs clean enough to pass the emissions laws in California today, and they are pretty strict"
             )
             else -> null
         }
