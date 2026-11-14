@@ -667,19 +667,19 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
             "promised myself that I'd go through this course and keep an open mind till the end.", "we'll be unpaid assistants in the industry for quite a long time... I'm prepared for that",
             "more interested in her own appearance than his!", "she should have hidden her negative feelings about him, but she didn't.",
             "garments sold there were being returned because they fell apart in the wash", "an item that no one's stocking but that consumers are looking for",
-            "extensive damage to fences in the reserve.", "an entire family unit was selected",
-            "employed helicopters to herd the animals", "minimise physiological stress",
-            "positioned on their sides to prevent their immense weight from crushing lungs",
-            "breathing was monitored constantly throughout transit", "circumference of their feet",
-            "created valuable employment opportunities", "sharp decline in poachers and confiscated weapons",
-            "eco-tourism flourished, providing a significant boost to GDP"
+            "Elephants were routinely knocking down fences around the park", "all belonging to one family. Because relationships are very important",
+            "vets and park rangers flew over the park in helicopters", "done as quickly as possible so as to minimise the stress caused.",
+            "all the elephants had to be placed on their sides.",
+            "keep an eye on their breathing – if there were fewer than six breaths per minute", "Measurements were taken of each elephant's tusks... and also of their feet.",
+            "Employment prospects have improved enormously, contributing to rising living standards", "many of them volunteered to give up their weapons",
+            "All this has been a big draw for tourism, which contributes five times more than the illegal wildlife trade to GDP"
         )
 
         val timestamps = listOf(
             121, 154, 173, 192, 211, 273, 297, 308, 332, 345,
             78, 111, 130, 196, 168, 251, 269, 303, 312, 345,
             90, 119, 160, 174, 204, 238, 289, 314, 345, 366,
-            18, 32, 48, 65, 80, 98, 112, 130, 146, 162
+            143, 195, 210, 242, 256, 277, 289, 316, 336, 381
         )
 
         val questionsFromDetail = testDetail?.questions ?: emptyList()

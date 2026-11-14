@@ -42,8 +42,8 @@ object CambridgeListeningTestDetailDataSource {
                 sectionNumber = 4,
                 title = "Part 4: Elephant translocation",
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793754909/%E5%89%9118_section1-part4.mp3",
-                durationSeconds = 495,
-                transcript = "[00:05] Lecturer: Today we examine the large-scale elephant translocation from Majete National Park.\n[00:18] Overpopulation caused intense competition and extensive damage to fences in the reserve.\n[00:32] In the translocation, an entire family unit was selected to keep social structures intact.\n[00:48] Vets and park rangers employed helicopters to herd the animals towards open plains.\n[01:05] Tranquilising had to be swift to minimise physiological stress.\n[01:20] Elephants were carefully positioned on their sides to prevent their immense weight from crushing their lungs.\n[01:38] Their breathing was monitored constantly throughout transit.\n[01:52] Scientists recorded biological data including tusk lengths and the circumference of their feet.\n[02:10] At Nkhotakota Reserve, the project created valuable employment opportunities for local trackers.\n[02:26] Heavy patrols caused a sharp decline in poachers and confiscated weapons.\n[02:42] Ultimately, eco-tourism flourished, providing a significant boost to the national GDP."
+                durationSeconds = 430,
+                transcript = "[01:14] WOMAN: For my presentation today I want to tell you about how groups of elephants have been moved and settled in new reserves. This is known as translocation and has been carried out in Malawi in Africa in recent years. The reason this is being done is because of overpopulation of elephants in some areas.\n[01:39] WOMAN: Overpopulation is a good problem to have and not one we tend to hear about very often. In Malawi's Majete National Park the elephant population had been wiped out by poachers, who killed the elephants for their ivory. But in 2003, the park was restocked and effective law enforcement was introduced. Since then, not a single elephant has been poached. In this safe environment, the elephant population boomed.\n[02:17] WOMAN: Breeding went so well that there were more elephants than the park could support.\n[02:23] WOMAN: This led to a number of problems. Firstly, there was more competition for food, which meant that some elephants were suffering from hunger. As there was a limit to the amount of food in the national park, some elephants began looking further afield. Elephants were routinely knocking down fences around the park, which then had to be repaired at a significant cost. [Q31]\n[02:50] WOMAN: To solve this problem, the decision was made to move dozens of elephants from Majete National Park to Nkhotakota Wildlife Park, where there were no elephants. But, obviously, attempting to move significant numbers of elephants to a new home 300 kilometres away is quite a challenge.\n[03:10] WOMAN: So how did this translocation process work in practice?\n[03:15] WOMAN: Elephants were moved in groups of between eight and twenty, all belonging to one family. [Q32] Because relationships are very important to elephants, they all had to be moved at the same time.\n[03:30] WOMAN: A team of vets and park rangers flew over the park in helicopters and targeted a group, which were rounded up and directed to a designated open plain. [Q33]\n[03:43] WOMAN: The vets then used darts to immobilise the elephants – this was a tricky manoeuvre, as they not only had to select the right dose of tranquiliser for different-sized elephants but they had to dart the elephants as they were running around.\n[04:02] WOMAN: This also had to be done as quickly as possible so as to minimise the stress caused. As soon as the elephants began to flop onto the ground, the team moved in to take care of them. [Q34]\n[04:16] WOMAN: To avoid the risk of suffocation, the team had to make sure none of the elephants were lying on their chests because their lungs could be crushed in this position. So all the elephants had to be placed on their sides. [Q35] One person stayed with each elephant while they waited for the vets to do checks.\n[04:37] WOMAN: It was very important to keep an eye on their breathing – if there were fewer than six breaths per minute, the elephant would need urgent medical attention. [Q36]\n[04:49] WOMAN: Collars were fitted to the matriarch in each group so their movements could be tracked in their new home. Measurements were taken of each elephant's tusks – elephants with large tusks would be at greater risk from poachers – and also of their feet. The elephants were then taken to a recovery area before being loaded onto trucks and transported to their new home. [Q37]\n[05:16] WOMAN: The elephants translocated to Nkhotakota settled in very well and the project has generally been accepted to have been a huge success – and not just for the elephants. Employment prospects have improved enormously, contributing to rising living standards for the whole community. [Q38]\n[05:36] WOMAN: Poaching is no longer an issue, as former poachers are able to find more reliable sources of income. In fact, many of them volunteered to give up their weapons, as they were no longer of any use to them. [Q39]\n[05:55] WOMAN: More than two dozen elephants have been born at Nkhotakota since relocation. With an area of more than 1,800 square kilometres, there's plenty of space for the elephant population to continue to grow. Their presence is also helping to rebalance Nkhotakota's damaged ecosystem and providing a sustainable conservation model, which could be replicated in other parks.\n[06:21] WOMAN: All this has been a big draw for tourism, which contributes five times more than the illegal wildlife trade to GDP, and this is mainly because of the elephants. There's also been a dramatic rise in interest … [Q40]"
             ),
         )
 
@@ -362,7 +362,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Elephant translocation\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nReasons for overpopulation at Majete National Park\n• strict enforcement of anti-poaching laws\n• successful breeding\n\nProblems caused by elephant overpopulation\n• greater competition, causing hunger for elephants\n• damage to 31 ________ in the park",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 18,
+                timestampStart = 143,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -372,7 +372,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Elephant translocation\nThe translocation process\n• a suitable group of elephants from the same 32 ________ was selected\n• vets and park staff made use of [ 33 ] to help guide the elephants into an open plain",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 32,
+                timestampStart = 195,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -382,7 +382,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Elephant translocation\nThe translocation process\n• a suitable group of elephants from the same [ 32 ] was selected\n• vets and park staff made use of 33 ________ to help guide the elephants into an open plain\n• elephants were immobilised with tranquilisers",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 48,
+                timestampStart = 210,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -392,7 +392,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Elephant translocation\nThe translocation process\n• vets and park staff made use of [ 33 ] to help guide the elephants into an open plain\n• elephants were immobilised with tranquilisers\n  - this process had to be completed quickly to reduce 34 ________\n  - elephants had to be turned on their [ 35 ] to avoid damage to their lungs",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 65,
+                timestampStart = 242,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -402,7 +402,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Elephant translocation\nThe translocation process\n• elephants were immobilised with tranquilisers\n  - this process had to be completed quickly to reduce [ 34 ]\n  - elephants had to be turned on their 35 ________ to avoid damage to their lungs\n  - elephants' [ 36 ] had to be monitored constantly",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 80,
+                timestampStart = 256,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -412,7 +412,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Elephant translocation\nThe translocation process\n• elephants were immobilised with tranquilisers\n  - elephants had to be turned on their [ 35 ] to avoid damage to their lungs\n  - elephants' 36 ________ had to be monitored constantly\n  - tracking devices were fitted to the matriarchs",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 98,
+                timestampStart = 277,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -422,7 +422,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Elephant translocation\nThe translocation process\n• elephants' [ 36 ] had to be monitored constantly\n• tracking devices were fitted to the matriarchs\n• data including the size of their tusks and 37 ________ was taken\n• elephants were taken by truck to their new reserve",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 112,
+                timestampStart = 289,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -432,7 +432,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Elephant translocation\nAdvantages of translocation at Nkhotakota Wildlife Park\n• 38 ________ opportunities\n• a reduction in the number of poachers and [ 39 ]\n• an example of conservation that other parks can follow",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 130,
+                timestampStart = 316,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -442,7 +442,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Elephant translocation\nAdvantages of translocation at Nkhotakota Wildlife Park\n• [ 38 ] opportunities\n• a reduction in the number of poachers and 39 ________\n• an example of conservation that other parks can follow",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 146,
+                timestampStart = 336,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -452,7 +452,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Elephant translocation\nAdvantages of translocation at Nkhotakota Wildlife Park\n• a reduction in the number of poachers and [ 39 ]\n• an example of conservation that other parks can follow\n• an increase in 40 ________ as a contributor to GDP",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 162,
+                timestampStart = 381,
                 timestampEnd = 0
             ),
         )
