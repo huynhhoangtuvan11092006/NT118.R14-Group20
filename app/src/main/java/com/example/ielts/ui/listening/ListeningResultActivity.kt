@@ -689,8 +689,16 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
                 "row of specially designed houses... community centre will be adjoining this.",
                 "There'll be a supermarket between the two entrances... just to the south of these.",
                 "road that goes up from the south entrance... curves round to the left... playground will be in that curve",
-                "The Laki Eruption of 1783 - 21", "The Laki Eruption of 1783 - 22", "The Laki Eruption of 1783 - 23", "The Laki Eruption of 1783 - 24", "The Laki Eruption of 1783 - 25",
-                "The Laki Eruption of 1783 - 26", "The Laki Eruption of 1783 - 27", "The Laki Eruption of 1783 - 28", "The Laki Eruption of 1783 - 29", "The Laki Eruption of 1783 - 30",
+                "impacted directly and indirectly on political events, as well as having massive social and economic consequences.",
+                "surprised there were so many weather stations established by that time.",
+                "Reports from the period blamed the haze for an increase in headaches, respiratory issues and asthma attacks.",
+                "It was Benjamin Franklin who realised that... But a French naturalist beat him to it.",
+                "volcanic ash drifted so swiftly, but not that the effects would go on for so long.",
+                "strange weather events were being reported as far away as North America and North Africa.",
+                "They were poisoned because they ate vegetation that had been contaminated with fluorine",
+                "the famine there led to more people dying than any other country.",
+                "included an unusually high percentage of people under the age of 25.",
+                "snowbound until March in Virginia... ice floating down the Mississippi, which was unprecedented.",
                 "convenient", "suits", "tailor", "profession", "visible",
                 "string", "waist", "perfume", "image", "handbag"
             )
@@ -723,7 +731,7 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
             listOf(
                 99, 115, 136, 172, 204, 254, 288, 316, 361, 441,
                 79, 112, 159, 179, 299, 308, 333, 340, 362, 370,
-                15, 30, 45, 60, 75, 90, 105, 120, 135, 150,
+                106, 134, 163, 200, 226, 242, 313, 330, 353, 368,
                 15, 30, 45, 60, 75, 90, 105, 120, 135, 150
             )
         } else {
