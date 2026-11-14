@@ -109,16 +109,16 @@ object CambridgeListeningDataSource {
             ListeningTestListItemDto(
                 id = "cam18-listening-test2",
                 title = "Cambridge IELTS 18 - Listening Test 2",
-                summary = "Bộ đề thi thử IELTS Listening trích từ Cambridge IELTS 18 Academic & General",
-                difficulty = "Trung bình",
+                summary = "Bộ đề thi thử IELTS Listening chuẩn khảo thí trích từ Cambridge IELTS 18 Test 2",
+                difficulty = "Standard IELTS",
                 durationMinutes = 35,
                 totalAudioDuration = 1830,
                 totalQuestions = 40,
                 sectionTitles = listOf(
-                    "Section 1: Public Health Clinic Registration & Checkup",
-                    "Section 2: New Residents Guide to City Waste & Recycling",
-                    "Section 3: Engineering Review on Surgical Robotics",
-                    "Section 4: Anthropology Lecture on Prehistoric Cave Art"
+                    "Part 1: Working at Milo's Restaurants",
+                    "Part 2: Planned Housing Development",
+                    "Part 3: The Laki Eruption of 1783",
+                    "Part 4: Pockets"
                 ),
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758609/%E5%89%9118_section2-part1.mp3",
                 userProgress = null

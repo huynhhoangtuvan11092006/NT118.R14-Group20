@@ -10,12 +10,22 @@ object CambridgeListeningTestDetailDataSource {
         val allTests = CambridgeListeningDataSource.getAllTests()
         val testItem = allTests.find { it.id == testId }
             ?: allTests.find { testTitle != null && it.title.equals(testTitle, ignoreCase = true) }
-            ?: if (testId.contains("18") || testTitle?.contains("18") == true) {
+            ?: if (testId.contains("test2") || testTitle?.contains("Test 2") == true) {
+                allTests.find { it.id == "cam18-listening-test2" } ?: allTests.first()
+            } else if (testId.contains("18") || testTitle?.contains("18") == true) {
                 allTests.find { it.id == "cam18-listening-test1" } ?: allTests.first()
             } else {
                 allTests.first()
             }
 
+        return if (testItem.id == "cam18-listening-test2" || testTitle?.contains("Test 2") == true || testId.contains("test2")) {
+            getCam18Test2Detail(testItem)
+        } else {
+            getCam18Test1Detail(testItem)
+        }
+    }
+
+    private fun getCam18Test1Detail(testItem: com.example.ielts.data.remote.dto.ListeningTestListItemDto): ListeningTestDetailDto {
         val sections = listOf(
             ListeningSectionDto(
                 sectionNumber = 1,
@@ -466,4 +476,458 @@ object CambridgeListeningTestDetailDataSource {
             questions = questions
         )
     }
+
+    private fun getCam18Test2Detail(testItem: com.example.ielts.data.remote.dto.ListeningTestListItemDto): ListeningTestDetailDto {
+        val sections = listOf(
+            ListeningSectionDto(
+                sectionNumber = 1,
+                title = "Part 1: Working at Milo's Restaurants",
+                audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758609/%E5%89%9118_section2-part1.mp3",
+                durationSeconds = 480,
+                transcript = "[00:33] ANNOUNCER: Part 1. You will hear a woman from a job agency giving information to a man about work in a chain of restaurants.\n[00:41] ANNOUNCER: First, you have some time to look at questions 1 to 5.\n[01:13] ANNOUNCER: Now listen carefully and answer questions 1 to 5.\n[01:23] WOMAN: So I understand you're interested in restaurant work?\n[01:27] MAN: Yes, I've got a bit of experience and I can provide references.\n[01:31] WOMAN: That's good. I can check all that later. Now, Milo's restaurants have some vacancies at the moment. They're a really good company to work for. Lots of benefits.\n[01:39] WOMAN: They've got a very good reputation for looking after staff. For example, all employees get training, even temporary staff. [Q1]\n[01:48] MAN: Oh really? That's quite unusual, isn't it?\n[01:51] WOMAN: Certainly is.\n[01:52] MAN: And do staff get free uniforms too?\n[01:55] WOMAN: Erm, you just need to wear a white t-shirt and black trousers, it says here, so I guess not. But another benefit of working for a big company like this is that you can get a discount at any of their restaurants. [Q2]\n[02:04] MAN: Even at weekends?\n[02:05] WOMAN: No, but you'll be working then anyway.\n[02:08] MAN: Oh yes, I suppose so. Most of their restaurants are in the city centre, aren't they? So easy to get to by bus?\n[02:16] WOMAN: Yes, that's right. But if you have to do a late shift and finish work after midnight, the company will pay for you to get a taxi home. [Q3]\n[02:30] MAN: I probably won't need one. I think I'd use my bike.\n[02:36] WOMAN: OK. Now, they do have some quite specific requirements for the kind of person they're looking for. Milo's is a young, dynamic company and they're really keen on creating a strong team.\n[02:48] WOMAN: It's really important that you can fit in and get on well with everyone.\n[02:52] MAN: Yep, I've got no problem with that. It sounds good actually. The last place I worked for was quite demanding too. We had to make sure we gave a really high level of service. [Q4]\n[03:04] WOMAN: That's good to hear, because that will be equally important at Milo's. I know they want people who have an eye for detail.\n[03:15] MAN: That's fine. I'm very used to working in that kind of environment.\n[03:24] WOMAN: Perfect. So the only other thing that's required is good communication skills, so you'll need to have a certificate in English. [Q5]\n[03:33] MAN: Sure.\n[03:36] ANNOUNCER: Before you hear the rest of the conversation, you have some time to look at questions 6 to 10.\n[04:07] ANNOUNCER: Now listen and answer questions 6 to 10.\n[04:14] WOMAN: OK. Let's have a look at the current job vacancies at Milo's. The first one is in Wivenhoe Street. [Q6]\n[04:21] MAN: Sorry, where?\n[04:23] WOMAN: Wivenhoe. W-I-V-E-N-H-O-E. It's quite central, just off Cork Street.\n[04:43] MAN: Oh, right.\n[04:44] WOMAN: They're looking for a breakfast supervisor.\n[04:46] MAN: That would be OK.\n[04:48] WOMAN: So you're probably familiar with the kind of responsibilities involved. Obviously checking that all the portions are correct, etc. And then things like checking all the procedures for cleaning the equipment are being followed. [Q7]\n[05:01] MAN: OK. And what about the salary? In my last job, I was getting £9.50 per hour. I was hoping to get a bit more than that.\n[05:16] WOMAN: Well, to begin with, you'd be getting £9.75, but that goes up to £11.25 after three months. [Q8]\n[05:30] MAN: That's not too bad. And I suppose it's a very early start.\n[05:35] WOMAN: That's the only unattractive thing about this job. But then you have the afternoons and evenings free. So the restaurant starts serving breakfast from 7am and you'd have to be there at 5.30 to set everything up. But you'd be finished at 12.30.\n[05:42] MAN: Well, as you say, there are advantages to that.\n[05:46] WOMAN: Now, you might also be interested in the job at the City Road branch. That's for a junior chef. So again, a position of responsibility.\n[05:59] MAN: I might prefer that, actually.\n[06:01] WOMAN: Right. Well, obviously, this role would involve supporting the sous chef and other senior staff. And you'd be responsible for making sure there's enough stock each week and sorting out all the deliveries. [Q9]\n[06:44] MAN: I've never done that before, but I imagine it's fairly straightforward once you get the hang of it.\n[06:56] WOMAN: Yes. And you'd be working alongside more experienced staff to begin with, so I'm sure it wouldn't be a problem. The salary's slightly higher here. It's an annual salary of £23,000.\n[07:09] MAN: Right.\n[07:10] WOMAN: I know that if they like you, it's likely you'll be promoted quite quickly, so that's worth thinking about.\n[07:17] MAN: Yes, it does sound interesting. What are the hours like?\n[07:21] WOMAN: The usual, I think. There's a lot of evening and weekend work, but they're closed on Mondays. But you do get one Sunday off every four weeks, so would you like me to send off your CV? [Q10]"
+            ),
+            ListeningSectionDto(
+                sectionNumber = 2,
+                title = "Part 2: Planned Housing Development",
+                audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758609/%E5%89%9118_section2-part2.mp3",
+                durationSeconds = 420,
+                transcript = "[00:00] Speaker: Good morning and welcome to this presentation on the proposed new housing development in the local district."
+            ),
+            ListeningSectionDto(
+                sectionNumber = 3,
+                title = "Part 3: The Laki Eruption of 1783",
+                audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758609/%E5%89%9118_section2-part1.mp3",
+                durationSeconds = 420,
+                transcript = "[00:00] Students: Today we will present our research findings on the historical and climatic impacts of the 1783 Laki volcanic eruption in Iceland."
+            ),
+            ListeningSectionDto(
+                sectionNumber = 4,
+                title = "Part 4: Pockets",
+                audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758609/%E5%89%9118_section2-part1.mp3",
+                durationSeconds = 450,
+                transcript = "[00:00] Lecturer: In today's design history lecture, we shall investigate the evolution of pockets in clothing and their societal implications."
+            )
+        )
+
+        val questions = listOf(
+            // ==================== PART 1: Working at Milo's Restaurants ====================
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q1",
+                position = 1,
+                type = "FILL_IN_BLANK",
+                prompt = "Working at Milo's Restaurants\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\nBenefits\n• 1 ________ provided for all staff\n• [ 2 ] during weekdays at all Milo's Restaurants\n• [ 3 ] provided after midnight\n\nPerson specification\n• must be prepared to work well in a team\n• must care about maintaining a high standard of [ 4 ]\n• must have a qualification in [ 5 ]",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 99,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q2",
+                position = 2,
+                type = "FILL_IN_BLANK",
+                prompt = "Working at Milo's Restaurants\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\nBenefits\n• [ 1 ] provided for all staff\n• 2 ________ during weekdays at all Milo's Restaurants\n• [ 3 ] provided after midnight\n\nPerson specification\n• must be prepared to work well in a team\n• must care about maintaining a high standard of [ 4 ]\n• must have a qualification in [ 5 ]",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 115,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q3",
+                position = 3,
+                type = "FILL_IN_BLANK",
+                prompt = "Working at Milo's Restaurants\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\nBenefits\n• [ 1 ] provided for all staff\n• [ 2 ] during weekdays at all Milo's Restaurants\n• 3 ________ provided after midnight\n\nPerson specification\n• must be prepared to work well in a team\n• must care about maintaining a high standard of [ 4 ]\n• must have a qualification in [ 5 ]",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 136,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q4",
+                position = 4,
+                type = "FILL_IN_BLANK",
+                prompt = "Working at Milo's Restaurants\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\nBenefits\n• [ 1 ] provided for all staff\n• [ 2 ] during weekdays at all Milo's Restaurants\n• [ 3 ] provided after midnight\n\nPerson specification\n• must be prepared to work well in a team\n• must care about maintaining a high standard of 4 ________\n• must have a qualification in [ 5 ]",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 172,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q5",
+                position = 5,
+                type = "FILL_IN_BLANK",
+                prompt = "Working at Milo's Restaurants\nComplete the notes below.\nWrite ONE WORD ONLY for each answer.\n\nBenefits\n• [ 1 ] provided for all staff\n• [ 2 ] during weekdays at all Milo's Restaurants\n• [ 3 ] provided after midnight\n\nPerson specification\n• must be prepared to work well in a team\n• must care about maintaining a high standard of [ 4 ]\n• must have a qualification in 5 ________",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 204,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q6",
+                position = 6,
+                type = "FILL_IN_BLANK",
+                prompt = "Jobs available\nComplete the table below.\nWrite ONE WORD AND/OR A NUMBER for each answer.\n\nLocation: 6 ________ Street\nJob title: Breakfast supervisor\nResponsibilities include:\n• Checking portions, etc. are correct\n• Making sure [ 7 ] is clean\nPay and conditions:\n• Starting salary [ 8 ] £ per hour\n• Start work at 5.30 a.m.",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 254,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q7",
+                position = 7,
+                type = "FILL_IN_BLANK",
+                prompt = "Jobs available\nComplete the table below.\nWrite ONE WORD AND/OR A NUMBER for each answer.\n\nLocation: [ 6 ] Street\nJob title: Breakfast supervisor\nResponsibilities include:\n• Checking portions, etc. are correct\n• Making sure 7 ________ is clean\nPay and conditions:\n• Starting salary [ 8 ] £ per hour\n• Start work at 5.30 a.m.",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 288,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q8",
+                position = 8,
+                type = "FILL_IN_BLANK",
+                prompt = "Jobs available\nComplete the table below.\nWrite ONE WORD AND/OR A NUMBER for each answer.\n\nLocation: [ 6 ] Street\nJob title: Breakfast supervisor\nResponsibilities include:\n• Checking portions, etc. are correct\n• Making sure [ 7 ] is clean\nPay and conditions:\n• Starting salary 8 ________ £ per hour\n• Start work at 5.30 a.m.",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 316,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q9",
+                position = 9,
+                type = "FILL_IN_BLANK",
+                prompt = "Jobs available\nComplete the table below.\nWrite ONE WORD AND/OR A NUMBER for each answer.\n\nLocation: City Road\nJob title: Junior chef\nResponsibilities include:\n• Supporting senior chefs\n• Maintaining stock and organizing 9 ________\nPay and conditions:\n• Annual salary £23,000\n• No work on a [ 10 ] once a month",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 361,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q10",
+                position = 10,
+                type = "FILL_IN_BLANK",
+                prompt = "Jobs available\nComplete the table below.\nWrite ONE WORD AND/OR A NUMBER for each answer.\n\nLocation: City Road\nJob title: Junior chef\nResponsibilities include:\n• Supporting senior chefs\n• Maintaining stock and organizing [ 9 ]\nPay and conditions:\n• Annual salary £23,000\n• No work on a 10 ________ once a month",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 441,
+                timestampEnd = 0
+            ),
+
+            // ==================== PART 2: Planned Housing Development ====================
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q11",
+                position = 11,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Planned Housing Development\nQuestions 11 and 12: Choose TWO letters, A–E.\nWhich TWO groups of people are particularly encouraged to attend the meeting?\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
+                options = listOf("A. local business owners", "B. young families", "C. retired people", "D. school teachers", "E. university students"),
+                sectionNumber = 2,
+                timestampStart = 15,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q12",
+                position = 12,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Planned Housing Development\nQuestions 11 and 12: Choose TWO letters, A–E.\nWhich TWO groups of people are particularly encouraged to attend the meeting?\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
+                options = listOf("A. local business owners", "B. young families", "C. retired people", "D. school teachers", "E. university students"),
+                sectionNumber = 2,
+                timestampStart = 30,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q13",
+                position = 13,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Planned Housing Development\nQuestions 13 and 14: Choose TWO letters, A–E.\nWhich TWO facilities are included in the new housing proposal?\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
+                options = listOf("A. a medical centre", "B. a community centre", "C. a public library", "D. a swimming pool", "E. a sports pavilion"),
+                sectionNumber = 2,
+                timestampStart = 45,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q14",
+                position = 14,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Planned Housing Development\nQuestions 13 and 14: Choose TWO letters, A–E.\nWhich TWO facilities are included in the new housing proposal?\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
+                options = listOf("A. a medical centre", "B. a community centre", "C. a public library", "D. a swimming pool", "E. a sports pavilion"),
+                sectionNumber = 2,
+                timestampStart = 60,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q15",
+                position = 15,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Planned Housing Development\nQuestions 15–20: Map / Plan labelling\n15. Solar panels location",
+                options = listOf("A", "B", "C", "D", "E", "F", "G", "H"),
+                sectionNumber = 2,
+                timestampStart = 75,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q16",
+                position = 16,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Planned Housing Development\nQuestions 15–20: Map / Plan labelling\n16. Children's playground",
+                options = listOf("A", "B", "C", "D", "E", "F", "G", "H"),
+                sectionNumber = 2,
+                timestampStart = 90,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q17",
+                position = 17,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Planned Housing Development\nQuestions 15–20: Map / Plan labelling\n17. Park area",
+                options = listOf("A", "B", "C", "D", "E", "F", "G", "H"),
+                sectionNumber = 2,
+                timestampStart = 105,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q18",
+                position = 18,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Planned Housing Development\nQuestions 15–20: Map / Plan labelling\n18. Community garden",
+                options = listOf("A", "B", "C", "D", "E", "F", "G", "H"),
+                sectionNumber = 2,
+                timestampStart = 120,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q19",
+                position = 19,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Planned Housing Development\nQuestions 15–20: Map / Plan labelling\n19. Bicycle path entrance",
+                options = listOf("A", "B", "C", "D", "E", "F", "G", "H"),
+                sectionNumber = 2,
+                timestampStart = 135,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q20",
+                position = 20,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Planned Housing Development\nQuestions 15–20: Map / Plan labelling\n20. Car parking area",
+                options = listOf("A", "B", "C", "D", "E", "F", "G", "H"),
+                sectionNumber = 2,
+                timestampStart = 150,
+                timestampEnd = 0
+            ),
+
+            // ==================== PART 3: The Laki Eruption of 1783 ====================
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q21",
+                position = 21,
+                type = "MULTIPLE_CHOICE",
+                prompt = "The Laki Eruption of 1783\nQuestions 21–24: Choose the correct letter, A, B or C.\n\n21. What initially surprised the students about the Laki eruption?",
+                options = listOf("A. the sheer volume of lava produced", "B. the number of countries affected", "C. the duration of the eruption period"),
+                sectionNumber = 3,
+                timestampStart = 15,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q22",
+                position = 22,
+                type = "MULTIPLE_CHOICE",
+                prompt = "The Laki Eruption of 1783\nQuestions 21–24: Choose the correct letter, A, B or C.\n\n22. What impact did the poisonous haze have on European agriculture?",
+                options = listOf("A. crop yields dropped drastically across the continent", "B. livestock adapted better than expected", "C. farming practices changed immediately"),
+                sectionNumber = 3,
+                timestampStart = 30,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q23",
+                position = 23,
+                type = "MULTIPLE_CHOICE",
+                prompt = "The Laki Eruption of 1783\nQuestions 21–24: Choose the correct letter, A, B or C.\n\n23. What did historical documents reveal about public health in 1783?",
+                options = listOf("A. Doctors identified the cause promptly.", "B. Respiratory illness surged dramatically.", "C. Most deaths were among young children."),
+                sectionNumber = 3,
+                timestampStart = 45,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q24",
+                position = 24,
+                type = "MULTIPLE_CHOICE",
+                prompt = "The Laki Eruption of 1783\nQuestions 21–24: Choose the correct letter, A, B or C.\n\n24. How did the students decide to structure their presentation?",
+                options = listOf("A. by geographic region", "B. chronologically by year", "C. by scientific discipline"),
+                sectionNumber = 3,
+                timestampStart = 60,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q25",
+                position = 25,
+                type = "MULTIPLE_CHOICE",
+                prompt = "The Laki Eruption of 1783\nQuestions 25 and 26: Choose TWO letters, A–E.\nWhich TWO historical consequences of the eruption do the students agree to emphasize?\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
+                options = listOf("A. famine leading to social unrest", "B. climatic cooling in North America", "C. political revolutions", "D. technological inventions", "E. mass migration to cities"),
+                sectionNumber = 3,
+                timestampStart = 75,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q26",
+                position = 26,
+                type = "MULTIPLE_CHOICE",
+                prompt = "The Laki Eruption of 1783\nQuestions 25 and 26: Choose TWO letters, A–E.\nWhich TWO historical consequences of the eruption do the students agree to emphasize?\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
+                options = listOf("A. famine leading to social unrest", "B. climatic cooling in North America", "C. political revolutions", "D. technological inventions", "E. mass migration to cities"),
+                sectionNumber = 3,
+                timestampStart = 90,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q27",
+                position = 27,
+                type = "MULTIPLE_CHOICE",
+                prompt = "The Laki Eruption of 1783\nQuestions 27–30: Matching\n27. Impact on ice core samples",
+                options = listOf("A", "B", "C", "D", "E", "F"),
+                sectionNumber = 3,
+                timestampStart = 105,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q28",
+                position = 28,
+                type = "MULTIPLE_CHOICE",
+                prompt = "The Laki Eruption of 1783\nQuestions 27–30: Matching\n28. Tree ring density studies",
+                options = listOf("A", "B", "C", "D", "E", "F"),
+                sectionNumber = 3,
+                timestampStart = 120,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q29",
+                position = 29,
+                type = "MULTIPLE_CHOICE",
+                prompt = "The Laki Eruption of 1783\nQuestions 27–30: Matching\n29. Sulfate aerosol records",
+                options = listOf("A", "B", "C", "D", "E", "F"),
+                sectionNumber = 3,
+                timestampStart = 135,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q30",
+                position = 30,
+                type = "MULTIPLE_CHOICE",
+                prompt = "The Laki Eruption of 1783\nQuestions 27–30: Matching\n30. Global temperature estimations",
+                options = listOf("A", "B", "C", "D", "E", "F"),
+                sectionNumber = 3,
+                timestampStart = 150,
+                timestampEnd = 0
+            ),
+
+            // ==================== PART 4: Pockets ====================
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q31",
+                position = 31,
+                type = "FILL_IN_BLANK",
+                prompt = "Pockets\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nEarly history of pockets\n• pockets were initially 31 ________ rather than stylish",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 15,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q32",
+                position = 32,
+                type = "FILL_IN_BLANK",
+                prompt = "Pockets\n• sewn inside men's [ 32 ] for security",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 30,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q33",
+                position = 33,
+                type = "FILL_IN_BLANK",
+                prompt = "Pockets\n• customized by a local 33 ________ according to personal preference",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 45,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q34",
+                position = 34,
+                type = "FILL_IN_BLANK",
+                prompt = "Pockets\n• pocket designs reflected the owner's 34 ________ and status",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 60,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q35",
+                position = 35,
+                type = "FILL_IN_BLANK",
+                prompt = "Pockets\n• in women's clothing, pockets were not initially 35 ________ from the outside",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 75,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q36",
+                position = 36,
+                type = "FILL_IN_BLANK",
+                prompt = "Pockets\n• bags were tied with a 36 ________ under petticoats",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 90,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q37",
+                position = 37,
+                type = "FILL_IN_BLANK",
+                prompt = "Pockets\n• fastened around the 37 ________ for ease of carrying",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 105,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q38",
+                position = 38,
+                type = "FILL_IN_BLANK",
+                prompt = "Pockets\n• used to hold small items such as keys, coins, and 38 ________",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 120,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q39",
+                position = 39,
+                type = "FILL_IN_BLANK",
+                prompt = "Pockets\n• changes in fashion silhouettes prioritized body 39 ________ over functionality",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 135,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t2_q40",
+                position = 40,
+                type = "FILL_IN_BLANK",
+                prompt = "Pockets\n• led to the emergence of the modern 40 ________ as an indispensable accessory",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 150,
+                timestampEnd = 0
+            )
+        )
+
+        return ListeningTestDetailDto(
+            id = testItem.id,
+            title = testItem.title,
+            summary = testItem.summary,
+            audioUrl = testItem.audioUrl,
+            durationMinutes = testItem.durationMinutes,
+            sections = sections,
+            questions = questions
+        )
+    }
+
 }

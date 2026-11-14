@@ -640,47 +640,92 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
             } catch (_: Exception) {}
         }
 
-        // Canonical Cambridge 18 Test 1 Listening answers & evidence
-        val defaultAnswers = listOf(
-            "DW30 7YZ", "24th April", "dentist", "parking", "Claxby",
-            "late", "evening", "supermarket", "pollution", "storage",
-            "C", "A", "A", "B", "E",
-            "B", "G", "D", "A", "F",
-            "A", "B", "A", "C", "B",
-            "A", "B", "E", "A", "C",
-            "fences", "family", "helicopters", "stress", "sides",
-            "breathing", "feet", "employment", "weapons", "tourism"
-        )
+        val isTest2 = testDetail?.id?.contains("test2") == true || testDetail?.title?.contains("Test 2") == true
 
-        val defaultQuotes = listOf(
-            "It's DW3Q 7YZ.", "It's the 24th of April, isn't it?", "the main reason I came here was to go to the dentist.",
-            "parking was so difficult to find and it costs so much.", "At the bus stop on Claxby Street.",
-            "this morning it was late. Only about 10 minutes, but still.", "any time I've been in town in the evening... wait a long time",
-            "Mainly just to go to the supermarket.", "because of all the pollution.", "it doesn't have any storage.",
-            "people at the back of the room may be a bit squashed", "Other considerations, such as reliability, are crucial in voluntary work and age isn't related to these",
-            "training doesn't end when you start working for us. It takes place before, during and after", "What we value is dedication.", "critical that you have enough hours in the day for whatever role we agree is suitable for you",
-            "creativity to come up with an imaginative or novel way of fundraising", "useful if you can walk for long periods, sometimes uphill.",
-            "good if you know something about nutrition and can give clear instructions.", "helping out at our Story Club for disabled children, especially if you have done some acting.",
-            "take in a lot of information and not forget any important steps or details.",
-            "hard to see through people's heads, isn't it?", "there's a whole range of … areas of work that we hadn't even thought of",
-            "we're only first years, after all. We've got a lot to learn.", "none of them were very inspiring. They could have asked more people like today's speaker",
-            "promised myself that I'd go through this course and keep an open mind till the end.", "we'll be unpaid assistants in the industry for quite a long time... I'm prepared for that",
-            "more interested in her own appearance than his!", "she should have hidden her negative feelings about him, but she didn't.",
-            "garments sold there were being returned because they fell apart in the wash", "an item that no one's stocking but that consumers are looking for",
-            "Elephants were routinely knocking down fences around the park", "all belonging to one family. Because relationships are very important",
-            "vets and park rangers flew over the park in helicopters", "done as quickly as possible so as to minimise the stress caused.",
-            "all the elephants had to be placed on their sides.",
-            "keep an eye on their breathing – if there were fewer than six breaths per minute", "Measurements were taken of each elephant's tusks... and also of their feet.",
-            "Employment prospects have improved enormously, contributing to rising living standards", "many of them volunteered to give up their weapons",
-            "All this has been a big draw for tourism, which contributes five times more than the illegal wildlife trade to GDP"
-        )
+        // Answers & evidence
+        val defaultAnswers = if (isTest2) {
+            listOf(
+                "training", "discount", "taxi", "service", "English",
+                "Wivenhoe", "equipment", "9.75", "deliveries", "Sunday",
+                "B", "E", "B", "C", "G",
+                "C", "D", "B", "H", "A",
+                "C", "A", "B", "B", "A",
+                "B", "D", "A", "C", "F",
+                "convenient", "suits", "tailor", "profession", "visible",
+                "string", "waist", "perfume", "image", "handbag"
+            )
+        } else {
+            listOf(
+                "DW30 7YZ", "24th April", "dentist", "parking", "Claxby",
+                "late", "evening", "supermarket", "pollution", "storage",
+                "C", "A", "A", "B", "E",
+                "B", "G", "D", "A", "F",
+                "A", "B", "A", "C", "B",
+                "A", "B", "E", "A", "C",
+                "fences", "family", "helicopters", "stress", "sides",
+                "breathing", "feet", "employment", "weapons", "tourism"
+            )
+        }
 
-        val timestamps = listOf(
-            121, 154, 173, 192, 211, 273, 297, 308, 332, 345,
-            78, 111, 130, 196, 168, 251, 269, 303, 312, 345,
-            90, 119, 160, 174, 204, 238, 289, 314, 345, 366,
-            143, 195, 210, 242, 256, 277, 289, 316, 336, 381
-        )
+        val defaultQuotes = if (isTest2) {
+            listOf(
+                "all employees get training, even temporary staff.",
+                "you can get a discount at any of their restaurants.",
+                "the company will pay for you to get a taxi home.",
+                "We had to make sure we gave a really high level of service.",
+                "good communication skills, so you'll need to have a certificate in English.",
+                "The first one is in Wivenhoe Street.",
+                "checking all the procedures for cleaning the equipment are being followed.",
+                "to begin with, you'd be getting £9.75",
+                "making sure there's enough stock each week and sorting out all the deliveries.",
+                "you do get one Sunday off every four weeks",
+                "Planned Housing Development - 11", "Planned Housing Development - 12", "Planned Housing Development - 13", "Planned Housing Development - 14", "Planned Housing Development - 15",
+                "Planned Housing Development - 16", "Planned Housing Development - 17", "Planned Housing Development - 18", "Planned Housing Development - 19", "Planned Housing Development - 20",
+                "The Laki Eruption of 1783 - 21", "The Laki Eruption of 1783 - 22", "The Laki Eruption of 1783 - 23", "The Laki Eruption of 1783 - 24", "The Laki Eruption of 1783 - 25",
+                "The Laki Eruption of 1783 - 26", "The Laki Eruption of 1783 - 27", "The Laki Eruption of 1783 - 28", "The Laki Eruption of 1783 - 29", "The Laki Eruption of 1783 - 30",
+                "convenient", "suits", "tailor", "profession", "visible",
+                "string", "waist", "perfume", "image", "handbag"
+            )
+        } else {
+            listOf(
+                "It's DW3Q 7YZ.", "It's the 24th of April, isn't it?", "the main reason I came here was to go to the dentist.",
+                "parking was so difficult to find and it costs so much.", "At the bus stop on Claxby Street.",
+                "this morning it was late. Only about 10 minutes, but still.", "any time I've been in town in the evening... wait a long time",
+                "Mainly just to go to the supermarket.", "because of all the pollution.", "it doesn't have any storage.",
+                "people at the back of the room may be a bit squashed", "Other considerations, such as reliability, are crucial in voluntary work and age isn't related to these",
+                "training doesn't end when you start working for us. It takes place before, during and after", "What we value is dedication.", "critical that you have enough hours in the day for whatever role we agree is suitable for you",
+                "creativity to come up with an imaginative or novel way of fundraising", "useful if you can walk for long periods, sometimes uphill.",
+                "good if you know something about nutrition and can give clear instructions.", "helping out at our Story Club for disabled children, especially if you have done some acting.",
+                "take in a lot of information and not forget any important steps or details.",
+                "hard to see through people's heads, isn't it?", "there's a whole range of … areas of work that we hadn't even thought of",
+                "we're only first years, after all. We've got a lot to learn.", "none of them were very inspiring. They could have asked more people like today's speaker",
+                "promised myself that I'd go through this course and keep an open mind till the end.", "we'll be unpaid assistants in the industry for quite a long time... I'm prepared for that",
+                "more interested in her own appearance than his!", "she should have hidden her negative feelings about him, but she didn't.",
+                "garments sold there were being returned because they fell apart in the wash", "an item that no one's stocking but that consumers are looking for",
+                "Elephants were routinely knocking down fences around the park", "all belonging to one family. Because relationships are very important",
+                "vets and park rangers flew over the park in helicopters", "done as quickly as possible so as to minimise the stress caused.",
+                "all the elephants had to be placed on their sides.",
+                "keep an eye on their breathing – if there were fewer than six breaths per minute", "Measurements were taken of each elephant's tusks... and also of their feet.",
+                "Employment prospects have improved enormously, contributing to rising living standards", "many of them volunteered to give up their weapons",
+                "All this has been a big draw for tourism, which contributes five times more than the illegal wildlife trade to GDP"
+            )
+        }
+
+        val timestamps = if (isTest2) {
+            listOf(
+                99, 115, 136, 172, 204, 254, 288, 316, 361, 441,
+                15, 30, 45, 60, 75, 90, 105, 120, 135, 150,
+                15, 30, 45, 60, 75, 90, 105, 120, 135, 150,
+                15, 30, 45, 60, 75, 90, 105, 120, 135, 150
+            )
+        } else {
+            listOf(
+                121, 154, 173, 192, 211, 273, 297, 308, 332, 345,
+                78, 111, 130, 196, 168, 251, 269, 303, 312, 345,
+                90, 119, 160, 174, 204, 238, 289, 314, 345, 366,
+                143, 195, 210, 242, 256, 277, 289, 316, 336, 381
+            )
+        }
 
         val questionsFromDetail = testDetail?.questions ?: emptyList()
 
