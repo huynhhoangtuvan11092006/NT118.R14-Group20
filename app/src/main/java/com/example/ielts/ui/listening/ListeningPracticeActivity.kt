@@ -455,6 +455,385 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         layoutDynamicQuestions.addView(pocketsView)
     }
 
+    private fun renderMultiSelectQuestionCard(
+        q1Pos: Int,
+        q2Pos: Int,
+        badgeText: String,
+        instructionText: String,
+        stemText: String,
+        options: List<String>
+    ) {
+        val inflater = LayoutInflater.from(this)
+        val view = inflater.inflate(R.layout.item_listening_question_multiselect, layoutDynamicQuestions, false)
+
+        val tvBadge = view.findViewById<TextView>(R.id.tvMultiBadge)
+        val tvInstruction = view.findViewById<TextView>(R.id.tvMultiInstruction)
+        val tvStem = view.findViewById<TextView>(R.id.tvMultiStem)
+        val layoutOptions = view.findViewById<LinearLayout>(R.id.layoutMultiOptionsContainer)
+
+        tvBadge.text = badgeText
+        tvStem.text = stemText
+
+        fun updateInstruction() {
+            var selectedCount = 0
+            if (!answersMap[q1Pos].isNullOrBlank()) selectedCount++
+            if (!answersMap[q2Pos].isNullOrBlank()) selectedCount++
+            tvInstruction.text = "$instructionText ($selectedCount/2)"
+        }
+        updateInstruction()
+
+        // Inflate option rows
+        for (opt in options) {
+            val optionView = inflater.inflate(R.layout.item_choice_option_row, layoutOptions, false)
+            val tvOpt = optionView.findViewById<TextView>(R.id.tvOptionText)
+            val ivDot = optionView.findViewById<ImageView>(R.id.ivRadioDot)
+            val ivCheck = optionView.findViewById<ImageView>(R.id.ivSelectedCheck)
+
+            tvOpt.text = opt
+            val optKey = opt.firstOrNull()?.toString() ?: opt
+
+            val isSelected = (answersMap[q1Pos] == optKey || answersMap[q2Pos] == optKey)
+            applyOptionSelection(optionView, ivDot, ivCheck, isSelected)
+
+            optionView.setOnClickListener {
+                val currentSelected = mutableListOf<String>()
+                answersMap[q1Pos]?.let { currentSelected.add(it) }
+                answersMap[q2Pos]?.let { currentSelected.add(it) }
+
+                if (optKey in currentSelected) {
+                    currentSelected.remove(optKey)
+                    answersMap.remove(q1Pos)
+                    answersMap.remove(q2Pos)
+                    if (currentSelected.isNotEmpty()) {
+                        answersMap[q1Pos] = currentSelected[0]
+                    }
+                } else {
+                    if (currentSelected.size < 2) {
+                        currentSelected.add(optKey)
+                    } else {
+                        // Already 2 selected: replace the 2nd one
+                        currentSelected[1] = optKey
+                    }
+                    if (currentSelected.size >= 1) answersMap[q1Pos] = currentSelected[0]
+                    if (currentSelected.size >= 2) answersMap[q2Pos] = currentSelected[1]
+                }
+
+                updateAnsweredCounter()
+                updateInstruction()
+
+                // Re-apply selection UI on all options
+                for (i in 0 until layoutOptions.childCount) {
+                    val child = layoutOptions.getChildAt(i)
+                    val cTv = child.findViewById<TextView>(R.id.tvOptionText)?.text?.toString() ?: ""
+                    val cKey = cTv.firstOrNull()?.toString() ?: cTv
+                    val selected = (cKey == answersMap[q1Pos] || cKey == answersMap[q2Pos])
+                    applyOptionSelection(child, child.findViewById(R.id.ivRadioDot), child.findViewById(R.id.ivSelectedCheck), selected)
+                }
+            }
+
+            layoutOptions.addView(optionView)
+        }
+
+        layoutDynamicQuestions.addView(view)
+    }
+
+    private fun bindMatchingChips(
+        qPos: Int,
+        tvSelected: TextView,
+        chips: List<TextView>,
+        options: List<String>
+    ) {
+        val activeBg = R.drawable.bg_chip_selected_pill_purple
+        val inactiveBg = R.drawable.bg_pill_soft_purple
+        val activeTextColor = ContextCompat.getColor(this, R.color.white)
+        val inactiveTextColor = ContextCompat.getColor(this, R.color.primary_blue)
+
+        fun updateUI() {
+            val ans = answersMap[qPos]
+            if (!ans.isNullOrBlank()) {
+                tvSelected.text = "Đã chọn: $ans"
+                tvSelected.setTextColor(ContextCompat.getColor(this, R.color.primary_blue))
+            } else {
+                tvSelected.text = "Chưa chọn"
+                tvSelected.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
+            }
+
+            chips.forEachIndexed { idx, chip ->
+                val letter = options[idx]
+                val isSelected = (ans == letter)
+                chip.setBackgroundResource(if (isSelected) activeBg else inactiveBg)
+                chip.setTextColor(if (isSelected) activeTextColor else inactiveTextColor)
+            }
+        }
+
+        updateUI()
+
+        chips.forEachIndexed { idx, chip ->
+            val letter = options[idx]
+            chip.setOnClickListener {
+                if (answersMap[qPos] == letter) {
+                    answersMap.remove(qPos)
+                } else {
+                    answersMap[qPos] = letter
+                }
+                updateAnsweredCounter()
+                updateUI()
+            }
+        }
+    }
+
+    private fun renderCam18Test2Section2() {
+        val inflater = LayoutInflater.from(this)
+
+        // Q11 & 12
+        renderMultiSelectQuestionCard(
+            q1Pos = 11,
+            q2Pos = 12,
+            badgeText = "11 & 12",
+            instructionText = "Chọn 2 đáp án",
+            stemText = "Questions 11 and 12\nWhat are the TWO main reasons why this site has been chosen for the housing development?",
+            options = listOf(
+                "A. It has suitable geographical features.",
+                "B. There is easy access to local facilities.",
+                "C. It has good connections with the airport.",
+                "D. The land is of little agricultural value.",
+                "E. It will be convenient for workers."
+            )
+        )
+
+        // Q13 & 14
+        renderMultiSelectQuestionCard(
+            q1Pos = 13,
+            q2Pos = 14,
+            badgeText = "13 & 14",
+            instructionText = "Chọn 2 đáp án",
+            stemText = "Questions 13 and 14\nWhich TWO aspects of the planned housing development have people given positive feedback about?",
+            options = listOf(
+                "A. the facilities for cyclists",
+                "B. the impact on the environment",
+                "C. the encouragement of good relations between residents",
+                "D. the low cost of all the accommodation",
+                "E. the rural location"
+            )
+        )
+
+        // Map Context Card
+        val contextCard = inflater.inflate(R.layout.item_listening_context_card, layoutDynamicQuestions, false)
+        val tvCardTitle = contextCard.findViewById<TextView>(R.id.tvContextCardTitle)
+        val ivContext = contextCard.findViewById<ImageView>(R.id.ivContextImage)
+        val btnZoom = contextCard.findViewById<TextView>(R.id.btnZoomHint)
+        val cardWrapper = contextCard.findViewById<View>(R.id.cardContextImageWrapper)
+
+        tvCardTitle.text = "Bản đồ Planned Housing Development (A–I)"
+        ivContext.setImageResource(R.drawable.img_cam18_test2_part2_map)
+
+        val openZoom = View.OnClickListener {
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test2_part2_map, "Bản đồ Planned Housing Development (A–I)")
+        }
+        cardWrapper.setOnClickListener(openZoom)
+        btnZoom.setOnClickListener(openZoom)
+
+        layoutDynamicQuestions.addView(contextCard)
+
+        // Q15 to Q20: Map Labeling (School, Sports centre, Clinic, Community centre, Supermarket, Playground)
+        val mapLocations = listOf(
+            15 to "15. School",
+            16 to "16. Sports centre",
+            17 to "17. Clinic",
+            18 to "18. Community centre",
+            19 to "19. Supermarket",
+            20 to "20. Playground"
+        )
+        val mapOptions = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I")
+
+        for ((pos, title) in mapLocations) {
+            val choiceView = inflater.inflate(R.layout.item_listening_question_choice, layoutDynamicQuestions, false)
+            val tvBadge = choiceView.findViewById<TextView>(R.id.tvChoiceNumberBadge)
+            val tvStem = choiceView.findViewById<TextView>(R.id.tvChoiceQuestionStem)
+            val btnBookmark = choiceView.findViewById<ImageView>(R.id.btnBookmarkChoice)
+            val layoutOptions = choiceView.findViewById<LinearLayout>(R.id.layoutOptionsContainer)
+            val btnAttachment = choiceView.findViewById<TextView?>(R.id.btnQuickViewAttachment)
+
+            btnAttachment?.visibility = View.VISIBLE
+            btnAttachment?.text = "👁️ Xem bản đồ Planned Housing Development (A–I)"
+            btnAttachment?.setOnClickListener(openZoom)
+
+            tvBadge.text = "$pos"
+            tvStem.text = "$title\nWrite the correct letter, A–I, on the map."
+
+            val isFlagged = flaggedSet.contains(pos)
+            btnBookmark.setImageResource(if (isFlagged) R.drawable.ic_bookmark else R.drawable.ic_bookmark_border)
+            btnBookmark.setColorFilter(ContextCompat.getColor(this, if (isFlagged) R.color.tertiary_orange_container else R.color.text_secondary))
+            btnBookmark.setOnClickListener {
+                if (flaggedSet.contains(pos)) {
+                    flaggedSet.remove(pos)
+                    btnBookmark.setImageResource(R.drawable.ic_bookmark_border)
+                    btnBookmark.setColorFilter(ContextCompat.getColor(this, R.color.text_secondary))
+                } else {
+                    flaggedSet.add(pos)
+                    btnBookmark.setImageResource(R.drawable.ic_bookmark)
+                    btnBookmark.setColorFilter(ContextCompat.getColor(this, R.color.tertiary_orange_container))
+                }
+            }
+
+            for (opt in mapOptions) {
+                val optionView = inflater.inflate(R.layout.item_choice_option_row, layoutOptions, false)
+                val tvOpt = optionView.findViewById<TextView>(R.id.tvOptionText)
+                val ivDot = optionView.findViewById<ImageView>(R.id.ivRadioDot)
+                val ivCheck = optionView.findViewById<ImageView>(R.id.ivSelectedCheck)
+
+                tvOpt.text = "Vị trí $opt"
+                val isSelected = (answersMap[pos] == opt)
+                applyOptionSelection(optionView, ivDot, ivCheck, isSelected)
+
+                optionView.setOnClickListener {
+                    answersMap[pos] = opt
+                    updateAnsweredCounter()
+                    for (i in 0 until layoutOptions.childCount) {
+                        val child = layoutOptions.getChildAt(i)
+                        val cKey = mapOptions[i]
+                        val childSelected = (cKey == opt)
+                        applyOptionSelection(child, child.findViewById(R.id.ivRadioDot), child.findViewById(R.id.ivSelectedCheck), childSelected)
+                    }
+                }
+                layoutOptions.addView(optionView)
+            }
+
+            layoutDynamicQuestions.addView(choiceView)
+        }
+    }
+
+    private fun renderCam18Test2Section3() {
+        val inflater = LayoutInflater.from(this)
+        val allQuestions = testDetail?.questions ?: emptyList()
+
+        // Q21 to Q24: Multiple Choice (A, B, C)
+        for (pos in 21..24) {
+            val q = allQuestions.find { it.position == pos } ?: continue
+            val choiceView = inflater.inflate(R.layout.item_listening_question_choice, layoutDynamicQuestions, false)
+            val tvBadge = choiceView.findViewById<TextView>(R.id.tvChoiceNumberBadge)
+            val tvStem = choiceView.findViewById<TextView>(R.id.tvChoiceQuestionStem)
+            val btnBookmark = choiceView.findViewById<ImageView>(R.id.btnBookmarkChoice)
+            val layoutOptions = choiceView.findViewById<LinearLayout>(R.id.layoutOptionsContainer)
+
+            tvBadge.text = "$pos"
+            tvStem.text = q.prompt
+
+            val isFlagged = flaggedSet.contains(pos)
+            btnBookmark.setImageResource(if (isFlagged) R.drawable.ic_bookmark else R.drawable.ic_bookmark_border)
+            btnBookmark.setColorFilter(ContextCompat.getColor(this, if (isFlagged) R.color.tertiary_orange_container else R.color.text_secondary))
+            btnBookmark.setOnClickListener {
+                if (flaggedSet.contains(pos)) {
+                    flaggedSet.remove(pos)
+                    btnBookmark.setImageResource(R.drawable.ic_bookmark_border)
+                    btnBookmark.setColorFilter(ContextCompat.getColor(this, R.color.text_secondary))
+                } else {
+                    flaggedSet.add(pos)
+                    btnBookmark.setImageResource(R.drawable.ic_bookmark)
+                    btnBookmark.setColorFilter(ContextCompat.getColor(this, R.color.tertiary_orange_container))
+                }
+            }
+
+            for (opt in (q.options ?: emptyList())) {
+                val optionView = inflater.inflate(R.layout.item_choice_option_row, layoutOptions, false)
+                val tvOpt = optionView.findViewById<TextView>(R.id.tvOptionText)
+                val ivDot = optionView.findViewById<ImageView>(R.id.ivRadioDot)
+                val ivCheck = optionView.findViewById<ImageView>(R.id.ivSelectedCheck)
+
+                tvOpt.text = opt
+                val optKey = opt.firstOrNull()?.toString() ?: opt
+                val isSelected = (answersMap[pos] == optKey || answersMap[pos] == opt)
+                applyOptionSelection(optionView, ivDot, ivCheck, isSelected)
+
+                optionView.setOnClickListener {
+                    answersMap[pos] = optKey
+                    updateAnsweredCounter()
+                    for (i in 0 until layoutOptions.childCount) {
+                        val child = layoutOptions.getChildAt(i)
+                        val cTv = child.findViewById<TextView>(R.id.tvOptionText)?.text?.toString() ?: ""
+                        val cKey = cTv.firstOrNull()?.toString() ?: cTv
+                        val childSelected = (cKey == optKey)
+                        applyOptionSelection(child, child.findViewById(R.id.ivRadioDot), child.findViewById(R.id.ivSelectedCheck), childSelected)
+                    }
+                }
+                layoutOptions.addView(optionView)
+            }
+
+            layoutDynamicQuestions.addView(choiceView)
+        }
+
+        // Q25 & 26: Multi-Select Pair (Choose TWO letters)
+        renderMultiSelectQuestionCard(
+            q1Pos = 25,
+            q2Pos = 26,
+            badgeText = "25 & 26",
+            instructionText = "Chọn 2 đáp án",
+            stemText = "Questions 25 and 26\nWhich TWO issues following the Laki eruption surprised the students?",
+            options = listOf(
+                "A. how widespread the effects were",
+                "B. how long-lasting the effects were",
+                "C. the number of deaths it caused",
+                "D. the speed at which the volcanic ash cloud spread",
+                "E. how people ignored the warning signs"
+            )
+        )
+
+        // Q27 to Q30: 2-column Matching Card with Comments Box
+        val matchingView = inflater.inflate(R.layout.layout_cam18_t2_p3_matching, layoutDynamicQuestions, false)
+        val btnZoomMatching3 = matchingView.findViewById<TextView>(R.id.btnZoomMatching3)
+        btnZoomMatching3.setOnClickListener {
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test2_part3_comments, "Comments A–F")
+        }
+
+        val letters = listOf("A", "B", "C", "D", "E", "F")
+
+        // 27 Iceland
+        val chips27 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip27_A),
+            matchingView.findViewById(R.id.chip27_B),
+            matchingView.findViewById(R.id.chip27_C),
+            matchingView.findViewById(R.id.chip27_D),
+            matchingView.findViewById(R.id.chip27_E),
+            matchingView.findViewById(R.id.chip27_F)
+        )
+        bindMatchingChips(27, matchingView.findViewById(R.id.tvMatchingSelected27), chips27, letters)
+
+        // 28 Egypt
+        val chips28 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip28_A),
+            matchingView.findViewById(R.id.chip28_B),
+            matchingView.findViewById(R.id.chip28_C),
+            matchingView.findViewById(R.id.chip28_D),
+            matchingView.findViewById(R.id.chip28_E),
+            matchingView.findViewById(R.id.chip28_F)
+        )
+        bindMatchingChips(28, matchingView.findViewById(R.id.tvMatchingSelected28), chips28, letters)
+
+        // 29 UK
+        val chips29 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip29_A),
+            matchingView.findViewById(R.id.chip29_B),
+            matchingView.findViewById(R.id.chip29_C),
+            matchingView.findViewById(R.id.chip29_D),
+            matchingView.findViewById(R.id.chip29_E),
+            matchingView.findViewById(R.id.chip29_F)
+        )
+        bindMatchingChips(29, matchingView.findViewById(R.id.tvMatchingSelected29), chips29, letters)
+
+        // 30 USA
+        val chips30 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip30_A),
+            matchingView.findViewById(R.id.chip30_B),
+            matchingView.findViewById(R.id.chip30_C),
+            matchingView.findViewById(R.id.chip30_D),
+            matchingView.findViewById(R.id.chip30_E),
+            matchingView.findViewById(R.id.chip30_F)
+        )
+        bindMatchingChips(30, matchingView.findViewById(R.id.tvMatchingSelected30), chips30, letters)
+
+        layoutDynamicQuestions.addView(matchingView)
+    }
+
     private fun renderQuestionsForSection(sectionNumber: Int) {
         layoutDynamicQuestions.removeAllViews()
 
@@ -462,6 +841,16 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
 
         if (isTest2 && sectionNumber == 1) {
             renderCam18Test2Section1()
+            return
+        }
+
+        if (isTest2 && sectionNumber == 2) {
+            renderCam18Test2Section2()
+            return
+        }
+
+        if (isTest2 && sectionNumber == 3) {
+            renderCam18Test2Section3()
             return
         }
 
