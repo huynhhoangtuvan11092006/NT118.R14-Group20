@@ -574,11 +574,11 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
             "parking was so difficult to find and it costs so much.", "At the bus stop on Claxby Street.",
             "this morning it was late. Only about 10 minutes, but still.", "any time I've been in town in the evening... wait a long time",
             "Mainly just to go to the supermarket.", "because of all the pollution.", "it doesn't have any storage.",
-            "Some of the seats are placed very close together.", "The age of volunteers is really less important than other factors.",
-            "we ensure it is continuous throughout your journey with us.", "your level of commitment", "your availability during weekends",
-            "For fundraising, original and new ideas are particularly welcome.", "volunteers need a good level of fitness.",
-            "an understanding of food and diet is essential.", "having experience on stage helps captivate young audiences.",
-            "having a good memory for emergency procedures is vital.",
+            "people at the back of the room may be a bit squashed", "Other considerations, such as reliability, are crucial in voluntary work and age isn't related to these",
+            "training doesn't end when you start working for us. It takes place before, during and after", "What we value is dedication.", "critical that you have enough hours in the day for whatever role we agree is suitable for you",
+            "creativity to come up with an imaginative or novel way of fundraising", "useful if you can walk for long periods, sometimes uphill.",
+            "good if you know something about nutrition and can give clear instructions.", "helping out at our Story Club for disabled children, especially if you have done some acting.",
+            "take in a lot of information and not forget any important steps or details.",
             "the students sitting next to me were talking loudly.", "there is much more variety in the job market than we had realised.",
             "quite hard for us to follow at points.", "school careers advice was delivered far too late",
             "differ on why we would like a career in fashion.", "realistic about the practice",
@@ -594,7 +594,7 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
 
         val timestamps = listOf(
             121, 154, 173, 192, 211, 273, 297, 308, 332, 345,
-            10, 25, 42, 60, 60, 85, 105, 125, 145, 165,
+            78, 111, 130, 196, 168, 251, 269, 303, 312, 345,
             12, 24, 40, 55, 70, 88, 105, 105, 130, 130,
             18, 32, 48, 65, 80, 98, 112, 130, 146, 162
         )

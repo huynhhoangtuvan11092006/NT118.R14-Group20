@@ -28,8 +28,8 @@ object CambridgeListeningTestDetailDataSource {
                 sectionNumber = 2,
                 title = "Part 2: Becoming a volunteer for ACE",
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793754888/%E5%89%9118_section1-part2.mp3",
-                durationSeconds = 450,
-                transcript = "[00:02] Speaker: Good evening everyone, and welcome to this introductory session on volunteering for ACE.\n[00:10] First, my apologies about the seating arrangements tonight. Some of the seats are placed very close together, which isn't ideal.\n[00:25] Now, people often ask about our age requirements. The age of volunteers is really less important than other factors like reliability and enthusiasm.\n[00:42] Regarding training: we ensure it is continuous throughout your journey with us.\n[01:00] Before applying, please consider two key issues: your level of commitment and your availability during weekends.\n[01:25] Let me outline the various roles: For fundraising, original and new ideas are particularly welcome.\n[01:45] For litter collection, volunteers need a good level of fitness.\n[02:05] For 'Playmates', our nutrition program, an understanding of food and diet is essential.\n[02:25] In our Story club, having experience on stage helps captivate young audiences.\n[02:45] And for first aid duties, having a good memory for emergency procedures is vital."
+                durationSeconds = 400,
+                transcript = "[00:57] WOMAN: Good evening everyone. Let me start by welcoming you all to this talk and thanking you for taking the time to consider joining ACE Voluntary Organisation.\n[01:08] WOMAN: ACE offers support to people and services in the local area and we're now looking for more volunteers to help us do this.\n[01:18] WOMAN: By the way, I hope you're all comfortable. We have brought in extra seats so that no one has to stand but it does mean that the people at the back of the room may be a bit squashed. [Q11]\n[01:30] WOMAN: We'll only be here for about half an hour so hopefully that's OK.\n[01:35] WOMAN: One of the first questions we're often asked is how old you need to be to volunteer.\n[01:41] WOMAN: Well, you can be as young as 16 or you can be 60 or over. It all depends on what type of voluntary work you want to do.\n[01:51] WOMAN: Other considerations, such as reliability, are crucial in voluntary work and age isn't related to these in our experience. [Q12]\n[02:01] WOMAN: Another question we get asked relates to training. Well, there's plenty of that and it's all face-to-face.\n[02:10] WOMAN: What's more, training doesn't end when you start working for us. It takes place before, during and after periods of work. [Q13]\n[02:20] WOMAN: Often it's run by other experienced volunteers as managers tend to prefer to get on with other things.\n[02:27] WOMAN: Now, I would ask you to consider a couple of important issues before you decide to apply for voluntary work.\n[02:35] WOMAN: We don't worry about why you want to be a volunteer. People have many different reasons that range from getting work experience to just doing something they've always wanted to do.\n[02:48] WOMAN: But it is critical that you have enough hours in the day for whatever role we agree is suitable for you. [Q15]\n[02:55] WOMAN: If being a volunteer becomes stressful, then it's best not to do it at all.\n[03:01] WOMAN: You may think that your income is important, but we don't ask about that.\n[03:11] WOMAN: It's up to you to decide if you can work without earning money.\n[03:16] WOMAN: What we value is dedication. [Q14]\n[03:24] WOMAN: Some of our most loyal volunteers earn very little themselves but still give their full energy to the work they do with us.\n[03:24] WOMAN: Before you hear the rest of the talk, you have some time to look at questions 16 to 20.\n[03:58] WOMAN: OK, so let's take a look at some of the work areas that we need volunteers for and the sort of things that would help you in those.\n[04:02] WOMAN: Now listen and answer questions 16 to 20.\n[04:11] WOMAN: You may wish simply to help us raise money. If you have the creativity to come up with an imaginative or novel way of fundraising, we'd be delighted, as standing in the local streets or shops with a collection box can be rather boring. [Q16]\n[04:29] WOMAN: One outdoor activity that we need volunteers for is litter collection, and for this it's useful if you can walk for long periods, sometimes uphill. [Q17]\n[04:41] WOMAN: Some of our regular collectors are quite elderly, but very active and keen to protect the environment.\n[04:49] WOMAN: If you enjoy working with children, we have three vacancies for what are called playmates.\n[04:57] WOMAN: These volunteers help children learn about staying healthy through a range of out-of-school activities.\n[05:03] WOMAN: You don't need to have children yourself, but it's good if you know something about nutrition and can give clear instructions. [Q18]\n[05:12] WOMAN: If that doesn't appeal to you, maybe you would be interested in helping out at our Story Club for disabled children, especially if you have done some acting. [Q19]\n[05:24] WOMAN: We put on three performances a year based on books they have read, and we're always looking for support with the theatrical side of this.\n[05:33] WOMAN: The last area I'll mention today is first aid.\n[05:38] WOMAN: Volunteers who join this group can end up teaching others in vulnerable groups who may be at risk of injury.\n[05:45] WOMAN: Initially, though, your priority will be to take in a lot of information and not forget any important steps or details. [Q20]\n[05:54] WOMAN: Right, so does anyone have any questions for me about...\n[06:02] WOMAN: That is the end of Part 2. You now have 30 seconds to check your answers to Part 2."
             ),
             ListeningSectionDto(
                 sectionNumber = 3,
@@ -158,7 +158,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Becoming a volunteer for ACE\nQuestions 11–13: Choose the correct letter, A, B or C.\n\n11. Why does the speaker apologise about the seats?",
                 options = listOf("A. They are too small.", "B. There are not enough of them.", "C. Some of them are very close together."),
                 sectionNumber = 2,
-                timestampStart = 10,
+                timestampStart = 78,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -168,7 +168,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Becoming a volunteer for ACE\nQuestions 11–13: Choose the correct letter, A, B or C.\n\n12. What does the speaker say about the age of volunteers?",
                 options = listOf("A. The age of volunteers is less important than other factors.", "B. Young volunteers are less reliable than older ones.", "C. Most volunteers are about 60 years old."),
                 sectionNumber = 2,
-                timestampStart = 25,
+                timestampStart = 111,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -178,7 +178,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Becoming a volunteer for ACE\nQuestions 11–13: Choose the correct letter, A, B or C.\n\n13. What does the speaker say about training?",
                 options = listOf("A. It is continuous.", "B. It is conducted by a manager.", "C. It takes place online."),
                 sectionNumber = 2,
-                timestampStart = 42,
+                timestampStart = 130,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -188,7 +188,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Becoming a volunteer for ACE\nQuestions 14 and 15: Choose TWO letters, A–E.\nWhich TWO issues does the speaker ask the audience to consider before they apply to be volunteers?\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
                 options = listOf("A. their financial situation", "B. their level of commitment", "C. their work experience", "D. their ambition", "E. their availability"),
                 sectionNumber = 2,
-                timestampStart = 60,
+                timestampStart = 196,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -198,7 +198,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Becoming a volunteer for ACE\nQuestions 14 and 15: Choose TWO letters, A–E.\nWhich TWO issues does the speaker ask the audience to consider before they apply to be volunteers?\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
                 options = listOf("A. their financial situation", "B. their level of commitment", "C. their work experience", "D. their ambition", "E. their availability"),
                 sectionNumber = 2,
-                timestampStart = 60,
+                timestampStart = 168,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -208,7 +208,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Becoming a volunteer for ACE\nQuestions 16–20\nWhat does the speaker suggest would be helpful for each of the following areas of voluntary work?\nChoose FIVE answers from the box and write the correct letter, A–G, next to Questions 16–20.\n\nHelpful things volunteers might offer:\nA. experience on stage\nB. original, new ideas\nC. parenting skills\nD. an understanding of food and diet\nE. retail experience\nF. a good memory\nG. a good level of fitness\n\nArea of voluntary work: 16. Fundraising",
                 options = listOf("A", "B", "C", "D", "E", "F", "G"),
                 sectionNumber = 2,
-                timestampStart = 85,
+                timestampStart = 251,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -218,7 +218,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Becoming a volunteer for ACE\nQuestions 16–20\nWhat does the speaker suggest would be helpful for each of the following areas of voluntary work?\nChoose FIVE answers from the box and write the correct letter, A–G, next to Questions 16–20.\n\nHelpful things volunteers might offer:\nA. experience on stage\nB. original, new ideas\nC. parenting skills\nD. an understanding of food and diet\nE. retail experience\nF. a good memory\nG. a good level of fitness\n\nArea of voluntary work: 17. Litter collection",
                 options = listOf("A", "B", "C", "D", "E", "F", "G"),
                 sectionNumber = 2,
-                timestampStart = 105,
+                timestampStart = 269,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -228,7 +228,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Becoming a volunteer for ACE\nQuestions 16–20\nWhat does the speaker suggest would be helpful for each of the following areas of voluntary work?\nChoose FIVE answers from the box and write the correct letter, A–G, next to Questions 16–20.\n\nHelpful things volunteers might offer:\nA. experience on stage\nB. original, new ideas\nC. parenting skills\nD. an understanding of food and diet\nE. retail experience\nF. a good memory\nG. a good level of fitness\n\nArea of voluntary work: 18. 'Playmates'",
                 options = listOf("A", "B", "C", "D", "E", "F", "G"),
                 sectionNumber = 2,
-                timestampStart = 125,
+                timestampStart = 303,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -238,7 +238,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Becoming a volunteer for ACE\nQuestions 16–20\nWhat does the speaker suggest would be helpful for each of the following areas of voluntary work?\nChoose FIVE answers from the box and write the correct letter, A–G, next to Questions 16–20.\n\nHelpful things volunteers might offer:\nA. experience on stage\nB. original, new ideas\nC. parenting skills\nD. an understanding of food and diet\nE. retail experience\nF. a good memory\nG. a good level of fitness\n\nArea of voluntary work: 19. Story club",
                 options = listOf("A", "B", "C", "D", "E", "F", "G"),
                 sectionNumber = 2,
-                timestampStart = 145,
+                timestampStart = 312,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
@@ -248,7 +248,7 @@ object CambridgeListeningTestDetailDataSource {
                 prompt = "Becoming a volunteer for ACE\nQuestions 16–20\nWhat does the speaker suggest would be helpful for each of the following areas of voluntary work?\nChoose FIVE answers from the box and write the correct letter, A–G, next to Questions 16–20.\n\nHelpful things volunteers might offer:\nA. experience on stage\nB. original, new ideas\nC. parenting skills\nD. an understanding of food and diet\nE. retail experience\nF. a good memory\nG. a good level of fitness\n\nArea of voluntary work: 20. First aid",
                 options = listOf("A", "B", "C", "D", "E", "F", "G"),
                 sectionNumber = 2,
-                timestampStart = 165,
+                timestampStart = 345,
                 timestampEnd = 0
             ),
 
