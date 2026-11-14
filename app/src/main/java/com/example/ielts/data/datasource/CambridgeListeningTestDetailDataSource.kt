@@ -962,8 +962,8 @@ object CambridgeListeningTestDetailDataSource {
                 sectionNumber = 4,
                 title = "Part 4: Space Traffic Management",
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758712/%E5%89%9118_section3_part1.mp3",
-                durationSeconds = 430,
-                transcript = "[00:00] Part 4. You will hear a lecture on space traffic management and space debris."
+                durationSeconds = 390,
+                transcript = "[00:00] ANNOUNCER: Introduction. A university lecturer gives a talk about the increasing number of objects in Earth's orbit and the need to manage their movement safely.\n[01:16] LECTURER: In today's lecture, I'm going to discuss the management of objects moving around the Earth, particularly artificial satellites. This area is commonly known as space traffic management.\n[01:30] LECTURER: You can think of it as being similar to the international air traffic control system, which helps aircraft travel safely through the air.\n[01:43] LECTURER: The main purpose of space traffic management is to reduce the possibility of collisions between objects orbiting our planet.\n[01:57] LECTURER: To achieve this, we need both legal regulations and suitable technical systems. These would help prevent accidents and make space activities safer. [Q31]\n[02:12] LECTURER: At present, there is no fully effective global system for managing space traffic. One important reason is that launching satellites has become much less expensive, allowing more organisations to send objects into space. [Q32]\n[02:33] LECTURER: The number of satellites is growing rapidly. Some organisations are now launching large groups, or constellations, of thousands of satellites that operate together rather than relying on individual satellites. [Q33]\n[02:55] LECTURER: One difficulty is that satellites do not always send information identifying themselves back to Earth. [Q34]\n[03:09] LECTURER: This is different from aviation, where aircraft are monitored through an international system. Current satellite-tracking methods are not yet sufficient to guarantee safety and prevent every possible collision. [Q35]\n[03:30] LECTURER: Another serious issue is space debris. This includes fragments from damaged satellites and waste produced by space stations. Even very small pieces can cause significant damage, and some are extremely difficult to detect.\n[03:52] LECTURER: Some satellite operators are unwilling to share information about their spacecraft. They may have military or commercial reasons for keeping that information private. [Q36]\n[04:11] LECTURER: Even when information is available, gathering and processing it can be difficult. We need to know the characteristics of each object and where it is located at any particular moment. [Q37]\n[04:26] LECTURER: Satellites can be very small and travel at speeds of thousands of kilometres per hour. This makes it extremely challenging to track every object continuously.\n[04:42] LECTURER: Since it isn't possible to monitor everything all the time, scientists have to calculate and predict the future paths of objects in orbit. [Q38]\n[04:54] ANNOUNCER: Transition to possible solutions.\n[05:01] LECTURER: One possible solution is to make relevant information accessible around the world. Countries and satellite operators would need to agree on common standards for recording and presenting data.\n[05:22] LECTURER: Establishing these standards will not be easy, but it should be possible. Other scientific fields have already managed to develop systems for sharing information internationally.\n[05:36] LECTURER: Another proposal is to create a shared database containing information about objects in space. [Q39]\n[05:43] LECTURER: The situation is becoming more urgent because Earth's orbit will become increasingly crowded. Better coordination between spacecraft operators is therefore essential.\n[06:04] LECTURER: Finally, cooperation depends on trust. This needs to exist not only between individual organisations but also at national and international levels. [Q40]\n[06:22] ANNOUNCER: End of Part 4."
             )
         )
 
@@ -1395,100 +1395,100 @@ object CambridgeListeningTestDetailDataSource {
                 id = "cam18_t3_q31",
                 position = 31,
                 type = "FILL_IN_BLANK",
-                prompt = "Space Traffic Management\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nBackground\nâ€¢ launch costs have reduced due to 31 ________ advancements\nâ€¢ small satellites have become relatively [ 32 ]",
+                prompt = "Space Traffic Management\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nA Space Traffic Management system\n• is a concept similar to Air Traffic Control, but for satellites\n• would aim to set up legal and 31 ________ ways of improving safety\n• does not currently exist",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 60,
+                timestampStart = 117,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q32",
                 position = 32,
                 type = "FILL_IN_BLANK",
-                prompt = "Space Traffic Management\nBackground\nâ€¢ launch costs have reduced due to [ 31 ] advancements\nâ€¢ small satellites have become relatively 32 ________ to build\nâ€¢ currently [ 33 ] of objects orbit the Earth",
+                prompt = "Space Traffic Management\nProblems in developing effective Space Traffic Management\n• Satellites are now quite 32 ________ and therefore more widespread (e.g. there are constellations made up of [ 33 ] of satellites).",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 90,
+                timestampStart = 132,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q33",
                 position = 33,
                 type = "FILL_IN_BLANK",
-                prompt = "Space Traffic Management\nScale of the problem\nâ€¢ currently 33 ________ of pieces of debris are in low Earth orbit\nâ€¢ accurate [ 34 ] of debris is very challenging",
+                prompt = "Space Traffic Management\nProblems in developing effective Space Traffic Management\n• Satellites are now quite [ 32 ] and therefore more widespread (e.g. there are constellations made up of 33 ________ of satellites).",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 120,
+                timestampStart = 153,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q34",
                 position = 34,
                 type = "FILL_IN_BLANK",
-                prompt = "Space Traffic Management\nChallenges\nâ€¢ accurate 34 ________ of smaller fragments is difficult\nâ€¢ constant [ 35 ] requires advanced radar and optical systems",
+                prompt = "Space Traffic Management\nProblems in developing effective Space Traffic Management\n• At present, satellites are not required to transmit information to help with their 34 ________.\n• There are few systems for [ 35 ] satellites.",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 150,
+                timestampStart = 175,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q35",
                 position = 35,
                 type = "FILL_IN_BLANK",
-                prompt = "Space Traffic Management\nChallenges\nâ€¢ constant 35 ________ of space debris requires global cooperation\nâ€¢ sensitive [ 36 ] satellites share the same orbits",
+                prompt = "Space Traffic Management\nProblems in developing effective Space Traffic Management\n• At present, satellites are not required to transmit information to help with their [ 34 ].\n• There are few systems for 35 ________ satellites.\n• Small pieces of debris may be difficult to identify.",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 180,
+                timestampStart = 189,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q36",
                 position = 36,
                 type = "FILL_IN_BLANK",
-                prompt = "Space Traffic Management\nSecurity concerns\nâ€¢ sensitive 36 ________ satellites share the same orbits\nâ€¢ precise [ 37 ] data is not always publicly shared",
+                prompt = "Space Traffic Management\nProblems in developing effective Space Traffic Management\n• Operators may be unwilling to share details of satellites used for 36 ________ or commercial reasons.\n• It may be hard to collect details of the object's [ 37 ] at a given time.",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 210,
+                timestampStart = 232,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q37",
                 position = 37,
                 type = "FILL_IN_BLANK",
-                prompt = "Space Traffic Management\nFuture solutions\nâ€¢ precise 37 ________ data needs to be shared in real time\nâ€¢ improved collision [ 38 ] models are essential",
+                prompt = "Space Traffic Management\nProblems in developing effective Space Traffic Management\n• Operators may be unwilling to share details of satellites used for [ 36 ] or commercial reasons.\n• It may be hard to collect details of the object's 37 ________ at a given time.\n• Scientists can only make a [ 38 ] about where the satellite will go.",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 240,
+                timestampStart = 251,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q38",
                 position = 38,
                 type = "FILL_IN_BLANK",
-                prompt = "Space Traffic Management\nFuture solutions\nâ€¢ improved collision 38 ________ models are essential\nâ€¢ creating a unified international [ 39 ]",
+                prompt = "Space Traffic Management\nProblems in developing effective Space Traffic Management\n• It may be hard to collect details of the object's [ 37 ] at a given time.\n• Scientists can only make a 38 ________ about where the satellite will go.",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 270,
+                timestampStart = 282,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q39",
                 position = 39,
                 type = "FILL_IN_BLANK",
-                prompt = "Space Traffic Management\nFuture solutions\nâ€¢ creating an open, international 39 ________\nâ€¢ fostering [ 40 ] between international agencies and private companies",
+                prompt = "Space Traffic Management\nSolutions\n• Common standards should be agreed on for the presentation of information.\n• The information should be combined in one 39 ________.\n• A coordinated system must be designed to create [ 40 ] in its users.",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 300,
+                timestampStart = 336,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t3_q40",
                 position = 40,
                 type = "FILL_IN_BLANK",
-                prompt = "Space Traffic Management\nConclusion\nâ€¢ fostering 40 ________ among spacefaring nations is critical to ensure space remains accessible",
+                prompt = "Space Traffic Management\nSolutions\n• The information should be combined in one [ 39 ].\n• A coordinated system must be designed to create 40 ________ in its users.",
                 options = null,
                 sectionNumber = 4,
-                timestampStart = 330,
+                timestampStart = 364,
                 timestampEnd = 0
             )
         )

@@ -628,8 +628,16 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                 "quarter of the population worked on farms. That's a huge difference from today, when the proportion is less than 0.2 per cent.",
                 "As people live longer, demand for care workers is expected to increase.",
                 "technology may eventually make many traditional banking tasks unnecessary. It's difficult to predict exactly what will happen to those jobs in the future.",
-                "Dẫn chứng câu 31", "Dẫn chứng câu 32", "Dẫn chứng câu 33", "Dẫn chứng câu 34", "Dẫn chứng câu 35",
-                "Dẫn chứng câu 36", "Dẫn chứng câu 37", "Dẫn chứng câu 38", "Dẫn chứng câu 39", "Dẫn chứng câu 40"
+                "To achieve this, we need both legal regulations and suitable technical systems.",
+                "launching satellites has become much less expensive, allowing more organisations to send objects into space.",
+                "constellations, of thousands of satellites that operate together rather than relying on individual satellites.",
+                "satellites do not always send information identifying themselves back to Earth.",
+                "Current satellite-tracking methods are not yet sufficient to guarantee safety and prevent every possible collision.",
+                "They may have military or commercial reasons for keeping that information private.",
+                "We need to know the characteristics of each object and where it is located at any particular moment.",
+                "scientists have to calculate and predict the future paths of objects in orbit.",
+                "Another proposal is to create a shared database containing information about objects in space.",
+                "Finally, cooperation depends on trust. This needs to exist not only between individual organisations but also at national and international levels."
             )
         } else if (isTest2) {
             listOf(
@@ -696,7 +704,7 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                 124, 146, 178, 195, 266, 323, 340, 355, 359, 375,
                 82, 82, 174, 128, 262, 299, 308, 338, 369, 390,
                 76, 84, 122, 111, 193, 228, 254, 277, 283, 305,
-                60, 90, 120, 150, 180, 210, 240, 270, 300, 330
+                117, 132, 153, 175, 189, 232, 251, 282, 336, 364
             )
         } else if (isTest2) {
             listOf(
@@ -760,6 +768,16 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                         val uAns = userRaw.uppercase().trim().take(1)
                         uAns in pairAnswers
                     }
+                    31 -> userRaw.contains("technical", ignoreCase = true)
+                    32 -> userRaw.contains("cheap", ignoreCase = true)
+                    33 -> userRaw.contains("thousand", ignoreCase = true)
+                    34 -> userRaw.contains("identification", ignoreCase = true) || userRaw.contains("identify", ignoreCase = true)
+                    35 -> userRaw.contains("tracking", ignoreCase = true) || userRaw.contains("track", ignoreCase = true)
+                    36 -> userRaw.contains("military", ignoreCase = true)
+                    37 -> userRaw.contains("location", ignoreCase = true)
+                    38 -> userRaw.contains("prediction", ignoreCase = true) || userRaw.contains("predict", ignoreCase = true)
+                    39 -> userRaw.contains("database", ignoreCase = true)
+                    40 -> userRaw.contains("trust", ignoreCase = true)
                     else -> {
                         if (userRaw.isBlank()) false
                         else userRaw.equals(correctAns, ignoreCase = true) ||
