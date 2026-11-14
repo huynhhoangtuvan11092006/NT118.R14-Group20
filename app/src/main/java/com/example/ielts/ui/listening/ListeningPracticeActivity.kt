@@ -568,8 +568,8 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                 "experience", "confident", "temporary", "1.15", "parking",
                 "B", "A", "A", "C", "F",
                 "G", "E", "A", "C", "B",
-                "A", "E", "B", "D", "G",
-                "E", "B", "C", "F", "A",
+                "B", "D", "D", "A", "C",
+                "G", "F", "A", "B", "C",
                 "plot", "poverty", "Europe", "poetry", "drawings",
                 "furniture", "lamps", "harbour", "children", "relatives"
             )
@@ -630,8 +630,16 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                 "These carts are old and fragile, so please keep children close and don't allow them to climb on the displays.",
                 "One garden area, called Bees are Magic, is currently being redeveloped and cannot be visited.",
                 "Finally, the pond is home to a variety of wildlife, including very young ducklings and small frogs.",
-                "Dẫn chứng câu 21", "Dẫn chứng câu 22", "Dẫn chứng câu 23", "Dẫn chứng câu 24", "Dẫn chứng câu 25",
-                "Dẫn chứng câu 26", "Dẫn chứng câu 27", "Dẫn chứng câu 28", "Dẫn chứng câu 29", "Dẫn chứng câu 30",
+                "We could see how carefully they listened to the instructions and followed the steps in the correct order.",
+                "one thing I particularly liked was that the children were enjoying themselves while learning something new.",
+                "Once he started folding the paper, however, he became calmer and more focused.",
+                "He seemed keen to solve problems by himself. Instead of immediately asking the teacher for help, he experimented with different approaches.",
+                "she became motivated because she wanted to make the best paper mouse.",
+                "She listened closely and produced a very good bird without much difficulty. The teacher could probably have given her a more challenging task.",
+                "Zara seemed unfamiliar with origami and initially didn't understand what she needed to do.",
+                "Preparing examples for every stage of the folding process must have taken time, but it was an effective idea.",
+                "Maybe some teachers simply don't feel confident doing practical work with their hands.",
+                "It might also be useful when we teach fractions, which is coming up soon.",
                 "Dẫn chứng câu 31", "Dẫn chứng câu 32", "Dẫn chứng câu 33", "Dẫn chứng câu 34", "Dẫn chứng câu 35",
                 "Dẫn chứng câu 36", "Dẫn chứng câu 37", "Dẫn chứng câu 38", "Dẫn chứng câu 39", "Dẫn chứng câu 40"
             )
@@ -742,7 +750,7 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
             listOf(
                 106, 122, 134, 158, 169, 238, 258, 303, 337, 348,
                 67, 101, 144, 176, 246, 290, 305, 350, 366, 379,
-                60, 90, 120, 150, 180, 210, 240, 270, 300, 330,
+                88, 123, 157, 171, 186, 198, 214, 286, 323, 350,
                 60, 90, 120, 150, 180, 210, 240, 270, 300, 330
             )
         } else if (isTest3) {
@@ -794,6 +802,11 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                     8 -> userRaw.contains("temporary", ignoreCase = true)
                     9 -> userRaw.contains("1.15") || userRaw.contains("1:15")
                     10 -> userRaw.contains("parking", ignoreCase = true) || userRaw.contains("park", ignoreCase = true)
+                    21, 22 -> {
+                        val pairAnswers = setOf("B", "D")
+                        val uAns = userRaw.uppercase().trim().take(1)
+                        uAns in pairAnswers
+                    }
                     else -> {
                         if (userRaw.isBlank()) false
                         else userRaw.equals(correctAns, ignoreCase = true) ||

@@ -1529,8 +1529,8 @@ object CambridgeListeningTestDetailDataSource {
                 sectionNumber = 3,
                 title = "Part 3: Origami in Education",
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758844/%E5%89%9118_section4_part1.mp3",
-                durationSeconds = 420,
-                transcript = "[00:00] Part 3. You will hear a discussion about origami in education."
+                durationSeconds = 390,
+                transcript = "[01:01] TUTOR: I'd like you to discuss the lesson we watched on video and consider how origami, the Japanese art of paper folding, can be used as an educational activity. Please work with the person sitting next to you.\n[01:16] STUDENT 1: I hadn't realised that folding a simple square of paper into something like a bird could be such an effective learning tool. It has completely changed the way I think about origami.\n[01:28] STUDENT 2: I agree. The children were developing several educational skills. We could see how carefully they listened to the instructions and followed the steps in the correct order. [Q21-22]\n[01:45] STUDENT 1: They were working independently in this lesson. It would also be interesting to let them try making something without detailed instructions. That could encourage them to cooperate and develop teamwork.\n[02:03] STUDENT 2: That would be more challenging, but one thing I particularly liked was that the children were enjoying themselves while learning something new. [Q21-22]\n[02:15] STUDENT 1: The children in the video managed the folding well. For younger pupils, though, origami could help develop fine motor skills.\n[02:22] STUDENT 2: Shall we discuss the individual children we observed? I wrote down their names and made some notes.\n[02:29] STUDENT 1: Good idea. Let's begin with Sid.\n[02:37] STUDENT 2: Before the activity, Sid was rather disruptive. Once he started folding the paper, however, he became calmer and more focused. [Q23]\n[02:51] STUDENT 1: What about Jack? He seemed keen to solve problems by himself. Instead of immediately asking the teacher for help, he experimented with different approaches. [Q24]\n[03:06] STUDENT 2: Naomi appeared to lose interest for a while. Then she became motivated because she wanted to make the best paper mouse. Even so, she didn't seem entirely happy with the result. [Q25]\n[03:18] STUDENT 1: Anya did extremely well. She listened closely and produced a very good bird without much difficulty. The teacher could probably have given her a more challenging task. [Q26]\n[03:34] STUDENT 2: Zara seemed unfamiliar with origami and initially didn't understand what she needed to do. Her final result was reasonable, though, and the activity probably gave her a positive learning experience. [Q27]\n[04:39] STUDENT 1: I think the activity worked well partly because the teacher had prepared the lesson carefully.\n[04:46] STUDENT 2: Yes. Preparing examples for every stage of the folding process must have taken time, but it was an effective idea. The children could see the final goal and handle physical examples instead of relying only on pictures. [Q28]\n[05:04] STUDENT 1: Those examples also helped the children understand the teacher's spoken instructions.\n[05:11] STUDENT 2: It's surprising that origami isn't used more often. Perhaps teachers think children who spend a lot of time using computers won't find it interesting, particularly boys.\n[05:23] STUDENT 1: I'm not sure that's the main reason. Origami is similar to other craft activities. Maybe some teachers simply don't feel confident doing practical work with their hands. [Q29]\n[05:36] STUDENT 2: We should try it in our Year 3 maths teaching practice. It could help children remember geometric shapes, as they did in the video.\n[05:50] STUDENT 1: It might also be useful when we teach fractions, which is coming up soon. [Q30]\n[06:02] STUDENT 2: And origami can help children practise symmetry, although I think they covered that last term.\n[06:13] STUDENT 1: Let's gather some ideas and plan the lesson next week."
             ),
             ListeningSectionDto(
                 sectionNumber = 4,
@@ -1818,100 +1818,164 @@ object CambridgeListeningTestDetailDataSource {
                 id = "cam18_t4_q21",
                 position = 21,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Origami in education\nQuestions 21 and 22: Choose TWO letters, Aâ€“E.\nWhich TWO benefits of origami are mentioned?\n(Chá» n lá»±a chá» n thá»© nháº¥t trong 2 Ä‘Ã¡p Ã¡n)",
-                options = listOf("A. spatial awareness", "B. language skills", "C. memory retention", "D. social collaboration", "E. stress reduction"),
+                prompt = "Origami as an educational tool\nQuestions 21 and 22: Choose TWO letters, A–E.\nWhich TWO educational skills were shown in the video of children doing origami?\n(Chọn lựa chọn thứ nhất trong 2 đáp án)",
+                options = listOf(
+                    "A. solving problems",
+                    "B. following instructions",
+                    "C. working cooperatively",
+                    "D. learning through play",
+                    "E. developing hand-eye coordination"
+                ),
                 sectionNumber = 3,
-                timestampStart = 60,
+                timestampStart = 88,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q22",
                 position = 22,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Origami in education\nQuestions 21 and 22: Choose TWO letters, Aâ€“E.\nWhich TWO benefits of origami are mentioned?\n(Chá» n lá»±a chá» n thá»© hai trong 2 Ä‘Ã¡p Ã¡n)",
-                options = listOf("A. spatial awareness", "B. language skills", "C. memory retention", "D. social collaboration", "E. stress reduction"),
+                prompt = "Origami as an educational tool\nQuestions 21 and 22: Choose TWO letters, A–E.\nWhich TWO educational skills were shown in the video of children doing origami?\n(Chọn lựa chọn thứ hai trong 2 đáp án)",
+                options = listOf(
+                    "A. solving problems",
+                    "B. following instructions",
+                    "C. working cooperatively",
+                    "D. learning through play",
+                    "E. developing hand-eye coordination"
+                ),
                 sectionNumber = 3,
-                timestampStart = 90,
+                timestampStart = 123,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q23",
                 position = 23,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Origami in education\nQuestions 23 and 24: Choose TWO letters, Aâ€“E.\nWhich TWO materials were easiest for children to fold?\n(Chá» n lá»±a chá» n thá»© nháº¥t trong 2 Ä‘Ã¡p Ã¡n)",
-                options = listOf("A. tracing paper", "B. newspaper", "C. foil", "D. construction paper", "E. parchment"),
+                prompt = "Origami as an educational tool\nQuestions 23–27: Which comment do the students make about each of the following children in the video?\nChoose FIVE answers from the box and write the correct letter, A–G, next to Questions 23–27.\n\nComments:\nA. demonstrated independence\nB. was distracted by other children\nC. developed a competitive attitude\nD. seemed to find the activity calming\nE. asked the teacher for help\nF. seemed confused\nG. seemed to find the activity easy\n\n23. Sid",
+                options = listOf(
+                    "A. demonstrated independence",
+                    "B. was distracted by other children",
+                    "C. developed a competitive attitude",
+                    "D. seemed to find the activity calming",
+                    "E. asked the teacher for help",
+                    "F. seemed confused",
+                    "G. seemed to find the activity easy"
+                ),
                 sectionNumber = 3,
-                timestampStart = 120,
+                timestampStart = 157,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q24",
                 position = 24,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Origami in education\nQuestions 23 and 24: Choose TWO letters, Aâ€“E.\nWhich TWO materials were easiest for children to fold?\n(Chá» n lá»±a chá» n thá»© hai trong 2 Ä‘Ã¡p Ã¡n)",
-                options = listOf("A. tracing paper", "B. newspaper", "C. foil", "D. construction paper", "E. parchment"),
+                prompt = "Origami as an educational tool\nQuestions 23–27: Which comment do the students make about each of the following children in the video?\nChoose FIVE answers from the box and write the correct letter, A–G, next to Questions 23–27.\n\nComments:\nA. demonstrated independence\nB. was distracted by other children\nC. developed a competitive attitude\nD. seemed to find the activity calming\nE. asked the teacher for help\nF. seemed confused\nG. seemed to find the activity easy\n\n24. Jack",
+                options = listOf(
+                    "A. demonstrated independence",
+                    "B. was distracted by other children",
+                    "C. developed a competitive attitude",
+                    "D. seemed to find the activity calming",
+                    "E. asked the teacher for help",
+                    "F. seemed confused",
+                    "G. seemed to find the activity easy"
+                ),
                 sectionNumber = 3,
-                timestampStart = 150,
+                timestampStart = 171,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q25",
                 position = 25,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Origami in education\n25. Mathematical concepts explored",
-                options = listOf("A. symmetry", "B. fractions", "C. angles", "D. geometry", "E. proportions", "F. coordinates", "G. 3D shapes"),
+                prompt = "Origami as an educational tool\nQuestions 23–27: Which comment do the students make about each of the following children in the video?\nChoose FIVE answers from the box and write the correct letter, A–G, next to Questions 23–27.\n\nComments:\nA. demonstrated independence\nB. was distracted by other children\nC. developed a competitive attitude\nD. seemed to find the activity calming\nE. asked the teacher for help\nF. seemed confused\nG. seemed to find the activity easy\n\n25. Naomi",
+                options = listOf(
+                    "A. demonstrated independence",
+                    "B. was distracted by other children",
+                    "C. developed a competitive attitude",
+                    "D. seemed to find the activity calming",
+                    "E. asked the teacher for help",
+                    "F. seemed confused",
+                    "G. seemed to find the activity easy"
+                ),
                 sectionNumber = 3,
-                timestampStart = 180,
+                timestampStart = 186,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q26",
                 position = 26,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Origami in education\n26. Patience and perseverance",
-                options = listOf("A. symmetry", "B. fractions", "C. angles", "D. geometry", "E. proportions", "F. coordinates", "G. 3D shapes"),
+                prompt = "Origami as an educational tool\nQuestions 23–27: Which comment do the students make about each of the following children in the video?\nChoose FIVE answers from the box and write the correct letter, A–G, next to Questions 23–27.\n\nComments:\nA. demonstrated independence\nB. was distracted by other children\nC. developed a competitive attitude\nD. seemed to find the activity calming\nE. asked the teacher for help\nF. seemed confused\nG. seemed to find the activity easy\n\n26. Anya",
+                options = listOf(
+                    "A. demonstrated independence",
+                    "B. was distracted by other children",
+                    "C. developed a competitive attitude",
+                    "D. seemed to find the activity calming",
+                    "E. asked the teacher for help",
+                    "F. seemed confused",
+                    "G. seemed to find the activity easy"
+                ),
                 sectionNumber = 3,
-                timestampStart = 210,
+                timestampStart = 198,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q27",
                 position = 27,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Origami in education\n27. Cultural appreciation",
-                options = listOf("A. symmetry", "B. fractions", "C. angles", "D. geometry", "E. proportions", "F. coordinates", "G. 3D shapes"),
+                prompt = "Origami as an educational tool\nQuestions 23–27: Which comment do the students make about each of the following children in the video?\nChoose FIVE answers from the box and write the correct letter, A–G, next to Questions 23–27.\n\nComments:\nA. demonstrated independence\nB. was distracted by other children\nC. developed a competitive attitude\nD. seemed to find the activity calming\nE. asked the teacher for help\nF. seemed confused\nG. seemed to find the activity easy\n\n27. Zara",
+                options = listOf(
+                    "A. demonstrated independence",
+                    "B. was distracted by other children",
+                    "C. developed a competitive attitude",
+                    "D. seemed to find the activity calming",
+                    "E. asked the teacher for help",
+                    "F. seemed confused",
+                    "G. seemed to find the activity easy"
+                ),
                 sectionNumber = 3,
-                timestampStart = 240,
+                timestampStart = 214,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q28",
                 position = 28,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Origami in education\n28. Fine motor coordination",
-                options = listOf("A. symmetry", "B. fractions", "C. angles", "D. geometry", "E. proportions", "F. coordinates", "G. 3D shapes"),
+                prompt = "Origami as an educational tool\nQuestions 28–30: Choose the correct letter, A, B or C.\n\n28. Before starting an origami activity in class, the students think it is important for the teacher to",
+                options = listOf(
+                    "A. make models that demonstrate the different stages.",
+                    "B. check that the children have the right materials.",
+                    "C. demonstrate how to fold a simple shape."
+                ),
                 sectionNumber = 3,
-                timestampStart = 270,
+                timestampStart = 286,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q29",
                 position = 29,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Origami in education\n29. Step-by-step instruction following",
-                options = listOf("A. symmetry", "B. fractions", "C. angles", "D. geometry", "E. proportions", "F. coordinates", "G. 3D shapes"),
+                prompt = "Origami as an educational tool\nQuestions 28–30: Choose the correct letter, A, B or C.\n\n29. The students agree that some teachers might be unwilling to use origami in class because",
+                options = listOf(
+                    "A. they consider it takes up too much lesson time.",
+                    "B. they may not have the necessary skills.",
+                    "C. they think modern children prefer digital activities."
+                ),
                 sectionNumber = 3,
-                timestampStart = 300,
+                timestampStart = 323,
                 timestampEnd = 0
             ),
             ListeningQuestionDetailDto(
                 id = "cam18_t4_q30",
                 position = 30,
                 type = "MULTIPLE_CHOICE",
-                prompt = "Origami in education\n30. Peer teaching and sharing",
-                options = listOf("A. symmetry", "B. fractions", "C. angles", "D. geometry", "E. proportions", "F. coordinates", "G. 3D shapes"),
+                prompt = "Origami as an educational tool\nQuestions 28–30: Choose the correct letter, A, B or C.\n\n30. Why do the students decide to use origami in their maths teaching practice?",
+                options = listOf(
+                    "A. to correct a common misunderstanding",
+                    "B. to revise a topic taught recently",
+                    "C. to introduce a new concept"
+                ),
                 sectionNumber = 3,
-                timestampStart = 330,
+                timestampStart = 350,
                 timestampEnd = 0
             ),
             // Section 4: Q31-40
