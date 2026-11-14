@@ -642,12 +642,12 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
 
         // Canonical Cambridge 18 Test 1 Listening answers & evidence
         val defaultAnswers = listOf(
-            "7YZ", "24", "dentist", "parking", "Claxby",
+            "DW30 7YZ", "24th April", "dentist", "parking", "Claxby",
             "late", "evening", "supermarket", "pollution", "storage",
             "C", "A", "A", "B", "E",
             "B", "G", "D", "A", "F",
-            "C", "B", "B", "A", "C",
-            "A", "B", "C", "A", "C",
+            "A", "B", "A", "C", "B",
+            "A", "B", "E", "A", "C",
             "fences", "family", "helicopters", "stress", "sides",
             "breathing", "feet", "employment", "weapons", "tourism"
         )

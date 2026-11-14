@@ -559,12 +559,12 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         val testId = testDetail?.id ?: "cam18-listening-test1"
 
         val defaultAnswers = listOf(
-            "7YZ", "24", "dentist", "parking", "Claxby",
+            "DW30 7YZ", "24th April", "dentist", "parking", "Claxby",
             "late", "evening", "supermarket", "pollution", "storage",
             "C", "A", "A", "B", "E",
             "B", "G", "D", "A", "F",
-            "C", "B", "B", "A", "C",
-            "A", "B", "C", "A", "C",
+            "A", "B", "A", "C", "B",
+            "A", "B", "E", "A", "C",
             "fences", "family", "helicopters", "stress", "sides",
             "breathing", "feet", "employment", "weapons", "tourism"
         )
@@ -611,14 +611,32 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                 i <= 30 -> 3
                 else -> 4
             }
-            val userRaw = answersMap[i]?.trim()
+            val userRaw = answersMap[i]?.trim() ?: ""
             val correctAns = defaultAnswers.getOrElse(i - 1) { "A" }
-            val isCorrect = if (userRaw.isNullOrBlank()) {
-                false
-            } else {
-                userRaw.equals(correctAns, ignoreCase = true) ||
-                userRaw.contains(correctAns, ignoreCase = true) ||
-                correctAns.contains(userRaw, ignoreCase = true)
+            val isCorrect = when (i) {
+                1 -> userRaw.replace(" ", "").equals("DW307YZ", ignoreCase = true) || userRaw.contains("7YZ", ignoreCase = true)
+                2 -> userRaw.contains("24", ignoreCase = true)
+                14, 15 -> {
+                    val pairAnswers = setOf("B", "E")
+                    val uAns = userRaw.uppercase().trim().take(1)
+                    uAns in pairAnswers
+                }
+                27, 28 -> {
+                    val pairAnswers = setOf("B", "E")
+                    val uAns = userRaw.uppercase().trim().take(1)
+                    uAns in pairAnswers
+                }
+                29, 30 -> {
+                    val pairAnswers = setOf("A", "C")
+                    val uAns = userRaw.uppercase().trim().take(1)
+                    uAns in pairAnswers
+                }
+                else -> {
+                    if (userRaw.isBlank()) false
+                    else userRaw.equals(correctAns, ignoreCase = true) ||
+                         userRaw.contains(correctAns, ignoreCase = true) ||
+                         correctAns.contains(userRaw, ignoreCase = true)
+                }
             }
 
             if (isCorrect) correctCount++
