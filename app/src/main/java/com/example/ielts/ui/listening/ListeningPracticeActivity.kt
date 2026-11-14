@@ -617,90 +617,102 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
             )
         )
 
-        // Map Context Card
-        val contextCard = inflater.inflate(R.layout.item_listening_context_card, layoutDynamicQuestions, false)
-        val tvCardTitle = contextCard.findViewById<TextView>(R.id.tvContextCardTitle)
-        val ivContext = contextCard.findViewById<ImageView>(R.id.ivContextImage)
-        val btnZoom = contextCard.findViewById<TextView>(R.id.btnZoomHint)
-        val cardWrapper = contextCard.findViewById<View>(R.id.cardContextImageWrapper)
-
-        tvCardTitle.text = "Bản đồ Planned Housing Development (A–I)"
-        ivContext.setImageResource(R.drawable.img_cam18_test2_part2_map)
+        // Q15 to Q20: Map Labeling (School, Sports centre, Clinic, Community centre, Supermarket, Playground)
+        val mapView = inflater.inflate(R.layout.layout_cam18_t2_p2_map_labeling, layoutDynamicQuestions, false)
 
         val openZoom = View.OnClickListener {
             ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test2_part2_map, "Bản đồ Planned Housing Development (A–I)")
         }
-        cardWrapper.setOnClickListener(openZoom)
-        btnZoom.setOnClickListener(openZoom)
+        mapView.findViewById<View>(R.id.cardMapWrapperP2).setOnClickListener(openZoom)
+        mapView.findViewById<View>(R.id.btnZoomMapP2).setOnClickListener(openZoom)
 
-        layoutDynamicQuestions.addView(contextCard)
+        val letters = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I")
 
-        // Q15 to Q20: Map Labeling (School, Sports centre, Clinic, Community centre, Supermarket, Playground)
-        val mapLocations = listOf(
-            15 to "15. School",
-            16 to "16. Sports centre",
-            17 to "17. Clinic",
-            18 to "18. Community centre",
-            19 to "19. Supermarket",
-            20 to "20. Playground"
+        // 15 School
+        val chips15 = listOf<TextView>(
+            mapView.findViewById(R.id.chip15_A),
+            mapView.findViewById(R.id.chip15_B),
+            mapView.findViewById(R.id.chip15_C),
+            mapView.findViewById(R.id.chip15_D),
+            mapView.findViewById(R.id.chip15_E),
+            mapView.findViewById(R.id.chip15_F),
+            mapView.findViewById(R.id.chip15_G),
+            mapView.findViewById(R.id.chip15_H),
+            mapView.findViewById(R.id.chip15_I)
         )
-        val mapOptions = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I")
+        bindMatchingChips(15, mapView.findViewById(R.id.tvMapSelected15), chips15, letters)
 
-        for ((pos, title) in mapLocations) {
-            val choiceView = inflater.inflate(R.layout.item_listening_question_choice, layoutDynamicQuestions, false)
-            val tvBadge = choiceView.findViewById<TextView>(R.id.tvChoiceNumberBadge)
-            val tvStem = choiceView.findViewById<TextView>(R.id.tvChoiceQuestionStem)
-            val btnBookmark = choiceView.findViewById<ImageView>(R.id.btnBookmarkChoice)
-            val layoutOptions = choiceView.findViewById<LinearLayout>(R.id.layoutOptionsContainer)
-            val btnAttachment = choiceView.findViewById<TextView?>(R.id.btnQuickViewAttachment)
+        // 16 Sports centre
+        val chips16 = listOf<TextView>(
+            mapView.findViewById(R.id.chip16_A),
+            mapView.findViewById(R.id.chip16_B),
+            mapView.findViewById(R.id.chip16_C),
+            mapView.findViewById(R.id.chip16_D),
+            mapView.findViewById(R.id.chip16_E),
+            mapView.findViewById(R.id.chip16_F),
+            mapView.findViewById(R.id.chip16_G),
+            mapView.findViewById(R.id.chip16_H),
+            mapView.findViewById(R.id.chip16_I)
+        )
+        bindMatchingChips(16, mapView.findViewById(R.id.tvMapSelected16), chips16, letters)
 
-            btnAttachment?.visibility = View.VISIBLE
-            btnAttachment?.text = "👁️ Xem bản đồ Planned Housing Development (A–I)"
-            btnAttachment?.setOnClickListener(openZoom)
+        // 17 Clinic
+        val chips17 = listOf<TextView>(
+            mapView.findViewById(R.id.chip17_A),
+            mapView.findViewById(R.id.chip17_B),
+            mapView.findViewById(R.id.chip17_C),
+            mapView.findViewById(R.id.chip17_D),
+            mapView.findViewById(R.id.chip17_E),
+            mapView.findViewById(R.id.chip17_F),
+            mapView.findViewById(R.id.chip17_G),
+            mapView.findViewById(R.id.chip17_H),
+            mapView.findViewById(R.id.chip17_I)
+        )
+        bindMatchingChips(17, mapView.findViewById(R.id.tvMapSelected17), chips17, letters)
 
-            tvBadge.text = "$pos"
-            tvStem.text = "$title\nWrite the correct letter, A–I, on the map."
+        // 18 Community centre
+        val chips18 = listOf<TextView>(
+            mapView.findViewById(R.id.chip18_A),
+            mapView.findViewById(R.id.chip18_B),
+            mapView.findViewById(R.id.chip18_C),
+            mapView.findViewById(R.id.chip18_D),
+            mapView.findViewById(R.id.chip18_E),
+            mapView.findViewById(R.id.chip18_F),
+            mapView.findViewById(R.id.chip18_G),
+            mapView.findViewById(R.id.chip18_H),
+            mapView.findViewById(R.id.chip18_I)
+        )
+        bindMatchingChips(18, mapView.findViewById(R.id.tvMapSelected18), chips18, letters)
 
-            val isFlagged = flaggedSet.contains(pos)
-            btnBookmark.setImageResource(if (isFlagged) R.drawable.ic_bookmark else R.drawable.ic_bookmark_border)
-            btnBookmark.setColorFilter(ContextCompat.getColor(this, if (isFlagged) R.color.tertiary_orange_container else R.color.text_secondary))
-            btnBookmark.setOnClickListener {
-                if (flaggedSet.contains(pos)) {
-                    flaggedSet.remove(pos)
-                    btnBookmark.setImageResource(R.drawable.ic_bookmark_border)
-                    btnBookmark.setColorFilter(ContextCompat.getColor(this, R.color.text_secondary))
-                } else {
-                    flaggedSet.add(pos)
-                    btnBookmark.setImageResource(R.drawable.ic_bookmark)
-                    btnBookmark.setColorFilter(ContextCompat.getColor(this, R.color.tertiary_orange_container))
-                }
-            }
+        // 19 Supermarket
+        val chips19 = listOf<TextView>(
+            mapView.findViewById(R.id.chip19_A),
+            mapView.findViewById(R.id.chip19_B),
+            mapView.findViewById(R.id.chip19_C),
+            mapView.findViewById(R.id.chip19_D),
+            mapView.findViewById(R.id.chip19_E),
+            mapView.findViewById(R.id.chip19_F),
+            mapView.findViewById(R.id.chip19_G),
+            mapView.findViewById(R.id.chip19_H),
+            mapView.findViewById(R.id.chip19_I)
+        )
+        bindMatchingChips(19, mapView.findViewById(R.id.tvMapSelected19), chips19, letters)
 
-            for (opt in mapOptions) {
-                val optionView = inflater.inflate(R.layout.item_choice_option_row, layoutOptions, false)
-                val tvOpt = optionView.findViewById<TextView>(R.id.tvOptionText)
-                val ivDot = optionView.findViewById<ImageView>(R.id.ivRadioDot)
-                val ivCheck = optionView.findViewById<ImageView>(R.id.ivSelectedCheck)
+        // 20 Playground
+        val chips20 = listOf<TextView>(
+            mapView.findViewById(R.id.chip20_A),
+            mapView.findViewById(R.id.chip20_B),
+            mapView.findViewById(R.id.chip20_C),
+            mapView.findViewById(R.id.chip20_D),
+            mapView.findViewById(R.id.chip20_E),
+            mapView.findViewById(R.id.chip20_F),
+            mapView.findViewById(R.id.chip20_G),
+            mapView.findViewById(R.id.chip20_H),
+            mapView.findViewById(R.id.chip20_I)
+        )
+        bindMatchingChips(20, mapView.findViewById(R.id.tvMapSelected20), chips20, letters)
 
-                tvOpt.text = "Vị trí $opt"
-                val isSelected = (answersMap[pos] == opt)
-                applyOptionSelection(optionView, ivDot, ivCheck, isSelected)
-
-                optionView.setOnClickListener {
-                    answersMap[pos] = opt
-                    updateAnsweredCounter()
-                    for (i in 0 until layoutOptions.childCount) {
-                        val child = layoutOptions.getChildAt(i)
-                        val cKey = mapOptions[i]
-                        val childSelected = (cKey == opt)
-                        applyOptionSelection(child, child.findViewById(R.id.ivRadioDot), child.findViewById(R.id.ivSelectedCheck), childSelected)
-                    }
-                }
-                layoutOptions.addView(optionView)
-            }
-
-            layoutDynamicQuestions.addView(choiceView)
-        }
+        layoutDynamicQuestions.addView(mapView)
     }
 
     private fun renderCam18Test2Section3() {

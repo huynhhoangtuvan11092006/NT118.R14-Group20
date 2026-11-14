@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:background="@drawable/bg_test_card"
+    android:elevation="2dp"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Header bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/btnZoomMapP2"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_pill_soft_indigo"
+                android:paddingStart="8dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="2dp"
+                android:text="PART 2 • QUESTIONS 15–20"
+                android:textColor="@color/primary_blue"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Label the map below"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Write the correct letter, A–I, next to Questions 15–20."
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnZoomMapP2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="6dp"
+            android:text="Phóng to 🔍"
+            android:textColor="@color/primary_blue"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <!-- Map Image Container -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardMapWrapperP2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#E2E8F0"
+        app:strokeWidth="1dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F8FAFC">
+
+            <ImageView
+                android:id="@+id/ivMapP2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:maxHeight="250dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_cam18_test2_part2_map" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_pill_soft_indigo"
+                android:paddingStart="8dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="3dp"
+                android:text="Chạm để phóng to 🔍"
+                android:textColor="@color/primary_blue"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Locations Header -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Questions 15–20 (Chọn vị trí A–I trên bản đồ):"
+        android:textColor="@color/primary_blue"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <!-- Row 15: School -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="15. School"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMapSelected15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Chưa chọn"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip15_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip15_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip15_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip15_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip15_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip15_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip15_G" style="@style/MatchingChipStyle" android:text="G" />
+            <TextView android:id="@+id/chip15_H" style="@style/MatchingChipStyle" android:text="H" />
+            <TextView android:id="@+id/chip15_I" style="@style/MatchingChipStyle" android:text="I" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 16: Sports centre -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="16. Sports centre"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMapSelected16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Chưa chọn"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip16_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip16_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip16_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip16_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip16_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip16_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip16_G" style="@style/MatchingChipStyle" android:text="G" />
+            <TextView android:id="@+id/chip16_H" style="@style/MatchingChipStyle" android:text="H" />
+            <TextView android:id="@+id/chip16_I" style="@style/MatchingChipStyle" android:text="I" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 17: Clinic -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="17. Clinic"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMapSelected17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Chưa chọn"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip17_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip17_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip17_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip17_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip17_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip17_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip17_G" style="@style/MatchingChipStyle" android:text="G" />
+            <TextView android:id="@+id/chip17_H" style="@style/MatchingChipStyle" android:text="H" />
+            <TextView android:id="@+id/chip17_I" style="@style/MatchingChipStyle" android:text="I" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 18: Community centre -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="18. Community centre"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMapSelected18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Chưa chọn"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip18_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip18_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip18_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip18_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip18_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip18_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip18_G" style="@style/MatchingChipStyle" android:text="G" />
+            <TextView android:id="@+id/chip18_H" style="@style/MatchingChipStyle" android:text="H" />
+            <TextView android:id="@+id/chip18_I" style="@style/MatchingChipStyle" android:text="I" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 19: Supermarket -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="19. Supermarket"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMapSelected19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Chưa chọn"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip19_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip19_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip19_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip19_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip19_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip19_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip19_G" style="@style/MatchingChipStyle" android:text="G" />
+            <TextView android:id="@+id/chip19_H" style="@style/MatchingChipStyle" android:text="H" />
+            <TextView android:id="@+id/chip19_I" style="@style/MatchingChipStyle" android:text="I" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 20: Playground -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="20. Playground"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMapSelected20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Chưa chọn"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip20_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip20_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip20_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip20_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip20_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip20_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip20_G" style="@style/MatchingChipStyle" android:text="G" />
+            <TextView android:id="@+id/chip20_H" style="@style/MatchingChipStyle" android:text="H" />
+            <TextView android:id="@+id/chip20_I" style="@style/MatchingChipStyle" android:text="I" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
