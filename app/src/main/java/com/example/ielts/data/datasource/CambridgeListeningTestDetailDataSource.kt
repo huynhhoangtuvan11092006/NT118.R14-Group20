@@ -10,7 +10,9 @@ object CambridgeListeningTestDetailDataSource {
         val allTests = CambridgeListeningDataSource.getAllTests()
         val testItem = allTests.find { it.id == testId }
             ?: allTests.find { testTitle != null && it.title.equals(testTitle, ignoreCase = true) }
-            ?: if (testId.contains("test3") || testTitle?.contains("Test 3") == true) {
+            ?: if (testId.contains("test4") || testTitle?.contains("Test 4") == true) {
+                allTests.find { it.id == "cam18-listening-test4" } ?: allTests.first()
+            } else if (testId.contains("test3") || testTitle?.contains("Test 3") == true) {
                 allTests.find { it.id == "cam18-listening-test3" } ?: allTests.first()
             } else if (testId.contains("test2") || testTitle?.contains("Test 2") == true) {
                 allTests.find { it.id == "cam18-listening-test2" } ?: allTests.first()
@@ -20,7 +22,9 @@ object CambridgeListeningTestDetailDataSource {
                 allTests.first()
             }
 
-        return if (testItem.id == "cam18-listening-test3" || testTitle?.contains("Test 3") == true || testId.contains("test3")) {
+        return if (testItem.id == "cam18-listening-test4" || testTitle?.contains("Test 4") == true || testId.contains("test4")) {
+            getCam18Test4Detail(testItem)
+        } else if (testItem.id == "cam18-listening-test3" || testTitle?.contains("Test 3") == true || testId.contains("test3")) {
             getCam18Test3Detail(testItem)
         } else if (testItem.id == "cam18-listening-test2" || testTitle?.contains("Test 2") == true || testId.contains("test2")) {
             getCam18Test2Detail(testItem)
@@ -1489,6 +1493,456 @@ object CambridgeListeningTestDetailDataSource {
                 options = null,
                 sectionNumber = 4,
                 timestampStart = 364,
+                timestampEnd = 0
+            )
+        )
+
+        return ListeningTestDetailDto(
+            id = testItem.id,
+            title = testItem.title,
+            summary = testItem.summary,
+            audioUrl = testItem.audioUrl,
+            durationMinutes = testItem.durationMinutes,
+            sections = sections,
+            questions = questions
+        )
+    }
+
+
+    private fun getCam18Test4Detail(testItem: com.example.ielts.data.remote.dto.ListeningTestListItemDto): ListeningTestDetailDto {
+        val sections = listOf(
+            ListeningSectionDto(
+                sectionNumber = 1,
+                title = "Part 1: Medical Centre Receptionist Job",
+                audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758844/%E5%89%9118_section4_part1.mp3",
+                durationSeconds = 395,
+                transcript = "[00:30] ANNOUNCER: Part 1. You will hear a man from an employment agency talking to a woman about a job vacancy.\n[01:22] JULIE: Hello?\n[01:23] GREG: Oh, hello. Is this Julie Davison?\n[01:26] JULIE: Yes, speaking.\n[01:28] GREG: Yes. This is Greg Preston.\n[01:35] GREG: From the Employment Agency. We met last week when you came in to enquire about office work.\n[01:39] JULIE: Oh, yes, I remember.\n[01:41] GREG: We've just received information about a vacancy that might suit you.\n[01:44] JULIE: OK. What kind of position is it?\n[01:46] GREG: It's a receptionist job. I believe you've done similar work before, haven't you? [Q1]\n[01:57] JULIE: Yes. I worked at a sports centre for a couple of years before getting married and having children.\n[02:02] GREG: The job is in Fordham, so it shouldn't be too far for you to travel. You'll be working at the local medical centre. [Q2]\n[02:07] JULIE: All right. Where exactly is the centre?\n[02:14] GREG: It's near the railway station, on Chastons Road. [Q3]\n[02:20] JULIE: Sorry, could you repeat the name?\n[02:24] GREG: Chastons Road. That's spelled C-H-A-S-T-O-N-S.\n[02:31] JULIE: Thanks. What would my main responsibilities be? Would I answer patients' questions?\n[02:38] GREG: Yes. You would also arrange appointments, either in person or over the telephone, and change appointment times when necessary. [Q4]\n[02:46] JULIE: That sounds manageable.\n[02:49] GREG: Another responsibility would be updating the medical centre's database. [Q5] There would also be some general administrative tasks, but those are the main duties.\n[03:20] ANNOUNCER: Before you hear the rest of the conversation, you have some time to look at questions 6 to 10.\n[03:58] GREG: When I received the job details, I immediately thought of you. The employer specifically needs somebody with previous experience, [Q6] and I remembered your work at the sports centre.\n[04:08] JULIE: I enjoyed that job. Are there any other qualities they want?\n[04:18] GREG: The medical centre can be a stressful workplace. It's usually very busy, and patients may be worried or anxious. They need somebody who can remain calm and communicate confidently with members of the public. [Q7]\n[04:38] JULIE: After looking after three children under five, I think I can deal with stressful situations!\n[04:45] GREG: I'm sure you can. They also want someone with good computer skills.\n[04:52] JULIE: That won't be a problem.\n[04:58] JULIE: When would the job begin?\n[05:03] GREG: They're hoping the successful applicant can start at the beginning of next month. However, it's a temporary position rather than a permanent one. [Q8] The contract will run until the end of September, although there may be other opportunities later.\n[05:17] JULIE: That's fine. What are the working hours?\n[05:23] GREG: You would need to start at 7:45 in the morning. Would that be possible?\n[05:27] JULIE: Yes. My husband would have to get the children ready and take them to my mother's house, where she'll look after them while I'm working.\n[05:34] JULIE: What time would I finish?\n[05:37] GREG: At 1:15 p.m. [Q9]\n[05:40] JULIE: That should be convenient. I could collect the children on my way home and spend the afternoon with them.\n[05:48] JULIE: Is there a car park for employees at the medical centre? [Q10]\n[05:51] GREG: Yes, staff can park there. The centre is also served by a bus route.\n[05:55] JULIE: I'll probably drive, but it's useful to know there's another option. What should I do next?\n[06:02] GREG: If you agree, I'll send your CV and references to the employer. After that, you should contact them directly to arrange an interview.\n[06:12] JULIE: Excellent. Thanks very much for your help.\n[06:17] GREG: You're welcome. Goodbye.\n[06:19] JULIE: Bye.\n[06:22] ANNOUNCER: End of Part 1."
+            ),
+            ListeningSectionDto(
+                sectionNumber = 2,
+                title = "Part 2: Museum of Farming Life",
+                audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758844/%E5%89%9118_section4_part1.mp3",
+                durationSeconds = 410,
+                transcript = "[00:00] Part 2. You will hear a talk on the Museum of Farming Life."
+            ),
+            ListeningSectionDto(
+                sectionNumber = 3,
+                title = "Part 3: Origami in Education",
+                audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758844/%E5%89%9118_section4_part1.mp3",
+                durationSeconds = 420,
+                transcript = "[00:00] Part 3. You will hear a discussion about origami in education."
+            ),
+            ListeningSectionDto(
+                sectionNumber = 4,
+                title = "Part 4: Victor Hugo",
+                audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758844/%E5%89%9118_section4_part1.mp3",
+                durationSeconds = 430,
+                transcript = "[00:00] Part 4. You will hear a lecture on French author Victor Hugo."
+            )
+        )
+
+        val questions = listOf(
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q1",
+                position = 1,
+                type = "FILL_IN_BLANK",
+                prompt = "Job details from employment agency\nComplete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.\n\nâ€¢ Role: 1 ________\nâ€¢ Location: Fordham [ 2 ] Centre, [ 3 ] Road, Fordham",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 106,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q2",
+                position = 2,
+                type = "FILL_IN_BLANK",
+                prompt = "Job details from employment agency\nComplete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.\n\nâ€¢ Role: [ 1 ]\nâ€¢ Location: Fordham 2 ________ Centre, [ 3 ] Road, Fordham\nâ€¢ Work involves:\n  â€“ dealing with enquiries",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 122,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q3",
+                position = 3,
+                type = "FILL_IN_BLANK",
+                prompt = "Job details from employment agency\nComplete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.\n\nâ€¢ Location: Fordham [ 2 ] Centre, 3 ________ Road, Fordham\nâ€¢ Work involves:\n  â€“ dealing with enquiries\n  â€“ making [ 4 ] and reorganising them",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 134,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q4",
+                position = 4,
+                type = "FILL_IN_BLANK",
+                prompt = "Job details from employment agency\nComplete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.\n\nâ€¢ Work involves:\n  â€“ dealing with enquiries\n  â€“ making 4 ________ and reorganising them\n  â€“ maintaining the internal [ 5 ]\n  â€“ general administration",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 158,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q5",
+                position = 5,
+                type = "FILL_IN_BLANK",
+                prompt = "Job details from employment agency\nComplete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.\n\nâ€¢ Work involves:\n  â€“ making [ 4 ] and reorganising them\n  â€“ maintaining the internal 5 ________\n  â€“ general administration\nâ€¢ Requirements:\n  â€“ [ 6 ] (essential)",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 169,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q6",
+                position = 6,
+                type = "FILL_IN_BLANK",
+                prompt = "Job details from employment agency\nComplete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.\n\nâ€¢ Requirements:\n  â€“ 6 ________ (essential)\n  â€“ a calm and [ 7 ] manner\n  â€“ good IT skills",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 238,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q7",
+                position = 7,
+                type = "FILL_IN_BLANK",
+                prompt = "Job details from employment agency\nComplete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.\n\nâ€¢ Requirements:\n  â€“ [ 6 ] (essential)\n  â€“ a calm and 7 ________ manner\n  â€“ good IT skills\nâ€¢ Other information:\n  â€“ a [ 8 ] job",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 258,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q8",
+                position = 8,
+                type = "FILL_IN_BLANK",
+                prompt = "Job details from employment agency\nComplete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.\n\nâ€¢ Other information:\n  â€“ a 8 ________ job â€“ further opportunities may be available\n  â€“ hours: 7.45 a.m. to [ 9 ] p.m. Monday to Friday\n  â€“ [ 10 ] is available onsite",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 303,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q9",
+                position = 9,
+                type = "FILL_IN_BLANK",
+                prompt = "Job details from employment agency\nComplete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.\n\nâ€¢ Other information:\n  â€“ a [ 8 ] job â€“ further opportunities may be available\n  â€“ hours: 7.45 a.m. to 9 ________ p.m. Monday to Friday\n  â€“ [ 10 ] is available onsite",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 337,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q10",
+                position = 10,
+                type = "FILL_IN_BLANK",
+                prompt = "Job details from employment agency\nComplete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.\n\nâ€¢ Other information:\n  â€“ hours: 7.45 a.m. to [ 9 ] p.m. Monday to Friday\n  â€“ 10 ________ is available onsite",
+                options = null,
+                sectionNumber = 1,
+                timestampStart = 348,
+                timestampEnd = 0
+            ),
+            // Provisional Q11-40 for Test 4
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q11",
+                position = 11,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Museum of Farming Life\nQuestions 11â€“14: Choose the correct letter, A, B or C.\n11. The main building of the museum was originally",
+                options = listOf("A. a farmhouse.", "B. a private home.", "C. a factory."),
+                sectionNumber = 2,
+                timestampStart = 60,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q12",
+                position = 12,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Museum of Farming Life\n12. What was the Palmer family's main business?",
+                options = listOf("A. farming", "B. shipping", "C. manufacturing"),
+                sectionNumber = 2,
+                timestampStart = 90,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q13",
+                position = 13,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Museum of Farming Life\n13. What is special about the farmhouse exhibition?",
+                options = listOf("A. It has interactive displays.", "B. Visitors can touch the objects.", "C. It reconstructs Victorian life."),
+                sectionNumber = 2,
+                timestampStart = 120,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q14",
+                position = 14,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Museum of Farming Life\n14. The guide recommends visiting the cafe for its",
+                options = listOf("A. views over the fields.", "B. historic atmosphere.", "C. home-baked cakes."),
+                sectionNumber = 2,
+                timestampStart = 150,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q15",
+                position = 15,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Museum of Farming Life\nQuestions 15â€“20: Museum areas\n15. Four Seasons",
+                options = listOf("A. Closed today", "B. Requires adult supervision", "C. Recent addition"),
+                sectionNumber = 2,
+                timestampStart = 180,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q16",
+                position = 16,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Museum of Farming Life\n16. Farmhouse Kitchen",
+                options = listOf("A. Closed today", "B. Requires adult supervision", "C. Recent addition"),
+                sectionNumber = 2,
+                timestampStart = 210,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q17",
+                position = 17,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Museum of Farming Life\n17. A Year on the Farm",
+                options = listOf("A. Closed today", "B. Requires adult supervision", "C. Recent addition"),
+                sectionNumber = 2,
+                timestampStart = 240,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q18",
+                position = 18,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Museum of Farming Life\n18. Wagon Walk",
+                options = listOf("A. Closed today", "B. Requires adult supervision", "C. Recent addition"),
+                sectionNumber = 2,
+                timestampStart = 270,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q19",
+                position = 19,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Museum of Farming Life\n19. Bees are Magic",
+                options = listOf("A. Closed today", "B. Requires adult supervision", "C. Recent addition"),
+                sectionNumber = 2,
+                timestampStart = 300,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q20",
+                position = 20,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Museum of Farming Life\n20. The Pond",
+                options = listOf("A. Closed today", "B. Requires adult supervision", "C. Recent addition"),
+                sectionNumber = 2,
+                timestampStart = 330,
+                timestampEnd = 0
+            ),
+            // Section 3: Q21-30
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q21",
+                position = 21,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Origami in education\nQuestions 21 and 22: Choose TWO letters, Aâ€“E.\nWhich TWO benefits of origami are mentioned?\n(Chá» n lá»±a chá» n thá»© nháº¥t trong 2 Ä‘Ã¡p Ã¡n)",
+                options = listOf("A. spatial awareness", "B. language skills", "C. memory retention", "D. social collaboration", "E. stress reduction"),
+                sectionNumber = 3,
+                timestampStart = 60,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q22",
+                position = 22,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Origami in education\nQuestions 21 and 22: Choose TWO letters, Aâ€“E.\nWhich TWO benefits of origami are mentioned?\n(Chá» n lá»±a chá» n thá»© hai trong 2 Ä‘Ã¡p Ã¡n)",
+                options = listOf("A. spatial awareness", "B. language skills", "C. memory retention", "D. social collaboration", "E. stress reduction"),
+                sectionNumber = 3,
+                timestampStart = 90,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q23",
+                position = 23,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Origami in education\nQuestions 23 and 24: Choose TWO letters, Aâ€“E.\nWhich TWO materials were easiest for children to fold?\n(Chá» n lá»±a chá» n thá»© nháº¥t trong 2 Ä‘Ã¡p Ã¡n)",
+                options = listOf("A. tracing paper", "B. newspaper", "C. foil", "D. construction paper", "E. parchment"),
+                sectionNumber = 3,
+                timestampStart = 120,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q24",
+                position = 24,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Origami in education\nQuestions 23 and 24: Choose TWO letters, Aâ€“E.\nWhich TWO materials were easiest for children to fold?\n(Chá» n lá»±a chá» n thá»© hai trong 2 Ä‘Ã¡p Ã¡n)",
+                options = listOf("A. tracing paper", "B. newspaper", "C. foil", "D. construction paper", "E. parchment"),
+                sectionNumber = 3,
+                timestampStart = 150,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q25",
+                position = 25,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Origami in education\n25. Mathematical concepts explored",
+                options = listOf("A. symmetry", "B. fractions", "C. angles", "D. geometry", "E. proportions", "F. coordinates", "G. 3D shapes"),
+                sectionNumber = 3,
+                timestampStart = 180,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q26",
+                position = 26,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Origami in education\n26. Patience and perseverance",
+                options = listOf("A. symmetry", "B. fractions", "C. angles", "D. geometry", "E. proportions", "F. coordinates", "G. 3D shapes"),
+                sectionNumber = 3,
+                timestampStart = 210,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q27",
+                position = 27,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Origami in education\n27. Cultural appreciation",
+                options = listOf("A. symmetry", "B. fractions", "C. angles", "D. geometry", "E. proportions", "F. coordinates", "G. 3D shapes"),
+                sectionNumber = 3,
+                timestampStart = 240,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q28",
+                position = 28,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Origami in education\n28. Fine motor coordination",
+                options = listOf("A. symmetry", "B. fractions", "C. angles", "D. geometry", "E. proportions", "F. coordinates", "G. 3D shapes"),
+                sectionNumber = 3,
+                timestampStart = 270,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q29",
+                position = 29,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Origami in education\n29. Step-by-step instruction following",
+                options = listOf("A. symmetry", "B. fractions", "C. angles", "D. geometry", "E. proportions", "F. coordinates", "G. 3D shapes"),
+                sectionNumber = 3,
+                timestampStart = 300,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q30",
+                position = 30,
+                type = "MULTIPLE_CHOICE",
+                prompt = "Origami in education\n30. Peer teaching and sharing",
+                options = listOf("A. symmetry", "B. fractions", "C. angles", "D. geometry", "E. proportions", "F. coordinates", "G. 3D shapes"),
+                sectionNumber = 3,
+                timestampStart = 330,
+                timestampEnd = 0
+            ),
+            // Section 4: Q31-40
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q31",
+                position = 31,
+                type = "FILL_IN_BLANK",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nEarly career\nâ€¢ Hugo's fame was based on the 31 ________ of Les MisÃ©rables\nâ€¢ campaigned against [ 32 ] and social injustice",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 60,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q32",
+                position = 32,
+                type = "FILL_IN_BLANK",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nEarly career\nâ€¢ Hugo's fame was based on the [ 31 ] of Les MisÃ©rables\nâ€¢ campaigned against 32 ________ and social injustice\nâ€¢ forced into exile in [ 33 ]",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 90,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q33",
+                position = 33,
+                type = "FILL_IN_BLANK",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nExile on Guernsey\nâ€¢ lived in various countries across 33 ________\nâ€¢ wrote acclaimed volumes of [ 34 ]",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 120,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q34",
+                position = 34,
+                type = "FILL_IN_BLANK",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nExile on Guernsey\nâ€¢ lived in various countries across [ 33 ]\nâ€¢ wrote acclaimed volumes of 34 ________\nâ€¢ created numerous [ 35 ] of the island",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 150,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q35",
+                position = 35,
+                type = "FILL_IN_BLANK",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHauteville House\nâ€¢ decorated with his own 35 ________\nâ€¢ designed unique wooden [ 36 ]",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 180,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q36",
+                position = 36,
+                type = "FILL_IN_BLANK",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHauteville House\nâ€¢ decorated with his own [ 35 ]\nâ€¢ designed unique wooden 36 ________\nâ€¢ installed elaborate [ 37 ] throughout the house",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 210,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q37",
+                position = 37,
+                type = "FILL_IN_BLANK",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHauteville House\nâ€¢ designed unique wooden [ 36 ]\nâ€¢ installed elaborate 37 ________ throughout the house\nâ€¢ writing room had a view of the [ 38 ]",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 240,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q38",
+                position = 38,
+                type = "FILL_IN_BLANK",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nHauteville House\nâ€¢ writing room had a view of the 38 ________\nâ€¢ provided free meals for local [ 39 ]",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 270,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q39",
+                position = 39,
+                type = "FILL_IN_BLANK",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nLater years\nâ€¢ provided free meals for local 39 ________\nâ€¢ house bequeathed to the city by his [ 40 ]",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 300,
+                timestampEnd = 0
+            ),
+            ListeningQuestionDetailDto(
+                id = "cam18_t4_q40",
+                position = 40,
+                type = "FILL_IN_BLANK",
+                prompt = "Victor Hugo\nComplete the notes below. Write ONE WORD ONLY for each answer.\n\nLater years\nâ€¢ house bequeathed to the city by his 40 ________ in 1927",
+                options = null,
+                sectionNumber = 4,
+                timestampStart = 330,
                 timestampEnd = 0
             )
         )

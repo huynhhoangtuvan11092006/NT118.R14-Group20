@@ -153,10 +153,10 @@ object CambridgeListeningDataSource {
                 totalAudioDuration = 1840,
                 totalQuestions = 40,
                 sectionTitles = listOf(
-                    "Section 1: University Campus Accommodation Application",
-                    "Section 2: Local Art Gallery Modern Exhibition Tour",
-                    "Section 3: Geography Students Coastline Field Trip Planning",
-                    "Section 4: Engineering Lecture on Carbon Capture & Storage"
+                    "Part 1: Medical Centre Receptionist Job",
+                    "Part 2: Museum of Farming Life",
+                    "Part 3: Origami in Education",
+                    "Part 4: Victor Hugo"
                 ),
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758844/%E5%89%9118_section4_part1.mp3",
                 userProgress = null

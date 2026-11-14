@@ -640,11 +640,23 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
             } catch (_: Exception) {}
         }
 
+        val isTest4 = testDetail?.id?.contains("test4") == true || testDetail?.title?.contains("Test 4") == true
         val isTest3 = testDetail?.id?.contains("test3") == true || testDetail?.title?.contains("Test 3") == true
         val isTest2 = testDetail?.id?.contains("test2") == true || testDetail?.title?.contains("Test 2") == true
 
         // Answers & evidence
-        val defaultAnswers = if (isTest3) {
+        val defaultAnswers = if (isTest4) {
+            listOf(
+                "receptionist", "medical", "Chastons", "appointments", "database",
+                "experience", "confident", "temporary", "1.15", "parking",
+                "B", "C", "B", "C", "C",
+                "B", "B", "A", "C", "B",
+                "A", "E", "B", "D", "G",
+                "E", "B", "C", "F", "A",
+                "plot", "poverty", "Europe", "poetry", "drawings",
+                "furniture", "lamps", "harbour", "children", "relatives"
+            )
+        } else if (isTest3) {
             listOf(
                 "Marrowfield", "relative", "socialise", "full", "Domestic life",
                 "clouds", "timing", "Animal Magic", "movement", "dark",
@@ -679,7 +691,26 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
             )
         }
 
-        val defaultQuotes = if (isTest3) {
+        val defaultQuotes = if (isTest4) {
+            listOf(
+                "It's a receptionist job. I believe you've done similar work before, haven't you?",
+                "The job is in Fordham, so it shouldn't be too far for you to travel. You'll be working at the local medical centre.",
+                "It's near the railway station, on Chastons Road. That's spelled C-H-A-S-T-O-N-S.",
+                "You would also arrange appointments, either in person or over the telephone, and change appointment times when necessary.",
+                "Another responsibility would be updating the medical centre's database.",
+                "The employer specifically needs somebody with previous experience, and I remembered your work at the sports centre.",
+                "They need somebody who can remain calm and communicate confidently with members of the public.",
+                "However, it's a temporary position rather than a permanent one.",
+                "What time would I finish? At 1:15 p.m.",
+                "Is there a car park for employees at the medical centre? Yes, staff can park there.",
+                "Dẫn chứng câu 11", "Dẫn chứng câu 12", "Dẫn chứng câu 13", "Dẫn chứng câu 14", "Dẫn chứng câu 15",
+                "Dẫn chứng câu 16", "Dẫn chứng câu 17", "Dẫn chứng câu 18", "Dẫn chứng câu 19", "Dẫn chứng câu 20",
+                "Dẫn chứng câu 21", "Dẫn chứng câu 22", "Dẫn chứng câu 23", "Dẫn chứng câu 24", "Dẫn chứng câu 25",
+                "Dẫn chứng câu 26", "Dẫn chứng câu 27", "Dẫn chứng câu 28", "Dẫn chứng câu 29", "Dẫn chứng câu 30",
+                "Dẫn chứng câu 31", "Dẫn chứng câu 32", "Dẫn chứng câu 33", "Dẫn chứng câu 34", "Dẫn chứng câu 35",
+                "Dẫn chứng câu 36", "Dẫn chứng câu 37", "Dẫn chứng câu 38", "Dẫn chứng câu 39", "Dẫn chứng câu 40"
+            )
+        } else if (isTest3) {
             listOf(
                 "It's number 52, Marrowfield Street.",
                 "Actually, a relative told me about it.",
@@ -782,7 +813,14 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
             )
         }
 
-        val timestamps = if (isTest3) {
+        val timestamps = if (isTest4) {
+            listOf(
+                106, 122, 134, 158, 169, 238, 258, 303, 337, 348,
+                60, 90, 120, 150, 180, 210, 240, 270, 300, 330,
+                60, 90, 120, 150, 180, 210, 240, 270, 300, 330,
+                60, 90, 120, 150, 180, 210, 240, 270, 300, 330
+            )
+        } else if (isTest3) {
             listOf(
                 124, 146, 178, 195, 266, 323, 340, 355, 359, 375,
                 82, 82, 174, 128, 262, 299, 308, 338, 369, 390,
