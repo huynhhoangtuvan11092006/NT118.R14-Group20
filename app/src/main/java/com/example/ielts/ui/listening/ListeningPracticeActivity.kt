@@ -18,6 +18,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Rect
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.lifecycleScope
@@ -117,6 +121,19 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_listening_practice)
+
+        val rootLayout = findViewById<View>(R.id.rootListeningLayout)
+        val bottomBar = findViewById<View>(R.id.bottomActionBar)
+        ViewCompat.setOnApplyWindowInsetsListener(rootLayout) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val ime = insets.getInsets(WindowInsetsCompat.Type.ime())
+            val isKeyboardOpen = ime.bottom > 0
+            val bottomPadding = if (isKeyboardOpen) ime.bottom else systemBars.bottom
+
+            bottomBar.visibility = if (isKeyboardOpen) View.GONE else View.VISIBLE
+            view.setPadding(systemBars.left, systemBars.top, systemBars.right, bottomPadding)
+            insets
+        }
 
         initViews()
         initAudioPlayer()
@@ -376,10 +393,35 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         scrollQuestions.smoothScrollTo(0, 0)
     }
 
+    private fun dpToPx(dp: Int): Int {
+        return (dp * resources.displayMetrics.density).toInt()
+    }
+
     private fun bindBlankEditText(et: EditText, qPosition: Int) {
         val existing = answersMap[qPosition]
         if (!existing.isNullOrBlank()) {
             et.setText(existing)
+        }
+
+        val bringIntoView = Runnable {
+            if (!isDestroyed && !isFinishing && et.isAttachedToWindow) {
+                val rect = Rect()
+                et.getDrawingRect(rect)
+                scrollQuestions.offsetDescendantRectToMyCoords(et, rect)
+                val targetY = (rect.top - dpToPx(90)).coerceAtLeast(0)
+                scrollQuestions.smoothScrollTo(0, targetY)
+            }
+        }
+
+        et.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                et.postDelayed(bringIntoView, 150)
+                et.postDelayed(bringIntoView, 400)
+            }
+        }
+
+        et.setOnClickListener {
+            et.postDelayed(bringIntoView, 150)
         }
 
         et.addTextChangedListener(object : TextWatcher {
@@ -2129,6 +2171,25 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                     etAnswer.setText(existing)
                     ivStatus.setImageResource(R.drawable.ic_check_circle)
                     ivStatus.setColorFilter(ContextCompat.getColor(this, R.color.primary_blue))
+                }
+
+                val bringIntoView = Runnable {
+                    if (!isDestroyed && !isFinishing && etAnswer.isAttachedToWindow) {
+                        val rect = Rect()
+                        etAnswer.getDrawingRect(rect)
+                        scrollQuestions.offsetDescendantRectToMyCoords(etAnswer, rect)
+                        val targetY = (rect.top - dpToPx(90)).coerceAtLeast(0)
+                        scrollQuestions.smoothScrollTo(0, targetY)
+                    }
+                }
+                etAnswer.setOnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        etAnswer.postDelayed(bringIntoView, 150)
+                        etAnswer.postDelayed(bringIntoView, 400)
+                    }
+                }
+                etAnswer.setOnClickListener {
+                    etAnswer.postDelayed(bringIntoView, 150)
                 }
 
                 etAnswer.addTextChangedListener(object : TextWatcher {
