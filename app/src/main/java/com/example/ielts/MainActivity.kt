@@ -332,26 +332,27 @@ class MainActivity : AppCompatActivity() {
 
             tvDay?.text = dayItem.dayLabel
 
-            // Nhãn số phút trên đầu cột: hiển thị khi có phút học > 0 hoặc là ngày hôm nay
-            if (dayItem.minutes > 0 || dayItem.isToday) {
+            // Nhãn số phút/giây trên đầu cột: hiển thị khi có học hoặc là ngày hôm nay
+            if (dayItem.seconds > 0L || dayItem.isToday) {
                 tvVal?.visibility = View.VISIBLE
-                tvVal?.text = "${dayItem.minutes}p"
+                tvVal?.text = dayItem.displayValue.ifEmpty { "${dayItem.minutes}p" }
             } else {
                 tvVal?.visibility = View.GONE
             }
 
-            // Chiều cao cột (dp): 10dp nếu 0 phút, từ 18dp -> 78dp theo tỷ lệ phút học thực tế
-            val barHeightDp = if (dayItem.minutes <= 0) {
+            // Chiều cao cột (dp): 10dp nếu 0s, từ 18dp -> 78dp theo tỷ lệ học thực tế
+            val effectiveMinutes = maxOf(dayItem.minutes.toFloat(), dayItem.seconds / 60f)
+            val barHeightDp = if (dayItem.seconds <= 0L) {
                 10
             } else {
-                (18 + ((dayItem.minutes.toFloat() / referenceMax.toFloat()) * 60f).toInt()).coerceIn(18, 78)
+                (18 + ((effectiveMinutes / referenceMax.toFloat()) * 60f).toInt()).coerceIn(18, 78)
             }
             viewBar?.layoutParams = viewBar?.layoutParams?.apply {
                 height = (barHeightDp * density).toInt()
             }
 
             // Tô sáng cột hôm nay hoặc cột có giờ học
-            if (dayItem.isToday || dayItem.minutes > 0) {
+            if (dayItem.isToday || dayItem.seconds > 0L) {
                 viewBar?.setBackgroundResource(R.drawable.bg_bar_active)
             } else {
                 viewBar?.setBackgroundResource(R.drawable.bg_bar_inactive)
@@ -545,9 +546,9 @@ class MainActivity : AppCompatActivity() {
         stopRealTimeStudyTicker()
         studyTimerJob = lifecycleScope.launch {
             while (isActive) {
-                kotlinx.coroutines.delay(30_000L) // Cập nhật thời gian học thực tế mỗi 30s
                 com.example.ielts.data.local.StudyTimeTracker.tickActiveSession(this@MainActivity)
                 bindWeeklyStudyChart()
+                kotlinx.coroutines.delay(1000L) // Cập nhật live từng giây theo thời gian thực
             }
         }
     }

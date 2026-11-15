@@ -147,3 +147,4 @@ object AvatarManager {
         return output
     }
 }
+

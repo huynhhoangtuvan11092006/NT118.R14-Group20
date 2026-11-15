@@ -56,27 +56,27 @@ object StudyTimeTracker {
 
     /**
      * Cập nhật thời gian học tức thì theo thời gian thực (real-time ticker)
-     * Thường gọi định kỳ mỗi 30s - 60s hoặc khi màn hình onPause
-     * Trả về tổng số phút học của ngày hôm nay sau khi cập nhật
+     * Được gọi định kỳ mỗi giây (1s) khi người dùng mở ứng dụng / làm bài
+     * Trả về tổng số giây học của ngày hôm nay sau khi cập nhật
      */
     @Synchronized
-    fun tickActiveSession(context: Context): Int {
+    fun tickActiveSession(context: Context): Long {
         if (activeSessionStartMillis == 0L) {
             activeSessionStartMillis = System.currentTimeMillis()
-            return getDailyStudyMinutes(context, getTodayDateStr())
+            return getDailyStudySeconds(context, getTodayDateStr())
         }
 
         val now = System.currentTimeMillis()
         val elapsedMillis = now - activeSessionStartMillis
         val elapsedSeconds = elapsedMillis / 1000
 
-        // Chỉ ghi nhận khi trôi qua ít nhất 5 giây
-        if (elapsedSeconds >= 5) {
+        // Ghi nhận tích lũy ngay khi trôi qua từ 1 giây
+        if (elapsedSeconds >= 1) {
             recordStudySeconds(context, elapsedSeconds)
             activeSessionStartMillis = now
         }
 
-        return getDailyStudyMinutes(context, getTodayDateStr())
+        return getDailyStudySeconds(context, getTodayDateStr())
     }
 
     /**
@@ -87,7 +87,7 @@ object StudyTimeTracker {
         if (activeSessionStartMillis > 0L) {
             val now = System.currentTimeMillis()
             val elapsedSeconds = (now - activeSessionStartMillis) / 1000
-            if (elapsedSeconds >= 5) {
+            if (elapsedSeconds >= 1) {
                 recordStudySeconds(context, elapsedSeconds)
             }
             activeSessionStartMillis = 0L
@@ -116,3 +116,4 @@ object StudyTimeTracker {
         return getPrefs(context).getLong(KEY_TOTAL_SECONDS, 0L)
     }
 }
+
