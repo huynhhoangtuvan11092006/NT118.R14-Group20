@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:background="@drawable/bg_test_card"
+    android:elevation="2dp"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Header bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/btnZoomMatchingT4P2"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_pill_soft_indigo"
+                android:paddingStart="8dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="2dp"
+                android:text="PART 2 • QUESTIONS 15–20"
+                android:textColor="@color/primary_blue"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Areas of the museum"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="What information does the speaker give about each of the following areas of the museum?\nChoose SIX answers from the box and write the correct letter, A–H, next to Questions 15–20."
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnZoomMatchingT4P2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="6dp"
+            android:text="View original 🔍"
+            android:textColor="@color/primary_blue"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <!-- Information Box -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Information"
+            android:textColor="@color/primary_blue"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="8dp"
+            android:background="#CBD5E1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            android:text="A   Parents must supervise their children."
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="3dp"
+            android:text="B   There are new things to see."
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="3dp"
+            android:text="C   It is closed today."
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="3dp"
+            android:text="D   This is only for school groups."
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="3dp"
+            android:text="E   There is a quiz for visitors."
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="3dp"
+            android:text="F   It features something created by students."
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="3dp"
+            android:text="G   An expert is here today."
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="3dp"
+            android:text="H   There is a one-way system."
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <!-- Areas Header -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Areas of museum (Choose A–H):"
+        android:textColor="@color/primary_blue"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <!-- Row 15: Four Seasons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="15. Four Seasons"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMatchingSelected15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Not selected"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip15_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip15_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip15_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip15_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip15_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip15_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip15_G" style="@style/MatchingChipStyle" android:text="G" />
+            <TextView android:id="@+id/chip15_H" style="@style/MatchingChipStyle" android:text="H" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 16: Farmhouse Kitchen -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="16. Farmhouse Kitchen"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMatchingSelected16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Not selected"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip16_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip16_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip16_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip16_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip16_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip16_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip16_G" style="@style/MatchingChipStyle" android:text="G" />
+            <TextView android:id="@+id/chip16_H" style="@style/MatchingChipStyle" android:text="H" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 17: A Year on the Farm -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="17. A Year on the Farm"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMatchingSelected17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Not selected"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip17_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip17_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip17_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip17_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip17_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip17_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip17_G" style="@style/MatchingChipStyle" android:text="G" />
+            <TextView android:id="@+id/chip17_H" style="@style/MatchingChipStyle" android:text="H" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 18: Wagon Walk -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="18. Wagon Walk"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMatchingSelected18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Not selected"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip18_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip18_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip18_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip18_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip18_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip18_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip18_G" style="@style/MatchingChipStyle" android:text="G" />
+            <TextView android:id="@+id/chip18_H" style="@style/MatchingChipStyle" android:text="H" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 19: Bees are Magic -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="19. Bees are Magic"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMatchingSelected19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Not selected"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip19_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip19_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip19_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip19_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip19_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip19_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip19_G" style="@style/MatchingChipStyle" android:text="G" />
+            <TextView android:id="@+id/chip19_H" style="@style/MatchingChipStyle" android:text="H" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 20: The Pond -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/bg_choice_unselected_soft"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="20. The Pond"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMatchingSelected20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Not selected"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChips20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/chip20_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip20_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip20_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip20_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip20_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip20_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip20_G" style="@style/MatchingChipStyle" android:text="G" />
+            <TextView android:id="@+id/chip20_H" style="@style/MatchingChipStyle" android:text="H" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

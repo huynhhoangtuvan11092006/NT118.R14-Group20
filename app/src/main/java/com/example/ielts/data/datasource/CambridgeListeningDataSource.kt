@@ -96,10 +96,10 @@ object CambridgeListeningDataSource {
                 totalAudioDuration = 1845,
                 totalQuestions = 40,
                 sectionTitles = listOf(
-                    "Section 1: Transport survey",
-                    "Section 2: Becoming a volunteer for ACE",
-                    "Section 3: Talk on jobs in fashion design",
-                    "Section 4: Elephant translocation"
+                    "Part 1: Transport survey",
+                    "Part 2: Becoming a volunteer for ACE",
+                    "Part 3: Talk on jobs in fashion design",
+                    "Part 4: Elephant translocation"
                 ),
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793754902/%E5%89%9118_section1-part1.mp3",
                 userProgress = null
@@ -109,16 +109,16 @@ object CambridgeListeningDataSource {
             ListeningTestListItemDto(
                 id = "cam18-listening-test2",
                 title = "Cambridge IELTS 18 - Listening Test 2",
-                summary = "Bộ đề thi thử IELTS Listening trích từ Cambridge IELTS 18 Academic & General",
-                difficulty = "Trung bình",
+                summary = "Bộ đề thi thử IELTS Listening chuẩn khảo thí trích từ Cambridge IELTS 18 Test 2",
+                difficulty = "Standard IELTS",
                 durationMinutes = 35,
                 totalAudioDuration = 1830,
                 totalQuestions = 40,
                 sectionTitles = listOf(
-                    "Section 1: Public Health Clinic Registration & Checkup",
-                    "Section 2: New Residents Guide to City Waste & Recycling",
-                    "Section 3: Engineering Review on Surgical Robotics",
-                    "Section 4: Anthropology Lecture on Prehistoric Cave Art"
+                    "Part 1: Working at Milo's Restaurants",
+                    "Part 2: Planned Housing Development",
+                    "Part 3: The Laki Eruption of 1783",
+                    "Part 4: Pockets"
                 ),
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758609/%E5%89%9118_section2-part1.mp3",
                 userProgress = null
@@ -134,10 +134,10 @@ object CambridgeListeningDataSource {
                 totalAudioDuration = 1825,
                 totalQuestions = 40,
                 sectionTitles = listOf(
-                    "Section 1: Bicycle Rental and Scenic Cycling Route Inquiry",
-                    "Section 2: Summer Youth Sailing Club Activities & Safety",
-                    "Section 3: Economics Seminar on Microfinance in Developing Nations",
-                    "Section 4: Zoology Lecture on Arctic Fox Adaptation & Survival"
+                    "Part 1: Wayside Camera Club",
+                    "Part 2: Picking Mushrooms",
+                    "Part 3: Automation and the Future of Work",
+                    "Part 4: Space Traffic Management"
                 ),
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758712/%E5%89%9118_section3_part1.mp3",
                 userProgress = null
@@ -153,10 +153,10 @@ object CambridgeListeningDataSource {
                 totalAudioDuration = 1840,
                 totalQuestions = 40,
                 sectionTitles = listOf(
-                    "Section 1: University Campus Accommodation Application",
-                    "Section 2: Local Art Gallery Modern Exhibition Tour",
-                    "Section 3: Geography Students Coastline Field Trip Planning",
-                    "Section 4: Engineering Lecture on Carbon Capture & Storage"
+                    "Part 1: Medical Centre Receptionist Job",
+                    "Part 2: Museum of Farming Life",
+                    "Part 3: Origami in Education",
+                    "Part 4: Victor Hugo"
                 ),
                 audioUrl = "https://res.cloudinary.com/fdawugjr/video/upload/v1793758844/%E5%89%9118_section4_part1.mp3",
                 userProgress = null

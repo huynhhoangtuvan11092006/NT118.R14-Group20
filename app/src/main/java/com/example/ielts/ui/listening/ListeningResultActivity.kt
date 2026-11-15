@@ -640,47 +640,232 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
             } catch (_: Exception) {}
         }
 
-        // Canonical Cambridge 18 Test 1 Listening answers & evidence
-        val defaultAnswers = listOf(
-            "7YZ", "24", "dentist", "parking", "Claxby",
-            "late", "evening", "supermarket", "pollution", "storage",
-            "C", "A", "A", "B", "E",
-            "B", "G", "D", "A", "F",
-            "C", "B", "B", "A", "C",
-            "A", "B", "C", "A", "C",
-            "fences", "family", "helicopters", "stress", "sides",
-            "breathing", "feet", "employment", "weapons", "tourism"
-        )
+        val isTest4 = testDetail?.id?.contains("test4") == true || testDetail?.title?.contains("Test 4") == true
+        val isTest3 = testDetail?.id?.contains("test3") == true || testDetail?.title?.contains("Test 3") == true
+        val isTest2 = testDetail?.id?.contains("test2") == true || testDetail?.title?.contains("Test 2") == true
 
-        val defaultQuotes = listOf(
-            "It's DW3Q 7YZ.", "It's the 24th of April, isn't it?", "the main reason I came here was to go to the dentist.",
-            "parking was so difficult to find and it costs so much.", "At the bus stop on Claxby Street.",
-            "this morning it was late. Only about 10 minutes, but still.", "any time I've been in town in the evening... wait a long time",
-            "Mainly just to go to the supermarket.", "because of all the pollution.", "it doesn't have any storage.",
-            "Some of the seats are placed very close together.", "The age of volunteers is really less important than other factors.",
-            "we ensure it is continuous throughout your journey with us.", "your level of commitment", "your availability during weekends",
-            "For fundraising, original and new ideas are particularly welcome.", "volunteers need a good level of fitness.",
-            "an understanding of food and diet is essential.", "having experience on stage helps captivate young audiences.",
-            "having a good memory for emergency procedures is vital.",
-            "the students sitting next to me were talking loudly.", "there is much more variety in the job market than we had realised.",
-            "quite hard for us to follow at points.", "school careers advice was delivered far too late",
-            "differ on why we would like a career in fashion.", "realistic about the practice",
-            "paying too much attention to how she looked", "expecting to become well known right away",
-            "reasons why people return items", "fashion designs customers want but can't find",
-            "extensive damage to fences in the reserve.", "an entire family unit was selected",
-            "employed helicopters to herd the animals", "minimise physiological stress",
-            "positioned on their sides to prevent their immense weight from crushing lungs",
-            "breathing was monitored constantly throughout transit", "circumference of their feet",
-            "created valuable employment opportunities", "sharp decline in poachers and confiscated weapons",
-            "eco-tourism flourished, providing a significant boost to GDP"
-        )
+        // Answers & evidence
+        val defaultAnswers = if (isTest4) {
+            listOf(
+                "receptionist", "medical", "Chastons", "appointments", "database",
+                "experience", "confident", "temporary", "1.15", "parking",
+                "B", "A", "A", "C", "F",
+                "G", "E", "A", "C", "B",
+                "B", "D", "D", "A", "C",
+                "G", "F", "A", "B", "C",
+                "plot", "poverty", "Europe", "poetry", "drawings",
+                "furniture", "lamps", "harbour", "children", "relatives"
+            )
+        } else if (isTest3) {
+            listOf(
+                "Marrowfield", "relative", "socialise", "full", "Domestic life",
+                "clouds", "timing", "Animal Magic", "movement", "dark",
+                "B", "C", "B", "D", "C",
+                "B", "B", "C", "A", "A",
+                "A", "E", "B", "D", "G",
+                "E", "B", "C", "F", "A",
+                "technical", "cheap", "thousands", "identification", "tracking",
+                "military", "location", "prediction", "database", "trust"
+            )
+        } else if (isTest2) {
+            listOf(
+                "training", "discount", "taxi", "service", "English",
+                "Wivenhoe", "equipment", "9.75", "deliveries", "Sunday",
+                "B", "E", "B", "C", "G",
+                "C", "D", "B", "H", "A",
+                "C", "A", "B", "B", "A",
+                "B", "D", "A", "C", "F",
+                "convenient", "suits", "tailor", "profession", "visible",
+                "string", "waist", "perfume", "image", "handbag"
+            )
+        } else {
+            listOf(
+                "DW30 7YZ / DW3Q 7YZ", "24th April", "dentist", "parking", "Claxby",
+                "late", "evening", "supermarket", "pollution", "storage",
+                "C", "A", "A", "B", "E",
+                "B", "G", "D", "A", "F",
+                "A", "B", "A", "C", "B",
+                "A", "B", "E", "A", "C",
+                "fences", "family", "helicopters", "stress", "sides",
+                "breathing", "feet", "employment", "weapons", "tourism"
+            )
+        }
 
-        val timestamps = listOf(
-            34, 73, 94, 118, 142, 162, 183, 209, 241, 260,
-            10, 25, 42, 60, 60, 85, 105, 125, 145, 165,
-            12, 24, 40, 55, 70, 88, 105, 105, 130, 130,
-            18, 32, 48, 65, 80, 98, 112, 130, 146, 162
-        )
+        val defaultQuotes = if (isTest4) {
+            listOf(
+                "It's a receptionist job. I believe you've done similar work before, haven't you?",
+                "The job is in Fordham, so it shouldn't be too far for you to travel. You'll be working at the local medical centre.",
+                "It's near the railway station, on Chastons Road. That's spelled C-H-A-S-T-O-N-S.",
+                "You would also arrange appointments, either in person or over the telephone, and change appointment times when necessary.",
+                "Another responsibility would be updating the medical centre's database.",
+                "The employer specifically needs somebody with previous experience, and I remembered your work at the sports centre.",
+                "They need somebody who can remain calm and communicate confidently with members of the public.",
+                "However, it's a temporary position rather than a permanent one.",
+                "What time would I finish? At 1:15 p.m.",
+                "Is there a car park for employees at the medical centre? Yes, staff can park there.",
+                "We're standing at the entrance to a large building originally constructed in 1880. It was the private home of Alfred Palmer",
+                "Apart from two rooms used as our offices, the university uses the main part of the building for teaching.",
+                "Fortunately, admission to the museum is free... We do have a donation box, though, if you'd like to contribute.",
+                "carrying a heavy backpack around may be uncomfortable. Please keep your coats on because the museum garden is quite cold today.",
+                "Four Seasons features a short animated film... Young people studying film production created it especially for this museum.",
+                "A specialist cheesemaker will demonstrate the production process this morning, and visitors may even have the chance to taste the finished product.",
+                "Visitors can also test their memory by answering questions about the exhibits they've seen.",
+                "These carts are old and fragile, so please keep children close and don't allow them to climb on the displays.",
+                "One garden area, called Bees are Magic, is currently being redeveloped and cannot be visited.",
+                "Finally, the pond is home to a variety of wildlife, including very young ducklings and small frogs.",
+                "We could see how carefully they listened to the instructions and followed the steps in the correct order.",
+                "one thing I particularly liked was that the children were enjoying themselves while learning something new.",
+                "Once he started folding the paper, however, he became calmer and more focused.",
+                "He seemed keen to solve problems by himself. Instead of immediately asking the teacher for help, he experimented with different approaches.",
+                "she became motivated because she wanted to make the best paper mouse.",
+                "She listened closely and produced a very good bird without much difficulty. The teacher could probably have given her a more challenging task.",
+                "Zara seemed unfamiliar with origami and initially didn't understand what she needed to do.",
+                "Preparing examples for every stage of the folding process must have taken time, but it was an effective idea.",
+                "Maybe some teachers simply don't feel confident doing practical work with their hands.",
+                "It might also be useful when we teach fractions, which is coming up soon.",
+                "Although people may know the general plot, they often know less about the author himself.",
+                "Besides writing, he spoke publicly about social problems, including poverty and the need for educational reform.",
+                "He lived in several places elsewhere in Europe. Guernsey was his third place of exile",
+                "He bought the property using money earned from publishing a collection of poetry in France.",
+                "Family portraits remain on the ground floor, alongside drawings Hugo made during his travels.",
+                "Hugo created decorative wooden wall panels himself. He bought inexpensive wooden furniture at a market and transformed it into detailed carvings.",
+                "Chinese design influenced the wallpaper and lamps. Hugo made the lamps himself by copying existing examples.",
+                "At the top of the house is a room known as the Lookout because it overlooks the harbour.",
+                "He entertained well-known writers at his home, but he also invited many disadvantaged local children to dinner once a week.",
+                "In 1927, Hugo's relatives owned the house and decided to donate it to the city of Paris."
+            )
+        } else if (isTest3) {
+            listOf(
+                "It's number 52, Marrowfield Street.",
+                "Actually, a relative told me about it.",
+                "I'd also like to meet other people who share my interest in photography.",
+                "I think I'd prefer the full membership.",
+                "The theme was Domestic Life. I submitted a photograph of a family sitting around a table and having dinner together.",
+                "The judges felt that the photograph would have been better if there had been some clouds in the sky.",
+                "They also thought I'd taken the photograph too early. I should have waited longer to capture the most impressive moment.",
+                "It was called Animal Magic.",
+                "There were quite a lot of photographs of animals, which can be difficult because animals don't always stay still.",
+                "I managed to take a nice photograph of a fox, but the problem was that the picture was taken at night and it came out too dark.",
+                "You should also avoid collecting mushrooms growing close to busy roads.",
+                "You should never eat mushrooms collected by friends or neighbours unless you can identify them yourself.",
+                "The fact that animals eat a particular mushroom doesn't mean that it is safe for humans, either.",
+                "Some mushrooms that are perfectly safe to eat have bright colours, including red ones.",
+                "It's best to go early in the morning. Other people or animals may have collected the mushrooms if you arrive later in the day.",
+                "A much better option is to join a group led by someone with experience.",
+                "Don't collect every mushroom you find. Only take what you actually need",
+                "building developments and the removal of water from natural areas can damage mushroom habitats.",
+                "put them in a brown paper bag and keep them in the refrigerator. You should use them within a few days",
+                "There are plenty of ways to cook wild mushrooms. You can add them to stir-fries, risotto or pasta dishes.",
+                "Their protests weren't successful in stopping industrialisation.",
+                "I can understand why those workers felt threatened. They had good reasons to worry about their future.",
+                "I also doubt that unemployment will decrease in the near future.",
+                "people often predict that technology will give us more free time, but the evidence seems to suggest that working hours are actually increasing.",
+                "Although computers have changed the way they work, the number of people employed in accounting has actually increased. Technology allows them to complete their tasks more efficiently",
+                "That may be because people have higher incomes and can afford to spend more money on personal services.",
+                "administrative employees often have greater responsibilities and a higher professional status.",
+                "quarter of the population worked on farms. That's a huge difference from today, when the proportion is less than 0.2 per cent.",
+                "As people live longer, demand for care workers is expected to increase.",
+                "technology may eventually make many traditional banking tasks unnecessary. It's difficult to predict exactly what will happen to those jobs in the future.",
+                "To achieve this, we need both legal regulations and suitable technical systems.",
+                "launching satellites has become much less expensive, allowing more organisations to send objects into space.",
+                "constellations, of thousands of satellites that operate together rather than relying on individual satellites.",
+                "satellites do not always send information identifying themselves back to Earth.",
+                "Current satellite-tracking methods are not yet sufficient to guarantee safety and prevent every possible collision.",
+                "They may have military or commercial reasons for keeping that information private.",
+                "We need to know the characteristics of each object and where it is located at any particular moment.",
+                "scientists have to calculate and predict the future paths of objects in orbit.",
+                "Another proposal is to create a shared database containing information about objects in space.",
+                "Finally, cooperation depends on trust. This needs to exist not only between individual organisations but also at national and international levels."
+            )
+        } else if (isTest2) {
+            listOf(
+                "all employees get training, even temporary staff.",
+                "you can get a discount at any of their restaurants.",
+                "the company will pay for you to get a taxi home.",
+                "We had to make sure we gave a really high level of service.",
+                "good communication skills, so you'll need to have a certificate in English.",
+                "The first one is in Wivenhoe Street.",
+                "checking all the procedures for cleaning the equipment are being followed.",
+                "to begin with, you'd be getting £9.75",
+                "making sure there's enough stock each week and sorting out all the deliveries.",
+                "you do get one Sunday off every four weeks",
+                "because of the new industrial centre in Nunston, there's a lot of demand for housing for employees",
+                "excellent hospital just 15 km away, and a large secondary school even closer",
+                "blended in well with the natural features of the landscape, with provision made for protecting trees and wildlife",
+                "place where people of all ages can live together happily.",
+                "The school will be on that road, at the corner of the second turning to the left.",
+                "A large sports centre is planned... western side of the development, just below the road that branches off",
+                "The clinic will be just below this, to the right of a street of houses.",
+                "row of specially designed houses... community centre will be adjoining this.",
+                "There'll be a supermarket between the two entrances... just to the south of these.",
+                "road that goes up from the south entrance... curves round to the left... playground will be in that curve",
+                "impacted directly and indirectly on political events, as well as having massive social and economic consequences.",
+                "surprised there were so many weather stations established by that time.",
+                "Reports from the period blamed the haze for an increase in headaches, respiratory issues and asthma attacks.",
+                "It was Benjamin Franklin who realised that... But a French naturalist beat him to it.",
+                "volcanic ash drifted so swiftly, but not that the effects would go on for so long.",
+                "strange weather events were being reported as far away as North America and North Africa.",
+                "They were poisoned because they ate vegetation that had been contaminated with fluorine",
+                "the famine there led to more people dying than any other country.",
+                "included an unusually high percentage of people under the age of 25.",
+                "snowbound until March in Virginia... ice floating down the Mississippi, which was unprecedented.",
+                "convenient", "suits", "tailor", "profession", "visible",
+                "string", "waist", "perfume", "image", "handbag"
+            )
+        } else {
+            listOf(
+                "It's DW3Q 7YZ.", "It's the 24th of April, isn't it?", "the main reason I came here was to go to the dentist.",
+                "parking was so difficult to find and it costs so much.", "At the bus stop on Claxby Street.",
+                "this morning it was late. Only about 10 minutes, but still.", "any time I've been in town in the evening... wait a long time",
+                "Mainly just to go to the supermarket.", "because of all the pollution.", "it doesn't have any storage.",
+                "people at the back of the room may be a bit squashed", "Other considerations, such as reliability, are crucial in voluntary work and age isn't related to these",
+                "training doesn't end when you start working for us. It takes place before, during and after", "What we value is dedication.", "critical that you have enough hours in the day for whatever role we agree is suitable for you",
+                "creativity to come up with an imaginative or novel way of fundraising", "useful if you can walk for long periods, sometimes uphill.",
+                "good if you know something about nutrition and can give clear instructions.", "helping out at our Story Club for disabled children, especially if you have done some acting.",
+                "take in a lot of information and not forget any important steps or details.",
+                "hard to see through people's heads, isn't it?", "there's a whole range of … areas of work that we hadn't even thought of",
+                "we're only first years, after all. We've got a lot to learn.", "none of them were very inspiring. They could have asked more people like today's speaker",
+                "promised myself that I'd go through this course and keep an open mind till the end.", "we'll be unpaid assistants in the industry for quite a long time... I'm prepared for that",
+                "more interested in her own appearance than his!", "she should have hidden her negative feelings about him, but she didn't.",
+                "garments sold there were being returned because they fell apart in the wash", "an item that no one's stocking but that consumers are looking for",
+                "Elephants were routinely knocking down fences around the park", "all belonging to one family. Because relationships are very important",
+                "vets and park rangers flew over the park in helicopters", "done as quickly as possible so as to minimise the stress caused.",
+                "all the elephants had to be placed on their sides.",
+                "keep an eye on their breathing – if there were fewer than six breaths per minute", "Measurements were taken of each elephant's tusks... and also of their feet.",
+                "Employment prospects have improved enormously, contributing to rising living standards", "many of them volunteered to give up their weapons",
+                "All this has been a big draw for tourism, which contributes five times more than the illegal wildlife trade to GDP"
+            )
+        }
+
+        val timestamps = if (isTest4) {
+            listOf(
+                106, 122, 134, 158, 169, 238, 258, 303, 337, 348,
+                67, 101, 144, 176, 246, 290, 305, 350, 366, 379,
+                88, 123, 157, 171, 186, 198, 214, 286, 323, 350,
+                101, 123, 176, 194, 252, 273, 312, 340, 366, 390
+            )
+        } else if (isTest3) {
+            listOf(
+                124, 146, 178, 195, 266, 323, 340, 355, 359, 375,
+                82, 82, 174, 128, 262, 299, 308, 338, 369, 390,
+                76, 84, 122, 111, 193, 228, 254, 277, 283, 305,
+                117, 132, 153, 175, 189, 232, 251, 282, 336, 364
+            )
+        } else if (isTest2) {
+            listOf(
+                99, 115, 136, 172, 204, 254, 288, 316, 361, 441,
+                79, 112, 159, 179, 299, 308, 333, 340, 362, 370,
+                106, 134, 163, 200, 226, 242, 313, 330, 353, 368,
+                87, 125, 150, 170, 193, 223, 245, 261, 309, 325
+            )
+        } else {
+            listOf(
+                121, 154, 173, 192, 211, 273, 297, 308, 332, 345,
+                78, 111, 130, 196, 168, 251, 269, 303, 312, 345,
+                90, 119, 160, 174, 204, 238, 289, 314, 345, 366,
+                143, 195, 210, 242, 256, 277, 289, 316, 336, 381
+            )
+        }
 
         val questionsFromDetail = testDetail?.questions ?: emptyList()
 
@@ -710,7 +895,9 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
                     sectionNumber = secNum,
                     evidenceQuote = quote,
                     timestampSeconds = timeSec,
-                    timestampStr = timeStr
+                    timestampStr = timeStr,
+                    imageResId = qDetail?.imageResId,
+                    imageTitle = qDetail?.imageTitle
                 )
             )
         }

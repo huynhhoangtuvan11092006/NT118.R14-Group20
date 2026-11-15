@@ -24,7 +24,11 @@ data class ListeningResultReviewDto(
     @SerializedName("timestampSeconds")
     val timestampSeconds: Int = 0,
     @SerializedName("timestampStr")
-    val timestampStr: String = "00:00"
+    val timestampStr: String = "00:00",
+    @SerializedName("imageResId")
+    val imageResId: Int? = null,
+    @SerializedName("imageTitle")
+    val imageTitle: String? = null
 )
 
 data class ListeningSubmissionResultDto(
