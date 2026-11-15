@@ -680,7 +680,7 @@ class ListeningResultActivity : AppCompatActivity(), AudioPlayerListener {
             )
         } else {
             listOf(
-                "DW30 7YZ", "24th April", "dentist", "parking", "Claxby",
+                "DW30 7YZ / DW3Q 7YZ", "24th April", "dentist", "parking", "Claxby",
                 "late", "evening", "supermarket", "pollution", "storage",
                 "C", "A", "A", "B", "E",
                 "B", "G", "D", "A", "F",

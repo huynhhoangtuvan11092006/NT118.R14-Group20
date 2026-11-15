@@ -2326,7 +2326,7 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
             )
         } else {
             listOf(
-                "DW30 7YZ", "24th April", "dentist", "parking", "Claxby",
+                "DW30 7YZ / DW3Q 7YZ", "24th April", "dentist", "parking", "Claxby",
                 "late", "evening", "supermarket", "pollution", "storage",
                 "C", "A", "A", "B", "E",
                 "B", "G", "D", "A", "F",
@@ -2638,7 +2638,9 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
                 }
             } else {
                 when (i) {
-                    1 -> userRaw.replace(" ", "").equals("DW307YZ", ignoreCase = true) || userRaw.contains("7YZ", ignoreCase = true)
+                    1 -> userRaw.replace(" ", "").equals("DW307YZ", ignoreCase = true) ||
+                         userRaw.replace(" ", "").equals("DW3Q7YZ", ignoreCase = true) ||
+                         userRaw.contains("7YZ", ignoreCase = true)
                     2 -> userRaw.contains("24", ignoreCase = true)
                     14, 15 -> {
                         val pairAnswers = setOf("B", "E")
