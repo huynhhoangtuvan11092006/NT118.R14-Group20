@@ -5,6 +5,7 @@ import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -36,6 +37,8 @@ import com.example.ielts.ui.writing.WritingEditorActivity
 import com.example.ielts.ui.writing.WritingListActivity
 import com.example.ielts.utils.Constants
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -47,6 +50,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvGreetingTime: TextView
     private lateinit var tvGreetingName: TextView
     private lateinit var tvUserInitial: TextView
+    private lateinit var ivUserAvatarImage: ImageView
+    private lateinit var ivTopAvatarImage: ImageView
+    private lateinit var ivTopPersonIcon: ImageView
 
     // Card Tiến độ Band điểm
     private lateinit var tvCurrentBandValue: TextView
@@ -97,6 +103,9 @@ class MainActivity : AppCompatActivity() {
         tvGreetingTime = findViewById(R.id.tvGreetingTime)
         tvGreetingName = findViewById(R.id.tvGreetingName)
         tvUserInitial = findViewById(R.id.tvUserInitial)
+        ivUserAvatarImage = findViewById(R.id.ivUserAvatarImage)
+        ivTopAvatarImage = findViewById(R.id.ivTopAvatarImage)
+        ivTopPersonIcon = findViewById(R.id.ivTopPersonIcon)
 
         tvCurrentBandValue = findViewById(R.id.tvCurrentBandValue)
         tvTargetBandTitle = findViewById(R.id.tvTargetBandTitle)
@@ -196,7 +205,24 @@ class MainActivity : AppCompatActivity() {
 
         val shortName = fullName.split(" ").lastOrNull()?.ifEmpty { fullName } ?: fullName
         tvGreetingName.text = "Chào $shortName! 👋"
-        tvUserInitial.text = shortName.firstOrNull()?.uppercase() ?: "U"
+
+        val avatarBitmap = com.example.ielts.utils.AvatarManager.getCustomAvatarBitmap(this)
+        if (avatarBitmap != null) {
+            ivUserAvatarImage.setImageBitmap(avatarBitmap)
+            ivUserAvatarImage.visibility = View.VISIBLE
+            tvUserInitial.visibility = View.GONE
+
+            ivTopAvatarImage.setImageBitmap(avatarBitmap)
+            ivTopAvatarImage.visibility = View.VISIBLE
+            ivTopPersonIcon.visibility = View.GONE
+        } else {
+            ivUserAvatarImage.visibility = View.GONE
+            tvUserInitial.visibility = View.VISIBLE
+            tvUserInitial.text = shortName.firstOrNull()?.uppercase() ?: "U"
+
+            ivTopAvatarImage.visibility = View.GONE
+            ivTopPersonIcon.visibility = View.VISIBLE
+        }
 
         // 1. Dữ liệu thực tế từ RoadmapManager (Tiến độ Band điểm + Lộ trình tổng thể)
         val roadmapData = RoadmapManager.buildRoadmapData(this)
@@ -499,9 +525,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private var studyTimerJob: Job? = null
+
     override fun onResume() {
         super.onResume()
+        com.example.ielts.data.local.StudyTimeTracker.startActiveSession()
         loadUserData()
         updateStreakBadge()
+        startRealTimeStudyTicker()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopRealTimeStudyTicker()
+        com.example.ielts.data.local.StudyTimeTracker.endActiveSession(this)
+    }
+
+    private fun startRealTimeStudyTicker() {
+        stopRealTimeStudyTicker()
+        studyTimerJob = lifecycleScope.launch {
+            while (isActive) {
+                kotlinx.coroutines.delay(30_000L) // Cập nhật thời gian học thực tế mỗi 30s
+                com.example.ielts.data.local.StudyTimeTracker.tickActiveSession(this@MainActivity)
+                bindWeeklyStudyChart()
+            }
+        }
+    }
+
+    private fun stopRealTimeStudyTicker() {
+        studyTimerJob?.cancel()
+        studyTimerJob = null
     }
 }

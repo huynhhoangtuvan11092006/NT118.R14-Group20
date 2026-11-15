@@ -197,11 +197,12 @@ object RoadmapManager {
             streakDays > 0
 
         // Tổng thời gian học thực tế (phút)
+        val trackedTotalMin = (com.example.ielts.data.local.StudyTimeTracker.getTotalStudySeconds(context) / 60).toInt()
         val readingMinutes = readingRecords.size * 60
         val listeningMinutes = listeningRecords.size * 35
         val writingMinutes = writingRecords.values.sumOf { max(15, it.timeSpentSeconds / 60) }
         val vocabMinutes = vocabLearnedTotal * 2
-        val totalMinutesStudied = readingMinutes + listeningMinutes + writingMinutes + vocabMinutes
+        val totalMinutesStudied = maxOf(trackedTotalMin, readingMinutes + listeningMinutes + writingMinutes + vocabMinutes)
 
         val studyTimeLabel = when {
             totalMinutesStudied == 0 -> "0h"
@@ -479,6 +480,7 @@ object RoadmapManager {
 
         for (i in 0..6) {
             val dStr = fmt.format(cal.time)
+            val trackedMin = com.example.ielts.data.local.StudyTimeTracker.getDailyStudyMinutes(context, dStr)
             val rMin = readingRecords.count { fmt.format(it.completedAtMillis) == dStr } * 60
             val lMin = listeningRecords.count { fmt.format(it.completedAtMillis) == dStr } * 35
             val wMin = writingRecords
@@ -486,7 +488,8 @@ object RoadmapManager {
                 .sumOf { max(15, it.timeSpentSeconds / 60) }
             val vMin = (vocabDailyCounts[dStr] ?: 0) * 2
 
-            val totalDayMin = rMin + lMin + wMin + vMin
+            // Thời gian học thực tế của ngày: kết hợp giữa phiên học trên app và các bài làm hoàn thành
+            val totalDayMin = maxOf(trackedMin, rMin + lMin + wMin + vMin)
             dayItems.add(
                 WeeklyDayStudyItem(
                     dayLabel = labels[i],

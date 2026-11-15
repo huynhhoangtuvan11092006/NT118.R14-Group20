@@ -1,6 +1,7 @@
 package com.example.ielts.ui.auth
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -8,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
@@ -17,6 +19,7 @@ import com.example.ielts.MainActivity
 import com.example.ielts.R
 import com.example.ielts.data.remote.ApiClient
 import com.example.ielts.data.remote.dto.UpdateProfileRequest
+import com.example.ielts.utils.AvatarManager
 import com.example.ielts.utils.Constants
 
 class ProfileActivity : AppCompatActivity() {
@@ -24,6 +27,24 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var edtProfileName: EditText
     private lateinit var edtProfilePhone: EditText
     private lateinit var tvAiPlanSummary: TextView
+
+    // Avatar views
+    private lateinit var ivProfileAvatar: ImageView
+    private lateinit var tvProfileAvatarInitial: TextView
+    private lateinit var ivTopProfileAvatar: ImageView
+    private lateinit var ivTopProfilePerson: ImageView
+
+    private val pickMediaLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            val savedPath = AvatarManager.saveAvatarFromUri(this, it)
+            if (savedPath != null) {
+                updateAvatarViews()
+                Toast.makeText(this, "Đã cập nhật ảnh đại diện thành công! ✨", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Không thể tải ảnh. Vui lòng thử lại!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     // Trình độ (Single-choice)
     private var selectedLevel = "B2"
@@ -100,9 +121,19 @@ class ProfileActivity : AppCompatActivity() {
             edtProfileName.setText(savedName)
         }
 
+        // Số điện thoại: để trống khi đăng ký/chưa có số, hoặc điền số đã lưu nếu có
+        val savedPhone = getSharedPreferences("ielts_user_prefs", MODE_PRIVATE).getString("user_phone", null)
+            ?: getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE).getString("user_phone", null)
+        if (!savedPhone.isNullOrBlank()) {
+            edtProfilePhone.setText(savedPhone)
+        } else {
+            edtProfilePhone.setText("")
+        }
+
         initViews()
         setupAiPlanSummary()
         setupListeners()
+        updateAvatarViews()
     }
 
     private fun initViews() {
@@ -163,6 +194,12 @@ class ProfileActivity : AppCompatActivity() {
         ivCheckGoalWork = findViewById(R.id.ivCheckGoalWork)
         ivCheckGoalUni = findViewById(R.id.ivCheckGoalUni)
         ivCheckGoalMigrate = findViewById(R.id.ivCheckGoalMigrate)
+
+        // Avatar views
+        ivProfileAvatar = findViewById(R.id.ivProfileAvatar)
+        tvProfileAvatarInitial = findViewById(R.id.tvProfileAvatarInitial)
+        ivTopProfileAvatar = findViewById(R.id.ivTopProfileAvatar)
+        ivTopProfilePerson = findViewById(R.id.ivTopProfilePerson)
     }
 
     private fun setupAiPlanSummary() {
@@ -180,7 +217,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.btnChangeAvatar).setOnClickListener {
-            Toast.makeText(this, "Tính năng tải ảnh đại diện từ thư viện", Toast.LENGTH_SHORT).show()
+            pickMediaLauncher.launch("image/*")
         }
 
         // Level Click listeners
@@ -438,6 +475,31 @@ class ProfileActivity : AppCompatActivity() {
                 ivCheckGoalMigrate.setImageResource(R.drawable.ic_check_circle)
                 ivCheckGoalMigrate.setColorFilter(primaryColor)
             }
+        }
+    }
+
+    private fun updateAvatarViews() {
+        val name = edtProfileName.text.toString().trim()
+        val initial = if (name.isNotEmpty()) {
+            name.split(" ").lastOrNull()?.firstOrNull()?.uppercase() ?: "NQ"
+        } else "NQ"
+
+        val bitmap = AvatarManager.getCustomAvatarBitmap(this)
+        if (bitmap != null) {
+            ivProfileAvatar.setImageBitmap(bitmap)
+            ivProfileAvatar.visibility = View.VISIBLE
+            tvProfileAvatarInitial.visibility = View.GONE
+
+            ivTopProfileAvatar.setImageBitmap(bitmap)
+            ivTopProfileAvatar.visibility = View.VISIBLE
+            ivTopProfilePerson.visibility = View.GONE
+        } else {
+            ivProfileAvatar.visibility = View.GONE
+            tvProfileAvatarInitial.visibility = View.VISIBLE
+            tvProfileAvatarInitial.text = initial
+
+            ivTopProfileAvatar.visibility = View.GONE
+            ivTopProfilePerson.visibility = View.VISIBLE
         }
     }
 }

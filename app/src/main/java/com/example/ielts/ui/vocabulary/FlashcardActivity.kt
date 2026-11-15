@@ -387,6 +387,16 @@ class FlashcardActivity : AppCompatActivity() {
         audioPlayer.speak(queue.first().word)
     }
 
+    override fun onResume() {
+        super.onResume()
+        com.example.ielts.data.local.StudyTimeTracker.startActiveSession()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        com.example.ielts.data.local.StudyTimeTracker.endActiveSession(this)
+    }
+
     override fun onDestroy() {
         audioPlayer.release()
         super.onDestroy()

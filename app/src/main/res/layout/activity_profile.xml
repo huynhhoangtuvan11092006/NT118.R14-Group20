@@ -59,11 +59,19 @@
                 android:background="@drawable/bg_avatar_nq">
 
                 <ImageView
+                    android:id="@+id/ivTopProfilePerson"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_person"
                     app:tint="@color/white" />
+
+                <ImageView
+                    android:id="@+id/ivTopProfileAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
             </FrameLayout>
         </RelativeLayout>
 
@@ -89,6 +97,7 @@
                     android:layout_height="76dp">
 
                     <TextView
+                        android:id="@+id/tvProfileAvatarInitial"
                         android:layout_width="72dp"
                         android:layout_height="72dp"
                         android:background="@drawable/bg_avatar_nq"
@@ -97,6 +106,13 @@
                         android:textColor="@color/white"
                         android:textSize="24sp"
                         android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/ivProfileAvatar"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone" />
 
                     <FrameLayout
                         android:id="@+id/btnChangeAvatar"
@@ -199,7 +215,6 @@
                     android:background="@null"
                     android:hint="Nhập số điện thoại..."
                     android:inputType="phone"
-                    android:text="0912 345 678"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp" />
             </LinearLayout>

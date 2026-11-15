@@ -103,11 +103,19 @@
                         android:focusable="true">
 
                         <ImageView
+                            android:id="@+id/ivTopPersonIcon"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_person"
                             app:tint="@color/white" />
+
+                        <ImageView
+                            android:id="@+id/ivTopAvatarImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:visibility="gone" />
                     </FrameLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -134,6 +142,13 @@
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/ivUserAvatarImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone" />
                 </FrameLayout>
 
                 <LinearLayout

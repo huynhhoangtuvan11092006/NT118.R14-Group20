@@ -416,6 +416,7 @@ class WritingEditorActivity : AppCompatActivity() {
                         timeSpentSeconds = timeSpent,
                         resultJson = Gson().toJson(finalResult)
                     )
+                    com.example.ielts.data.local.StudyTimeTracker.recordStudySeconds(this@WritingEditorActivity, timeSpent.toLong())
 
                     // Ghi nhận chuỗi Streak khi hoàn thành bài viết
                     com.example.ielts.data.local.StreakManager.recordActivity(this@WritingEditorActivity, "WRITING")
@@ -520,6 +521,16 @@ class WritingEditorActivity : AppCompatActivity() {
             ),
             wordCount = wordCount
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        com.example.ielts.data.local.StudyTimeTracker.startActiveSession()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        com.example.ielts.data.local.StudyTimeTracker.endActiveSession(this)
     }
 
     private fun openResultActivity(
