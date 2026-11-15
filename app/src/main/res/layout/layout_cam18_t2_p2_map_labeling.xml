@@ -64,7 +64,7 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="6dp"
-            android:text="Phóng to 🔍"
+            android:text="View original 🔍"
             android:textColor="@color/primary_blue"
             android:textSize="11sp"
             android:textStyle="bold" />
@@ -106,7 +106,7 @@
                 android:paddingTop="3dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="3dp"
-                android:text="Chạm để phóng to 🔍"
+                android:text="Tap to zoom 🔍"
                 android:textColor="@color/primary_blue"
                 android:textSize="10sp"
                 android:textStyle="bold" />
@@ -118,7 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Questions 15–20 (Chọn vị trí A–I trên bản đồ):"
+        android:text="Questions 15–20"
         android:textColor="@color/primary_blue"
         android:textSize="13sp"
         android:textStyle="bold" />
@@ -152,7 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="Chưa chọn"
+                android:text="Not selected"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -207,7 +207,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="Chưa chọn"
+                android:text="Not selected"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -262,7 +262,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="Chưa chọn"
+                android:text="Not selected"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -317,7 +317,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="Chưa chọn"
+                android:text="Not selected"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -372,7 +372,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="Chưa chọn"
+                android:text="Not selected"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -427,7 +427,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="Chưa chọn"
+                android:text="Not selected"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />

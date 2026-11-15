@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Tác động của núi lửa Laki tại các quốc gia"
+                android:text="Questions 27–30"
                 android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -64,7 +64,7 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="6dp"
-            android:text="Xem đề gốc 🔍"
+            android:text="View original 🔍"
             android:textColor="@color/primary_blue"
             android:textSize="11sp"
             android:textStyle="bold" />
@@ -154,7 +154,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Countries (Chọn ký tự A–F tương ứng):"
+        android:text="Countries:"
         android:textColor="@color/primary_blue"
         android:textSize="13sp"
         android:textStyle="bold" />
@@ -188,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="Chưa chọn"
+                android:text="Not selected"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -241,7 +241,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="Chưa chọn"
+                android:text="Not selected"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -294,7 +294,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="Chưa chọn"
+                android:text="Not selected"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -346,7 +346,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="Chưa chọn"
+                android:text="Not selected"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />

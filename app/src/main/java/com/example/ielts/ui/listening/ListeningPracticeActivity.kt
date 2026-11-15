@@ -397,6 +397,369 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         })
     }
 
+    private fun renderCam18Test1Section1() {
+        val inflater = LayoutInflater.from(this)
+        val notesView = inflater.inflate(R.layout.layout_cam18_t1_p1_notes, layoutDynamicQuestions, false)
+        notesView.findViewById<TextView>(R.id.btnZoomNotesT1P1).setOnClickListener {
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test1_part1_notes, "Transport survey")
+        }
+
+        bindBlankEditText(notesView.findViewById(R.id.etSurveyBlank1), 1)
+        bindBlankEditText(notesView.findViewById(R.id.etSurveyBlank2), 2)
+        bindBlankEditText(notesView.findViewById(R.id.etSurveyBlank3), 3)
+        bindBlankEditText(notesView.findViewById(R.id.etSurveyBlank4), 4)
+        bindBlankEditText(notesView.findViewById(R.id.etSurveyBlank5), 5)
+        bindBlankEditText(notesView.findViewById(R.id.etSurveyBlank6), 6)
+        bindBlankEditText(notesView.findViewById(R.id.etSurveyBlank7), 7)
+        bindBlankEditText(notesView.findViewById(R.id.etSurveyBlank8), 8)
+        bindBlankEditText(notesView.findViewById(R.id.etSurveyBlank9), 9)
+        bindBlankEditText(notesView.findViewById(R.id.etSurveyBlank10), 10)
+
+        layoutDynamicQuestions.addView(notesView)
+    }
+
+    private fun renderCam18Test1Section2() {
+        val inflater = LayoutInflater.from(this)
+
+        // Q11 to Q13: Multiple Choice (A, B, C)
+        val q11to13 = listOf(
+            Triple(
+                11,
+                "Questions 11–13\nChoose the correct letter, A, B or C.\n\n11. Why does the speaker apologise about the seats?",
+                listOf(
+                    "A. They are too small.",
+                    "B. There are not enough of them.",
+                    "C. Some of them are very close together."
+                )
+            ),
+            Triple(
+                12,
+                "12. What does the speaker say about the age of volunteers?",
+                listOf(
+                    "A. The age of volunteers is less important than other factors.",
+                    "B. Young volunteers are less reliable than older ones.",
+                    "C. Most volunteers are about 60 years old."
+                )
+            ),
+            Triple(
+                13,
+                "13. What does the speaker say about training?",
+                listOf(
+                    "A. It is continuous.",
+                    "B. It is conducted by a manager.",
+                    "C. It takes place online."
+                )
+            )
+        )
+
+        for ((pos, stem, options) in q11to13) {
+            val choiceView = inflater.inflate(R.layout.item_listening_question_choice, layoutDynamicQuestions, false)
+            val tvBadge = choiceView.findViewById<TextView>(R.id.tvChoiceNumberBadge)
+            val tvStem = choiceView.findViewById<TextView>(R.id.tvChoiceQuestionStem)
+            val btnBookmark = choiceView.findViewById<ImageView>(R.id.btnBookmarkChoice)
+            val layoutOptions = choiceView.findViewById<LinearLayout>(R.id.layoutOptionsContainer)
+
+            tvBadge.text = "$pos"
+            tvStem.text = stem
+
+            val isFlagged = flaggedSet.contains(pos)
+            btnBookmark.setImageResource(if (isFlagged) R.drawable.ic_bookmark else R.drawable.ic_bookmark_border)
+            btnBookmark.setColorFilter(ContextCompat.getColor(this, if (isFlagged) R.color.tertiary_orange_container else R.color.text_secondary))
+            btnBookmark.setOnClickListener {
+                if (flaggedSet.contains(pos)) {
+                    flaggedSet.remove(pos)
+                    btnBookmark.setImageResource(R.drawable.ic_bookmark_border)
+                    btnBookmark.setColorFilter(ContextCompat.getColor(this, R.color.text_secondary))
+                } else {
+                    flaggedSet.add(pos)
+                    btnBookmark.setImageResource(R.drawable.ic_bookmark)
+                    btnBookmark.setColorFilter(ContextCompat.getColor(this, R.color.tertiary_orange_container))
+                }
+            }
+
+            for (opt in options) {
+                val optionView = inflater.inflate(R.layout.item_choice_option_row, layoutOptions, false)
+                val tvOpt = optionView.findViewById<TextView>(R.id.tvOptionText)
+                val ivDot = optionView.findViewById<ImageView>(R.id.ivRadioDot)
+                val ivCheck = optionView.findViewById<ImageView>(R.id.ivSelectedCheck)
+
+                tvOpt.text = opt
+                val optKey = opt.firstOrNull()?.toString() ?: opt
+                val isSelected = (answersMap[pos] == optKey || answersMap[pos] == opt)
+                applyOptionSelection(optionView, ivDot, ivCheck, isSelected)
+
+                optionView.setOnClickListener {
+                    answersMap[pos] = optKey
+                    updateAnsweredCounter()
+                    for (i in 0 until layoutOptions.childCount) {
+                        val child = layoutOptions.getChildAt(i)
+                        val cTv = child.findViewById<TextView>(R.id.tvOptionText)?.text?.toString() ?: ""
+                        val cKey = cTv.firstOrNull()?.toString() ?: cTv
+                        val childSelected = (cKey == optKey)
+                        applyOptionSelection(child, child.findViewById(R.id.ivRadioDot), child.findViewById(R.id.ivSelectedCheck), childSelected)
+                    }
+                }
+                layoutOptions.addView(optionView)
+            }
+
+            layoutDynamicQuestions.addView(choiceView)
+        }
+
+        // Q14 & 15: Choose TWO letters, A–E
+        renderMultiSelectQuestionCard(
+            q1Pos = 14,
+            q2Pos = 15,
+            badgeText = "14 & 15",
+            instructionText = "Choose TWO letters, A–E",
+            stemText = "Questions 14 and 15\nWhich TWO issues does the speaker ask the audience to consider before they apply to be volunteers?",
+            options = listOf(
+                "A. their financial situation",
+                "B. their level of commitment",
+                "C. their work experience",
+                "D. their ambition",
+                "E. their availability"
+            )
+        )
+
+        // Q16 to Q20: Matching with Helpful things volunteers might offer box
+        val matchingView = inflater.inflate(R.layout.layout_cam18_t1_p2_matching, layoutDynamicQuestions, false)
+        matchingView.findViewById<TextView>(R.id.btnZoomMatchingT1P2).setOnClickListener {
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test1_part2_matching, "Voluntary work areas")
+        }
+
+        val letters = listOf("A", "B", "C", "D", "E", "F", "G")
+
+        // 16 Fundraising
+        val chips16 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip16_A),
+            matchingView.findViewById(R.id.chip16_B),
+            matchingView.findViewById(R.id.chip16_C),
+            matchingView.findViewById(R.id.chip16_D),
+            matchingView.findViewById(R.id.chip16_E),
+            matchingView.findViewById(R.id.chip16_F),
+            matchingView.findViewById(R.id.chip16_G)
+        )
+        bindMatchingChips(16, matchingView.findViewById(R.id.tvSelectedT1P2_16), chips16, letters)
+
+        // 17 Litter collection
+        val chips17 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip17_A),
+            matchingView.findViewById(R.id.chip17_B),
+            matchingView.findViewById(R.id.chip17_C),
+            matchingView.findViewById(R.id.chip17_D),
+            matchingView.findViewById(R.id.chip17_E),
+            matchingView.findViewById(R.id.chip17_F),
+            matchingView.findViewById(R.id.chip17_G)
+        )
+        bindMatchingChips(17, matchingView.findViewById(R.id.tvSelectedT1P2_17), chips17, letters)
+
+        // 18 'Playmates'
+        val chips18 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip18_A),
+            matchingView.findViewById(R.id.chip18_B),
+            matchingView.findViewById(R.id.chip18_C),
+            matchingView.findViewById(R.id.chip18_D),
+            matchingView.findViewById(R.id.chip18_E),
+            matchingView.findViewById(R.id.chip18_F),
+            matchingView.findViewById(R.id.chip18_G)
+        )
+        bindMatchingChips(18, matchingView.findViewById(R.id.tvSelectedT1P2_18), chips18, letters)
+
+        // 19 Story club
+        val chips19 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip19_A),
+            matchingView.findViewById(R.id.chip19_B),
+            matchingView.findViewById(R.id.chip19_C),
+            matchingView.findViewById(R.id.chip19_D),
+            matchingView.findViewById(R.id.chip19_E),
+            matchingView.findViewById(R.id.chip19_F),
+            matchingView.findViewById(R.id.chip19_G)
+        )
+        bindMatchingChips(19, matchingView.findViewById(R.id.tvSelectedT1P2_19), chips19, letters)
+
+        // 20 First aid
+        val chips20 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip20_A),
+            matchingView.findViewById(R.id.chip20_B),
+            matchingView.findViewById(R.id.chip20_C),
+            matchingView.findViewById(R.id.chip20_D),
+            matchingView.findViewById(R.id.chip20_E),
+            matchingView.findViewById(R.id.chip20_F),
+            matchingView.findViewById(R.id.chip20_G)
+        )
+        bindMatchingChips(20, matchingView.findViewById(R.id.tvSelectedT1P2_20), chips20, letters)
+
+        layoutDynamicQuestions.addView(matchingView)
+    }
+
+    private fun renderCam18Test1Section3() {
+        val inflater = LayoutInflater.from(this)
+
+        // Q21 to Q26: Multiple Choice (A, B, C)
+        val q21to26 = listOf(
+            Triple(
+                21,
+                "Questions 21–26\nChoose the correct letter, A, B or C.\n\n21. What problem did Chantal have at the start of the talk?",
+                listOf(
+                    "A. Her view of the speaker was blocked.",
+                    "B. She was unable to find an empty seat.",
+                    "C. The students next to her were talking."
+                )
+            ),
+            Triple(
+                22,
+                "22. What were Hugo and Chantal surprised to hear about the job market?",
+                listOf(
+                    "A. It has become more competitive than it used to be.",
+                    "B. There is more variety in it than they had realised.",
+                    "C. Some areas of it are more exciting than others."
+                )
+            ),
+            Triple(
+                23,
+                "23. Hugo and Chantal agree that the speaker's message was",
+                listOf(
+                    "A. unfair to them at times.",
+                    "B. hard for them to follow.",
+                    "C. critical of the industry."
+                )
+            ),
+            Triple(
+                24,
+                "24. What do Hugo and Chantal criticise about their school careers advice?",
+                listOf(
+                    "A. when they received the advice",
+                    "B. how much advice was given",
+                    "C. who gave the advice"
+                )
+            ),
+            Triple(
+                25,
+                "25. When discussing their future, Hugo and Chantal disagree on",
+                listOf(
+                    "A. which is the best career in fashion.",
+                    "B. when to choose a career in fashion.",
+                    "C. why they would like a career in fashion."
+                )
+            ),
+            Triple(
+                26,
+                "26. How does Hugo feel about being an unpaid assistant?",
+                listOf(
+                    "A. He is realistic about the practice.",
+                    "B. He feels the practice is dishonest.",
+                    "C. He thinks others want to change the practice."
+                )
+            )
+        )
+
+        for ((pos, stem, options) in q21to26) {
+            val choiceView = inflater.inflate(R.layout.item_listening_question_choice, layoutDynamicQuestions, false)
+            val tvBadge = choiceView.findViewById<TextView>(R.id.tvChoiceNumberBadge)
+            val tvStem = choiceView.findViewById<TextView>(R.id.tvChoiceQuestionStem)
+            val btnBookmark = choiceView.findViewById<ImageView>(R.id.btnBookmarkChoice)
+            val layoutOptions = choiceView.findViewById<LinearLayout>(R.id.layoutOptionsContainer)
+
+            tvBadge.text = "$pos"
+            tvStem.text = stem
+
+            val isFlagged = flaggedSet.contains(pos)
+            btnBookmark.setImageResource(if (isFlagged) R.drawable.ic_bookmark else R.drawable.ic_bookmark_border)
+            btnBookmark.setColorFilter(ContextCompat.getColor(this, if (isFlagged) R.color.tertiary_orange_container else R.color.text_secondary))
+            btnBookmark.setOnClickListener {
+                if (flaggedSet.contains(pos)) {
+                    flaggedSet.remove(pos)
+                    btnBookmark.setImageResource(R.drawable.ic_bookmark_border)
+                    btnBookmark.setColorFilter(ContextCompat.getColor(this, R.color.text_secondary))
+                } else {
+                    flaggedSet.add(pos)
+                    btnBookmark.setImageResource(R.drawable.ic_bookmark)
+                    btnBookmark.setColorFilter(ContextCompat.getColor(this, R.color.tertiary_orange_container))
+                }
+            }
+
+            for (opt in options) {
+                val optionView = inflater.inflate(R.layout.item_choice_option_row, layoutOptions, false)
+                val tvOpt = optionView.findViewById<TextView>(R.id.tvOptionText)
+                val ivDot = optionView.findViewById<ImageView>(R.id.ivRadioDot)
+                val ivCheck = optionView.findViewById<ImageView>(R.id.ivSelectedCheck)
+
+                tvOpt.text = opt
+                val optKey = opt.firstOrNull()?.toString() ?: opt
+                val isSelected = (answersMap[pos] == optKey || answersMap[pos] == opt)
+                applyOptionSelection(optionView, ivDot, ivCheck, isSelected)
+
+                optionView.setOnClickListener {
+                    answersMap[pos] = optKey
+                    updateAnsweredCounter()
+                    for (i in 0 until layoutOptions.childCount) {
+                        val child = layoutOptions.getChildAt(i)
+                        val cTv = child.findViewById<TextView>(R.id.tvOptionText)?.text?.toString() ?: ""
+                        val cKey = cTv.firstOrNull()?.toString() ?: cTv
+                        val childSelected = (cKey == optKey)
+                        applyOptionSelection(child, child.findViewById(R.id.ivRadioDot), child.findViewById(R.id.ivSelectedCheck), childSelected)
+                    }
+                }
+                layoutOptions.addView(optionView)
+            }
+
+            layoutDynamicQuestions.addView(choiceView)
+        }
+
+        // Q27 & 28: Choose TWO letters, A–E
+        renderMultiSelectQuestionCard(
+            q1Pos = 27,
+            q2Pos = 28,
+            badgeText = "27 & 28",
+            instructionText = "Choose TWO letters, A–E",
+            stemText = "Questions 27 and 28\nWhich TWO mistakes did the speaker admit she made in her first job?",
+            options = listOf(
+                "A. being dishonest to her employer",
+                "B. paying too much attention to how she looked",
+                "C. expecting to become well known",
+                "D. trying to earn a lot of money",
+                "E. openly disliking her client"
+            )
+        )
+
+        // Q29 & 30: Choose TWO letters, A–E
+        renderMultiSelectQuestionCard(
+            q1Pos = 29,
+            q2Pos = 30,
+            badgeText = "29 & 30",
+            instructionText = "Choose TWO letters, A–E",
+            stemText = "Questions 29 and 30\nWhich TWO pieces of retail information do Hugo and Chantal agree would be useful?",
+            options = listOf(
+                "A. the reasons people return fashion items",
+                "B. how much time people have to shop for clothes",
+                "C. fashion designs people want but can't find",
+                "D. the best time of year for fashion buying",
+                "E. the most popular fashion sizes"
+            )
+        )
+    }
+
+    private fun renderCam18Test1Section4() {
+        val inflater = LayoutInflater.from(this)
+        val notesView = inflater.inflate(R.layout.layout_cam18_t1_p4_notes, layoutDynamicQuestions, false)
+        notesView.findViewById<TextView>(R.id.btnZoomNotesT1P4).setOnClickListener {
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test1_part4_notes, "Elephant translocation")
+        }
+
+        bindBlankEditText(notesView.findViewById(R.id.etElephantBlank31), 31)
+        bindBlankEditText(notesView.findViewById(R.id.etElephantBlank32), 32)
+        bindBlankEditText(notesView.findViewById(R.id.etElephantBlank33), 33)
+        bindBlankEditText(notesView.findViewById(R.id.etElephantBlank34), 34)
+        bindBlankEditText(notesView.findViewById(R.id.etElephantBlank35), 35)
+        bindBlankEditText(notesView.findViewById(R.id.etElephantBlank36), 36)
+        bindBlankEditText(notesView.findViewById(R.id.etElephantBlank37), 37)
+        bindBlankEditText(notesView.findViewById(R.id.etElephantBlank38), 38)
+        bindBlankEditText(notesView.findViewById(R.id.etElephantBlank39), 39)
+        bindBlankEditText(notesView.findViewById(R.id.etElephantBlank40), 40)
+
+        layoutDynamicQuestions.addView(notesView)
+    }
+
     private fun renderCam18Test2Section1() {
         val inflater = LayoutInflater.from(this)
 
@@ -419,7 +782,7 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         val tableView = inflater.inflate(R.layout.layout_cam18_t2_p1_table, layoutDynamicQuestions, false)
         val btnZoomTable1 = tableView.findViewById<TextView>(R.id.btnZoomTable1)
         btnZoomTable1.setOnClickListener {
-            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test2_part1_table, "Bảng tuyển dụng (Jobs Table)")
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test2_part1_table, "Jobs Table")
         }
 
         bindBlankEditText(tableView.findViewById(R.id.etTableBlank6), 6)
@@ -590,7 +953,7 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
             q1Pos = 11,
             q2Pos = 12,
             badgeText = "11 & 12",
-            instructionText = "Chọn 2 đáp án",
+            instructionText = "Choose TWO letters, A–E",
             stemText = "Questions 11 and 12\nWhat are the TWO main reasons why this site has been chosen for the housing development?",
             options = listOf(
                 "A. It has suitable geographical features.",
@@ -606,7 +969,7 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
             q1Pos = 13,
             q2Pos = 14,
             badgeText = "13 & 14",
-            instructionText = "Chọn 2 đáp án",
+            instructionText = "Choose TWO letters, A–E",
             stemText = "Questions 13 and 14\nWhich TWO aspects of the planned housing development have people given positive feedback about?",
             options = listOf(
                 "A. the facilities for cyclists",
@@ -621,7 +984,7 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         val mapView = inflater.inflate(R.layout.layout_cam18_t2_p2_map_labeling, layoutDynamicQuestions, false)
 
         val openZoom = View.OnClickListener {
-            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test2_part2_map, "Bản đồ Planned Housing Development (A–I)")
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test2_part2_map, "Planned housing development map")
         }
         mapView.findViewById<View>(R.id.cardMapWrapperP2).setOnClickListener(openZoom)
         mapView.findViewById<View>(R.id.btnZoomMapP2).setOnClickListener(openZoom)
@@ -779,7 +1142,7 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
             q1Pos = 25,
             q2Pos = 26,
             badgeText = "25 & 26",
-            instructionText = "Chọn 2 đáp án",
+            instructionText = "Choose TWO letters, A–E",
             stemText = "Questions 25 and 26\nWhich TWO issues following the Laki eruption surprised the students?",
             options = listOf(
                 "A. how widespread the effects were",
@@ -1597,6 +1960,24 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         }
         if (isTest3 && sectionNumber == 4) {
             renderCam18Test3Section4()
+            return
+        }
+
+        val isTest1 = currentTestId.contains("test1") || testDetail?.title?.contains("Test 1") == true
+        if (isTest1 && sectionNumber == 1) {
+            renderCam18Test1Section1()
+            return
+        }
+        if (isTest1 && sectionNumber == 2) {
+            renderCam18Test1Section2()
+            return
+        }
+        if (isTest1 && sectionNumber == 3) {
+            renderCam18Test1Section3()
+            return
+        }
+        if (isTest1 && sectionNumber == 4) {
+            renderCam18Test1Section4()
             return
         }
 
