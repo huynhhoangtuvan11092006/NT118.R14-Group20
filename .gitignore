@@ -22,3 +22,11 @@ backend/.env.*
 backend/dist/
 backend/coverage/
 backend/*.log
+
+# Debug & Temporary files
+*.bak
+*.tmp
+*.log
+window_dump.xml
+emulator_screen.png
+result_screen.png

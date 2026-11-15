@@ -7,6 +7,7 @@ import com.example.ielts.data.remote.ApiClient
 import com.example.ielts.data.remote.dto.SyncProgressRequest
 import com.example.ielts.data.remote.dto.UpdateProfileRequest
 import com.example.ielts.data.remote.dto.UserDto
+import com.example.ielts.utils.AvatarManager
 import com.example.ielts.utils.Constants
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -35,6 +36,7 @@ data class CloudLearningSnapshot(
     val currentLevel: String? = null,
     val focusSkills: List<String>? = null,
     val studyGoal: String? = null,
+    val avatarCloudUrl: String? = null,
     val updatedAtMillis: Long = System.currentTimeMillis()
 )
 
@@ -99,6 +101,7 @@ object CloudSyncManager {
             currentLevel = currentLevel,
             focusSkills = focusSkills,
             studyGoal = studyGoal,
+            avatarCloudUrl = AvatarManager.getCloudUrl(appCtx),
             updatedAtMillis = System.currentTimeMillis()
         )
     }
@@ -166,6 +169,11 @@ object CloudSyncManager {
      */
     fun mergeCloudSnapshotIntoLocal(context: Context, cloud: CloudLearningSnapshot) {
         val appCtx = context.applicationContext
+
+        // 0. Restore avatar from Cloudinary (new device / reinstall)
+        cloud.avatarCloudUrl?.let { url ->
+            if (url != AvatarManager.getCloudUrl(appCtx)) AvatarManager.downloadFromCloud(appCtx, url)
+        }
 
         // 1. Merge Reading records
         if (cloud.readingRecords.isNotEmpty()) {
@@ -347,7 +355,8 @@ object CloudSyncManager {
                 compactSnapshot.readingRecords.isNotEmpty() ||
                 compactSnapshot.listeningRecords.isNotEmpty() ||
                 compactSnapshot.writingRecords.isNotEmpty() ||
-                compactSnapshot.vocabProgress.isNotEmpty()
+                compactSnapshot.vocabProgress.isNotEmpty() ||
+                compactSnapshot.avatarCloudUrl != null
 
             if (!hasAnyData) {
                 Log.d(TAG, "Bỏ qua đồng bộ lên Cloud vì chưa có dữ liệu học tập cục bộ")

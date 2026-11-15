@@ -39,9 +39,24 @@ class ProfileActivity : AppCompatActivity() {
             val savedPath = AvatarManager.saveAvatarFromUri(this, it)
             if (savedPath != null) {
                 updateAvatarViews()
+                uploadAvatarToCloud()
                 Toast.makeText(this, "Đã cập nhật ảnh đại diện thành công! ✨", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Không thể tải ảnh. Vui lòng thử lại!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun uploadAvatarToCloud() {
+        lifecycleScope.launch {
+            val ctx = applicationContext
+            val url = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                AvatarManager.uploadToCloudinary(ctx)
+            }
+            if (url != null) {
+                com.example.ielts.data.local.CloudSyncManager.pushToCloudSuspend(ctx)
+            } else {
+                Toast.makeText(this@ProfileActivity, "Chua dong bo duoc anh len Cloud (kiem tra mang)", Toast.LENGTH_SHORT).show()
             }
         }
     }
