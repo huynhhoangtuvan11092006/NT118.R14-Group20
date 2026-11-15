@@ -653,6 +653,9 @@ class ReadingPracticeActivity : AppCompatActivity() {
                 passagesJson = Gson().toJson(passages)
             )
 
+            val spentSeconds = ((totalDurationMinutes * 60) - remainingSeconds).toLong().coerceAtLeast(60L)
+            com.example.ielts.data.local.StudyTimeTracker.recordStudySeconds(this@ReadingPracticeActivity, spentSeconds)
+
             val intent = Intent(this@ReadingPracticeActivity, ReadingResultActivity::class.java).apply {
                 putExtra("TEST_ID", testId)
                 putExtra("TEST_TITLE", testTitle)
@@ -775,6 +778,16 @@ class ReadingPracticeActivity : AppCompatActivity() {
             }
             .setNegativeButton("Tiếp tục làm bài", null)
             .show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        com.example.ielts.data.local.StudyTimeTracker.startActiveSession()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        com.example.ielts.data.local.StudyTimeTracker.endActiveSession(this)
     }
 
     override fun onDestroy() {

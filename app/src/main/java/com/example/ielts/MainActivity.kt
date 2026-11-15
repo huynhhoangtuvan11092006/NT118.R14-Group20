@@ -5,6 +5,7 @@ import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -36,6 +37,8 @@ import com.example.ielts.ui.writing.WritingEditorActivity
 import com.example.ielts.ui.writing.WritingListActivity
 import com.example.ielts.utils.Constants
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -47,6 +50,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvGreetingTime: TextView
     private lateinit var tvGreetingName: TextView
     private lateinit var tvUserInitial: TextView
+    private lateinit var ivUserAvatarImage: ImageView
+    private lateinit var ivTopAvatarImage: ImageView
+    private lateinit var ivTopPersonIcon: ImageView
 
     // Card Tiến độ Band điểm
     private lateinit var tvCurrentBandValue: TextView
@@ -97,6 +103,9 @@ class MainActivity : AppCompatActivity() {
         tvGreetingTime = findViewById(R.id.tvGreetingTime)
         tvGreetingName = findViewById(R.id.tvGreetingName)
         tvUserInitial = findViewById(R.id.tvUserInitial)
+        ivUserAvatarImage = findViewById(R.id.ivUserAvatarImage)
+        ivTopAvatarImage = findViewById(R.id.ivTopAvatarImage)
+        ivTopPersonIcon = findViewById(R.id.ivTopPersonIcon)
 
         tvCurrentBandValue = findViewById(R.id.tvCurrentBandValue)
         tvTargetBandTitle = findViewById(R.id.tvTargetBandTitle)
@@ -196,7 +205,24 @@ class MainActivity : AppCompatActivity() {
 
         val shortName = fullName.split(" ").lastOrNull()?.ifEmpty { fullName } ?: fullName
         tvGreetingName.text = "Chào $shortName! 👋"
-        tvUserInitial.text = shortName.firstOrNull()?.uppercase() ?: "U"
+
+        val avatarBitmap = com.example.ielts.utils.AvatarManager.getCustomAvatarBitmap(this)
+        if (avatarBitmap != null) {
+            ivUserAvatarImage.setImageBitmap(avatarBitmap)
+            ivUserAvatarImage.visibility = View.VISIBLE
+            tvUserInitial.visibility = View.GONE
+
+            ivTopAvatarImage.setImageBitmap(avatarBitmap)
+            ivTopAvatarImage.visibility = View.VISIBLE
+            ivTopPersonIcon.visibility = View.GONE
+        } else {
+            ivUserAvatarImage.visibility = View.GONE
+            tvUserInitial.visibility = View.VISIBLE
+            tvUserInitial.text = shortName.firstOrNull()?.uppercase() ?: "U"
+
+            ivTopAvatarImage.visibility = View.GONE
+            ivTopPersonIcon.visibility = View.VISIBLE
+        }
 
         // 1. Dữ liệu thực tế từ RoadmapManager (Tiến độ Band điểm + Lộ trình tổng thể)
         val roadmapData = RoadmapManager.buildRoadmapData(this)
@@ -306,26 +332,27 @@ class MainActivity : AppCompatActivity() {
 
             tvDay?.text = dayItem.dayLabel
 
-            // Nhãn số phút trên đầu cột: hiển thị khi có phút học > 0 hoặc là ngày hôm nay
-            if (dayItem.minutes > 0 || dayItem.isToday) {
+            // Nhãn số phút/giây trên đầu cột: hiển thị khi có học hoặc là ngày hôm nay
+            if (dayItem.seconds > 0L || dayItem.isToday) {
                 tvVal?.visibility = View.VISIBLE
-                tvVal?.text = "${dayItem.minutes}p"
+                tvVal?.text = dayItem.displayValue.ifEmpty { "${dayItem.minutes}p" }
             } else {
                 tvVal?.visibility = View.GONE
             }
 
-            // Chiều cao cột (dp): 10dp nếu 0 phút, từ 18dp -> 78dp theo tỷ lệ phút học thực tế
-            val barHeightDp = if (dayItem.minutes <= 0) {
+            // Chiều cao cột (dp): 10dp nếu 0s, từ 18dp -> 78dp theo tỷ lệ học thực tế
+            val effectiveMinutes = maxOf(dayItem.minutes.toFloat(), dayItem.seconds / 60f)
+            val barHeightDp = if (dayItem.seconds <= 0L) {
                 10
             } else {
-                (18 + ((dayItem.minutes.toFloat() / referenceMax.toFloat()) * 60f).toInt()).coerceIn(18, 78)
+                (18 + ((effectiveMinutes / referenceMax.toFloat()) * 60f).toInt()).coerceIn(18, 78)
             }
             viewBar?.layoutParams = viewBar?.layoutParams?.apply {
                 height = (barHeightDp * density).toInt()
             }
 
             // Tô sáng cột hôm nay hoặc cột có giờ học
-            if (dayItem.isToday || dayItem.minutes > 0) {
+            if (dayItem.isToday || dayItem.seconds > 0L) {
                 viewBar?.setBackgroundResource(R.drawable.bg_bar_active)
             } else {
                 viewBar?.setBackgroundResource(R.drawable.bg_bar_inactive)
@@ -499,9 +526,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private var studyTimerJob: Job? = null
+
     override fun onResume() {
         super.onResume()
+        com.example.ielts.data.local.StudyTimeTracker.startActiveSession()
         loadUserData()
         updateStreakBadge()
+        startRealTimeStudyTicker()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopRealTimeStudyTicker()
+        com.example.ielts.data.local.StudyTimeTracker.endActiveSession(this)
+    }
+
+    private fun startRealTimeStudyTicker() {
+        stopRealTimeStudyTicker()
+        studyTimerJob = lifecycleScope.launch {
+            while (isActive) {
+                com.example.ielts.data.local.StudyTimeTracker.tickActiveSession(this@MainActivity)
+                bindWeeklyStudyChart()
+                kotlinx.coroutines.delay(1000L) // Cập nhật live từng giây theo thời gian thực
+            }
+        }
+    }
+
+    private fun stopRealTimeStudyTicker() {
+        studyTimerJob?.cancel()
+        studyTimerJob = null
     }
 }

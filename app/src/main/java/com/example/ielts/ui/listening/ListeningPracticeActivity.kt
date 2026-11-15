@@ -2704,6 +2704,7 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
 
         // Save local stats
         ListeningStatsManager.recordTestCompletion(this, testId, correctCount, 40, estimatedBand, resultJson, null)
+        com.example.ielts.data.local.StudyTimeTracker.recordStudySeconds(this, timeSpent.toLong())
 
         Toast.makeText(
             this@ListeningPracticeActivity,
@@ -2930,8 +2931,14 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         showLeaveExamConfirmationDialog()
     }
 
+    override fun onResume() {
+        super.onResume()
+        com.example.ielts.data.local.StudyTimeTracker.startActiveSession()
+    }
+
     override fun onPause() {
         super.onPause()
+        com.example.ielts.data.local.StudyTimeTracker.endActiveSession(this)
         if (isFinishing) {
             audioPlayerManager.pause()
         }

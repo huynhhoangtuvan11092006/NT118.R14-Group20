@@ -73,6 +73,8 @@ data class WeeklyDayStudyItem(
     val dayLabel: String,       // "T2".."CN"
     val dateStr: String,        // "yyyy-MM-dd"
     val minutes: Int,           // Số phút học thực tế trong ngày
+    val seconds: Long = 0L,     // Số giây học thực tế
+    val displayValue: String = "", // Nhãn hiển thị trực tiếp (ví dụ: "35s", "1p", "25p")
     val isToday: Boolean,
     val metDailyGoal: Boolean
 )
@@ -197,11 +199,12 @@ object RoadmapManager {
             streakDays > 0
 
         // Tổng thời gian học thực tế (phút)
+        val trackedTotalMin = (com.example.ielts.data.local.StudyTimeTracker.getTotalStudySeconds(context) / 60).toInt()
         val readingMinutes = readingRecords.size * 60
         val listeningMinutes = listeningRecords.size * 35
         val writingMinutes = writingRecords.values.sumOf { max(15, it.timeSpentSeconds / 60) }
         val vocabMinutes = vocabLearnedTotal * 2
-        val totalMinutesStudied = readingMinutes + listeningMinutes + writingMinutes + vocabMinutes
+        val totalMinutesStudied = maxOf(trackedTotalMin, readingMinutes + listeningMinutes + writingMinutes + vocabMinutes)
 
         val studyTimeLabel = when {
             totalMinutesStudied == 0 -> "0h"
@@ -479,6 +482,7 @@ object RoadmapManager {
 
         for (i in 0..6) {
             val dStr = fmt.format(cal.time)
+            val trackedSec = com.example.ielts.data.local.StudyTimeTracker.getDailyStudySeconds(context, dStr)
             val rMin = readingRecords.count { fmt.format(it.completedAtMillis) == dStr } * 60
             val lMin = listeningRecords.count { fmt.format(it.completedAtMillis) == dStr } * 35
             val wMin = writingRecords
@@ -486,12 +490,25 @@ object RoadmapManager {
                 .sumOf { max(15, it.timeSpentSeconds / 60) }
             val vMin = (vocabDailyCounts[dStr] ?: 0) * 2
 
-            val totalDayMin = rMin + lMin + wMin + vMin
+            val examSeconds = (rMin + lMin + wMin + vMin) * 60L
+            val totalDaySec = maxOf(trackedSec, examSeconds)
+            val totalDayMin = (totalDaySec / 60).toInt()
+            val remSec = (totalDaySec % 60).toInt()
+
+            val display = when {
+                totalDaySec <= 0L -> if (dStr == todayStr) "0s" else "0p"
+                totalDaySec < 60L -> "${totalDaySec}s"
+                remSec > 0 && totalDayMin < 5 -> "${totalDayMin}p ${remSec}s"
+                else -> "${totalDayMin}p"
+            }
+
             dayItems.add(
                 WeeklyDayStudyItem(
                     dayLabel = labels[i],
                     dateStr = dStr,
                     minutes = totalDayMin,
+                    seconds = totalDaySec,
+                    displayValue = display,
                     isToday = (dStr == todayStr),
                     metDailyGoal = totalDayMin >= dailyGoalMinutes
                 )
@@ -499,18 +516,25 @@ object RoadmapManager {
             cal.add(Calendar.DAY_OF_YEAR, 1)
         }
 
-        val totalWeekMin = dayItems.sumOf { it.minutes }
+        val totalWeekSec = dayItems.sumOf { it.seconds }
+        val totalWeekMin = (totalWeekSec / 60).toInt()
+        val totalWeekRemSec = (totalWeekSec % 60).toInt()
+
         val totalBadge = when {
-            totalWeekMin == 0 -> "Tổng: 0 phút"
-            totalWeekMin < 60 -> "Tổng: $totalWeekMin phút"
+            totalWeekSec == 0L -> "Tổng: 0 phút"
+            totalWeekSec < 60L -> "Tổng: ${totalWeekSec}s"
+            totalWeekMin < 60 -> {
+                if (totalWeekRemSec > 0 && totalWeekMin < 5) "Tổng: ${totalWeekMin}p ${totalWeekRemSec}s"
+                else "Tổng: $totalWeekMin phút"
+            }
             totalWeekMin % 60 == 0 -> "Tổng: ${totalWeekMin / 60} giờ"
             else -> String.format(Locale.US, "Tổng: %.1f giờ", totalWeekMin / 60.0)
         }
 
-        val activeDays = dayItems.count { it.minutes > 0 }
+        val activeDays = dayItems.count { it.seconds > 0L }
         val metGoalDays = dayItems.count { it.metDailyGoal }
         val summaryRight = when {
-            totalWeekMin == 0 -> "Chưa có giờ học tuần này"
+            totalWeekSec == 0L -> "Chưa có giờ học tuần này"
             metGoalDays > 0 -> "Đạt mục tiêu $metGoalDays/7 ngày"
             else -> "Đã học $activeDays/7 ngày tuần này"
         }
