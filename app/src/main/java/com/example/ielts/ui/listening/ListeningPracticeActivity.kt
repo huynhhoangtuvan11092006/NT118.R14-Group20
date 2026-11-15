@@ -1160,8 +1160,427 @@ class ListeningPracticeActivity : AppCompatActivity(), AudioPlayerListener {
         layoutDynamicQuestions.addView(notesView)
     }
 
+    private fun renderCam18Test4Section1() {
+        val inflater = LayoutInflater.from(this)
+        val notesView = inflater.inflate(R.layout.layout_cam18_t4_p1_notes, layoutDynamicQuestions, false)
+        notesView.findViewById<TextView>(R.id.btnZoomNotesT4P1).setOnClickListener {
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test4_part1_notes, "Job details from employment agency")
+        }
+
+        bindBlankEditText(notesView.findViewById(R.id.etJobBlank1), 1)
+        bindBlankEditText(notesView.findViewById(R.id.etJobBlank2), 2)
+        bindBlankEditText(notesView.findViewById(R.id.etJobBlank3), 3)
+        bindBlankEditText(notesView.findViewById(R.id.etJobBlank4), 4)
+        bindBlankEditText(notesView.findViewById(R.id.etJobBlank5), 5)
+        bindBlankEditText(notesView.findViewById(R.id.etJobBlank6), 6)
+        bindBlankEditText(notesView.findViewById(R.id.etJobBlank7), 7)
+        bindBlankEditText(notesView.findViewById(R.id.etJobBlank8), 8)
+        bindBlankEditText(notesView.findViewById(R.id.etJobBlank9), 9)
+        bindBlankEditText(notesView.findViewById(R.id.etJobBlank10), 10)
+
+        layoutDynamicQuestions.addView(notesView)
+    }
+
+    private fun renderCam18Test4Section2() {
+        val inflater = LayoutInflater.from(this)
+
+        // Q11 to Q14: Multiple Choice (A, B, C)
+        val q11to14 = listOf(
+            Triple(
+                11,
+                "Questions 11–14\nChoose the correct letter, A, B or C.\n\n11. The museum building was originally",
+                listOf(
+                    "A. a factory.",
+                    "B. a private home.",
+                    "C. a hall of residence."
+                )
+            ),
+            Triple(
+                12,
+                "12. The university uses part of the museum building as",
+                listOf(
+                    "A. teaching rooms.",
+                    "B. a research library.",
+                    "C. administration offices."
+                )
+            ),
+            Triple(
+                13,
+                "13. What does the guide say about the entrance fee?",
+                listOf(
+                    "A. Visitors decide whether or not they wish to pay.",
+                    "B. Only children and students receive a discount.",
+                    "C. The museum charges extra for special exhibitions."
+                )
+            ),
+            Triple(
+                14,
+                "14. What are visitors advised to leave in the cloakroom?",
+                listOf(
+                    "A. cameras",
+                    "B. coats",
+                    "C. bags"
+                )
+            )
+        )
+
+        for ((pos, stem, options) in q11to14) {
+            val choiceView = inflater.inflate(R.layout.item_listening_question_choice, layoutDynamicQuestions, false)
+            val tvBadge = choiceView.findViewById<TextView>(R.id.tvChoiceNumberBadge)
+            val tvStem = choiceView.findViewById<TextView>(R.id.tvChoiceQuestionStem)
+            val btnBookmark = choiceView.findViewById<ImageView>(R.id.btnBookmarkChoice)
+            val layoutOptions = choiceView.findViewById<LinearLayout>(R.id.layoutOptionsContainer)
+
+            tvBadge.text = "$pos"
+            tvStem.text = stem
+
+            val isFlagged = flaggedSet.contains(pos)
+            btnBookmark.setImageResource(if (isFlagged) R.drawable.ic_bookmark else R.drawable.ic_bookmark_border)
+            btnBookmark.setColorFilter(ContextCompat.getColor(this, if (isFlagged) R.color.tertiary_orange_container else R.color.text_secondary))
+            btnBookmark.setOnClickListener {
+                if (flaggedSet.contains(pos)) {
+                    flaggedSet.remove(pos)
+                    btnBookmark.setImageResource(R.drawable.ic_bookmark_border)
+                    btnBookmark.setColorFilter(ContextCompat.getColor(this, R.color.text_secondary))
+                } else {
+                    flaggedSet.add(pos)
+                    btnBookmark.setImageResource(R.drawable.ic_bookmark)
+                    btnBookmark.setColorFilter(ContextCompat.getColor(this, R.color.tertiary_orange_container))
+                }
+            }
+
+            for (opt in options) {
+                val optionView = inflater.inflate(R.layout.item_choice_option_row, layoutOptions, false)
+                val tvOpt = optionView.findViewById<TextView>(R.id.tvOptionText)
+                val ivDot = optionView.findViewById<ImageView>(R.id.ivRadioDot)
+                val ivCheck = optionView.findViewById<ImageView>(R.id.ivSelectedCheck)
+
+                tvOpt.text = opt
+                val optKey = opt.firstOrNull()?.toString() ?: opt
+                val isSelected = (answersMap[pos] == optKey || answersMap[pos] == opt)
+                applyOptionSelection(optionView, ivDot, ivCheck, isSelected)
+
+                optionView.setOnClickListener {
+                    answersMap[pos] = optKey
+                    updateAnsweredCounter()
+                    for (i in 0 until layoutOptions.childCount) {
+                        val child = layoutOptions.getChildAt(i)
+                        val cTv = child.findViewById<TextView>(R.id.tvOptionText)?.text?.toString() ?: ""
+                        val cKey = cTv.firstOrNull()?.toString() ?: cTv
+                        val childSelected = (cKey == optKey)
+                        applyOptionSelection(child, child.findViewById(R.id.ivRadioDot), child.findViewById(R.id.ivSelectedCheck), childSelected)
+                    }
+                }
+                layoutOptions.addView(optionView)
+            }
+
+            layoutDynamicQuestions.addView(choiceView)
+        }
+
+        // Q15 to Q20: Matching Card (Information A–H)
+        val matchingView = inflater.inflate(R.layout.layout_cam18_t4_p2_matching, layoutDynamicQuestions, false)
+        matchingView.findViewById<TextView>(R.id.btnZoomMatchingT4P2).setOnClickListener {
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test4_part2_matching, "Areas of the museum")
+        }
+
+        val letters = listOf("A", "B", "C", "D", "E", "F", "G", "H")
+
+        // 15 Four Seasons
+        val chips15 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip15_A),
+            matchingView.findViewById(R.id.chip15_B),
+            matchingView.findViewById(R.id.chip15_C),
+            matchingView.findViewById(R.id.chip15_D),
+            matchingView.findViewById(R.id.chip15_E),
+            matchingView.findViewById(R.id.chip15_F),
+            matchingView.findViewById(R.id.chip15_G),
+            matchingView.findViewById(R.id.chip15_H)
+        )
+        bindMatchingChips(15, matchingView.findViewById(R.id.tvMatchingSelected15), chips15, letters)
+
+        // 16 Farmhouse Kitchen
+        val chips16 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip16_A),
+            matchingView.findViewById(R.id.chip16_B),
+            matchingView.findViewById(R.id.chip16_C),
+            matchingView.findViewById(R.id.chip16_D),
+            matchingView.findViewById(R.id.chip16_E),
+            matchingView.findViewById(R.id.chip16_F),
+            matchingView.findViewById(R.id.chip16_G),
+            matchingView.findViewById(R.id.chip16_H)
+        )
+        bindMatchingChips(16, matchingView.findViewById(R.id.tvMatchingSelected16), chips16, letters)
+
+        // 17 A Year on the Farm
+        val chips17 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip17_A),
+            matchingView.findViewById(R.id.chip17_B),
+            matchingView.findViewById(R.id.chip17_C),
+            matchingView.findViewById(R.id.chip17_D),
+            matchingView.findViewById(R.id.chip17_E),
+            matchingView.findViewById(R.id.chip17_F),
+            matchingView.findViewById(R.id.chip17_G),
+            matchingView.findViewById(R.id.chip17_H)
+        )
+        bindMatchingChips(17, matchingView.findViewById(R.id.tvMatchingSelected17), chips17, letters)
+
+        // 18 Wagon Walk
+        val chips18 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip18_A),
+            matchingView.findViewById(R.id.chip18_B),
+            matchingView.findViewById(R.id.chip18_C),
+            matchingView.findViewById(R.id.chip18_D),
+            matchingView.findViewById(R.id.chip18_E),
+            matchingView.findViewById(R.id.chip18_F),
+            matchingView.findViewById(R.id.chip18_G),
+            matchingView.findViewById(R.id.chip18_H)
+        )
+        bindMatchingChips(18, matchingView.findViewById(R.id.tvMatchingSelected18), chips18, letters)
+
+        // 19 Bees are Magic
+        val chips19 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip19_A),
+            matchingView.findViewById(R.id.chip19_B),
+            matchingView.findViewById(R.id.chip19_C),
+            matchingView.findViewById(R.id.chip19_D),
+            matchingView.findViewById(R.id.chip19_E),
+            matchingView.findViewById(R.id.chip19_F),
+            matchingView.findViewById(R.id.chip19_G),
+            matchingView.findViewById(R.id.chip19_H)
+        )
+        bindMatchingChips(19, matchingView.findViewById(R.id.tvMatchingSelected19), chips19, letters)
+
+        // 20 The Pond
+        val chips20 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip20_A),
+            matchingView.findViewById(R.id.chip20_B),
+            matchingView.findViewById(R.id.chip20_C),
+            matchingView.findViewById(R.id.chip20_D),
+            matchingView.findViewById(R.id.chip20_E),
+            matchingView.findViewById(R.id.chip20_F),
+            matchingView.findViewById(R.id.chip20_G),
+            matchingView.findViewById(R.id.chip20_H)
+        )
+        bindMatchingChips(20, matchingView.findViewById(R.id.tvMatchingSelected20), chips20, letters)
+
+        layoutDynamicQuestions.addView(matchingView)
+    }
+
+    private fun renderCam18Test4Section3() {
+        val inflater = LayoutInflater.from(this)
+
+        // Q21 & 22
+        renderMultiSelectQuestionCard(
+            q1Pos = 21,
+            q2Pos = 22,
+            badgeText = "21 & 22",
+            instructionText = "Choose TWO letters, A–E.",
+            stemText = "Questions 21 and 22\nWhich TWO educational skills were shown in the video of children doing origami?",
+            options = listOf(
+                "A. solving problems",
+                "B. following instructions",
+                "C. working cooperatively",
+                "D. learning through play",
+                "E. developing hand-eye coordination"
+            )
+        )
+
+        // Q23 to Q27: Matching Card (Comments A–G)
+        val matchingView = inflater.inflate(R.layout.layout_cam18_t4_p3_matching, layoutDynamicQuestions, false)
+        matchingView.findViewById<TextView>(R.id.btnZoomMatchingT4P3).setOnClickListener {
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test4_part3_matching, "Children doing origami")
+        }
+
+        val letters = listOf("A", "B", "C", "D", "E", "F", "G")
+
+        // 23 Sid
+        val chips23 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip23_A),
+            matchingView.findViewById(R.id.chip23_B),
+            matchingView.findViewById(R.id.chip23_C),
+            matchingView.findViewById(R.id.chip23_D),
+            matchingView.findViewById(R.id.chip23_E),
+            matchingView.findViewById(R.id.chip23_F),
+            matchingView.findViewById(R.id.chip23_G)
+        )
+        bindMatchingChips(23, matchingView.findViewById(R.id.tvMatchingSelected23), chips23, letters)
+
+        // 24 Jack
+        val chips24 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip24_A),
+            matchingView.findViewById(R.id.chip24_B),
+            matchingView.findViewById(R.id.chip24_C),
+            matchingView.findViewById(R.id.chip24_D),
+            matchingView.findViewById(R.id.chip24_E),
+            matchingView.findViewById(R.id.chip24_F),
+            matchingView.findViewById(R.id.chip24_G)
+        )
+        bindMatchingChips(24, matchingView.findViewById(R.id.tvMatchingSelected24), chips24, letters)
+
+        // 25 Naomi
+        val chips25 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip25_A),
+            matchingView.findViewById(R.id.chip25_B),
+            matchingView.findViewById(R.id.chip25_C),
+            matchingView.findViewById(R.id.chip25_D),
+            matchingView.findViewById(R.id.chip25_E),
+            matchingView.findViewById(R.id.chip25_F),
+            matchingView.findViewById(R.id.chip25_G)
+        )
+        bindMatchingChips(25, matchingView.findViewById(R.id.tvMatchingSelected25), chips25, letters)
+
+        // 26 Anya
+        val chips26 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip26_A),
+            matchingView.findViewById(R.id.chip26_B),
+            matchingView.findViewById(R.id.chip26_C),
+            matchingView.findViewById(R.id.chip26_D),
+            matchingView.findViewById(R.id.chip26_E),
+            matchingView.findViewById(R.id.chip26_F),
+            matchingView.findViewById(R.id.chip26_G)
+        )
+        bindMatchingChips(26, matchingView.findViewById(R.id.tvMatchingSelected26), chips26, letters)
+
+        // 27 Zara
+        val chips27 = listOf<TextView>(
+            matchingView.findViewById(R.id.chip27_A),
+            matchingView.findViewById(R.id.chip27_B),
+            matchingView.findViewById(R.id.chip27_C),
+            matchingView.findViewById(R.id.chip27_D),
+            matchingView.findViewById(R.id.chip27_E),
+            matchingView.findViewById(R.id.chip27_F),
+            matchingView.findViewById(R.id.chip27_G)
+        )
+        bindMatchingChips(27, matchingView.findViewById(R.id.tvMatchingSelected27), chips27, letters)
+
+        layoutDynamicQuestions.addView(matchingView)
+
+        // Q28 to Q30: Multiple Choice (A, B, C)
+        val q28to30 = listOf(
+            Triple(
+                28,
+                "Questions 28–30\nChoose the correct letter, A, B or C.\n\n28. Before starting an origami activity in class, the students think it is important for the teacher to",
+                listOf(
+                    "A. make models that demonstrate the different stages.",
+                    "B. check children understand the terminology involved.",
+                    "C. tell children not to worry if they find the activity difficult."
+                )
+            ),
+            Triple(
+                29,
+                "29. The students agree that some teachers might be unwilling to use origami in class because",
+                listOf(
+                    "A. they may not think that crafts are important.",
+                    "B. they may not have the necessary skills.",
+                    "C. they may worry that it will take up too much time."
+                )
+            ),
+            Triple(
+                30,
+                "30. Why do the students decide to use origami in their maths teaching practice?",
+                listOf(
+                    "A. to correct a particular misunderstanding",
+                    "B. to set a challenge",
+                    "C. to introduce a new concept"
+                )
+            )
+        )
+
+        for ((pos, stem, options) in q28to30) {
+            val choiceView = inflater.inflate(R.layout.item_listening_question_choice, layoutDynamicQuestions, false)
+            val tvBadge = choiceView.findViewById<TextView>(R.id.tvChoiceNumberBadge)
+            val tvStem = choiceView.findViewById<TextView>(R.id.tvChoiceQuestionStem)
+            val btnBookmark = choiceView.findViewById<ImageView>(R.id.btnBookmarkChoice)
+            val layoutOptions = choiceView.findViewById<LinearLayout>(R.id.layoutOptionsContainer)
+
+            tvBadge.text = "$pos"
+            tvStem.text = stem
+
+            val isFlagged = flaggedSet.contains(pos)
+            btnBookmark.setImageResource(if (isFlagged) R.drawable.ic_bookmark else R.drawable.ic_bookmark_border)
+            btnBookmark.setColorFilter(ContextCompat.getColor(this, if (isFlagged) R.color.tertiary_orange_container else R.color.text_secondary))
+            btnBookmark.setOnClickListener {
+                if (flaggedSet.contains(pos)) {
+                    flaggedSet.remove(pos)
+                    btnBookmark.setImageResource(R.drawable.ic_bookmark_border)
+                    btnBookmark.setColorFilter(ContextCompat.getColor(this, R.color.text_secondary))
+                } else {
+                    flaggedSet.add(pos)
+                    btnBookmark.setImageResource(R.drawable.ic_bookmark)
+                    btnBookmark.setColorFilter(ContextCompat.getColor(this, R.color.tertiary_orange_container))
+                }
+            }
+
+            for (opt in options) {
+                val optionView = inflater.inflate(R.layout.item_choice_option_row, layoutOptions, false)
+                val tvOpt = optionView.findViewById<TextView>(R.id.tvOptionText)
+                val ivDot = optionView.findViewById<ImageView>(R.id.ivRadioDot)
+                val ivCheck = optionView.findViewById<ImageView>(R.id.ivSelectedCheck)
+
+                tvOpt.text = opt
+                val optKey = opt.firstOrNull()?.toString() ?: opt
+                val isSelected = (answersMap[pos] == optKey || answersMap[pos] == opt)
+                applyOptionSelection(optionView, ivDot, ivCheck, isSelected)
+
+                optionView.setOnClickListener {
+                    answersMap[pos] = optKey
+                    updateAnsweredCounter()
+                    for (i in 0 until layoutOptions.childCount) {
+                        val child = layoutOptions.getChildAt(i)
+                        val cTv = child.findViewById<TextView>(R.id.tvOptionText)?.text?.toString() ?: ""
+                        val cKey = cTv.firstOrNull()?.toString() ?: cTv
+                        val childSelected = (cKey == optKey)
+                        applyOptionSelection(child, child.findViewById(R.id.ivRadioDot), child.findViewById(R.id.ivSelectedCheck), childSelected)
+                    }
+                }
+                layoutOptions.addView(optionView)
+            }
+
+            layoutDynamicQuestions.addView(choiceView)
+        }
+    }
+
+    private fun renderCam18Test4Section4() {
+        val inflater = LayoutInflater.from(this)
+        val notesView = inflater.inflate(R.layout.layout_cam18_t4_p4_notes, layoutDynamicQuestions, false)
+        notesView.findViewById<TextView>(R.id.btnZoomNotesT4P4).setOnClickListener {
+            ListeningImageDialogHelper.show(this, R.drawable.img_cam18_test4_part4_notes, "Victor Hugo notes")
+        }
+
+        bindBlankEditText(notesView.findViewById(R.id.etHugoBlank31), 31)
+        bindBlankEditText(notesView.findViewById(R.id.etHugoBlank32), 32)
+        bindBlankEditText(notesView.findViewById(R.id.etHugoBlank33), 33)
+        bindBlankEditText(notesView.findViewById(R.id.etHugoBlank34), 34)
+        bindBlankEditText(notesView.findViewById(R.id.etHugoBlank35), 35)
+        bindBlankEditText(notesView.findViewById(R.id.etHugoBlank36), 36)
+        bindBlankEditText(notesView.findViewById(R.id.etHugoBlank37), 37)
+        bindBlankEditText(notesView.findViewById(R.id.etHugoBlank38), 38)
+        bindBlankEditText(notesView.findViewById(R.id.etHugoBlank39), 39)
+        bindBlankEditText(notesView.findViewById(R.id.etHugoBlank40), 40)
+
+        layoutDynamicQuestions.addView(notesView)
+    }
+
     private fun renderQuestionsForSection(sectionNumber: Int) {
         layoutDynamicQuestions.removeAllViews()
+
+        val isTest4 = currentTestId.contains("test4") || testDetail?.title?.contains("Test 4") == true
+        if (isTest4 && sectionNumber == 1) {
+            renderCam18Test4Section1()
+            return
+        }
+        if (isTest4 && sectionNumber == 2) {
+            renderCam18Test4Section2()
+            return
+        }
+        if (isTest4 && sectionNumber == 3) {
+            renderCam18Test4Section3()
+            return
+        }
+        if (isTest4 && sectionNumber == 4) {
+            renderCam18Test4Section4()
+            return
+        }
 
         val isTest3 = currentTestId.contains("test3") || testDetail?.title?.contains("Test 3") == true
         if (isTest3 && sectionNumber == 1) {
