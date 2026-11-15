@@ -186,31 +186,26 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="Not selected"
-                android:textColor="@color/primary_blue"
+                android:textColor="@color/text_secondary"
                 android:textSize="13sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
-        <HorizontalScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:scrollbars="none">
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView android:id="@+id/chip16_A" style="@style/MatchingChipStyle" android:text="A" />
-                <TextView android:id="@+id/chip16_B" style="@style/MatchingChipStyle" android:text="B" />
-                <TextView android:id="@+id/chip16_C" style="@style/MatchingChipStyle" android:text="C" />
-                <TextView android:id="@+id/chip16_D" style="@style/MatchingChipStyle" android:text="D" />
-                <TextView android:id="@+id/chip16_E" style="@style/MatchingChipStyle" android:text="E" />
-                <TextView android:id="@+id/chip16_F" style="@style/MatchingChipStyle" android:text="F" />
-                <TextView android:id="@+id/chip16_G" style="@style/MatchingChipStyle" android:text="G" />
-            </LinearLayout>
-        </HorizontalScrollView>
+            <TextView android:id="@+id/chip16_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip16_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip16_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip16_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip16_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip16_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip16_G" style="@style/MatchingChipStyle" android:text="G" />
+        </LinearLayout>
     </LinearLayout>
 
     <!-- 17 Litter collection -->
@@ -241,31 +236,26 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="Not selected"
-                android:textColor="@color/primary_blue"
+                android:textColor="@color/text_secondary"
                 android:textSize="13sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
-        <HorizontalScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:scrollbars="none">
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView android:id="@+id/chip17_A" style="@style/MatchingChipStyle" android:text="A" />
-                <TextView android:id="@+id/chip17_B" style="@style/MatchingChipStyle" android:text="B" />
-                <TextView android:id="@+id/chip17_C" style="@style/MatchingChipStyle" android:text="C" />
-                <TextView android:id="@+id/chip17_D" style="@style/MatchingChipStyle" android:text="D" />
-                <TextView android:id="@+id/chip17_E" style="@style/MatchingChipStyle" android:text="E" />
-                <TextView android:id="@+id/chip17_F" style="@style/MatchingChipStyle" android:text="F" />
-                <TextView android:id="@+id/chip17_G" style="@style/MatchingChipStyle" android:text="G" />
-            </LinearLayout>
-        </HorizontalScrollView>
+            <TextView android:id="@+id/chip17_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip17_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip17_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip17_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip17_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip17_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip17_G" style="@style/MatchingChipStyle" android:text="G" />
+        </LinearLayout>
     </LinearLayout>
 
     <!-- 18 'Playmates' -->
@@ -296,31 +286,26 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="Not selected"
-                android:textColor="@color/primary_blue"
+                android:textColor="@color/text_secondary"
                 android:textSize="13sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
-        <HorizontalScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:scrollbars="none">
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView android:id="@+id/chip18_A" style="@style/MatchingChipStyle" android:text="A" />
-                <TextView android:id="@+id/chip18_B" style="@style/MatchingChipStyle" android:text="B" />
-                <TextView android:id="@+id/chip18_C" style="@style/MatchingChipStyle" android:text="C" />
-                <TextView android:id="@+id/chip18_D" style="@style/MatchingChipStyle" android:text="D" />
-                <TextView android:id="@+id/chip18_E" style="@style/MatchingChipStyle" android:text="E" />
-                <TextView android:id="@+id/chip18_F" style="@style/MatchingChipStyle" android:text="F" />
-                <TextView android:id="@+id/chip18_G" style="@style/MatchingChipStyle" android:text="G" />
-            </LinearLayout>
-        </HorizontalScrollView>
+            <TextView android:id="@+id/chip18_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip18_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip18_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip18_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip18_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip18_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip18_G" style="@style/MatchingChipStyle" android:text="G" />
+        </LinearLayout>
     </LinearLayout>
 
     <!-- 19 Story club -->
@@ -351,31 +336,26 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="Not selected"
-                android:textColor="@color/primary_blue"
+                android:textColor="@color/text_secondary"
                 android:textSize="13sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
-        <HorizontalScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:scrollbars="none">
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView android:id="@+id/chip19_A" style="@style/MatchingChipStyle" android:text="A" />
-                <TextView android:id="@+id/chip19_B" style="@style/MatchingChipStyle" android:text="B" />
-                <TextView android:id="@+id/chip19_C" style="@style/MatchingChipStyle" android:text="C" />
-                <TextView android:id="@+id/chip19_D" style="@style/MatchingChipStyle" android:text="D" />
-                <TextView android:id="@+id/chip19_E" style="@style/MatchingChipStyle" android:text="E" />
-                <TextView android:id="@+id/chip19_F" style="@style/MatchingChipStyle" android:text="F" />
-                <TextView android:id="@+id/chip19_G" style="@style/MatchingChipStyle" android:text="G" />
-            </LinearLayout>
-        </HorizontalScrollView>
+            <TextView android:id="@+id/chip19_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip19_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip19_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip19_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip19_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip19_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip19_G" style="@style/MatchingChipStyle" android:text="G" />
+        </LinearLayout>
     </LinearLayout>
 
     <!-- 20 First aid -->
@@ -406,31 +386,26 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="Not selected"
-                android:textColor="@color/primary_blue"
+                android:textColor="@color/text_secondary"
                 android:textSize="13sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
-        <HorizontalScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:scrollbars="none">
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView android:id="@+id/chip20_A" style="@style/MatchingChipStyle" android:text="A" />
-                <TextView android:id="@+id/chip20_B" style="@style/MatchingChipStyle" android:text="B" />
-                <TextView android:id="@+id/chip20_C" style="@style/MatchingChipStyle" android:text="C" />
-                <TextView android:id="@+id/chip20_D" style="@style/MatchingChipStyle" android:text="D" />
-                <TextView android:id="@+id/chip20_E" style="@style/MatchingChipStyle" android:text="E" />
-                <TextView android:id="@+id/chip20_F" style="@style/MatchingChipStyle" android:text="F" />
-                <TextView android:id="@+id/chip20_G" style="@style/MatchingChipStyle" android:text="G" />
-            </LinearLayout>
-        </HorizontalScrollView>
+            <TextView android:id="@+id/chip20_A" style="@style/MatchingChipStyle" android:text="A" />
+            <TextView android:id="@+id/chip20_B" style="@style/MatchingChipStyle" android:text="B" />
+            <TextView android:id="@+id/chip20_C" style="@style/MatchingChipStyle" android:text="C" />
+            <TextView android:id="@+id/chip20_D" style="@style/MatchingChipStyle" android:text="D" />
+            <TextView android:id="@+id/chip20_E" style="@style/MatchingChipStyle" android:text="E" />
+            <TextView android:id="@+id/chip20_F" style="@style/MatchingChipStyle" android:text="F" />
+            <TextView android:id="@+id/chip20_G" style="@style/MatchingChipStyle" android:text="G" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
