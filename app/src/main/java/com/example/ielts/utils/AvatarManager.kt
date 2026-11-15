@@ -12,6 +12,13 @@ import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.asRequestBody
+import org.json.JSONObject
+import java.util.concurrent.TimeUnit
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -124,7 +131,77 @@ object AvatarManager {
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
             .edit()
             .remove(KEY_AVATAR_PATH)
+            .remove(KEY_CLOUD_URL)
             .apply()
+    }
+
+    private const val KEY_CLOUD_URL = "key_avatar_cloud_url"
+
+    private val http by lazy {
+        OkHttpClient.Builder()
+            .connectTimeout(20, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .build()
+    }
+
+    fun getCloudUrl(context: Context): String? =
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).getString(KEY_CLOUD_URL, null)
+
+    fun setCloudUrl(context: Context, url: String?) {
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            .edit().putString(KEY_CLOUD_URL, url).apply()
+    }
+
+    /**
+     * Upload anh dai dien (da cat tron, <= 512px) len Cloudinary bang unsigned preset.
+     * Tra ve secure_url hoac null neu that bai. PHAI goi tren luong nen (IO).
+     */
+    fun uploadToCloudinary(context: Context): String? {
+        val file = File(context.filesDir, AVATAR_FILE_NAME)
+        if (!file.exists() || file.length() == 0L) return null
+        return try {
+            val body = MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("upload_preset", Constants.CLOUDINARY_AVATAR_PRESET)
+                .addFormDataPart("folder", "bandup/avatars")
+                .addFormDataPart("file", "avatar.png", file.asRequestBody("image/png".toMediaType()))
+                .build()
+            val req = Request.Builder()
+                .url("https://api.cloudinary.com/v1_1/${Constants.CLOUDINARY_CLOUD_NAME}/image/upload")
+                .post(body).build()
+            http.newCall(req).execute().use { resp ->
+                if (!resp.isSuccessful) return null
+                val url = JSONObject(resp.body?.string().orEmpty()).optString("secure_url", "")
+                if (url.startsWith("https://")) { setCloudUrl(context, url); url } else null
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    /**
+     * Tai anh dai dien tu Cloudinary ve may (khi cai lai app / doi may). PHAI goi tren luong IO.
+     */
+    fun downloadFromCloud(context: Context, url: String): Boolean {
+        if (!url.startsWith("https://res.cloudinary.com/")) return false
+        return try {
+            http.newCall(Request.Builder().url(url).build()).execute().use { resp ->
+                if (!resp.isSuccessful) return false
+                val bytes = resp.body?.bytes() ?: return false
+                val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size) ?: return false
+                val avatarFile = File(context.filesDir, AVATAR_FILE_NAME)
+                FileOutputStream(avatarFile).use { bmp.compress(Bitmap.CompressFormat.PNG, 95, it) }
+                context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+                    .putString(KEY_AVATAR_PATH, avatarFile.absolutePath)
+                    .putString(KEY_CLOUD_URL, url).apply()
+                context.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE).edit()
+                    .putString("user_avatar_path", avatarFile.absolutePath).apply()
+                true
+            }
+        } catch (e: Exception) {
+            false
+        }
     }
 
     private fun getCircularBitmap(bitmap: Bitmap): Bitmap {
